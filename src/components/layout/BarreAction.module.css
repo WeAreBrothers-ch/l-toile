@@ -1,0 +1,56 @@
+/*
+  Réponse concrète au « la carte en un clic » : deux actions, toujours à portée
+  de pouce. Elle traverse des fonds clairs et sombres : ses deux moitiés sont
+  donc des aplats pleins, jamais une surface translucide.
+*/
+.barre {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 1px solid var(--border-ink);
+  transform: translateY(100%);
+  transition: transform var(--dur-base) var(--ease-in-out);
+}
+
+.barre[data-visible='true'] {
+  transform: none;
+}
+
+@media (min-width: 1024px) {
+  .barre {
+    display: none;
+  }
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: var(--barre-action-h);
+  font-family: var(--sans);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.action:focus-visible {
+  outline: 2px solid var(--red-500);
+  outline-offset: -4px;
+}
+
+.carte {
+  background-color: var(--surface-ink);
+  color: var(--text-on-ink);
+}
+
+.appeler {
+  background-color: var(--red-600);
+  color: #ffffff;
+}

@@ -1,0 +1,74 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 72svh;
+  background-color: var(--surface-ink);
+  isolation: isolate;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: 80svh;
+  }
+}
+
+.hero picture,
+.hero img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Toujours ce dégradé, jamais un aplat uniforme : le texte doit tenir
+   sans éteindre la photo. */
+.voile {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    rgb(18 17 16 / 0.82) 0%,
+    rgb(18 17 16 / 0.35) 45%,
+    rgb(18 17 16 / 0.12) 100%
+  );
+}
+
+.contenu {
+  width: 100%;
+  padding-block: var(--sp-9) var(--sp-8);
+  color: var(--text-on-ink);
+}
+
+.eyebrow {
+  margin: 0 0 var(--sp-4);
+  color: var(--text-on-ink);
+  font-family: var(--sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.titre {
+  max-width: 16ch;
+  font-size: var(--fs-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+
+.titre em {
+  font-style: italic;
+}
+
+.chapo {
+  max-width: 46ch;
+  margin-top: var(--sp-5);
+  color: var(--text-on-photo);
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+}

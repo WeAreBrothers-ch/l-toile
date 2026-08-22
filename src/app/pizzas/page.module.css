@@ -1,0 +1,30 @@
+.titre {
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.raccourci {
+  margin-top: var(--sp-5);
+}
+
+.pizzas {
+  padding-bottom: var(--section-y);
+}
+
+.entete {
+  margin-bottom: var(--sp-5);
+}
+
+.supplements {
+  margin-top: var(--sp-3);
+  max-width: 60ch;
+  color: var(--encre-3);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+}
+
+.liste {
+  border-top: 1px solid var(--ligne);
+}

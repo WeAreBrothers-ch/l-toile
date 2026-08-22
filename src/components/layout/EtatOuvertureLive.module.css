@@ -1,0 +1,54 @@
+.etat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+  font-size: var(--fs-caption);
+  color: var(--text-on-ink-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pastille {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background-color: var(--text-on-ink-tertiary);
+}
+
+.etat[data-ouvert='true'] .pastille {
+  background-color: var(--etat-ouvert);
+}
+
+.etat[data-ouvert='false'] .pastille {
+  background-color: var(--etat-ferme);
+}
+
+.libelle {
+  color: var(--text-on-ink);
+  font-weight: 600;
+}
+
+.detail {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 899px) {
+  .detail {
+    display: none;
+  }
+}
+
+/*
+  L'état d'ouverture se calcule chez le visiteur : son libellé change donc juste
+  après l'affichage. On réserve d'avance la place du cas le plus long et on cale
+  le texte à gauche — la boîte ne bouge plus, et la mise en page ne saute pas.
+*/
+@media (min-width: 900px) {
+  .etat {
+    justify-content: flex-start;
+    min-width: 17.5rem;
+  }
+}

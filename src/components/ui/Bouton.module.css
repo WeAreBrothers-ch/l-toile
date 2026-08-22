@@ -1,0 +1,108 @@
+.base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  min-height: 48px;
+  padding-inline: var(--sp-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.base:focus-visible {
+  outline: none;
+  box-shadow: var(--ombre-focus);
+}
+
+/* Retour d'appui : c'est la seule confirmation qu'un doigt reçoit avant que la
+   page ne réagisse. Discret — un enfoncement, jamais un rebond. */
+.base:active {
+  transform: scale(0.98);
+}
+
+.tertiaire:active {
+  transform: none;
+}
+
+.grand {
+  min-height: 56px;
+}
+
+.pleineLargeur {
+  width: 100%;
+}
+
+/* Primaire — l'action. Un seul par zone. */
+.primaire {
+  background-color: var(--btn-fond);
+  color: var(--btn-texte);
+}
+.primaire:hover {
+  background-color: var(--btn-fond-survol);
+}
+
+/* Secondaire — s'inverse au survol, sans jamais introduire de gris. */
+.secondaire {
+  background-color: transparent;
+  border-color: var(--btn2-bordure);
+  color: var(--btn2-texte);
+}
+.secondaire:hover {
+  background-color: var(--btn2-fond-survol);
+  border-color: var(--btn2-fond-survol);
+  color: var(--btn2-texte-survol);
+}
+
+/* Tertiaire — un lien de section, souligné. */
+.tertiaire {
+  padding: 0;
+  background: none;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-thickness var(--dur-fast) var(--ease-out);
+}
+.tertiaire:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Rond — l'unique exception au rayon. Signature de navigation. */
+.rond {
+  width: 48px;
+  min-height: 48px;
+  padding: 0;
+  border-color: var(--ligne-forte);
+  border-radius: var(--radius-full);
+  background-color: var(--fond, var(--surface));
+  color: var(--encre);
+}
+.rond svg {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .rond:hover svg {
+    transform: translateX(3px);
+  }
+}
+.rond:disabled {
+  color: var(--state-disabled-text);
+  cursor: not-allowed;
+}
+.rond:disabled:hover svg {
+  transform: none;
+}

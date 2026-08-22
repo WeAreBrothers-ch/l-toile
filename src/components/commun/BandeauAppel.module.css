@@ -1,0 +1,38 @@
+/* L'unique aplat rouge de la page contact : une seule chose y est écrite. */
+.bande {
+  padding-block: var(--section-y);
+  text-align: center;
+}
+
+.titre {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+}
+
+.numero {
+  display: inline-block;
+  margin-top: var(--sp-5);
+  color: var(--encre);
+  font-family: var(--serif);
+  font-size: clamp(2.25rem, 1.3rem + 4.2vw, 3.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 10px;
+  transition: text-decoration-thickness var(--dur-fast) var(--ease-out);
+}
+
+.numero:hover {
+  text-decoration-thickness: 2px;
+}
+
+.detail {
+  margin-top: var(--sp-6);
+  color: var(--encre-2);
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+}

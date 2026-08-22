@@ -1,0 +1,50 @@
+/* ============================================================================
+   APPARITION AU DÉFILEMENT
+   Le contenu est visible par défaut. Il n'est masqué que si le script a pu
+   poser `data-js` sur le document — jamais avant, jamais si JavaScript échoue.
+
+   `data-reveal` est posé par React et désigne les blocs concernés.
+   `data-vu` est posé par le script quand le bloc entre dans l'écran : c'est un
+   attribut que React ne rend jamais, donc l'écrire n'entre pas en conflit avec
+   l'hydratation.
+   ============================================================================ */
+
+[data-js] [data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+[data-js] [data-reveal][data-vu] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delai, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    /* En restreignant la liste des propriétés animées, les déplacements et les
+       agrandissements prennent effet instantanément, tandis que les couleurs
+       continuent de se fondre : un survol reste lisible comme un changement
+       d'état, ce que la suppression pure et simple faisait perdre. */
+    transition-property: opacity, color, background-color, border-color, box-shadow,
+      text-decoration-color, text-decoration-thickness !important;
+    transition-duration: 120ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-js] [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

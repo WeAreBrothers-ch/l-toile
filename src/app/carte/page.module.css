@@ -1,0 +1,20 @@
+.titre {
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.raccourci {
+  margin-top: var(--sp-5);
+}
+
+.carte {
+  padding-bottom: var(--section-y);
+}
+
+/* Les onglets sont posés en tête de section : la première catégorie doit
+   commencer sous eux, pas dessous. */
+.colonne {
+  padding-top: var(--sp-7);
+}

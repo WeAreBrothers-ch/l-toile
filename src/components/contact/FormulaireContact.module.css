@@ -1,0 +1,105 @@
+.formulaire {
+  display: grid;
+  gap: var(--sp-5);
+  max-width: 560px;
+}
+
+.duo {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 560px) {
+  .duo {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.champ {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.champ label {
+  color: var(--encre);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.champ input,
+.champ textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--ligne-champ);
+  border-radius: var(--radius-sm);
+  background-color: var(--fond, var(--surface));
+  color: var(--encre);
+  font-family: var(--sans);
+  /* 16 px impératif : en dessous, iOS agrandit la page au moment de la saisie. */
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.champ textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.champ input::placeholder,
+.champ textarea::placeholder {
+  color: var(--encre-3);
+}
+
+.champ input:focus-visible,
+.champ textarea:focus-visible {
+  outline: none;
+  border-color: var(--encre);
+  box-shadow: var(--ombre-focus);
+}
+
+.champ[data-erreur='true'] input,
+.champ[data-erreur='true'] textarea {
+  border-color: var(--accent);
+}
+
+.erreur {
+  color: var(--accent);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.aide {
+  color: var(--encre-3);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+}
+
+/* Le piège à robots : hors de l'écran, hors du parcours clavier. */
+.piege {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.reponse {
+  padding: var(--sp-4) var(--sp-5);
+  border-left: 2px solid var(--accent);
+  color: var(--encre-2);
+  font-size: var(--fs-body-sm);
+  line-height: 1.55;
+}
+
+.reponse[data-statut='succes'] {
+  border-left-color: var(--etat-ouvert);
+  color: var(--encre);
+}
+
+.envoi {
+  justify-self: start;
+}

@@ -1,0 +1,51 @@
+/* ============================================================================
+   MISE EN PAGE
+   ============================================================================ */
+
+.wrap {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.wrapLarge {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.read {
+  max-width: var(--container-read);
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+.sectionSerree {
+  position: relative;
+  padding-block: var(--section-y-tight);
+}
+
+/* Deux bandes de même teinte se séparent par un filet, jamais par une nuance. */
+.surfacePapier + .surfacePapier {
+  border-top: 1px solid var(--border-hairline);
+}
+
+.surfaceEncre + .surfaceEncre {
+  border-top: 1px solid var(--border-ink);
+}
+
+/*
+  Quand la dernière chose de la page est une image-charnière, c'est le pied de
+  page qui reçoit le débordement : il recule le début de son contenu d'autant.
+  Sur un navigateur sans `:has()`, la photo se pose simplement dans l'espace
+  vide du pied — rien ne se chevauche, rien ne se casse.
+*/
+main:has(> .pontFinal:last-child) + footer {
+  padding-top: calc(var(--section-y) + var(--overlap));
+}

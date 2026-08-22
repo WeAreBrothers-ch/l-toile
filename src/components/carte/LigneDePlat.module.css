@@ -1,0 +1,78 @@
+/*
+  LA SIGNATURE DU SITE : nom du plat, filet de rappel pointillé, prix aligné à
+  droite. C'est le composant le plus répété — il doit être parfait au pixel.
+*/
+
+.plat {
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--ligne);
+}
+
+.plat:last-child {
+  border-bottom: 0;
+}
+
+.ligne {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+}
+
+.nom {
+  font-family: var(--serif);
+  font-size: var(--fs-dish);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--encre);
+}
+
+/* Le filet de rappel : posé sur la ligne de base du nom, il relie l'œil au prix. */
+.rappel {
+  flex: 1 1 auto;
+  min-width: 2rem;
+  border-bottom: 1px dotted var(--ligne-champ);
+  transform: translateY(0.1em);
+}
+
+.prix {
+  color: var(--encre);
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.parPersonne {
+  color: var(--encre-3);
+  font-size: var(--fs-caption);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.description {
+  margin-top: var(--sp-2);
+  max-width: 60ch;
+  color: var(--encre-2);
+  font-size: var(--fs-body-sm);
+  line-height: 1.5;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-4);
+  margin-top: var(--sp-2);
+  color: var(--encre-3);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.meta b {
+  color: var(--accent);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,59 @@
+.barre {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 40;
+  background-color: var(--fond, var(--surface-ink));
+  border-bottom: 1px solid var(--ligne);
+}
+
+.defilement {
+  display: flex;
+  gap: var(--sp-6);
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  /* Fondu de bord : il signale qu'il reste des catégories hors écran. */
+  mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 24px), transparent 100%);
+}
+
+.defilement::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .defilement {
+    mask-image: none;
+    justify-content: center;
+  }
+}
+
+.onglet {
+  flex: none;
+  padding-block: var(--sp-4) var(--sp-3);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: var(--encre-3);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    color var(--dur-base) var(--ease-in-out),
+    border-color var(--dur-base) var(--ease-in-out);
+}
+
+.onglet:hover {
+  color: var(--encre);
+}
+
+.onglet[aria-current='true'] {
+  color: var(--encre);
+  border-bottom-color: var(--accent-identite);
+}
+
+.onglet:focus-visible {
+  outline: 2px solid var(--red-500);
+  outline-offset: -4px;
+}

@@ -1,0 +1,26 @@
+.categorie + .categorie {
+  margin-top: var(--sp-8);
+}
+
+.titre {
+  font-family: var(--serif);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--encre);
+}
+
+.note {
+  margin-top: var(--sp-3);
+  max-width: 60ch;
+  color: var(--encre-3);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+}
+
+.liste {
+  margin-top: var(--sp-5);
+  border-top: 1px solid var(--ligne);
+}

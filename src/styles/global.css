@@ -1,0 +1,12 @@
+/*
+  Feuille d'entrée. Elle n'écrit aucune règle : elle assemble, dans l'ordre,
+  les jetons, les gammes de surface, puis les styles partagés du site.
+  L'ordre compte — une règle de mise en page déclarée après une autre de même
+  force l'emporte, et c'est ici que cet ordre se lit.
+*/
+@import './tokens.css';
+@import './surfaces.css';
+@import './base.css';
+@import './mise-en-page.css';
+@import './typographie.css';
+@import './apparitions.css';

@@ -1,0 +1,116 @@
+.panneau {
+  overscroll-behavior: contain;
+  padding-bottom: env(safe-area-inset-bottom);
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: var(--surface-ink);
+  color: var(--text-on-ink);
+  overflow: auto;
+}
+
+.panneau::backdrop {
+  background-color: rgb(18 17 16 / 0.94);
+}
+
+@media (min-width: 1024px) {
+  .panneau {
+    display: none;
+  }
+}
+
+.entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  height: var(--header-h);
+  border-bottom: 1px solid var(--border-ink);
+}
+
+.logo {
+  width: auto;
+  height: 24px;
+}
+
+.fermer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-right: calc(-1 * var(--sp-3));
+  border: 0;
+  background: none;
+  color: var(--text-on-ink);
+  cursor: pointer;
+}
+
+.fermer:focus-visible {
+  outline: 2px solid var(--red-500);
+  outline-offset: -4px;
+}
+
+.liens {
+  display: grid;
+  padding-block: var(--sp-6);
+}
+
+.lien {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--border-ink);
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-on-ink);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: entree var(--dur-base) var(--ease-out) forwards;
+  animation-delay: var(--delai, 0ms);
+}
+
+.lien[aria-current='page'] {
+  color: var(--red-300);
+}
+
+.lien svg {
+  flex: none;
+  color: var(--text-on-ink-tertiary);
+  transform: translateY(-0.15em);
+}
+
+@keyframes entree {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lien {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+.pied {
+  display: grid;
+  gap: var(--sp-4);
+  padding-block: var(--sp-6) var(--sp-8);
+}
+
+.pied address {
+  color: var(--text-on-ink-secondary);
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+}

@@ -1,0 +1,80 @@
+.titre {
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.duo {
+  display: grid;
+  gap: var(--sp-7);
+  margin-top: var(--sp-8);
+}
+
+@media (min-width: 768px) {
+  .duo {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-8);
+  }
+}
+
+.bloc h2 {
+  margin-bottom: var(--sp-4);
+  color: var(--accent);
+  font-family: var(--sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.bloc address,
+.bloc p {
+  color: var(--encre-2);
+  font-size: var(--fs-body-sm);
+  line-height: 1.7;
+}
+
+.bloc a {
+  padding-block: var(--sp-2);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.bloc a:hover {
+  color: var(--encre);
+}
+
+.semaine {
+  border-top: 1px solid var(--ligne);
+}
+
+.jour {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: var(--sp-3);
+  border-bottom: 1px solid var(--ligne);
+  font-size: var(--fs-body-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.jour dt {
+  color: var(--encre);
+}
+
+.jour dd {
+  margin: 0;
+  color: var(--encre-2);
+  text-align: right;
+}
+
+.jour[data-ferme='true'] dd {
+  color: var(--accent);
+}
+
+.action {
+  margin-top: var(--sp-5);
+}

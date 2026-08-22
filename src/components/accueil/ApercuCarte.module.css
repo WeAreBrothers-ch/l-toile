@@ -1,0 +1,67 @@
+.entete {
+  margin-bottom: var(--sp-7);
+}
+
+.index {
+  border-top: 1px solid var(--ligne);
+}
+
+/* Même vocabulaire que la ligne de carte, à un autre usage : ce qui est déjà
+   employé ailleurs dans le site tient mieux qu'un effet inventé pour l'occasion. */
+.rang {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--ligne);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.rang:hover .categorie,
+.rang:focus-visible .categorie {
+  color: var(--accent);
+}
+
+.rang:focus-visible {
+  outline: 2px solid var(--red-500);
+  outline-offset: 4px;
+}
+
+.categorie {
+  color: var(--encre);
+  font-family: var(--serif);
+  font-size: var(--fs-dish);
+  font-weight: 500;
+  line-height: 1.25;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.rappel {
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  border-bottom: 1px dotted var(--ligne-champ);
+  transform: translateY(0.1em);
+}
+
+.chiffres {
+  color: var(--encre-2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.chiffres b {
+  color: var(--encre);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-6);
+  margin-top: var(--sp-7);
+}

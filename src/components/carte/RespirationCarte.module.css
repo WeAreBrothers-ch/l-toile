@@ -1,0 +1,14 @@
+/*
+  Une image sans texte, qui aère une longue liste sans en interrompre la lecture.
+  Aucun titre, aucun prix ne doit s'en approcher.
+
+  Elle est calée sur la largeur de la colonne de menu, pas sur celle de l'écran.
+  Une photo étirée sur 1400 px devient un mur : le regard ne la lit plus comme
+  une respiration mais comme une interruption. Alignée sur la colonne, elle fait
+  partie de la carte.
+*/
+.respiration {
+  max-width: var(--container-read);
+  margin-inline: auto;
+  margin-block: var(--sp-9);
+}
