@@ -1,386 +1,1134 @@
 <title>Nappe &amp; Encre</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap"
+/>
 
 <style>
-/* ============================================================
+  /* ============================================================
    PLANCHE DE DIRECTION ARTISTIQUE — RESTAURANT L'ÉTOILE
    Version 1.1 — trois surfaces : blanc, encre, rouge (une fois).
    Mono-thème assumé : une planche de marque ne s'inverse pas.
    ============================================================ */
 
-:root {
-  /* Rampe rouge dérivée du logo (rouge officiel mesuré : #E9323C) */
-  --red-50:  #FDEFF0;
-  --red-100: #FBDADC;
-  --red-200: #F8ABAF;
-  --red-300: #F76E75;
-  --red-400: #F5444E;
-  --red-500: #E9323C;
-  --red-600: #C11F28;
-  --red-700: #A1171E;
-  --red-800: #7F1016;
-  --red-900: #5C0A0F;
+  :root {
+    /* Rampe rouge dérivée du logo (rouge officiel mesuré : #E9323C) */
+    --red-50: #fdeff0;
+    --red-100: #fbdadc;
+    --red-200: #f8abaf;
+    --red-300: #f76e75;
+    --red-400: #f5444e;
+    --red-500: #e9323c;
+    --red-600: #c11f28;
+    --red-700: #a1171e;
+    --red-800: #7f1016;
+    --red-900: #5c0a0f;
 
-  /* Trois surfaces, pas une de plus */
-  --paper:    #FFFFFF;
-  --ink:      #121110;
-  --ink-soft: #1D1B19;
-  --brand:    #A1171E;
+    /* Trois surfaces, pas une de plus */
+    --paper: #ffffff;
+    --ink: #121110;
+    --ink-soft: #1d1b19;
+    --brand: #a1171e;
 
-  /* Texte sur blanc */
-  --text:   #16130F;
-  --text-2: #5A5248;
-  --text-3: #6E665C;
+    /* Texte sur blanc */
+    --text: #16130f;
+    --text-2: #5a5248;
+    --text-3: #6e665c;
 
-  /* Texte sur encre */
-  --on-ink:     #FFFFFF;
-  --on-ink-2:   #B0ABA5;
-  --on-ink-3:   #8C867F;
-  --on-ink-red: #F76E75;
+    /* Texte sur encre */
+    --on-ink: #ffffff;
+    --on-ink-2: #b0aba5;
+    --on-ink-3: #8c867f;
+    --on-ink-red: #f76e75;
 
-  /* Filets — gris neutres à peine chauds, aucun n'est un fond */
-  --rule:        #E7E4DF;
-  --rule-strong: #D5D1CA;
-  --rule-int:    #8A857E;
-  --rule-ink:    #2A2724;
-  --rule-ink-2:  #6B645B;
+    /* Filets — gris neutres à peine chauds, aucun n'est un fond */
+    --rule: #e7e4df;
+    --rule-strong: #d5d1ca;
+    --rule-int: #8a857e;
+    --rule-ink: #2a2724;
+    --rule-ink-2: #6b645b;
 
-  /* Type */
-  --serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
-  --sans:  'Archivo', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    /* Type */
+    --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+    --sans: "Archivo", -apple-system, "Helvetica Neue", Arial, sans-serif;
 
-  --fs-display: clamp(2.75rem, 1.6rem + 5.75vw, 5rem);
-  --fs-h2:      clamp(1.625rem, 1.24rem + 1.93vw, 2.5rem);
-  --fs-h3:      clamp(1.25rem, 1.11rem + 0.7vw, 1.625rem);
-  --fs-dish:    clamp(1.0625rem, 1.02rem + 0.22vw, 1.25rem);
-  --fs-lead:    clamp(1.0625rem, 1.01rem + 0.28vw, 1.25rem);
-  --fs-body:    1rem;
-  --fs-sm:      0.9375rem;
-  --fs-cap:     0.8125rem;
-  --fs-eyebrow: 0.75rem;
+    --fs-display: clamp(2.75rem, 1.6rem + 5.75vw, 5rem);
+    --fs-h2: clamp(1.625rem, 1.24rem + 1.93vw, 2.5rem);
+    --fs-h3: clamp(1.25rem, 1.11rem + 0.7vw, 1.625rem);
+    --fs-dish: clamp(1.0625rem, 1.02rem + 0.22vw, 1.25rem);
+    --fs-lead: clamp(1.0625rem, 1.01rem + 0.28vw, 1.25rem);
+    --fs-body: 1rem;
+    --fs-sm: 0.9375rem;
+    --fs-cap: 0.8125rem;
+    --fs-eyebrow: 0.75rem;
 
-  --sp-1: .25rem; --sp-2: .5rem;  --sp-3: .75rem; --sp-4: 1rem;
-  --sp-5: 1.5rem; --sp-6: 2rem;   --sp-7: 3rem;   --sp-8: 4rem;
-  --sp-9: 6rem;
+    --sp-1: 0.25rem;
+    --sp-2: 0.5rem;
+    --sp-3: 0.75rem;
+    --sp-4: 1rem;
+    --sp-5: 1.5rem;
+    --sp-6: 2rem;
+    --sp-7: 3rem;
+    --sp-8: 4rem;
+    --sp-9: 6rem;
 
-  --section-y: clamp(4rem, 2.5rem + 7.5vw, 7.5rem);
-  --overlap:   clamp(2.5rem, 1rem + 7.5vw, 7.5rem);
+    --section-y: clamp(4rem, 2.5rem + 7.5vw, 7.5rem);
+    --overlap: clamp(2.5rem, 1rem + 7.5vw, 7.5rem);
 
-  --container: 1180px;
-  --read: 720px;
-}
+    --container: 1180px;
+    --read: 720px;
+  }
 
-* { box-sizing: border-box; }
+  * {
+    box-sizing: border-box;
+  }
 
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: var(--fs-body);
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: var(--fs-body);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-h1, h2, h3 { font-family: var(--serif); font-weight: 400; text-wrap: balance; margin: 0; }
-p { text-wrap: pretty; margin: 0; }
-em { font-style: italic; }
-code { font-family: var(--sans); font-weight: 500; }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    text-wrap: balance;
+    margin: 0;
+  }
+  p {
+    text-wrap: pretty;
+    margin: 0;
+  }
+  em {
+    font-style: italic;
+  }
+  code {
+    font-family: var(--sans);
+    font-weight: 500;
+  }
 
-.wrap { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
-.read { max-width: var(--read); }
+  .wrap {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+  .read {
+    max-width: var(--read);
+  }
 
-section { padding-block: var(--section-y); position: relative; }
+  section {
+    padding-block: var(--section-y);
+    position: relative;
+  }
 
-.band-ink   { background: var(--ink);   color: var(--on-ink); }
-.band-paper { background: var(--paper); color: var(--text); }
-.band-brand { background: var(--brand); color: var(--on-ink); }
+  .band-ink {
+    background: var(--ink);
+    color: var(--on-ink);
+  }
+  .band-paper {
+    background: var(--paper);
+    color: var(--text);
+  }
+  .band-brand {
+    background: var(--brand);
+    color: var(--on-ink);
+  }
 
-/* Deux blocs blancs consécutifs se séparent par un filet, jamais par une nuance */
-.band-paper + .band-paper { border-top: 1px solid var(--rule); }
+  /* Deux blocs blancs consécutifs se séparent par un filet, jamais par une nuance */
+  .band-paper + .band-paper {
+    border-top: 1px solid var(--rule);
+  }
 
-/* ---------- Eyebrow ---------- */
-.eyebrow {
-  font-size: var(--fs-eyebrow);
-  font-weight: 600;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  line-height: 1.2;
-  color: var(--red-600);
-  margin: 0 0 var(--sp-3);
-}
-.band-ink .eyebrow   { color: var(--on-ink-red); }
-.band-brand .eyebrow { color: rgb(255 255 255 / .72); }
+  /* ---------- Eyebrow ---------- */
+  .eyebrow {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    color: var(--red-600);
+    margin: 0 0 var(--sp-3);
+  }
+  .band-ink .eyebrow {
+    color: var(--on-ink-red);
+  }
+  .band-brand .eyebrow {
+    color: rgb(255 255 255 / 0.72);
+  }
 
-.section-title { font-size: var(--fs-h2); line-height: 1.08; letter-spacing: -.015em; }
-.lede { font-size: var(--fs-lead); color: var(--text-2); line-height: 1.55; margin-top: var(--sp-4); max-width: 60ch; }
-.band-ink .lede { color: var(--on-ink-2); }
+  .section-title {
+    font-size: var(--fs-h2);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+  .lede {
+    font-size: var(--fs-lead);
+    color: var(--text-2);
+    line-height: 1.55;
+    margin-top: var(--sp-4);
+    max-width: 60ch;
+  }
+  .band-ink .lede {
+    color: var(--on-ink-2);
+  }
 
-.stack { display: flex; flex-direction: column; }
-.gap-3 { gap: var(--sp-3); } .gap-4 { gap: var(--sp-4); }
-.gap-5 { gap: var(--sp-5); } .gap-6 { gap: var(--sp-6); }
-.gap-7 { gap: var(--sp-7); } .gap-8 { gap: var(--sp-8); }
+  .stack {
+    display: flex;
+    flex-direction: column;
+  }
+  .gap-3 {
+    gap: var(--sp-3);
+  }
+  .gap-4 {
+    gap: var(--sp-4);
+  }
+  .gap-5 {
+    gap: var(--sp-5);
+  }
+  .gap-6 {
+    gap: var(--sp-6);
+  }
+  .gap-7 {
+    gap: var(--sp-7);
+  }
+  .gap-8 {
+    gap: var(--sp-8);
+  }
 
-.note { font-size: var(--fs-cap); color: var(--text-3); max-width: 66ch; line-height: 1.55; }
+  .note {
+    font-size: var(--fs-cap);
+    color: var(--text-3);
+    max-width: 66ch;
+    line-height: 1.55;
+  }
 
-/* ============================================================
+  /* ============================================================
    HERO
    ============================================================ */
-.hero { padding-block: clamp(3.5rem, 2rem + 7vw, 7rem) clamp(3rem, 2rem + 5vw, 6rem); }
-.hero-grid { display: grid; gap: var(--sp-8); grid-template-columns: 1fr; }
-@media (min-width: 900px) { .hero-grid { grid-template-columns: 1.35fr .85fr; align-items: end; } }
+  .hero {
+    padding-block: clamp(3.5rem, 2rem + 7vw, 7rem) clamp(3rem, 2rem + 5vw, 6rem);
+  }
+  .hero-grid {
+    display: grid;
+    gap: var(--sp-8);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1.35fr 0.85fr;
+      align-items: end;
+    }
+  }
 
-.hero h1 { font-size: var(--fs-display); line-height: .98; letter-spacing: -.02em; margin: 0; }
-.hero h1 .amp { color: var(--red-500); font-style: italic; }
-.hero-sub {
-  font-size: var(--fs-cap); font-weight: 600; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--on-ink-3); margin-top: var(--sp-5);
-}
-.hero-thesis {
-  font-family: var(--serif); font-size: var(--fs-h3); line-height: 1.35; color: var(--on-ink);
-  border-left: 2px solid var(--red-500); padding-left: var(--sp-5);
-}
-.hero-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); margin-top: var(--sp-7); }
-.hero-meta span { font-size: var(--fs-cap); letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--on-ink-3); }
+  .hero h1 {
+    font-size: var(--fs-display);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .hero h1 .amp {
+    color: var(--red-500);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-size: var(--fs-cap);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--on-ink-3);
+    margin-top: var(--sp-5);
+  }
+  .hero-thesis {
+    font-family: var(--serif);
+    font-size: var(--fs-h3);
+    line-height: 1.35;
+    color: var(--on-ink);
+    border-left: 2px solid var(--red-500);
+    padding-left: var(--sp-5);
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2) var(--sp-5);
+    margin-top: var(--sp-7);
+  }
+  .hero-meta span {
+    font-size: var(--fs-cap);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--on-ink-3);
+  }
 
-/* ---------- Sommaire ---------- */
-.toc { display: grid; border-top: 1px solid var(--rule-ink); margin-top: var(--sp-8); }
-.toc a {
-  display: flex; align-items: baseline; gap: var(--sp-4);
-  padding: var(--sp-4) 0; border-bottom: 1px solid var(--rule-ink);
-  color: var(--on-ink); text-decoration: none;
-  transition: color 160ms cubic-bezier(.22,.61,.36,1), padding-left 240ms cubic-bezier(.22,.61,.36,1);
-}
-.toc a:hover, .toc a:focus-visible { color: var(--on-ink-red); padding-left: var(--sp-3); }
-.toc a:focus-visible { outline: 2px solid var(--red-500); outline-offset: 4px; }
-.toc .t-label { font-family: var(--serif); font-size: var(--fs-dish); font-weight: 500; }
-.toc .t-note { margin-left: auto; font-size: var(--fs-cap); color: var(--on-ink-3); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; text-align: right; }
+  /* ---------- Sommaire ---------- */
+  .toc {
+    display: grid;
+    border-top: 1px solid var(--rule-ink);
+    margin-top: var(--sp-8);
+  }
+  .toc a {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-4);
+    padding: var(--sp-4) 0;
+    border-bottom: 1px solid var(--rule-ink);
+    color: var(--on-ink);
+    text-decoration: none;
+    transition:
+      color 160ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      padding-left 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .toc a:hover,
+  .toc a:focus-visible {
+    color: var(--on-ink-red);
+    padding-left: var(--sp-3);
+  }
+  .toc a:focus-visible {
+    outline: 2px solid var(--red-500);
+    outline-offset: 4px;
+  }
+  .toc .t-label {
+    font-family: var(--serif);
+    font-size: var(--fs-dish);
+    font-weight: 500;
+  }
+  .toc .t-note {
+    margin-left: auto;
+    font-size: var(--fs-cap);
+    color: var(--on-ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: right;
+  }
 
-/* ============================================================
+  /* ============================================================
    L'IMAGE-CHARNIÈRE — la mécanique, démontrée pour de vrai
    ============================================================ */
-.hinge-bridge { background: var(--paper); position: relative; z-index: 2; }
-.hinge { margin: 0 0 calc(-1 * var(--overlap)); position: relative; }
-.receives-hinge { padding-top: calc(var(--section-y) + var(--overlap)); position: relative; z-index: 1; }
+  .hinge-bridge {
+    background: var(--paper);
+    position: relative;
+    z-index: 2;
+  }
+  .hinge {
+    margin: 0 0 calc(-1 * var(--overlap));
+    position: relative;
+  }
+  .receives-hinge {
+    padding-top: calc(var(--section-y) + var(--overlap));
+    position: relative;
+    z-index: 1;
+  }
 
-.photo-ph {
-  aspect-ratio: 3 / 2;
-  background: radial-gradient(115% 95% at 28% 18%, #453C37 0%, #241F1C 52%, #121110 100%);
-  display: grid; place-content: center; gap: var(--sp-2); text-align: center;
-  padding: var(--sp-5);
-}
-.photo-ph b {
-  font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--on-ink-2);
-}
-.photo-ph span { font-size: var(--fs-cap); color: var(--on-ink-3); }
-.photo-cap {
-  font-size: var(--fs-cap); color: var(--text-3); margin-top: var(--sp-3);
-  display: flex; align-items: baseline; gap: var(--sp-3); flex-wrap: wrap;
-}
-.photo-cap b { color: var(--red-600); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; font-size: var(--fs-eyebrow); }
+  .photo-ph {
+    aspect-ratio: 3 / 2;
+    background: radial-gradient(115% 95% at 28% 18%, #453c37 0%, #241f1c 52%, #121110 100%);
+    display: grid;
+    place-content: center;
+    gap: var(--sp-2);
+    text-align: center;
+    padding: var(--sp-5);
+  }
+  .photo-ph b {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--on-ink-2);
+  }
+  .photo-ph span {
+    font-size: var(--fs-cap);
+    color: var(--on-ink-3);
+  }
+  .photo-cap {
+    font-size: var(--fs-cap);
+    color: var(--text-3);
+    margin-top: var(--sp-3);
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+  }
+  .photo-cap b {
+    color: var(--red-600);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: var(--fs-eyebrow);
+  }
 
-/* Schéma de la charnière */
-.diagram { border: 1px solid var(--rule-strong); }
-.diagram-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); padding: var(--sp-5); font-size: var(--fs-cap); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
-.diagram-white { background: var(--paper); color: var(--text); padding-bottom: 64px; }
-.diagram-ink   { background: var(--ink);   color: var(--on-ink); padding-top: 64px; }
-.diagram-hinge { position: relative; height: 0; z-index: 2; }
-.diagram-hinge i {
-  position: absolute; left: var(--sp-6); right: var(--sp-6); top: -48px; height: 96px;
-  background: radial-gradient(115% 95% at 28% 18%, #453C37 0%, #241F1C 52%, #121110 100%);
-  border: 1px solid var(--red-500);
-  display: grid; place-content: center;
-  font-style: normal; font-size: var(--fs-eyebrow); font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase; color: var(--on-ink-2);
-}
-.diagram-note { font-weight: 400; letter-spacing: .02em; text-transform: none; opacity: .78; text-align: right; }
+  /* Schéma de la charnière */
+  .diagram {
+    border: 1px solid var(--rule-strong);
+  }
+  .diagram-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding: var(--sp-5);
+    font-size: var(--fs-cap);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .diagram-white {
+    background: var(--paper);
+    color: var(--text);
+    padding-bottom: 64px;
+  }
+  .diagram-ink {
+    background: var(--ink);
+    color: var(--on-ink);
+    padding-top: 64px;
+  }
+  .diagram-hinge {
+    position: relative;
+    height: 0;
+    z-index: 2;
+  }
+  .diagram-hinge i {
+    position: absolute;
+    left: var(--sp-6);
+    right: var(--sp-6);
+    top: -48px;
+    height: 96px;
+    background: radial-gradient(115% 95% at 28% 18%, #453c37 0%, #241f1c 52%, #121110 100%);
+    border: 1px solid var(--red-500);
+    display: grid;
+    place-content: center;
+    font-style: normal;
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--on-ink-2);
+  }
+  .diagram-note {
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    opacity: 0.78;
+    text-align: right;
+  }
 
-/* ============================================================
+  /* ============================================================
    COULEUR
    ============================================================ */
-.swatch-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); border: 1px solid var(--rule-strong); }
-.band-ink .swatch-row { border-color: var(--rule-ink); }
-.sw { padding: var(--sp-6) var(--sp-3) var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-1); min-height: 132px; }
-.sw + .sw { border-left: 1px solid rgb(22 19 15 / .12); }
-.sw code { font-size: 11px; letter-spacing: .06em; font-weight: 600; font-variant-numeric: tabular-nums; }
-.sw small { font-size: 11px; letter-spacing: .04em; opacity: .72; }
+  .swatch-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    border: 1px solid var(--rule-strong);
+  }
+  .band-ink .swatch-row {
+    border-color: var(--rule-ink);
+  }
+  .sw {
+    padding: var(--sp-6) var(--sp-3) var(--sp-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    min-height: 132px;
+  }
+  .sw + .sw {
+    border-left: 1px solid rgb(22 19 15 / 0.12);
+  }
+  .sw code {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .sw small {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    opacity: 0.72;
+  }
 
-.surface-row { display: grid; grid-template-columns: 1fr; border: 1px solid var(--rule-strong); }
-@media (min-width: 700px) { .surface-row { grid-template-columns: repeat(3, 1fr); } }
-.surface {
-  padding: var(--sp-6); min-height: 168px; display: flex; flex-direction: column; gap: var(--sp-2);
-  justify-content: flex-end;
-}
-.surface + .surface { border-top: 1px solid var(--rule-strong); }
-@media (min-width: 700px) { .surface + .surface { border-top: 0; border-left: 1px solid var(--rule-strong); } }
-.surface b { font-size: var(--fs-dish); font-family: var(--serif); font-weight: 500; }
-.surface code { font-size: 11px; letter-spacing: .06em; font-weight: 600; opacity: .8; }
-.surface span { font-size: var(--fs-cap); line-height: 1.45; opacity: .82; }
-.s-paper { background: var(--paper); color: var(--text); }
-.s-ink   { background: var(--ink);   color: var(--on-ink); }
-.s-brand { background: var(--brand); color: var(--on-ink); }
+  .surface-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid var(--rule-strong);
+  }
+  @media (min-width: 700px) {
+    .surface-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .surface {
+    padding: var(--sp-6);
+    min-height: 168px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    justify-content: flex-end;
+  }
+  .surface + .surface {
+    border-top: 1px solid var(--rule-strong);
+  }
+  @media (min-width: 700px) {
+    .surface + .surface {
+      border-top: 0;
+      border-left: 1px solid var(--rule-strong);
+    }
+  }
+  .surface b {
+    font-size: var(--fs-dish);
+    font-family: var(--serif);
+    font-weight: 500;
+  }
+  .surface code {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+  .surface span {
+    font-size: var(--fs-cap);
+    line-height: 1.45;
+    opacity: 0.82;
+  }
+  .s-paper {
+    background: var(--paper);
+    color: var(--text);
+  }
+  .s-ink {
+    background: var(--ink);
+    color: var(--on-ink);
+  }
+  .s-brand {
+    background: var(--brand);
+    color: var(--on-ink);
+  }
 
-.rule-card { border: 1px solid var(--rule-strong); padding: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-4); }
-.band-ink .rule-card { border-color: var(--rule-ink); }
-.rule-card h3 { font-size: var(--fs-h3); font-weight: 500; line-height: 1.2; }
-.rule-card p { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.55; }
-.band-ink .rule-card p { color: var(--on-ink-2); }
+  .rule-card {
+    border: 1px solid var(--rule-strong);
+    padding: var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+  .band-ink .rule-card {
+    border-color: var(--rule-ink);
+  }
+  .rule-card h3 {
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .rule-card p {
+    font-size: var(--fs-sm);
+    color: var(--text-2);
+    line-height: 1.55;
+  }
+  .band-ink .rule-card p {
+    color: var(--on-ink-2);
+  }
 
-.two-col { display: grid; gap: var(--sp-5); grid-template-columns: 1fr; }
-@media (min-width: 800px) { .two-col { grid-template-columns: 1fr 1fr; } }
+  .two-col {
+    display: grid;
+    gap: var(--sp-5);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 800px) {
+    .two-col {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
 
-.chip { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-cap); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
-.chip::before { content: ""; width: 12px; height: 12px; background: currentColor; flex: none; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-cap);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+  .chip::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background: currentColor;
+    flex: none;
+  }
 
-.prop { display: flex; height: 40px; border: 1px solid var(--rule-strong); }
-.prop span { display: block; }
-.prop-legend { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); margin-top: var(--sp-4); }
-.prop-legend b { font-size: var(--fs-cap); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; display: inline-flex; align-items: center; gap: var(--sp-2); color: var(--text-2); font-variant-numeric: tabular-nums; }
-.prop-legend i { width: 12px; height: 12px; display: block; border: 1px solid rgb(22 19 15 / .18); }
+  .prop {
+    display: flex;
+    height: 40px;
+    border: 1px solid var(--rule-strong);
+  }
+  .prop span {
+    display: block;
+  }
+  .prop-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2) var(--sp-5);
+    margin-top: var(--sp-4);
+  }
+  .prop-legend b {
+    font-size: var(--fs-cap);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    color: var(--text-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .prop-legend i {
+    width: 12px;
+    height: 12px;
+    display: block;
+    border: 1px solid rgb(22 19 15 / 0.18);
+  }
 
-/* ============================================================
+  /* ============================================================
    TYPOGRAPHIE
    ============================================================ */
-.spec { border-top: 1px solid var(--rule-strong); padding-top: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-4); }
-.spec-name { display: flex; align-items: baseline; gap: var(--sp-4); flex-wrap: wrap; }
-.spec-name h3 { font-size: var(--fs-h3); font-weight: 500; }
-.spec-name .role { font-size: var(--fs-cap); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--red-600); }
-.spec-sample-serif { font-family: var(--serif); font-size: clamp(2.25rem, 1.2rem + 4.5vw, 3.75rem); line-height: 1; letter-spacing: -.02em; }
-.spec-sample-sans { font-size: clamp(1.75rem, 1rem + 3.4vw, 2.75rem); line-height: 1.05; font-weight: 500; letter-spacing: -.01em; }
-.spec-glyphs { font-size: var(--fs-sm); color: var(--text-3); letter-spacing: .04em; word-spacing: .1em; }
+  .spec {
+    border-top: 1px solid var(--rule-strong);
+    padding-top: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+  .spec-name {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+  }
+  .spec-name h3 {
+    font-size: var(--fs-h3);
+    font-weight: 500;
+  }
+  .spec-name .role {
+    font-size: var(--fs-cap);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red-600);
+  }
+  .spec-sample-serif {
+    font-family: var(--serif);
+    font-size: clamp(2.25rem, 1.2rem + 4.5vw, 3.75rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .spec-sample-sans {
+    font-size: clamp(1.75rem, 1rem + 3.4vw, 2.75rem);
+    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .spec-glyphs {
+    font-size: var(--fs-sm);
+    color: var(--text-3);
+    letter-spacing: 0.04em;
+    word-spacing: 0.1em;
+  }
 
-.scale-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
-.scale-table th { text-align: left; font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); padding: 0 var(--sp-4) var(--sp-3) 0; border-bottom: 1px solid var(--rule-strong); white-space: nowrap; }
-.scale-table td { padding: var(--sp-3) var(--sp-4) var(--sp-3) 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
-.scale-table td:last-child, .scale-table th:last-child { padding-right: 0; }
-.scale-table .num { font-variant-numeric: tabular-nums; color: var(--text-2); white-space: nowrap; }
-.scale-table .role-name { font-family: var(--serif); font-size: var(--fs-dish); font-weight: 500; }
-.table-scroll { overflow-x: auto; }
+  .scale-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-sm);
+  }
+  .scale-table th {
+    text-align: left;
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    padding: 0 var(--sp-4) var(--sp-3) 0;
+    border-bottom: 1px solid var(--rule-strong);
+    white-space: nowrap;
+  }
+  .scale-table td {
+    padding: var(--sp-3) var(--sp-4) var(--sp-3) 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: baseline;
+  }
+  .scale-table td:last-child,
+  .scale-table th:last-child {
+    padding-right: 0;
+  }
+  .scale-table .num {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+  .scale-table .role-name {
+    font-family: var(--serif);
+    font-size: var(--fs-dish);
+    font-weight: 500;
+  }
+  .table-scroll {
+    overflow-x: auto;
+  }
 
-/* ============================================================
+  /* ============================================================
    LA SIGNATURE — LIGNE DE CARTE
    ============================================================ */
-.menu-demo { max-width: var(--read); margin-inline: auto; }
-.menu-tabs { display: flex; gap: var(--sp-6); overflow-x: auto; border-bottom: 1px solid var(--rule-ink); padding-bottom: var(--sp-3); scrollbar-width: none; }
-.menu-tabs::-webkit-scrollbar { display: none; }
-.menu-tabs button {
-  appearance: none; background: none; border: 0; padding: 0 0 var(--sp-3); cursor: pointer;
-  font-family: var(--sans); font-size: var(--fs-cap); font-weight: 600; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--on-ink-3); white-space: nowrap;
-  border-bottom: 2px solid transparent; margin-bottom: -1px;
-  transition: color 240ms cubic-bezier(.22,.61,.36,1), border-color 240ms cubic-bezier(.22,.61,.36,1);
-}
-.menu-tabs button[aria-selected="true"] { color: var(--on-ink); border-bottom-color: var(--red-500); }
-.menu-tabs button:hover { color: var(--on-ink); }
-.menu-tabs button:focus-visible { outline: 2px solid var(--red-500); outline-offset: 3px; }
+  .menu-demo {
+    max-width: var(--read);
+    margin-inline: auto;
+  }
+  .menu-tabs {
+    display: flex;
+    gap: var(--sp-6);
+    overflow-x: auto;
+    border-bottom: 1px solid var(--rule-ink);
+    padding-bottom: var(--sp-3);
+    scrollbar-width: none;
+  }
+  .menu-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .menu-tabs button {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0 0 var(--sp-3);
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: var(--fs-cap);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--on-ink-3);
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition:
+      color 240ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-color 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .menu-tabs button[aria-selected="true"] {
+    color: var(--on-ink);
+    border-bottom-color: var(--red-500);
+  }
+  .menu-tabs button:hover {
+    color: var(--on-ink);
+  }
+  .menu-tabs button:focus-visible {
+    outline: 2px solid var(--red-500);
+    outline-offset: 3px;
+  }
 
-.cat-title { font-family: var(--serif); font-weight: 500; font-size: var(--fs-h3); text-transform: uppercase; letter-spacing: .1em; color: var(--on-ink); margin-top: var(--sp-8); }
-.dish { padding-block: var(--sp-4); border-bottom: 1px solid var(--rule-ink); }
-.dish:last-child { border-bottom: 0; }
-.dish-line { display: flex; align-items: baseline; gap: var(--sp-3); }
-.dish-name { font-family: var(--serif); font-weight: 500; font-size: var(--fs-dish); line-height: 1.25; color: var(--on-ink); }
-.dish-leader { flex: 1 1 auto; min-width: 1.5rem; border-bottom: 1px dotted var(--rule-ink-2); transform: translateY(.1em); }
-.dish-price { font-size: var(--fs-sm); font-weight: 600; letter-spacing: .01em; font-variant-numeric: tabular-nums; color: var(--on-ink); white-space: nowrap; }
-.dish-desc { font-size: var(--fs-sm); color: var(--on-ink-2); line-height: 1.5; margin-top: var(--sp-2); max-width: 60ch; }
+  .cat-title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: var(--fs-h3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--on-ink);
+    margin-top: var(--sp-8);
+  }
+  .dish {
+    padding-block: var(--sp-4);
+    border-bottom: 1px solid var(--rule-ink);
+  }
+  .dish:last-child {
+    border-bottom: 0;
+  }
+  .dish-line {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-3);
+  }
+  .dish-name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: var(--fs-dish);
+    line-height: 1.25;
+    color: var(--on-ink);
+  }
+  .dish-leader {
+    flex: 1 1 auto;
+    min-width: 1.5rem;
+    border-bottom: 1px dotted var(--rule-ink-2);
+    transform: translateY(0.1em);
+  }
+  .dish-price {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    font-variant-numeric: tabular-nums;
+    color: var(--on-ink);
+    white-space: nowrap;
+  }
+  .dish-desc {
+    font-size: var(--fs-sm);
+    color: var(--on-ink-2);
+    line-height: 1.5;
+    margin-top: var(--sp-2);
+    max-width: 60ch;
+  }
 
-.annot { font-size: var(--fs-cap); color: var(--on-ink-3); border-left: 1px solid var(--red-500); padding-left: var(--sp-4); margin-top: var(--sp-7); max-width: 62ch; line-height: 1.55; }
+  .annot {
+    font-size: var(--fs-cap);
+    color: var(--on-ink-3);
+    border-left: 1px solid var(--red-500);
+    padding-left: var(--sp-4);
+    margin-top: var(--sp-7);
+    max-width: 62ch;
+    line-height: 1.55;
+  }
 
-/* ============================================================
+  /* ============================================================
    RYTHME DE PAGE
    ============================================================ */
-.rhythm { display: flex; flex-direction: column; border: 1px solid var(--rule-strong); }
-.rhythm > div { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); padding: var(--sp-4) var(--sp-5); font-size: var(--fs-cap); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
-.rhythm .r-note { font-weight: 400; letter-spacing: .02em; text-transform: none; opacity: .78; text-align: right; }
-.r-paper { background: var(--paper); color: var(--text); }
-.r-paper + .r-paper { border-top: 1px solid var(--rule); }
-.r-ink   { background: var(--ink);   color: var(--on-ink); }
-.r-brand { background: var(--brand); color: var(--on-ink); }
-.r-hinge { background: var(--paper); color: var(--red-600); border-block: 1px solid var(--red-500); }
+  .rhythm {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--rule-strong);
+  }
+  .rhythm > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+    font-size: var(--fs-cap);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .rhythm .r-note {
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    opacity: 0.78;
+    text-align: right;
+  }
+  .r-paper {
+    background: var(--paper);
+    color: var(--text);
+  }
+  .r-paper + .r-paper {
+    border-top: 1px solid var(--rule);
+  }
+  .r-ink {
+    background: var(--ink);
+    color: var(--on-ink);
+  }
+  .r-brand {
+    background: var(--brand);
+    color: var(--on-ink);
+  }
+  .r-hinge {
+    background: var(--paper);
+    color: var(--red-600);
+    border-block: 1px solid var(--red-500);
+  }
 
-/* ============================================================
+  /* ============================================================
    COMPOSANTS
    ============================================================ */
-.comp-grid { display: grid; gap: 0; grid-template-columns: 1fr; border: 1px solid var(--rule-strong); }
-@media (min-width: 700px) { .comp-grid { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1040px) { .comp-grid { grid-template-columns: repeat(3, 1fr); } }
-.comp { padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); border-top: 1px solid var(--rule); }
-.comp:first-child { border-top: 0; }
-@media (min-width: 700px) {
-  .comp { border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
-  .comp:nth-child(-n+2) { border-top: 0; }
-  .comp:nth-child(2n+1) { border-left: 0; }
-}
-@media (min-width: 1040px) {
-  .comp:nth-child(-n+3) { border-top: 0; }
-  .comp:nth-child(2n+1) { border-left: 1px solid var(--rule); }
-  .comp:nth-child(3n+1) { border-left: 0; }
-}
-.comp h3 { font-size: var(--fs-dish); font-weight: 500; }
-.comp p { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.5; }
-.comp .tag { font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
+  .comp-grid {
+    display: grid;
+    gap: 0;
+    grid-template-columns: 1fr;
+    border: 1px solid var(--rule-strong);
+  }
+  @media (min-width: 700px) {
+    .comp-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1040px) {
+    .comp-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .comp {
+    padding: var(--sp-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    border-top: 1px solid var(--rule);
+  }
+  .comp:first-child {
+    border-top: 0;
+  }
+  @media (min-width: 700px) {
+    .comp {
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+    }
+    .comp:nth-child(-n + 2) {
+      border-top: 0;
+    }
+    .comp:nth-child(2n + 1) {
+      border-left: 0;
+    }
+  }
+  @media (min-width: 1040px) {
+    .comp:nth-child(-n + 3) {
+      border-top: 0;
+    }
+    .comp:nth-child(2n + 1) {
+      border-left: 1px solid var(--rule);
+    }
+    .comp:nth-child(3n + 1) {
+      border-left: 0;
+    }
+  }
+  .comp h3 {
+    font-size: var(--fs-dish);
+    font-weight: 500;
+  }
+  .comp p {
+    font-size: var(--fs-sm);
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+  .comp .tag {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
 
-.btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
-.btn {
-  font-family: var(--sans); font-size: var(--fs-cap); font-weight: 600;
-  letter-spacing: .1em; text-transform: uppercase; line-height: 1;
-  display: inline-flex; align-items: center; justify-content: center;
-  min-height: 48px; padding: 0 var(--sp-5); border-radius: 2px;
-  text-decoration: none; cursor: pointer; border: 1px solid transparent;
-  transition: background-color 200ms cubic-bezier(.22,.61,.36,1), color 200ms cubic-bezier(.22,.61,.36,1), border-color 200ms cubic-bezier(.22,.61,.36,1);
-}
-.btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--red-500); }
-.btn-primary { background: var(--red-600); color: #FFFFFF; }
-.btn-primary:hover { background: var(--red-700); }
-.btn-secondary { background: transparent; color: var(--text); border-color: var(--rule-int); }
-.btn-secondary:hover { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
-.btn-tertiary { background: transparent; color: var(--red-600); min-height: 0; padding: 0; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
-.btn-tertiary:hover { text-decoration-thickness: 2px; }
-.btn-round { width: 48px; height: 48px; min-height: 48px; padding: 0; border-radius: 9999px; background: var(--paper); color: var(--text); border: 1px solid var(--rule-strong); }
-.btn-round svg { transition: transform 160ms cubic-bezier(.22,.61,.36,1); }
-.btn-round:hover svg { transform: translateX(3px); }
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    align-items: center;
+  }
+  .btn {
+    font-family: var(--sans);
+    font-size: var(--fs-cap);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 var(--sp-5);
+    border-radius: 2px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition:
+      background-color 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      color 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-color 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .btn:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--paper),
+      0 0 0 4px var(--red-500);
+  }
+  .btn-primary {
+    background: var(--red-600);
+    color: #ffffff;
+  }
+  .btn-primary:hover {
+    background: var(--red-700);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--rule-int);
+  }
+  .btn-secondary:hover {
+    background: var(--ink);
+    color: var(--on-ink);
+    border-color: var(--ink);
+  }
+  .btn-tertiary {
+    background: transparent;
+    color: var(--red-600);
+    min-height: 0;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+  .btn-tertiary:hover {
+    text-decoration-thickness: 2px;
+  }
+  .btn-round {
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    border-radius: 9999px;
+    background: var(--paper);
+    color: var(--text);
+    border: 1px solid var(--rule-strong);
+  }
+  .btn-round svg {
+    transition: transform 160ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .btn-round:hover svg {
+    transform: translateX(3px);
+  }
 
-/* ============================================================
+  /* ============================================================
    MOTION
    ============================================================ */
-.motion-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
-.motion-table th { text-align: left; font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--on-ink-3); padding: 0 var(--sp-4) var(--sp-3) 0; border-bottom: 1px solid var(--rule-ink); white-space: nowrap; }
-.motion-table td { padding: var(--sp-3) var(--sp-4) var(--sp-3) 0; border-bottom: 1px solid var(--rule-ink); color: var(--on-ink-2); vertical-align: baseline; }
-.motion-table td:first-child { color: var(--on-ink); }
-.motion-table td:last-child, .motion-table th:last-child { padding-right: 0; }
-.motion-table .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .motion-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-sm);
+  }
+  .motion-table th {
+    text-align: left;
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--on-ink-3);
+    padding: 0 var(--sp-4) var(--sp-3) 0;
+    border-bottom: 1px solid var(--rule-ink);
+    white-space: nowrap;
+  }
+  .motion-table td {
+    padding: var(--sp-3) var(--sp-4) var(--sp-3) 0;
+    border-bottom: 1px solid var(--rule-ink);
+    color: var(--on-ink-2);
+    vertical-align: baseline;
+  }
+  .motion-table td:first-child {
+    color: var(--on-ink);
+  }
+  .motion-table td:last-child,
+  .motion-table th:last-child {
+    padding-right: 0;
+  }
+  .motion-table .num {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
 
-/* ============================================================
+  /* ============================================================
    INTERDITS
    ============================================================ */
-.no-list { list-style: none; padding: 0; margin: 0; display: grid; border-top: 1px solid var(--rule-strong); }
-.no-list li { display: flex; gap: var(--sp-4); align-items: baseline; padding: var(--sp-4) 0; border-bottom: 1px solid var(--rule); font-size: var(--fs-sm); color: var(--text-2); line-height: 1.5; }
-.no-list li::before { content: "×"; flex: none; width: 1.25rem; text-align: center; color: var(--red-600); font-size: 1.125rem; font-weight: 600; line-height: 1; }
-.no-list strong { color: var(--text); font-weight: 600; }
+  .no-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .no-list li {
+    display: flex;
+    gap: var(--sp-4);
+    align-items: baseline;
+    padding: var(--sp-4) 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--fs-sm);
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+  .no-list li::before {
+    content: "×";
+    flex: none;
+    width: 1.25rem;
+    text-align: center;
+    color: var(--red-600);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .no-list strong {
+    color: var(--text);
+    font-weight: 600;
+  }
 
-/* ============================================================
+  /* ============================================================
    À TRANCHER
    ============================================================ */
-.decide { display: grid; border-top: 1px solid rgb(255 255 255 / .3); }
-.decide > div { padding: var(--sp-5) 0; border-bottom: 1px solid rgb(255 255 255 / .3); display: grid; gap: var(--sp-2); }
-.decide h3 { font-size: var(--fs-dish); font-weight: 500; color: var(--on-ink); }
-.decide p { font-size: var(--fs-sm); color: rgb(255 255 255 / .84); line-height: 1.55; max-width: 66ch; }
-.decide .verdict { font-size: var(--fs-cap); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgb(255 255 255 / .7); }
+  .decide {
+    display: grid;
+    border-top: 1px solid rgb(255 255 255 / 0.3);
+  }
+  .decide > div {
+    padding: var(--sp-5) 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.3);
+    display: grid;
+    gap: var(--sp-2);
+  }
+  .decide h3 {
+    font-size: var(--fs-dish);
+    font-weight: 500;
+    color: var(--on-ink);
+  }
+  .decide p {
+    font-size: var(--fs-sm);
+    color: rgb(255 255 255 / 0.84);
+    line-height: 1.55;
+    max-width: 66ch;
+  }
+  .decide .verdict {
+    font-size: var(--fs-cap);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.7);
+  }
 
-/* ============================================================
+  /* ============================================================
    PIED
    ============================================================ */
-.colophon { border-top: 1px solid var(--rule-ink); padding-block: var(--sp-7); }
-.colophon-word { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(3rem, 1.5rem + 9vw, 8rem); line-height: .9; letter-spacing: -.03em; color: var(--on-ink); opacity: .14; margin: 0; }
-.colophon-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-6); font-size: var(--fs-cap); color: var(--on-ink-3); letter-spacing: .04em; margin-top: var(--sp-6); }
+  .colophon {
+    border-top: 1px solid var(--rule-ink);
+    padding-block: var(--sp-7);
+  }
+  .colophon-word {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(3rem, 1.5rem + 9vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--on-ink);
+    opacity: 0.14;
+    margin: 0;
+  }
+  .colophon-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2) var(--sp-6);
+    font-size: var(--fs-cap);
+    color: var(--on-ink-3);
+    letter-spacing: 0.04em;
+    margin-top: var(--sp-6);
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-}
-html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  html {
+    scroll-behavior: smooth;
+  }
 </style>
 
 <!-- ============================================================ HERO ============================================================ -->
@@ -404,16 +1152,40 @@ html { scroll-behavior: smooth; }
     </div>
 
     <nav class="toc" aria-label="Sommaire de la planche">
-      <a href="#parti-pris"><span class="t-label">Le parti pris</span><span class="t-note">Trois surfaces</span></a>
-      <a href="#couleur"><span class="t-label">Couleur</span><span class="t-note">Rouge mesuré sur le logo</span></a>
-      <a href="#typo"><span class="t-label">Typographie</span><span class="t-note">Newsreader + Archivo</span></a>
-      <a href="#signature"><span class="t-label">La signature</span><span class="t-note">La ligne de carte</span></a>
-      <a href="#photos"><span class="t-label">Les photos</span><span class="t-note">Elles enjambent les sections</span></a>
-      <a href="#rythme"><span class="t-label">Rythme de page</span><span class="t-note">Blanc, encre, rouge une fois</span></a>
-      <a href="#composants"><span class="t-label">Composants</span><span class="t-note">Header, hero, carte, footer</span></a>
-      <a href="#motion"><span class="t-label">Mouvement</span><span class="t-note">Révéler, jamais divertir</span></a>
-      <a href="#interdits"><span class="t-label">Ce qu'on ne fait pas</span><span class="t-note">Garde-fous</span></a>
-      <a href="#trancher"><span class="t-label">À trancher</span><span class="t-note">2 arbitrages</span></a>
+      <a href="#parti-pris"
+        ><span class="t-label">Le parti pris</span><span class="t-note">Trois surfaces</span></a
+      >
+      <a href="#couleur"
+        ><span class="t-label">Couleur</span><span class="t-note">Rouge mesuré sur le logo</span></a
+      >
+      <a href="#typo"
+        ><span class="t-label">Typographie</span><span class="t-note">Newsreader + Archivo</span></a
+      >
+      <a href="#signature"
+        ><span class="t-label">La signature</span><span class="t-note">La ligne de carte</span></a
+      >
+      <a href="#photos"
+        ><span class="t-label">Les photos</span
+        ><span class="t-note">Elles enjambent les sections</span></a
+      >
+      <a href="#rythme"
+        ><span class="t-label">Rythme de page</span
+        ><span class="t-note">Blanc, encre, rouge une fois</span></a
+      >
+      <a href="#composants"
+        ><span class="t-label">Composants</span
+        ><span class="t-note">Header, hero, carte, footer</span></a
+      >
+      <a href="#motion"
+        ><span class="t-label">Mouvement</span
+        ><span class="t-note">Révéler, jamais divertir</span></a
+      >
+      <a href="#interdits"
+        ><span class="t-label">Ce qu'on ne fait pas</span><span class="t-note">Garde-fous</span></a
+      >
+      <a href="#trancher"
+        ><span class="t-label">À trancher</span><span class="t-note">2 arbitrages</span></a
+      >
     </nav>
   </div>
 </header>
@@ -422,29 +1194,32 @@ html { scroll-behavior: smooth; }
 <section id="parti-pris" class="band-paper">
   <div class="wrap">
     <p class="eyebrow">Le parti pris</p>
-    <h2 class="section-title read">L'Étoile n'a pas d'histoire à raconter. Il a une carte à montrer.</h2>
+    <h2 class="section-title read">
+      L'Étoile n'a pas d'histoire à raconter. Il a une carte à montrer.
+    </h2>
     <p class="lede">
-      Le brief est explicite : pas de récit familial, pas de « notre philosophie ». Deux choses seulement
-      doivent travailler — donner faim en trois secondes, et amener à la carte en un clic. Tout le reste
-      est du décor, donc du bruit.
+      Le brief est explicite : pas de récit familial, pas de « notre philosophie ». Deux choses
+      seulement doivent travailler — donner faim en trois secondes, et amener à la carte en un clic.
+      Tout le reste est du décor, donc du bruit.
     </p>
 
-    <div class="two-col" style="margin-top: var(--sp-8);">
+    <div class="two-col" style="margin-top: var(--sp-8)">
       <div class="rule-card">
         <h3>Trois surfaces, aucune demi-teinte</h3>
         <p>
-          Blanc pur, encre, et le rouge une seule fois par page. Pas de blanc cassé, pas de beige, pas de
-          gris de fond : quand deux blocs blancs se suivent, c'est un filet d'un pixel qui les sépare,
-          jamais une nuance. C'est exactement la logique du logo — noir et rouge sur blanc — étendue à
-          tout le site.
+          Blanc pur, encre, et le rouge une seule fois par page. Pas de blanc cassé, pas de beige,
+          pas de gris de fond : quand deux blocs blancs se suivent, c'est un filet d'un pixel qui
+          les sépare, jamais une nuance. C'est exactement la logique du logo — noir et rouge sur
+          blanc — étendue à tout le site.
         </p>
       </div>
       <div class="rule-card">
         <h3>Haut de gamme par la précision, pas par l'ornement</h3>
         <p>
-          Le luxe visé ici n'est ni doré ni solennel — il est dans un filet à un pixel, un prix aligné au
-          pixel près, une hiérarchie qui ne tremble jamais. C'est ce qui permet d'être haut de gamme sans
-          devenir intimidant : on lit une carte de quartier, très bien mise en page.
+          Le luxe visé ici n'est ni doré ni solennel — il est dans un filet à un pixel, un prix
+          aligné au pixel près, une hiérarchie qui ne tremble jamais. C'est ce qui permet d'être
+          haut de gamme sans devenir intimidant : on lit une carte de quartier, très bien mise en
+          page.
         </p>
       </div>
     </div>
@@ -459,9 +1234,9 @@ html { scroll-behavior: smooth; }
       <h2 class="section-title read">Le rouge n'a pas été choisi. Il a été mesuré.</h2>
       <p class="lede">
         Le logo a été décodé pixel par pixel. Il ne contient que deux couleurs opaques :
-        <strong>#000000</strong> (90,6 % des pixels — le script « L'étoile » et le mot « RESTAURANT »)
-        et <strong>#E9323C</strong> (9,4 % — les coups de pinceau). C'est donc le rouge exact de la
-        marque, pas une approximation : un rouge légèrement froid, plus carmin que tomate.
+        <strong>#000000</strong> (90,6 % des pixels — le script « L'étoile » et le mot « RESTAURANT
+        ») et <strong>#E9323C</strong> (9,4 % — les coups de pinceau). C'est donc le rouge exact de
+        la marque, pas une approximation : un rouge légèrement froid, plus carmin que tomate.
       </p>
     </div>
 
@@ -470,81 +1245,122 @@ html { scroll-behavior: smooth; }
       <div class="surface-row">
         <div class="surface s-paper">
           <b>Blanc</b><code>#FFFFFF · 55 %</code>
-          <span>L'unique nuance claire. Fonds, cartes, champs de formulaire, encarts — tout est ce blanc-là.</span>
+          <span
+            >L'unique nuance claire. Fonds, cartes, champs de formulaire, encarts — tout est ce
+            blanc-là.</span
+          >
         </div>
         <div class="surface s-ink">
           <b>Encre</b><code>#121110 · 25 %</code>
-          <span>Le hero et la section carte. Jamais du noir pur : celui-ci est réservé au logo.</span>
+          <span
+            >Le hero et la section carte. Jamais du noir pur : celui-ci est réservé au logo.</span
+          >
         </div>
         <div class="surface s-brand">
           <b>Rouge</b><code>#A1171E · 5 %</code>
-          <span>Une seule section par page — le bandeau infos pratiques. Un rouge qui est deux fois ne signale plus rien.</span>
+          <span
+            >Une seule section par page — le bandeau infos pratiques. Un rouge qui est deux fois ne
+            signale plus rien.</span
+          >
         </div>
       </div>
-      <p class="note" style="margin-top: var(--sp-4);">
-        Les 15 % restants sont de la photographie. La chaleur du site ne vient plus de la teinte du fond,
-        elle vient exclusivement des images — c'est ce qui rend leur intégration critique.
+      <p class="note" style="margin-top: var(--sp-4)">
+        Les 15 % restants sont de la photographie. La chaleur du site ne vient plus de la teinte du
+        fond, elle vient exclusivement des images — c'est ce qui rend leur intégration critique.
       </p>
     </div>
 
     <div>
       <p class="eyebrow">Rampe de marque</p>
-      <div class="swatch-row" role="img" aria-label="Rampe de rouge dérivée du logo, de red-50 à red-900">
-        <div class="sw" style="background:#FDEFF0;color:#5C0A0F"><code>#FDEFF0</code><small>50</small></div>
-        <div class="sw" style="background:#FBDADC;color:#5C0A0F"><code>#FBDADC</code><small>100</small></div>
-        <div class="sw" style="background:#F8ABAF;color:#5C0A0F"><code>#F8ABAF</code><small>200</small></div>
-        <div class="sw" style="background:#F76E75;color:#41060A"><code>#F76E75</code><small>300 · prix sur encre</small></div>
-        <div class="sw" style="background:#F5444E;color:#FFFFFF"><code>#F5444E</code><small>400</small></div>
-        <div class="sw" style="background:#E9323C;color:#FFFFFF"><code>#E9323C</code><small>500 · logo</small></div>
-        <div class="sw" style="background:#C11F28;color:#FFFFFF"><code>#C11F28</code><small>600 · action</small></div>
-        <div class="sw" style="background:#A1171E;color:#FFFFFF"><code>#A1171E</code><small>700 · aplat</small></div>
-        <div class="sw" style="background:#7F1016;color:#FFFFFF"><code>#7F1016</code><small>800</small></div>
-        <div class="sw" style="background:#5C0A0F;color:#FBDADC"><code>#5C0A0F</code><small>900</small></div>
+      <div
+        class="swatch-row"
+        role="img"
+        aria-label="Rampe de rouge dérivée du logo, de red-50 à red-900"
+      >
+        <div class="sw" style="background: #fdeff0; color: #5c0a0f">
+          <code>#FDEFF0</code><small>50</small>
+        </div>
+        <div class="sw" style="background: #fbdadc; color: #5c0a0f">
+          <code>#FBDADC</code><small>100</small>
+        </div>
+        <div class="sw" style="background: #f8abaf; color: #5c0a0f">
+          <code>#F8ABAF</code><small>200</small>
+        </div>
+        <div class="sw" style="background: #f76e75; color: #41060a">
+          <code>#F76E75</code><small>300 · prix sur encre</small>
+        </div>
+        <div class="sw" style="background: #f5444e; color: #ffffff">
+          <code>#F5444E</code><small>400</small>
+        </div>
+        <div class="sw" style="background: #e9323c; color: #ffffff">
+          <code>#E9323C</code><small>500 · logo</small>
+        </div>
+        <div class="sw" style="background: #c11f28; color: #ffffff">
+          <code>#C11F28</code><small>600 · action</small>
+        </div>
+        <div class="sw" style="background: #a1171e; color: #ffffff">
+          <code>#A1171E</code><small>700 · aplat</small>
+        </div>
+        <div class="sw" style="background: #7f1016; color: #ffffff">
+          <code>#7F1016</code><small>800</small>
+        </div>
+        <div class="sw" style="background: #5c0a0f; color: #fbdadc">
+          <code>#5C0A0F</code><small>900</small>
+        </div>
       </div>
     </div>
 
     <div class="two-col">
       <div class="rule-card">
-        <p class="eyebrow" style="margin:0">Règle d'or</p>
+        <p class="eyebrow" style="margin: 0">Règle d'or</p>
         <h3>Deux rouges, une seule identité</h3>
         <p>
-          <strong>#E9323C</strong> n'atteint que <strong>4,21:1</strong> sur le blanc : il échoue au niveau
-          AA et ne peut donc pas porter de texte. Plutôt que de trahir la marque ou de livrer un site
-          inaccessible, les rôles sont séparés.
+          <strong>#E9323C</strong> n'atteint que <strong>4,21:1</strong> sur le blanc : il échoue au
+          niveau AA et ne peut donc pas porter de texte. Plutôt que de trahir la marque ou de livrer
+          un site inaccessible, les rôles sont séparés.
         </p>
         <p>
-          <strong>#E9323C</strong> reste la couleur d'<em>identité</em> : logo, filets, soulignement d'onglet
-          actif, anneau de focus. <strong>#C11F28</strong> devient le rouge d'<em>action</em> : prix, boutons,
-          liens. Même teinte, aucune perte d'identité, conformité garantie.
+          <strong>#E9323C</strong> reste la couleur d'<em>identité</em> : logo, filets, soulignement
+          d'onglet actif, anneau de focus. <strong>#C11F28</strong> devient le rouge d'<em
+            >action</em
+          >
+          : prix, boutons, liens. Même teinte, aucune perte d'identité, conformité garantie.
         </p>
       </div>
 
       <div class="rule-card">
-        <p class="eyebrow" style="margin:0">Contrastes vérifiés</p>
+        <p class="eyebrow" style="margin: 0">Contrastes vérifiés</p>
         <h3>Tous les couples sont calculés, aucun n'est estimé</h3>
         <div class="stack gap-3">
-          <span class="chip" style="color:#16130F">Encre sur blanc — 17,92:1 · AAA</span>
-          <span class="chip" style="color:#5A5248">Descriptions sur blanc — 7,68:1 · AAA</span>
-          <span class="chip" style="color:#C11F28">Prix rouge sur blanc — 6,01:1 · AA</span>
-          <span class="chip" style="color:#8A857E">Bordure de champ — 3,66:1 · WCAG 1.4.11</span>
+          <span class="chip" style="color: #16130f">Encre sur blanc — 17,92:1 · AAA</span>
+          <span class="chip" style="color: #5a5248">Descriptions sur blanc — 7,68:1 · AAA</span>
+          <span class="chip" style="color: #c11f28">Prix rouge sur blanc — 6,01:1 · AA</span>
+          <span class="chip" style="color: #8a857e">Bordure de champ — 3,66:1 · WCAG 1.4.11</span>
         </div>
-        <p>Cible : <strong>WCAG 2.1 AA</strong> sur l'intégralité du site, mentions légales comprises. Aucun texte ne descend sous 13 px.</p>
+        <p>
+          Cible : <strong>WCAG 2.1 AA</strong> sur l'intégralité du site, mentions légales
+          comprises. Aucun texte ne descend sous 13 px.
+        </p>
       </div>
     </div>
 
     <div>
       <p class="eyebrow">Proportions cibles sur une page</p>
-      <div class="prop" role="img" aria-label="Répartition : blanc 55 %, encre 25 %, photo 15 %, rouge 5 %">
-        <span style="flex:55;background:#FFFFFF"></span>
-        <span style="flex:25;background:#121110"></span>
-        <span style="flex:15;background:#453C37"></span>
-        <span style="flex:5;background:#A1171E"></span>
+      <div
+        class="prop"
+        role="img"
+        aria-label="Répartition : blanc 55 %, encre 25 %, photo 15 %, rouge 5 %"
+      >
+        <span style="flex: 55; background: #ffffff"></span>
+        <span style="flex: 25; background: #121110"></span>
+        <span style="flex: 15; background: #453c37"></span>
+        <span style="flex: 5; background: #a1171e"></span>
       </div>
       <div class="prop-legend">
-        <b><i style="background:#FFFFFF"></i>Blanc 55 %</b>
-        <b><i style="background:#121110"></i>Encre 25 %</b>
-        <b><i style="background:#453C37"></i>Photo 15 %</b>
-        <b><i style="background:#A1171E"></i>Rouge 5 % — plafond</b>
+        <b><i style="background: #ffffff"></i>Blanc 55 %</b>
+        <b><i style="background: #121110"></i>Encre 25 %</b>
+        <b><i style="background: #453c37"></i>Photo 15 %</b>
+        <b><i style="background: #a1171e"></i>Rouge 5 % — plafond</b>
       </div>
     </div>
   </div>
@@ -555,7 +1371,9 @@ html { scroll-behavior: smooth; }
   <div class="wrap stack gap-8">
     <div>
       <p class="eyebrow">Typographie</p>
-      <h2 class="section-title read">Deux familles. Le logo garde le monopole de l'expressivité.</h2>
+      <h2 class="section-title read">
+        Deux familles. Le logo garde le monopole de l'expressivité.
+      </h2>
       <p class="lede">
         Le logo est déjà un script manuscrit. Lui adjoindre une typo à swashes créerait deux voix
         décoratives qui se disputent. Le serif du site est donc le faire-valoir silencieux du logo.
@@ -568,13 +1386,16 @@ html { scroll-behavior: smooth; }
         <span class="role">Titres · Noms de plats · Citations</span>
       </div>
       <p class="spec-sample-serif">Tagliatelle aux <em>morilles</em></p>
-      <p class="spec-glyphs">Variable 200–800 · italique vrai · ABCDEFGHIJKLMNOPQRSTUVWXYZ · abcdefghijklmnopqrstuvwxyz · 0123456789 · ÀÂÇÉÈÊËÎÔÙÛ</p>
+      <p class="spec-glyphs">
+        Variable 200–800 · italique vrai · ABCDEFGHIJKLMNOPQRSTUVWXYZ · abcdefghijklmnopqrstuvwxyz ·
+        0123456789 · ÀÂÇÉÈÊËÎÔÙÛ
+      </p>
       <p class="note">
-        Seule Google Font qui tient à la fois en 80 px dans un hero et en 17 px dans un nom de plat sans
-        devenir fragile — condition indispensable puisque le nom de plat est l'élément le plus répété du
-        site. Graisse plafonnée à <strong>500</strong> : la hiérarchie se fait par la taille et l'espace,
-        jamais par le gras. Son italique est le seul ornement typographique autorisé, à raison d'un mot
-        par titre.
+        Seule Google Font qui tient à la fois en 80 px dans un hero et en 17 px dans un nom de plat
+        sans devenir fragile — condition indispensable puisque le nom de plat est l'élément le plus
+        répété du site. Graisse plafonnée à <strong>500</strong> : la hiérarchie se fait par la
+        taille et l'espace, jamais par le gras. Son italique est le seul ornement typographique
+        autorisé, à raison d'un mot par titre.
       </p>
     </div>
 
@@ -584,11 +1405,15 @@ html { scroll-behavior: smooth; }
         <span class="role">Interface · Corps · Prix · Boutons</span>
       </div>
       <p class="spec-sample-sans">RÉSERVER · 021 625 15 44</p>
-      <p class="spec-glyphs">Variable 100–900 + axe de chasse · ABCDEFGHIJKLMNOPQRSTUVWXYZ · abcdefghijklmnopqrstuvwxyz · 0123456789</p>
+      <p class="spec-glyphs">
+        Variable 100–900 + axe de chasse · ABCDEFGHIJKLMNOPQRSTUVWXYZ · abcdefghijklmnopqrstuvwxyz ·
+        0123456789
+      </p>
       <p class="note">
         Grotesque néo-classique dessiné pour l'écran et les petites tailles, excellente en capitales
-        trackées. Elle fait écho au mot « RESTAURANT » du logo, lui aussi grotesque large et très espacé.
-        Les prix passent en <code>tabular-nums</code> : les colonnes de chiffres s'alignent au pixel.
+        trackées. Elle fait écho au mot « RESTAURANT » du logo, lui aussi grotesque large et très
+        espacé. Les prix passent en <code>tabular-nums</code> : les colonnes de chiffres s'alignent
+        au pixel.
       </p>
     </div>
 
@@ -597,23 +1422,86 @@ html { scroll-behavior: smooth; }
       <div class="table-scroll">
         <table class="scale-table">
           <thead>
-            <tr><th>Rôle</th><th>Famille</th><th>Mobile → Desktop</th><th>Graisse</th><th>Casse</th><th>Tracking</th></tr>
+            <tr>
+              <th>Rôle</th>
+              <th>Famille</th>
+              <th>Mobile → Desktop</th>
+              <th>Graisse</th>
+              <th>Casse</th>
+              <th>Tracking</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td class="role-name">Hero</td><td>Newsreader</td><td class="num">44 → 80 px</td><td class="num">400</td><td>Phrase, 1 mot en italique</td><td class="num">−0,02 em</td></tr>
-            <tr><td class="role-name">Titre de section</td><td>Newsreader</td><td class="num">26 → 40 px</td><td class="num">400</td><td>Phrase</td><td class="num">−0,015 em</td></tr>
-            <tr><td class="role-name">Nom de plat</td><td>Newsreader</td><td class="num">17 → 20 px</td><td class="num">500</td><td>Phrase</td><td class="num">0</td></tr>
-            <tr><td class="role-name">Description</td><td>Archivo</td><td class="num">15 px</td><td class="num">400</td><td>Phrase</td><td class="num">0</td></tr>
-            <tr><td class="role-name">Prix</td><td>Archivo</td><td class="num">15 px</td><td class="num">600</td><td>Chiffres tabulaires</td><td class="num">+0,01 em</td></tr>
-            <tr><td class="role-name">Eyebrow</td><td>Archivo</td><td class="num">12 px</td><td class="num">600</td><td>CAPITALES</td><td class="num">+0,14 em</td></tr>
-            <tr><td class="role-name">Navigation</td><td>Archivo</td><td class="num">13 px</td><td class="num">600</td><td>CAPITALES</td><td class="num">+0,12 em</td></tr>
-            <tr><td class="role-name">Corps courant</td><td>Archivo</td><td class="num">16 px</td><td class="num">400</td><td>Phrase</td><td class="num">0</td></tr>
+            <tr>
+              <td class="role-name">Hero</td>
+              <td>Newsreader</td>
+              <td class="num">44 → 80 px</td>
+              <td class="num">400</td>
+              <td>Phrase, 1 mot en italique</td>
+              <td class="num">−0,02 em</td>
+            </tr>
+            <tr>
+              <td class="role-name">Titre de section</td>
+              <td>Newsreader</td>
+              <td class="num">26 → 40 px</td>
+              <td class="num">400</td>
+              <td>Phrase</td>
+              <td class="num">−0,015 em</td>
+            </tr>
+            <tr>
+              <td class="role-name">Nom de plat</td>
+              <td>Newsreader</td>
+              <td class="num">17 → 20 px</td>
+              <td class="num">500</td>
+              <td>Phrase</td>
+              <td class="num">0</td>
+            </tr>
+            <tr>
+              <td class="role-name">Description</td>
+              <td>Archivo</td>
+              <td class="num">15 px</td>
+              <td class="num">400</td>
+              <td>Phrase</td>
+              <td class="num">0</td>
+            </tr>
+            <tr>
+              <td class="role-name">Prix</td>
+              <td>Archivo</td>
+              <td class="num">15 px</td>
+              <td class="num">600</td>
+              <td>Chiffres tabulaires</td>
+              <td class="num">+0,01 em</td>
+            </tr>
+            <tr>
+              <td class="role-name">Eyebrow</td>
+              <td>Archivo</td>
+              <td class="num">12 px</td>
+              <td class="num">600</td>
+              <td>CAPITALES</td>
+              <td class="num">+0,14 em</td>
+            </tr>
+            <tr>
+              <td class="role-name">Navigation</td>
+              <td>Archivo</td>
+              <td class="num">13 px</td>
+              <td class="num">600</td>
+              <td>CAPITALES</td>
+              <td class="num">+0,12 em</td>
+            </tr>
+            <tr>
+              <td class="role-name">Corps courant</td>
+              <td>Archivo</td>
+              <td class="num">16 px</td>
+              <td class="num">400</td>
+              <td>Phrase</td>
+              <td class="num">0</td>
+            </tr>
           </tbody>
         </table>
       </div>
-      <p class="note" style="margin-top: var(--sp-4);">
-        Échelle interpolée en <code>clamp()</code> — aucun media query n'est nécessaire pour la typographie.
-        Deux fichiers de police seulement en chargement critique.
+      <p class="note" style="margin-top: var(--sp-4)">
+        Échelle interpolée en <code>clamp()</code> — aucun media query n'est nécessaire pour la
+        typographie. Deux fichiers de police seulement en chargement critique.
       </p>
     </div>
   </div>
@@ -623,7 +1511,11 @@ html { scroll-behavior: smooth; }
 <div class="hinge-bridge">
   <div class="wrap">
     <figure class="hinge">
-      <div class="photo-ph" role="img" aria-label="Emplacement d'une photo de plat en ratio 3:2, chevauchant la frontière entre la section blanche et la section encre">
+      <div
+        class="photo-ph"
+        role="img"
+        aria-label="Emplacement d'une photo de plat en ratio 3:2, chevauchant la frontière entre la section blanche et la section encre"
+      >
         <b>Emplacement photo · 3:2</b>
         <span>Charnière — elle enjambe la frontière blanc → encre</span>
       </div>
@@ -636,14 +1528,16 @@ html { scroll-behavior: smooth; }
   <div class="wrap">
     <div class="menu-demo">
       <p class="eyebrow">La signature</p>
-      <h2 class="section-title" style="color:var(--on-ink)">La ligne de rappel entre le plat et son prix.</h2>
+      <h2 class="section-title" style="color: var(--on-ink)">
+        La ligne de rappel entre le plat et son prix.
+      </h2>
       <p class="lede">
-        C'est le détail le plus mémorable de tout le corpus d'inspirations, et il devient ici le composant
-        central du site. La section carte bascule en encre : elle se distingue instantanément du reste et
-        les photos de plats y gagnent leur appétence maximale.
+        C'est le détail le plus mémorable de tout le corpus d'inspirations, et il devient ici le
+        composant central du site. La section carte bascule en encre : elle se distingue
+        instantanément du reste et les photos de plats y gagnent leur appétence maximale.
       </p>
 
-      <div style="margin-top: var(--sp-8);">
+      <div style="margin-top: var(--sp-8)">
         <div class="menu-tabs" role="tablist" aria-label="Catégories de la carte (démonstration)">
           <button type="button" role="tab" aria-selected="true">Entrées</button>
           <button type="button" role="tab" aria-selected="false">Assiettes froides</button>
@@ -662,7 +1556,9 @@ html { scroll-behavior: smooth; }
               <span class="dish-leader" aria-hidden="true"></span>
               <span class="dish-price">34.—</span>
             </p>
-            <p class="dish-desc">Demi-homard, fricassée de gambas et vongole, sauce à l'armoricaine</p>
+            <p class="dish-desc">
+              Demi-homard, fricassée de gambas et vongole, sauce à l'armoricaine
+            </p>
           </div>
           <div class="dish">
             <p class="dish-line">
@@ -691,14 +1587,14 @@ html { scroll-behavior: smooth; }
         </div>
 
         <p class="annot">
-          Colonne verrouillée à <strong>720 px</strong> même sur un écran de 1440 px. Un menu réparti sur
-          douze colonnes devient un tableau ; sur 720 px il reste une carte imprimée. C'est le choix le
-          plus structurant de tout le layout.
+          Colonne verrouillée à <strong>720 px</strong> même sur un écran de 1440 px. Un menu
+          réparti sur douze colonnes devient un tableau ; sur 720 px il reste une carte imprimée.
+          C'est le choix le plus structurant de tout le layout.
         </p>
         <p class="annot">
-          Les onglets sont de <strong>vrais liens vers des ancres</strong>, et le contenu de toutes les
-          catégories est présent dans le HTML. Un plat masqué dans un carrousel est un plat que Google
-          n'indexe pas.
+          Les onglets sont de <strong>vrais liens vers des ancres</strong>, et le contenu de toutes
+          les catégories est présent dans le HTML. Un plat masqué dans un carrousel est un plat que
+          Google n'indexe pas.
         </p>
       </div>
     </div>
@@ -710,18 +1606,24 @@ html { scroll-behavior: smooth; }
   <div class="wrap stack gap-8">
     <div>
       <p class="eyebrow">Les photos</p>
-      <h2 class="section-title read">Sans demi-teinte pour adoucir les passages, ce sont les images qui cousent les sections.</h2>
+      <h2 class="section-title read">
+        Sans demi-teinte pour adoucir les passages, ce sont les images qui cousent les sections.
+      </h2>
       <p class="lede">
         C'est le dispositif de composition signature du site. Une photo ancrée dans la bande blanche
-        déborde dans la bande d'encre suivante — la frontière ne se voit plus, elle se traverse. C'est
-        ce qui empêche l'alternance binaire de ressembler à un empilement de blocs, et c'est ce qui
-        donne aux images le statut qu'elles méritent.
+        déborde dans la bande d'encre suivante — la frontière ne se voit plus, elle se traverse.
+        C'est ce qui empêche l'alternance binaire de ressembler à un empilement de blocs, et c'est
+        ce qui donne aux images le statut qu'elles méritent.
       </p>
     </div>
 
     <div>
       <p class="eyebrow">La mécanique</p>
-      <div class="diagram" role="img" aria-label="Schéma : une photo ancrée dans la section blanche déborde de 40 à 120 pixels dans la section encre">
+      <div
+        class="diagram"
+        role="img"
+        aria-label="Schéma : une photo ancrée dans la section blanche déborde de 40 à 120 pixels dans la section encre"
+      >
         <div class="diagram-row diagram-white">
           <span>Section blanche</span>
           <span class="diagram-note">La photo termine la bande</span>
@@ -732,8 +1634,9 @@ html { scroll-behavior: smooth; }
           <span class="diagram-note">Son contenu commence sous la photo</span>
         </div>
       </div>
-      <p class="note" style="margin-top: var(--sp-4);">
-        Vous venez d'en traverser une, juste au-dessus de la section carte — et il y en a une autre plus bas.
+      <p class="note" style="margin-top: var(--sp-4)">
+        Vous venez d'en traverser une, juste au-dessus de la section carte — et il y en a une autre
+        plus bas.
       </p>
     </div>
 
@@ -741,24 +1644,27 @@ html { scroll-behavior: smooth; }
       <div class="rule-card">
         <h3>Les six règles de la charnière</h3>
         <p>
-          <strong>1.</strong> Sens unique — la lumière verse dans l'encre, jamais l'inverse.<br>
-          <strong>2.</strong> Trois par page au maximum, jamais deux consécutives.<br>
-          <strong>3.</strong> Aucune ombre, aucune bordure, aucun arrondi : la profondeur vient du décalage.<br>
-          <strong>4.</strong> Le conteneur ne doit jamais rogner le débordement.<br>
-          <strong>5.</strong> Rien de critique dans la zone de chevauchement — ni titre, ni prix, ni bouton.<br>
-          <strong>6.</strong> Sur mobile, le débordement retombe à 40 px : perceptible, sans manger l'écran.
+          <strong>1.</strong> Sens unique — la lumière verse dans l'encre, jamais l'inverse.<br />
+          <strong>2.</strong> Trois par page au maximum, jamais deux consécutives.<br />
+          <strong>3.</strong> Aucune ombre, aucune bordure, aucun arrondi : la profondeur vient du
+          décalage.<br />
+          <strong>4.</strong> Le conteneur ne doit jamais rogner le débordement.<br />
+          <strong>5.</strong> Rien de critique dans la zone de chevauchement — ni titre, ni prix, ni
+          bouton.<br />
+          <strong>6.</strong> Sur mobile, le débordement retombe à 40 px : perceptible, sans manger
+          l'écran.
         </p>
       </div>
       <div class="rule-card">
         <h3>Deux autres façons d'intégrer une image</h3>
         <p>
-          <strong>Bord perdu.</strong> L'image sort de la grille et touche le bord de l'écran d'un seul
-          côté, le texte restant dans le conteneur. Pour les plats signature et la salle.
+          <strong>Bord perdu.</strong> L'image sort de la grille et touche le bord de l'écran d'un
+          seul côté, le texte restant dans le conteneur. Pour les plats signature et la salle.
         </p>
         <p>
-          <strong>Respiration pleine largeur.</strong> Une photo en 21:9, sans texte dessus, intercalée
-          toutes les deux catégories dans la carte. Elle aère une longue liste sans en interrompre la
-          lecture.
+          <strong>Respiration pleine largeur.</strong> Une photo en 21:9, sans texte dessus,
+          intercalée toutes les deux catégories dans la carte. Elle aère une longue liste sans en
+          interrompre la lecture.
         </p>
       </div>
     </div>
@@ -767,28 +1673,70 @@ html { scroll-behavior: smooth; }
       <p class="eyebrow">Où les photos vivent, sur la page d'accueil</p>
       <div class="table-scroll">
         <table class="scale-table">
-          <thead><tr><th>Position</th><th>Dispositif</th><th>Ratio</th><th>Rôle</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Dispositif</th>
+              <th>Ratio</th>
+              <th>Rôle</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td class="role-name">Hero</td><td>Pleine largeur, pleine hauteur</td><td class="num">16:9 · 4:5 mobile</td><td>Donner faim immédiatement</td></tr>
-            <tr><td class="role-name">Plats signature</td><td>Grille 1 / 2 / 4 colonnes</td><td class="num">4:5</td><td>Montrer, pas décrire</td></tr>
-            <tr><td class="role-name">Entrée de la carte</td><td><strong>Charnière</strong></td><td class="num">3:2</td><td>Coudre la bascule vers la carte</td></tr>
-            <tr><td class="role-name">Dans la carte</td><td>Respiration pleine largeur</td><td class="num">21:9</td><td>Aérer la liste</td></tr>
-            <tr><td class="role-name">Sortie de la carte</td><td><strong>Charnière</strong></td><td class="num">3:2</td><td>Coudre la fin de page</td></tr>
-            <tr><td class="role-name">Bloc « la salle »</td><td>Bord perdu</td><td class="num">4:5</td><td>Situer le lieu</td></tr>
-            <tr><td class="role-name">Galerie</td><td>Mosaïque alignée sur la grille</td><td class="num">3:2 et 2:3</td><td>Prouver la régularité</td></tr>
+            <tr>
+              <td class="role-name">Hero</td>
+              <td>Pleine largeur, pleine hauteur</td>
+              <td class="num">16:9 · 4:5 mobile</td>
+              <td>Donner faim immédiatement</td>
+            </tr>
+            <tr>
+              <td class="role-name">Plats signature</td>
+              <td>Grille 1 / 2 / 4 colonnes</td>
+              <td class="num">4:5</td>
+              <td>Montrer, pas décrire</td>
+            </tr>
+            <tr>
+              <td class="role-name">Entrée de la carte</td>
+              <td><strong>Charnière</strong></td>
+              <td class="num">3:2</td>
+              <td>Coudre la bascule vers la carte</td>
+            </tr>
+            <tr>
+              <td class="role-name">Dans la carte</td>
+              <td>Respiration pleine largeur</td>
+              <td class="num">21:9</td>
+              <td>Aérer la liste</td>
+            </tr>
+            <tr>
+              <td class="role-name">Sortie de la carte</td>
+              <td><strong>Charnière</strong></td>
+              <td class="num">3:2</td>
+              <td>Coudre la fin de page</td>
+            </tr>
+            <tr>
+              <td class="role-name">Bloc « la salle »</td>
+              <td>Bord perdu</td>
+              <td class="num">4:5</td>
+              <td>Situer le lieu</td>
+            </tr>
+            <tr>
+              <td class="role-name">Galerie</td>
+              <td>Mosaïque alignée sur la grille</td>
+              <td class="num">3:2 et 2:3</td>
+              <td>Prouver la régularité</td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <div class="rule-card" style="border-color: var(--red-500);">
-      <p class="eyebrow" style="margin:0">Point de blocage n° 1</p>
+    <div class="rule-card" style="border-color: var(--red-500)">
+      <p class="eyebrow" style="margin: 0">Point de blocage n° 1</p>
       <h3>Sur fond blanc pur, une photo n'a plus rien pour se rattraper</h3>
       <p>
         Avec une seule nuance claire et 15 % de la surface en images, la qualité photo n'est plus un
-        confort : c'est la condition du résultat. Les visuels du site actuel sont compressés par Wix.
-        Il faut soit les fichiers originaux, soit une séance photo — plats vus de dessus sur fond sombre
-        et mat, lumière latérale rasante, ombres nettes assumées.
+        confort : c'est la condition du résultat. Les visuels du site actuel sont compressés par
+        Wix. Il faut soit les fichiers originaux, soit une séance photo — plats vus de dessus sur
+        fond sombre et mat, lumière latérale rasante, ombres nettes assumées.
       </p>
     </div>
   </div>
@@ -801,41 +1749,70 @@ html { scroll-behavior: smooth; }
       <p class="eyebrow">Rythme de page</p>
       <h2 class="section-title read">Blanc, encre, et le rouge une seule fois.</h2>
       <p class="lede">
-        La référence principale est intégralement sombre ; l'alternance retenue est binaire. L'encre est
-        réservée aux deux moments qui doivent frapper — le hero et la carte — plus le pied de page. Le
-        rouge n'apparaît en aplat qu'une fois, sur les infos pratiques.
+        La référence principale est intégralement sombre ; l'alternance retenue est binaire. L'encre
+        est réservée aux deux moments qui doivent frapper — le hero et la carte — plus le pied de
+        page. Le rouge n'apparaît en aplat qu'une fois, sur les infos pratiques.
       </p>
     </div>
 
-    <div class="rhythm" role="img" aria-label="Séquence des bandes de la page d'accueil, de haut en bas">
-      <div class="r-ink"><span>Hero</span><span class="r-note">Photo pleine largeur, voile dégradé, aucun bouton</span></div>
-      <div class="r-paper"><span>Accès direct</span><span class="r-note">Encart blanc, chevauche le hero</span></div>
-      <div class="r-paper"><span>Plats signature</span><span class="r-note">Grille 1 / 2 / 4 colonnes, photos 4:5, coins vifs</span></div>
-      <div class="r-hinge"><span>↓ Charnière photo</span><span class="r-note">3:2, déborde dans l'encre</span></div>
-      <div class="r-ink"><span>La carte</span><span class="r-note">Onglets collants, colonne 720 px, ligne de rappel</span></div>
-      <div class="r-paper"><span>Galerie</span><span class="r-note">Mosaïque asymétrique alignée sur la grille</span></div>
-      <div class="r-brand"><span>Infos pratiques</span><span class="r-note">Le seul aplat rouge de la page</span></div>
-      <div class="r-paper"><span>La salle</span><span class="r-note">Image en bord perdu + plan en niveaux de gris</span></div>
-      <div class="r-hinge"><span>↓ Charnière photo</span><span class="r-note">3:2, déborde dans le footer</span></div>
-      <div class="r-ink"><span>Footer</span><span class="r-note">NAP complet + logo géant en filigrane</span></div>
+    <div
+      class="rhythm"
+      role="img"
+      aria-label="Séquence des bandes de la page d'accueil, de haut en bas"
+    >
+      <div class="r-ink">
+        <span>Hero</span
+        ><span class="r-note">Photo pleine largeur, voile dégradé, aucun bouton</span>
+      </div>
+      <div class="r-paper">
+        <span>Accès direct</span><span class="r-note">Encart blanc, chevauche le hero</span>
+      </div>
+      <div class="r-paper">
+        <span>Plats signature</span
+        ><span class="r-note">Grille 1 / 2 / 4 colonnes, photos 4:5, coins vifs</span>
+      </div>
+      <div class="r-hinge">
+        <span>↓ Charnière photo</span><span class="r-note">3:2, déborde dans l'encre</span>
+      </div>
+      <div class="r-ink">
+        <span>La carte</span
+        ><span class="r-note">Onglets collants, colonne 720 px, ligne de rappel</span>
+      </div>
+      <div class="r-paper">
+        <span>Galerie</span><span class="r-note">Mosaïque asymétrique alignée sur la grille</span>
+      </div>
+      <div class="r-brand">
+        <span>Infos pratiques</span><span class="r-note">Le seul aplat rouge de la page</span>
+      </div>
+      <div class="r-paper">
+        <span>La salle</span
+        ><span class="r-note">Image en bord perdu + plan en niveaux de gris</span>
+      </div>
+      <div class="r-hinge">
+        <span>↓ Charnière photo</span><span class="r-note">3:2, déborde dans le footer</span>
+      </div>
+      <div class="r-ink">
+        <span>Footer</span><span class="r-note">NAP complet + logo géant en filigrane</span>
+      </div>
     </div>
 
     <div class="two-col">
       <div class="rule-card">
         <h3>Respiration entre les blocs, densité à l'intérieur</h3>
         <p>
-          64 → 120 px entre deux sections, mais une ligne de menu ne flotte pas : 16 px de padding, un
-          filet, et c'est tout. La générosité est verticale entre les sections, jamais à l'intérieur des
-          listes. Aucune valeur d'espacement improvisée — échelle de 4 px, dix crans, point.
+          64 → 120 px entre deux sections, mais une ligne de menu ne flotte pas : 16 px de padding,
+          un filet, et c'est tout. La générosité est verticale entre les sections, jamais à
+          l'intérieur des listes. Aucune valeur d'espacement improvisée — échelle de 4 px, dix
+          crans, point.
         </p>
       </div>
       <div class="rule-card">
         <h3>La bordure remplace l'ombre — et le gris</h3>
         <p>
           Zéro ombre portée sur une carte de plat, une image, un bouton ou un encart. Et puisqu'il
-          n'existe pas de gris de fond, c'est aussi le filet qui distingue deux blocs blancs voisins.
-          Rayons : 0 px sur les photos, 2 px partout ailleurs. Seule exception ronde — le bouton
-          circulaire à flèche.
+          n'existe pas de gris de fond, c'est aussi le filet qui distingue deux blocs blancs
+          voisins. Rayons : 0 px sur les photos, 2 px partout ailleurs. Seule exception ronde — le
+          bouton circulaire à flèche.
         </p>
       </div>
     </div>
@@ -847,10 +1824,12 @@ html { scroll-behavior: smooth; }
   <div class="wrap stack gap-8">
     <div>
       <p class="eyebrow">Composants</p>
-      <h2 class="section-title read">Le bouton d'appel est un CTA de premier rang, pas un lien de bas de page.</h2>
+      <h2 class="section-title read">
+        Le bouton d'appel est un CTA de premier rang, pas un lien de bas de page.
+      </h2>
       <p class="lede">
-        L'Étoile réserve par téléphone. Cette contrainte devient un parti pris : la performance du site se
-        mesurera au nombre d'appels déclenchés, donc le numéro est visible sur chaque écran.
+        L'Étoile réserve par téléphone. Cette contrainte devient un parti pris : la performance du
+        site se mesurera au nombre d'appels déclenchés, donc le numéro est visible sur chaque écran.
       </p>
     </div>
 
@@ -859,53 +1838,54 @@ html { scroll-behavior: smooth; }
         <span class="tag">Header</span>
         <h3>Deux étages, fusionnés au scroll</h3>
         <p>
-          Barre utilitaire en encre : adresse, horaires du jour calculés en direct, téléphone cliquable.
-          En dessous, la navigation — cinq entrées maximum, logo à gauche, bouton d'appel à droite. Les
-          deux étages fusionnent en une barre de 56 px après le scroll.
+          Barre utilitaire en encre : adresse, horaires du jour calculés en direct, téléphone
+          cliquable. En dessous, la navigation — cinq entrées maximum, logo à gauche, bouton d'appel
+          à droite. Les deux étages fusionnent en une barre de 56 px après le scroll.
         </p>
       </div>
       <div class="comp">
         <span class="tag">Hero</span>
         <h3>Une photo, fixe, sans bouton</h3>
         <p>
-          80 vh, voile dégradé du bas vers le haut, texte ancré en bas à gauche. Aucun carrousel, aucun
-          CTA : les actions vivent dans le bandeau juste en dessous. Un seul mot du titre en italique.
+          80 vh, voile dégradé du bas vers le haut, texte ancré en bas à gauche. Aucun carrousel,
+          aucun CTA : les actions vivent dans le bandeau juste en dessous. Un seul mot du titre en
+          italique.
         </p>
       </div>
       <div class="comp">
         <span class="tag">Accès direct</span>
         <h3>Quatre portes qui chevauchent le hero</h3>
         <p>
-          Voir la carte · Réserver par téléphone · Horaires · Itinéraire. Encart blanc débordant sur le
-          hero, cellules séparées par des filets verticaux. Au survol, faute de gris disponible : liseré
-          rouge en haut de cellule et chevron translaté de 4 px.
+          Voir la carte · Réserver par téléphone · Horaires · Itinéraire. Encart blanc débordant sur
+          le hero, cellules séparées par des filets verticaux. Au survol, faute de gris disponible :
+          liseré rouge en haut de cellule et chevron translaté de 4 px.
         </p>
       </div>
       <div class="comp">
         <span class="tag">Carte de plat</span>
         <h3>Photo 4:5, aucun bouton</h3>
         <p>
-          Nom, description sur deux lignes maximum, prix en rouge d'action. La carte entière est cliquable
-          et renvoie à l'ancre correspondante dans la carte. Au survol : l'image zoome de 4 %, la carte ne
-          bouge pas et aucune ombre n'apparaît.
+          Nom, description sur deux lignes maximum, prix en rouge d'action. La carte entière est
+          cliquable et renvoie à l'ancre correspondante dans la carte. Au survol : l'image zoome de
+          4 %, la carte ne bouge pas et aucune ombre n'apparaît.
         </p>
       </div>
       <div class="comp">
         <span class="tag">Infos pratiques</span>
         <h3>Le seul aplat rouge</h3>
         <p>
-          Horaires · Adresse · Contact, en trois colonnes sur fond #A1171E (7,95:1 — AAA). Le plan suit en
-          dessous, en niveaux de gris, avec un encart blanc superposé. La carte interactive ne se charge
-          qu'au clic — performance et RGPD.
+          Horaires · Adresse · Contact, en trois colonnes sur fond #A1171E (7,95:1 — AAA). Le plan
+          suit en dessous, en niveaux de gris, avec un encart blanc superposé. La carte interactive
+          ne se charge qu'au clic — performance et RGPD.
         </p>
       </div>
       <div class="comp">
         <span class="tag">Mobile</span>
         <h3>Barre fixe : la carte, ou l'appel</h3>
         <p>
-          Après 320 px de scroll, deux boutons pleine largeur apparaissent en bas d'écran : « LA CARTE »
-          en encre, « APPELER » en rouge. 56 px de haut plus la zone de sécurité iOS. C'est la réponse
-          concrète au « menu en un clic ».
+          Après 320 px de scroll, deux boutons pleine largeur apparaissent en bas d'écran : « LA
+          CARTE » en encre, « APPELER » en rouge. 56 px de haut plus la zone de sécurité iOS. C'est
+          la réponse concrète au « menu en un clic ».
         </p>
       </div>
     </div>
@@ -916,17 +1896,29 @@ html { scroll-behavior: smooth; }
         <a class="btn btn-primary" href="#composants">Réserver · 021 625 15 44</a>
         <a class="btn btn-secondary" href="#signature">Voir la carte</a>
         <a class="btn btn-tertiary" href="#rythme">Itinéraire</a>
-        <button class="btn btn-round" type="button" aria-label="Exemple de bouton circulaire de navigation">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M4 12h15M13 6l6 6-6 6"/>
+        <button
+          class="btn btn-round"
+          type="button"
+          aria-label="Exemple de bouton circulaire de navigation"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M4 12h15M13 6l6 6-6 6" />
           </svg>
         </button>
       </div>
-      <p class="note" style="margin-top: var(--sp-4);">
-        Rectangulaires, rayon 2 px, 48 px de haut minimum (56 px pour les CTA principaux en mobile). Le
-        bouton secondaire ne s'éclaircit pas au survol — il bascule en encre, puisqu'il n'existe pas de
-        gris. Le bouton circulaire à flèche est la seule forme ronde du site. Jamais plus de deux CTA
-        visibles simultanément dans une même zone.
+      <p class="note" style="margin-top: var(--sp-4)">
+        Rectangulaires, rayon 2 px, 48 px de haut minimum (56 px pour les CTA principaux en mobile).
+        Le bouton secondaire ne s'éclaircit pas au survol — il bascule en encre, puisqu'il n'existe
+        pas de gris. Le bouton circulaire à flèche est la seule forme ronde du site. Jamais plus de
+        deux CTA visibles simultanément dans une même zone.
       </p>
     </div>
   </div>
@@ -936,7 +1928,11 @@ html { scroll-behavior: smooth; }
 <div class="hinge-bridge">
   <div class="wrap">
     <figure class="hinge">
-      <div class="photo-ph" role="img" aria-label="Deuxième emplacement photo, chevauchant la frontière vers la section mouvement">
+      <div
+        class="photo-ph"
+        role="img"
+        aria-label="Deuxième emplacement photo, chevauchant la frontière vers la section mouvement"
+      >
         <b>Emplacement photo · 3:2</b>
         <span>Deuxième charnière — trois par page au maximum</span>
       </div>
@@ -949,34 +1945,75 @@ html { scroll-behavior: smooth; }
   <div class="wrap stack gap-7">
     <div>
       <p class="eyebrow">Mouvement</p>
-      <h2 class="section-title" style="color:var(--on-ink)">Le mouvement révèle. Il ne divertit jamais.</h2>
+      <h2 class="section-title" style="color: var(--on-ink)">
+        Le mouvement révèle. Il ne divertit jamais.
+      </h2>
       <p class="lede">
         Si une animation attire l'attention sur elle-même, elle est supprimée. Aucune bibliothèque
-        d'animation : <code>IntersectionObserver</code> et des transitions CSS suffisent à tout ce qui suit.
+        d'animation : <code>IntersectionObserver</code> et des transitions CSS suffisent à tout ce
+        qui suit.
       </p>
     </div>
 
     <div class="table-scroll">
       <table class="motion-table">
-        <thead><tr><th>Élément</th><th>Animation</th><th>Durée</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Élément</th>
+            <th>Animation</th>
+            <th>Durée</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr><td>Apparition de section</td><td>Opacité 0→1 + translation de 12 px — une seule fois</td><td class="num">400 ms</td></tr>
-          <tr><td>Liste de plats</td><td>Même effet, cascade de 60 ms, plafonnée à 8 éléments</td><td class="num">400 ms</td></tr>
-          <tr><td>Onglet actif</td><td>Le soulignement rouge glisse horizontalement</td><td class="num">240 ms</td></tr>
-          <tr><td>Survol d'image</td><td>Zoom de 1 à 1,04</td><td class="num">600 ms</td></tr>
-          <tr><td>Survol de bouton</td><td>Couleur uniquement — aucun déplacement</td><td class="num">160 ms</td></tr>
-          <tr><td>Flèche circulaire</td><td>Translation de 3 px vers la droite</td><td class="num">160 ms</td></tr>
-          <tr><td>Menu mobile</td><td>Voile en fondu, puis liens en cascade de 40 ms</td><td class="num">240 ms</td></tr>
-          <tr><td>Image en charnière</td><td>Aucune — surtout pas de parallaxe</td><td class="num">—</td></tr>
+          <tr>
+            <td>Apparition de section</td>
+            <td>Opacité 0→1 + translation de 12 px — une seule fois</td>
+            <td class="num">400 ms</td>
+          </tr>
+          <tr>
+            <td>Liste de plats</td>
+            <td>Même effet, cascade de 60 ms, plafonnée à 8 éléments</td>
+            <td class="num">400 ms</td>
+          </tr>
+          <tr>
+            <td>Onglet actif</td>
+            <td>Le soulignement rouge glisse horizontalement</td>
+            <td class="num">240 ms</td>
+          </tr>
+          <tr>
+            <td>Survol d'image</td>
+            <td>Zoom de 1 à 1,04</td>
+            <td class="num">600 ms</td>
+          </tr>
+          <tr>
+            <td>Survol de bouton</td>
+            <td>Couleur uniquement — aucun déplacement</td>
+            <td class="num">160 ms</td>
+          </tr>
+          <tr>
+            <td>Flèche circulaire</td>
+            <td>Translation de 3 px vers la droite</td>
+            <td class="num">160 ms</td>
+          </tr>
+          <tr>
+            <td>Menu mobile</td>
+            <td>Voile en fondu, puis liens en cascade de 40 ms</td>
+            <td class="num">240 ms</td>
+          </tr>
+          <tr>
+            <td>Image en charnière</td>
+            <td>Aucune — surtout pas de parallaxe</td>
+            <td class="num">—</td>
+          </tr>
         </tbody>
       </table>
     </div>
 
-    <p class="annot" style="margin-top:0">
-      <code>prefers-reduced-motion</code> est implémenté, pas optionnel — et le contenu reste lisible même
-      si le JavaScript échoue : une opacité nulle par défaut sans classe <code>.js</code> sur la racine est
-      interdite. Parallaxe, scroll détourné, curseur personnalisé, carrousel automatique et texte qui
-      s'écrit lettre par lettre : exclus.
+    <p class="annot" style="margin-top: 0">
+      <code>prefers-reduced-motion</code> est implémenté, pas optionnel — et le contenu reste
+      lisible même si le JavaScript échoue : une opacité nulle par défaut sans classe
+      <code>.js</code> sur la racine est interdite. Parallaxe, scroll détourné, curseur
+      personnalisé, carrousel automatique et texte qui s'écrit lettre par lettre : exclus.
     </p>
   </div>
 </section>
@@ -991,23 +2028,100 @@ html { scroll-behavior: smooth; }
       arrondi coloré, d'icône colorée ni de carrousel automatique. Ces absences sont des interdits.
     </p>
 
-    <ul class="no-list" style="margin-top: var(--sp-7);">
-      <li><span><strong>Une deuxième nuance claire.</strong> Blanc cassé, crème, beige, gris très clair : interdits en fond, en carte, en champ et en survol. Il n'existe qu'un seul clair.</span></li>
-      <li><span><strong>Un gris de fond pour distinguer un bloc.</strong> C'est le filet 1 px ou le passage à l'encre, jamais une nuance.</span></li>
-      <li><span><strong>Un deuxième aplat rouge sur la même page.</strong> Un rouge qui est deux fois ne signale plus rien.</span></li>
-      <li><span><strong>Le rouge du logo en texte courant.</strong> #E9323C échoue AA — c'est #C11F28 qui porte les prix et les liens.</span></li>
-      <li><span><strong>Une image qui remonte de l'encre vers le blanc.</strong> Les charnières vont toujours dans le sens clair → encre.</span></li>
-      <li><span><strong>Plus de trois chevauchements par page,</strong> ou deux consécutifs : le procédé devient un tic et la page ondule.</span></li>
-      <li><span><strong>Une ombre portée sous une image qui chevauche.</strong> La profondeur vient du décalage, pas de l'ombre.</span></li>
-      <li><span><strong>Le noir pur #000000 en fond.</strong> Il est réservé au logo ; les fonds utilisent #121110.</span></li>
-      <li><span><strong>Une deuxième écriture manuscrite.</strong> Le logo est déjà un script.</span></li>
-      <li><span><strong>La carte en PDF seul.</strong> Sans carte HTML, aucun plat ne remonte dans Google.</span></li>
-      <li><span><strong>Un carrousel pour présenter la carte.</strong> Chaque plat masqué est un plat non lu et non indexé.</span></li>
-      <li><span><strong>Un formulaire de réservation en ligne</strong> tant que le restaurant réserve par téléphone : un formulaire qui n'aboutit pas est pire qu'un numéro visible.</span></li>
-      <li><span><strong>Les sections « Notre histoire », « Nos valeurs », « Notre philosophie ».</strong> Le brief les exclut explicitement.</span></li>
-      <li><span><strong>Le vert dans la palette.</strong> Cliché italien, et collision optique avec le rouge.</span></li>
-      <li><span><strong>Playfair Display, Poppins, Montserrat, Inter en titre.</strong> Les typographies qui signent un template.</span></li>
-      <li><span><strong>Écrire « L'Etoile ».</strong> Apostrophe typographique et É accentué partout — le site actuel est à corriger.</span></li>
+    <ul class="no-list" style="margin-top: var(--sp-7)">
+      <li>
+        <span
+          ><strong>Une deuxième nuance claire.</strong> Blanc cassé, crème, beige, gris très clair :
+          interdits en fond, en carte, en champ et en survol. Il n'existe qu'un seul clair.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Un gris de fond pour distinguer un bloc.</strong> C'est le filet 1 px ou le
+          passage à l'encre, jamais une nuance.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Un deuxième aplat rouge sur la même page.</strong> Un rouge qui est deux fois ne
+          signale plus rien.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Le rouge du logo en texte courant.</strong> #E9323C échoue AA — c'est #C11F28 qui
+          porte les prix et les liens.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Une image qui remonte de l'encre vers le blanc.</strong> Les charnières vont
+          toujours dans le sens clair → encre.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Plus de trois chevauchements par page,</strong> ou deux consécutifs : le procédé
+          devient un tic et la page ondule.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Une ombre portée sous une image qui chevauche.</strong> La profondeur vient du
+          décalage, pas de l'ombre.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Le noir pur #000000 en fond.</strong> Il est réservé au logo ; les fonds
+          utilisent #121110.</span
+        >
+      </li>
+      <li>
+        <span><strong>Une deuxième écriture manuscrite.</strong> Le logo est déjà un script.</span>
+      </li>
+      <li>
+        <span
+          ><strong>La carte en PDF seul.</strong> Sans carte HTML, aucun plat ne remonte dans
+          Google.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Un carrousel pour présenter la carte.</strong> Chaque plat masqué est un plat non
+          lu et non indexé.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Un formulaire de réservation en ligne</strong> tant que le restaurant réserve par
+          téléphone : un formulaire qui n'aboutit pas est pire qu'un numéro visible.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Les sections « Notre histoire », « Nos valeurs », « Notre philosophie ».</strong>
+          Le brief les exclut explicitement.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Le vert dans la palette.</strong> Cliché italien, et collision optique avec le
+          rouge.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Playfair Display, Poppins, Montserrat, Inter en titre.</strong> Les typographies
+          qui signent un template.</span
+        >
+      </li>
+      <li>
+        <span
+          ><strong>Écrire « L'Etoile ».</strong> Apostrophe typographique et É accentué partout — le
+          site actuel est à corriger.</span
+        >
+      </li>
     </ul>
   </div>
 </section>
@@ -1016,29 +2130,36 @@ html { scroll-behavior: smooth; }
 <section id="trancher" class="band-brand">
   <div class="wrap read">
     <p class="eyebrow">À trancher</p>
-    <h2 class="section-title" style="color:var(--on-ink)">Deux arbitrages qui te reviennent.</h2>
-    <p style="font-size:var(--fs-lead);color:rgb(255 255 255 / .9);line-height:1.55;margin-top:var(--sp-4);">
-      Tout le reste est décidé. Ces deux points changent le caractère du site, pas sa qualité —
-      ils demandent donc un choix, pas une correction.
+    <h2 class="section-title" style="color: var(--on-ink)">Deux arbitrages qui te reviennent.</h2>
+    <p
+      style="
+        font-size: var(--fs-lead);
+        color: rgb(255 255 255 / 0.9);
+        line-height: 1.55;
+        margin-top: var(--sp-4);
+      "
+    >
+      Tout le reste est décidé. Ces deux points changent le caractère du site, pas sa qualité — ils
+      demandent donc un choix, pas une correction.
     </p>
 
-    <div class="decide" style="margin-top: var(--sp-7);">
+    <div class="decide" style="margin-top: var(--sp-7)">
       <div>
         <span class="verdict">Retenu : Newsreader</span>
         <h3>Le caractère du serif</h3>
         <p>
-          Newsreader est le choix robuste : elle tient en petit corps, ce qui est vital puisque le nom de
-          plat est l'élément le plus répété du site. Un Bodoni Moda en display serait plus spectaculaire
-          dès le hero, au prix d'une troisième police — refusée pour la performance.
+          Newsreader est le choix robuste : elle tient en petit corps, ce qui est vital puisque le
+          nom de plat est l'élément le plus répété du site. Un Bodoni Moda en display serait plus
+          spectaculaire dès le hero, au prix d'une troisième police — refusée pour la performance.
         </p>
       </div>
       <div>
         <span class="verdict">Retenu : téléphone uniquement</span>
         <h3>La réservation</h3>
         <p>
-          Le restaurant réserve par téléphone. Si un passage à un système en ligne est prévu — TheFork ou
-          équivalent — il faut le savoir maintenant : cela change le header, le hero et le bandeau d'accès
-          direct.
+          Le restaurant réserve par téléphone. Si un passage à un système en ligne est prévu —
+          TheFork ou équivalent — il faut le savoir maintenant : cela change le header, le hero et
+          le bandeau d'accès direct.
         </p>
       </div>
     </div>
@@ -1059,16 +2180,16 @@ html { scroll-behavior: smooth; }
 </footer>
 
 <script>
-(function () {
-  var tablist = document.querySelector('.menu-tabs');
-  if (!tablist) return;
-  var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
-  tablist.addEventListener('click', function (event) {
-    var tab = event.target.closest('[role="tab"]');
-    if (!tab) return;
-    tabs.forEach(function (item) {
-      item.setAttribute('aria-selected', String(item === tab));
+  (function () {
+    var tablist = document.querySelector(".menu-tabs");
+    if (!tablist) return;
+    var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
+    tablist.addEventListener("click", function (event) {
+      var tab = event.target.closest('[role="tab"]');
+      if (!tab) return;
+      tabs.forEach(function (item) {
+        item.setAttribute("aria-selected", String(item === tab));
+      });
     });
-  });
-})();
+  })();
 </script>
