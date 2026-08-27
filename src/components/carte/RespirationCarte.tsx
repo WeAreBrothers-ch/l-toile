@@ -8,8 +8,8 @@ interface Props {
 
 export function RespirationCarte({ photo }: Props) {
   return (
-    <div className={`wrap ${styles.respiration}`}>
-      <Photo photo={photo} sizes="(min-width: 800px) 720px, 92vw" />
+    <div className={`wrapLarge ${styles.respiration}`}>
+      <Photo photo={photo} sizes="(min-width: 1440px) 1344px, 92vw" className={styles.cadre} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { OngletsCategories, type Onglet } from '@/components/carte/OngletsCatego
 import { RespirationCarte } from '@/components/carte/RespirationCarte';
 import { AppelReservation } from '@/components/carte/AppelReservation';
 import { Garnitures } from '@/components/carte/Garnitures';
-import { Charniere, classeReception } from '@/components/ui/Charniere';
+import { Duo } from '@/components/ui/Duo';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { BoutonLien } from '@/components/ui/Bouton';
 import { ficheMenu, filAriane } from '@/lib/jsonld';
@@ -44,37 +44,40 @@ export default function PageCarte() {
         ]}
       />
 
+      {/* La page s'ouvre sur un duo : le titre d'un côté, une assiette de
+          l'autre. Le lecteur voit ce qu'il vient chercher avant de lire. */}
       <section className="surfacePapier section">
-        <div className="wrap">
-          <div className="read">
-            <p className="eyebrow">Cuisine italienne et brasserie</p>
-            <h1 className={styles.titre}>
+        <Duo
+          photo={PHOTOS.duoCarte}
+          eyebrow="Cuisine italienne et brasserie"
+          titre={
+            <>
               La carte du Restaurant L’Étoile, <em className="italique">à Lausanne</em>
-            </h1>
-            <p className="chapo">
-              Entrées, pâtes fraîches, risottos, poissons, viandes sur ardoise et fondues.
-              Tout est écrit ici, prix compris — il n’y a rien à télécharger.
-            </p>
-            <p className={styles.raccourci}>
-              <BoutonLien href="/pizzas" variante="tertiaire">
-                Voir aussi les 15 pizzas
-              </BoutonLien>
-            </p>
+            </>
+          }
+          niveau="h1"
+          cote="gauche"
+          prioritaire
+        >
+          <p className="chapo">
+            Entrées, pâtes fraîches, risottos, poissons, viandes sur ardoise et fondues.
+            Tout est écrit ici, prix compris — il n’y a rien à télécharger.
+          </p>
+          <div data-actions>
+            <BoutonLien href="/pizzas" variante="tertiaire">
+              Voir aussi les 15 pizzas
+            </BoutonLien>
           </div>
-        </div>
+        </Duo>
       </section>
 
-      <Charniere photo={PHOTOS.charniereCartePage} cote="gauche" />
-
-      {/* La section recule le début de son contenu de la hauteur du débordement :
-          rien de critique ne passe jamais sous la photo. */}
-      <section className={`surfaceEncre ${classeReception} ${styles.carte}`} aria-label="La carte">
+      <section className={`surfaceEncre ${styles.carte}`} aria-label="La carte">
         <OngletsCategories onglets={ONGLETS} ariaLabel="Catégories de la carte" />
 
         {PAQUETS.map((paquet, index) => (
           <div key={paquet[0]?.id ?? index}>
             <div className="wrap">
-              <div className={`read ${styles.colonne}`}>
+              <div className={styles.colonne}>
                 {paquet.map((section) => (
                   <CategorieCarte key={section.id} section={section} />
                 ))}

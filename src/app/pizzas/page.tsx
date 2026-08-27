@@ -5,7 +5,7 @@ import { PHOTOS } from '@data/photos';
 import { RESTAURANT, SITE_URL } from '@data/restaurant';
 import { LigneDePlat } from '@/components/carte/LigneDePlat';
 import { AppelReservation } from '@/components/carte/AppelReservation';
-import { Charniere, classeReception } from '@/components/ui/Charniere';
+import { Duo } from '@/components/ui/Duo';
 import { BoutonLien } from '@/components/ui/Bouton';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { fichePizzas, filAriane } from '@/lib/jsonld';
@@ -42,30 +42,33 @@ export default function PagePizzas() {
       />
 
       <section className="surfacePapier section">
-        <div className="wrap">
-          <div className="read">
-            <p className="eyebrow">Cuites au four</p>
-            <h1 className={styles.titre}>
+        <Duo
+          photo={PHOTOS.duoPizzas}
+          eyebrow="Cuites au four"
+          titre={
+            <>
               Les {PIZZAS.length} pizzas de L’Étoile, <em className="italique">à Lausanne</em>
-            </h1>
-            <p className="chapo">
-              De la Margherita à la Bella Italia, de 17.— à 27.—. Pâte travaillée sur place,
-              cuisson au four, à emporter ou sur place.
-            </p>
-            <p className={styles.raccourci}>
-              <BoutonLien href="/carte" variante="tertiaire">
-                Voir la carte complète
-              </BoutonLien>
-            </p>
+            </>
+          }
+          niveau="h1"
+          cote="droite"
+          prioritaire
+        >
+          <p className="chapo">
+            De la Margherita à la Bella Italia, de 17.— à 27.—. Pâte travaillée sur place,
+            cuisson au four, à emporter ou sur place.
+          </p>
+          <div data-actions>
+            <BoutonLien href="/carte" variante="tertiaire">
+              Voir la carte complète
+            </BoutonLien>
           </div>
-        </div>
+        </Duo>
       </section>
 
-      <Charniere photo={PHOTOS.charnierePizzas} />
-
-      <section className={`surfaceEncre ${classeReception} ${styles.pizzas}`} aria-labelledby="titre-pizzas">
+      <section className={`surfaceEncre section ${styles.pizzas}`} aria-labelledby="titre-pizzas">
         <div className="wrap">
-          <div className="read">
+          <div className={styles.colonne}>
             <div className={styles.entete} data-reveal>
               <h2 className="titreSection" id="titre-pizzas">
                 Toutes les pizzas

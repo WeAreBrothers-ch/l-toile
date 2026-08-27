@@ -1,9 +1,14 @@
 .cadre {
   position: relative;
   display: block;
-  overflow: hidden; /* uniquement ici : la charnière, elle, ne rogne jamais */
+  overflow: hidden;
   background-color: var(--surface-ink);
-  border-radius: var(--radius-0);
+  /* Le rayon est porté par le cadre, pas par l'image : une image arrondie qui
+     zoome au survol laisserait apparaître ses angles vifs dans le coin. */
+  border-radius: var(--radius-image);
+  /* Réglé par le composant d'après les dimensions du fichier. Une classe posée
+     par-dessus peut demander un autre cadrage. */
+  aspect-ratio: var(--ratio, 4 / 5);
 }
 
 .image {
@@ -21,7 +26,7 @@
   }
   .zoom:hover .image,
   a:hover > .zoom .image {
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
 }
 

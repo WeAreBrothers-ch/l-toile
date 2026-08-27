@@ -8,19 +8,22 @@
  * JPEG de qualité dans `public/images/`. Next.js se charge ensuite de la
  * conversion AVIF / WebP et des largeurs responsives.
  *
- * Prérequis : ImageMagick 7 (`brew install imagemagick`).
+ * Aucun prérequis : le recadrage passe par `sharp`, qui est déjà installé avec
+ * Next.js. (La version précédente demandait ImageMagick, qu'il fallait poser à
+ * la main sur chaque machine.)
  *
  * Les visuels de l'ancien site Wix restent dans `photos-source/` à la racine :
  * ils ne sont plus utilisés, ils sont conservés comme archive.
  */
-import { execFile } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync } from 'node:fs';
-import { promisify } from 'node:util';
+import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const run = promisify(execFile);
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+
+/** `sharp` ne publie pas d'entrée ES : on le charge comme un module CommonJS. */
+const sharp = createRequire(import.meta.url)('sharp');
 
 /**
  * Le millésime vit dans `data/photos.ts`, qui est la référence du site. Il est
@@ -42,89 +45,116 @@ const OUT = resolve(ROOT, 'public/images');
  * Les photographies fournies sont déjà étalonnées par leur auteur : les
  * réchauffer et les contraster une seconde fois les abîmerait. Seule la netteté
  * est rendue, parce que toute réduction de taille en fait perdre.
- * (L'harmonisation complète du § 8.2 de la direction artistique servait à
- * rattraper les visuels ternes de l'ancien site ; elle n'a plus lieu d'être.)
  */
-const GRADE = ['-colorspace', 'sRGB', '-unsharp', '0x0.7+0.35+0.02'];
+const NETTETE = { sigma: 0.7, m1: 0.35, m2: 0.02 };
 
-/** @type {ReadonlyArray<{out: string, src: string, w: number, h: number, gravity?: string}>} */
+/**
+ * Où le recadrage prend sa matière quand le ratio demandé est plus large que
+ * l'original. Sur une assiette vue de dessus, le centre est le sujet ; sur une
+ * salle, le haut porte les lumières et le bas les nappes, donc on garde le
+ * milieu haut.
+ */
+const CENTRE = 'centre';
+const HAUT = 'haut';
+const POSITIONS = { [CENTRE]: 'centre', [HAUT]: 'top' };
+
+/**
+ * @type {ReadonlyArray<{out: string, src: string, w: number, h: number, pos?: string}>}
+ *
+ * Les originaux sont tous cadrés en hauteur, en 1290 × ~1700. Deux conséquences
+ * tenues dans cette table :
+ *
+ * 1. **Les emplacements verticaux sont servis à leur définition native.** Les
+ *    duos éditoriaux et les plats signature sont en 4:5 : l'image y garde
+ *    presque toute sa hauteur d'origine et reste nette.
+ * 2. **Les emplacements horizontaux ne reçoivent que des plans larges** — une
+ *    salle, un bar, une assiette avec de la marge autour. Un gros plan rogné en
+ *    bandeau devient méconnaissable. Seule exception assumée : les respirations
+ *    de la carte, où la matière (pâtes, fruits de mer) fait justement la bande.
+ */
 const SLOTS = [
-  // La salle. Les originaux font 1290 px de large : le bandeau d'ouverture des
-  // grands écrans est donc au maximum de ce que la source permet.
-  { out: 'hero-salle',          src: 'IMG_2653', w: 1290, h: 726 },
-  { out: 'hero-salle-portrait', src: 'IMG_2637', w: 1280, h: 1600 },
+  // ---- Bandeau d'ouverture -------------------------------------------------
+  // Les originaux font 1290 px de large : le bandeau des grands écrans est donc
+  // au maximum de ce que la source permet.
+  { out: 'hero-salle', src: 'IMG_2653', w: 1290, h: 726, pos: HAUT },
+  { out: 'hero-salle-portrait', src: 'IMG_2637', w: 1180, h: 1475 },
 
-  // Plats signature : quatre vues de dessus sur fond sombre, une seule famille
-  // d'angle dans la même grille comme le demande la direction artistique.
+  // ---- Plats signature (accueil) — 4:5 ------------------------------------
   { out: 'plat-plateau-mer', src: 'IMG_2661', w: 1000, h: 1250 },
-  { out: 'plat-carpaccio',   src: 'IMG_2657', w: 1000, h: 1250 },
-  { out: 'plat-pizza',       src: 'IMG_2650', w: 1000, h: 1250 },
-  { out: 'plat-linguine',    src: 'IMG_2640', w: 1000, h: 1250 },
+  { out: 'plat-carpaccio', src: 'IMG_2657', w: 1000, h: 1250 },
+  { out: 'plat-pizza', src: 'IMG_2650', w: 1000, h: 1250 },
+  { out: 'plat-linguine', src: 'IMG_2640', w: 1000, h: 1250 },
 
-  // Les images qui enjambent deux sections sont rangées le long d'un bord, sur
-  // une colonne étroite : elles gardent donc le cadrage vertical des originaux
-  // au lieu d'être rognées en bandeau.
-  { out: 'charniere-carte',      src: 'IMG_2645', w: 1000, h: 1250 },
-  { out: 'charniere-carte-page', src: 'IMG_2659', w: 1000, h: 1250 },
-  { out: 'charniere-pizzas',     src: 'IMG_2650', w: 1000, h: 1250 },
-  { out: 'charniere-contact',    src: 'IMG_2652', w: 1000, h: 1250 },
+  // ---- Duos éditoriaux — 4:5, une pleine colonne de la grille --------------
+  // Ces images remplacent les anciennes « charnières » posées le long d'un bord.
+  // Elles occupent désormais la moitié de la page en face d'un texte : le
+  // cadrage vertical d'origine devient un avantage au lieu d'une contrainte.
+  { out: 'duo-maison', src: 'IMG_2645', w: 1100, h: 1375 },
+  { out: 'duo-carte', src: 'IMG_2659', w: 1100, h: 1375 },
+  { out: 'duo-pizzas', src: 'IMG_2650', w: 1100, h: 1375 },
+  { out: 'duo-contact', src: 'IMG_2652', w: 1100, h: 1375 },
 
-  // Les respirations de la carte sont calées sur la largeur de la colonne de
-  // menu, en 3:2 : le 21:9 pleine largeur ne gardait qu'un tiers de la hauteur
-  // d'origine et transformait chaque assiette en mur.
-  { out: 'respiration-carte-1', src: 'IMG_2661', w: 1200, h: 800 },
-  { out: 'respiration-carte-2', src: 'IMG_2667', w: 1200, h: 800 },
+  // ---- Galerie d'ambiance (accueil) ---------------------------------------
+  // Cinq images en quinconce : le bar, la salle, une bouteille ouverte, une
+  // ardoise, les vins. C'est le seul endroit du site qui montre le lieu plutôt
+  // que la carte — les assiettes ont déjà les leurs, plus haut.
+  { out: 'galerie-1', src: 'IMG_2656', w: 900, h: 1125 },
+  { out: 'galerie-2', src: 'IMG_2652', w: 900, h: 900 },
+  { out: 'galerie-3', src: 'IMG_2666', w: 900, h: 1125 },
+  { out: 'galerie-4', src: 'IMG_2664', w: 900, h: 900 },
+  { out: 'galerie-5', src: 'IMG_2654', w: 900, h: 1125 },
 
+  // ---- Respirations de la carte — bandeau large ---------------------------
+  // Un gros plan rogné en bande ne montre plus un plat mais une matière : c'est
+  // exactement ce qu'on demande à une respiration entre deux listes de prix.
+  { out: 'respiration-carte-1', src: 'IMG_2663', w: 1290, h: 645 },
+  { out: 'respiration-carte-2', src: 'IMG_2667', w: 1290, h: 645 },
+
+  // ---- Partage sur les réseaux --------------------------------------------
   { out: 'og', src: 'IMG_2650', w: 1200, h: 630 },
 ];
 
-async function main() {
-  if (!existsSync(SRC)) throw new Error(`Dossier introuvable : ${SRC}`);
-  mkdirSync(OUT, { recursive: true });
+/** Nom du fichier écrit dans `public/images/`, millésime compris. */
+const nomSortie = (slot) => `${slot.out}-${VERSION_PHOTOS}.jpg`;
 
-  let ok = 0;
-  for (const slot of SLOTS) {
-    const input = resolve(SRC, `${slot.src}.jpg`);
-    if (!existsSync(input)) {
-      console.warn(`  manquant  ${slot.src}.jpg — emplacement "${slot.out}" ignoré`);
-      continue;
-    }
-    const target = resolve(OUT, `${slot.out}-${VERSION_PHOTOS}.jpg`);
-    await run('magick', [
-      input,
-      ...GRADE,
-      '-resize', `${slot.w}x${slot.h}^`,
-      '-gravity', slot.gravity ?? 'center',
-      '-extent', `${slot.w}x${slot.h}`,
-      '-strip',
-      '-interlace', 'Plane',
-      '-quality', '82',
-      target,
-    ]);
-    ok += 1;
-    console.log(`  ok        ${slot.out}-${VERSION_PHOTOS}.jpg  ${slot.w}×${slot.h}`);
+async function preparer(slot) {
+  const entree = resolve(SRC, `${slot.src}.jpg`);
+  if (!existsSync(entree)) {
+    throw new Error(`Original manquant : ${entree}`);
   }
 
-  // Les millésimes précédents ne sont plus servis : les garder ferait grossir le
-  // dépôt et le déploiement sans que rien n'y renvoie.
-  const attendus = new Set(SLOTS.map((slot) => `${slot.out}-${VERSION_PHOTOS}.jpg`));
-  const noms = SLOTS.map((slot) => slot.out);
-  let retires = 0;
-  for (const fichier of readdirSync(OUT)) {
-    if (!fichier.endsWith('.jpg') || attendus.has(fichier)) continue;
-    if (!noms.some((nom) => fichier.startsWith(`${nom}-`))) continue;
-    rmSync(resolve(OUT, fichier));
-    retires += 1;
-    console.log(`  retiré    ${fichier}  (millésime précédent)`);
-  }
+  await sharp(entree)
+    .resize(slot.w, slot.h, { fit: 'cover', position: POSITIONS[slot.pos ?? CENTRE] })
+    .sharpen(NETTETE)
+    .toColorspace('srgb')
+    .jpeg({ quality: 82, mozjpeg: true, chromaSubsampling: '4:4:4' })
+    .toFile(resolve(OUT, nomSortie(slot)));
 
-  console.log(
-    `\n${ok}/${SLOTS.length} visuels générés dans public/images/ ` +
-      `(millésime ${VERSION_PHOTOS}${retires ? `, ${retires} ancien(s) retiré(s)` : ''})`,
-  );
+  return nomSortie(slot);
 }
 
-main().catch((error) => {
-  console.error('Échec de la préparation des photos :', error instanceof Error ? error.message : error);
-  process.exitCode = 1;
-});
+/**
+ * Les fichiers d'un millésime précédent ne servent plus à rien : le site ne les
+ * demande plus, et les laisser ferait grossir le dépôt à chaque séance photo.
+ */
+function nettoyerAnciensMillesimes(gardes) {
+  const aGarder = new Set(gardes);
+  for (const fichier of readdirSync(OUT)) {
+    if (!fichier.endsWith('.jpg')) continue;
+    if (fichier === 'plan.jpg') continue; // le fond de plan n'a pas de millésime
+    if (aGarder.has(fichier)) continue;
+    rmSync(resolve(OUT, fichier));
+    console.log(`  supprimé  ${fichier}`);
+  }
+}
+
+mkdirSync(OUT, { recursive: true });
+
+const ecrits = [];
+for (const slot of SLOTS) {
+  ecrits.push(await preparer(slot));
+  console.log(`  écrit     ${ecrits.at(-1)}`);
+}
+nettoyerAnciensMillesimes(ecrits);
+
+console.log(`\n${ecrits.length} visuels préparés au millésime ${VERSION_PHOTOS}.`);

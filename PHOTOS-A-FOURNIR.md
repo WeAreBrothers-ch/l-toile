@@ -11,7 +11,7 @@ intégralement les visuels de l’ancien site et sont sans commune mesure avec e
 originaux sont conservés dans `photos-source/2026-08-client/`, et les anciens visuels Wix
 dans `photos-source/`.
 
-Les 13 emplacements du site sont donc remplis avec ces photos.
+Les 18 emplacements du site sont donc remplis avec ces photos.
 
 **Une règle est née de ce jeu de photos, et elle vaut pour les suivants.** Les 25 clichés
 sont cadrés en hauteur. Or le site a des emplacements en largeur — le bandeau d’ouverture,
@@ -19,16 +19,20 @@ les grandes images qui enjambent deux sections, les bandeaux de la carte. Y plac
 photo verticale n’en garde qu’une bande centrale : sur un gros plan, le sujet devient
 méconnaissable et l’image paraît démesurément agrandie.
 
-Deux décisions en découlent. D’abord, **les grandes images qui enjambent deux sections sont
-passées en format vertical**, rangées le long d’un bord sur une colonne étroite plutôt
-qu’étalées d’un bord à l’autre de l’écran : elles gardent ainsi leur cadrage d’origine,
-restent nettes, et le vide laissé en face fait respirer la page. Ensuite, les emplacements
-restés en largeur — le bandeau d’ouverture, les bandeaux de la carte — ne reçoivent que des **plans
-larges** : une salle, un bar, une assiette entière avec de la marge autour.
+Deux décisions en découlent. D’abord, **les grandes images occupent une demi-page en face
+d’un texte** — c’est le « duo » du § 6.4 de la direction artistique. Une demi-page est
+exactement ce que demande un 4:5 : la photographie y garde son cadrage d’origine, elle est
+servie à sa définition native, et rien n’est laissé vide en face d’elle. *(Une version
+précédente rangeait ces images le long d’un bord et laissait l’autre moitié de l’écran
+libre. Le vide se voulait une respiration ; sur un grand écran, il se lisait comme un
+trou.)* Ensuite, les emplacements restés en largeur — le bandeau d’ouverture, les bandeaux
+de la carte — ne reçoivent que des **plans larges** : une salle, un bar, une assiette
+entière avec de la marge autour.
 
-C’est aussi pour cela que **les sept photos les plus rapprochées ne sont pas utilisées** :
-macros de pâtes, de pizza, de carpaccio, de fruits de mer, cocktails, bouteilles de vin
-blanc. Elles restent en réserve.
+Les photographies d’ambiance — le bar, la salle, les cocktails, les vins — qui n’étaient
+pas employées le sont désormais : elles remplissent la galerie de l’accueil. **Sept photos
+restent en réserve**, pour l’essentiel des macros de pâtes, de carpaccio et de fruits de
+mer : le site n’a plus d’emplacement qui les accueillerait sans redite.
 
 > **Pour la prochaine séance :** demander quelques prises **cadrées en largeur**, en
 > particulier de la salle et du bar. Ce sont les plus utiles au site et les seules qu’il
@@ -86,7 +90,7 @@ place un cadre sombre indiquant le format attendu.
   étalonnée par son auteur, tant mieux : le site ne la retouche pas, il la recadre et lui
   rend la netteté perdue à la réduction.
 
-## Les 13 emplacements
+## Les 18 emplacements
 
 La colonne « Photo en place » indique le fichier d’origine utilisé aujourd’hui, dans
 `photos-source/2026-08-client/`. Les tailles sont des **minimums** : fournir plus grand
@@ -94,27 +98,37 @@ est toujours mieux.
 
 | Nom du fichier | Format | Taille minimale | Photo en place | Où ça apparaît et ce qu’on y voit |
 | --- | --- | --- | --- | --- |
-| `hero-salle-2026-08c.jpg` | 16:9 | 2000 × 1125 | `IMG_2653` ⚠️ 1290 px | Accueil, image d’ouverture sur grand écran — la salle, miroir et tables dressées |
-| `hero-salle-portrait-2026-08c.jpg` | 4:5 | 1200 × 1500 | `IMG_2637` | Accueil, image d’ouverture sur téléphone — table dressée, lumière tamisée |
-| `plat-plateau-mer-2026-08c.jpg` | 4:5 | 1200 × 1500 | `IMG_2661` | Accueil, plats signature — le plateau de fruits de mer grillés |
-| `plat-carpaccio-2026-08c.jpg` | 4:5 | 1200 × 1500 | `IMG_2657` | Accueil, plats signature — le carpaccio de bœuf |
-| `plat-pizza-2026-08c.jpg` | 4:5 | 1200 × 1500 | `IMG_2650` | Accueil, plats signature — la pizza au jambon cru, vue de dessus |
-| `plat-linguine-2026-08c.jpg` | 4:5 | 1200 × 1500 | `IMG_2640` | Accueil, plats signature — les linguine à l’ail et tomates cerises |
-| `charniere-carte-2026-08c.jpg` | 4:5 | 1200 × 1500 | `IMG_2645` | Accueil, grande image avant la carte — le bar et ses verres suspendus |
-| `charniere-carte-page-2026-08c.jpg` | 4:5 | 1200 × 1500 | `IMG_2659` | Page Carte, grande image — gambas à l’ail et riz safrané, servis en salle |
-| `charniere-pizzas-2026-08c.jpg` | 4:5 | 1200 × 1500 | `IMG_2650` | Page Pizzas, grande image — la pizza au jambon cru, entière |
-| `charniere-contact-2026-08c.jpg` | 4:5 | 1200 × 1500 | `IMG_2652` | Page Contact, grande image — la salle vue de l’entrée |
-| `respiration-carte-1-2026-08c.jpg` | 3:2 | 1800 × 1200 | `IMG_2661` | Carte, bandeau entre deux catégories — le plateau de fruits de mer |
-| `respiration-carte-2-2026-08c.jpg` | 3:2 | 1800 × 1200 | `IMG_2667` | Carte, bandeau entre deux catégories — paccheri à la burrata |
-| `og-2026-08c.jpg` | 1200 × 630 | — | `IMG_2650` | Vignette de partage sur WhatsApp, Facebook, messages |
+| `hero-salle-2026-08d.jpg` | 16:9 | 2000 × 1125 | `IMG_2653` ⚠️ 1290 px | Accueil, image d’ouverture sur grand écran — la salle, miroir et tables dressées |
+| `hero-salle-portrait-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2637` | Accueil, image d’ouverture sur téléphone — table dressée, lumière tamisée |
+| `plat-plateau-mer-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2661` | Accueil, plats signature — le plateau de fruits de mer grillés |
+| `plat-carpaccio-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2657` | Accueil, plats signature — le carpaccio de bœuf |
+| `plat-pizza-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2650` | Accueil, plats signature — la pizza au jambon cru, vue de dessus |
+| `plat-linguine-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2640` | Accueil, plats signature — les linguine à l’ail et tomates cerises |
+| `duo-maison-2026-08d.jpg` | 4:5 | 1400 × 1750 | `IMG_2645` | Accueil, duo « la maison » — le bar et ses verres suspendus |
+| `duo-carte-2026-08d.jpg` | 4:5 | 1400 × 1750 | `IMG_2659` | Page Carte, duo d’ouverture — gambas à l’ail et riz safrané, servis en salle |
+| `duo-pizzas-2026-08d.jpg` | 4:5 | 1400 × 1750 | `IMG_2650` | Page Pizzas, duo d’ouverture — la pizza au jambon cru, entière |
+| `duo-contact-2026-08d.jpg` | 4:5 | 1400 × 1750 | `IMG_2652` | Page Contact, duo d’ouverture — la salle vue de l’entrée |
+| `galerie-1-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2656` | Accueil, galerie d’ambiance — un cocktail au bar |
+| `galerie-2-2026-08d.jpg` | 1:1 | 1200 × 1200 | `IMG_2652` | Accueil, galerie d’ambiance — la salle en journée |
+| `galerie-3-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2666` | Accueil, galerie d’ambiance — une bouteille ouverte et des verres |
+| `galerie-4-2026-08d.jpg` | 1:1 | 1200 × 1200 | `IMG_2664` | Accueil, galerie d’ambiance — une viande grillée sur ardoise |
+| `galerie-5-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2654` | Accueil, galerie d’ambiance — les vins |
+| `respiration-carte-1-2026-08d.jpg` | 2:1 | 2000 × 1000 | `IMG_2663` | Carte, bandeau entre deux catégories — fruits de mer grillés |
+| `respiration-carte-2-2026-08d.jpg` | 2:1 | 2000 × 1000 | `IMG_2667` | Carte, bandeau entre deux catégories — paccheri à la burrata |
+| `og-2026-08d.jpg` | 1200 × 630 | — | `IMG_2650` | Vignette de partage sur WhatsApp, Facebook, messages |
 
-⚠️ **Le seul emplacement en tension est `hero-salle-2026-08c.jpg`** : il occupe toute la largeur de
+⚠️ **Le seul emplacement en tension est `hero-salle-2026-08d.jpg`** : il occupe toute la largeur de
 l’écran et l’original ne fait que 1290 px de large. Demander le fichier non redimensionné
 de cette photo au photographe suffit à le régler.
 
-**Les deux images de la carte sont calées sur la largeur de la colonne de menu**, et non
-sur celle de l'écran. Une photo étirée d'un bord à l'autre ne se lit plus comme une
-respiration mais comme une interruption. Une assiette entière y fonctionne très bien.
+**Les cinq images de la galerie montrent le lieu, pas la carte.** C’est le seul endroit du
+site qui ne vend rien — le bar, la salle, une bouteille ouverte, les vins. Y placer une
+quatrième assiette ferait mentir son titre. Ce sont donc les photographies à privilégier
+lors de la prochaine séance : le site en manque, alors qu’il a des plats en réserve.
+
+**Les deux bandeaux de la carte sont les seuls emplacements où un gros plan est admis** :
+rogné en bande, il ne montre plus un plat mais une matière, ce qui est exactement ce qu’on
+demande à une respiration entre deux listes de prix.
 
 ## Un visuel à part
 

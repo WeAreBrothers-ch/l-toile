@@ -2,7 +2,14 @@
   position: relative;
   height: 400px;
   background-color: var(--surface-ink);
+  border-radius: var(--radius-image);
   overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .plan {
+    height: 460px;
+  }
 }
 
 .fond {

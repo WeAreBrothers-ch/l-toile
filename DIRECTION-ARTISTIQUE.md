@@ -426,65 +426,48 @@ Quatre cellules séparées par des filets verticaux `--border-hairline` (2×2 en
 Chaque cellule : eyebrow + une ligne d'information + un chevron. Zone cliquable minimum 56 px de haut.
 **Au survol** — puisqu'il n'existe pas de gris de fond : liseré supérieur 2 px `--red-500`, eyebrow qui passe en `--red-600`, chevron translaté de 4 px vers la droite. Jamais de fond gris ni de fond beige.
 
-### 6.4 L'image-charnière — **le dispositif de composition signature**
+### 6.4 Le duo — **le dispositif de composition signature**
 
-Le site n'ayant plus qu'une seule nuance claire, il n'existe plus de teinte intermédiaire pour adoucir le passage du blanc à l'encre. Ce sont donc **les photos qui font la couture** : elles enjambent la frontière entre deux bandes. C'est ce qui empêche l'alternance binaire de ressembler à un empilement de blocs, et c'est ce qui donne aux images le statut qu'elles méritent — elles portent 15 % de la surface et toute la chaleur du site.
+Le site n'ayant plus qu'une seule nuance claire, il n'existe pas de teinte intermédiaire pour adoucir le passage du blanc à l'encre. La composition ne repose donc pas sur des dégradés mais sur **des blocs où l'image et le texte se partagent la page à parts égales**.
 
-#### Variante A — Charnière verticale *(le dispositif principal)*
+#### Variante A — Le duo *(le dispositif principal)*
 
-L'image est ancrée dans une bande et déborde dans la suivante de `--overlap` (40 px en mobile → 120 px en desktop).
+Une photographie verticale occupe une moitié de la page, un texte occupe l'autre. La photo déborde légèrement du côté du bord de l'écran ; le texte se cale contre elle plutôt que contre la gouttière opposée.
 
 ```css
-/* L'image enjambe la frontière */
-.hinge {
-  position: relative;
-  z-index: 2;
-  margin-bottom: calc(-1 * var(--overlap));
+.duo { display: grid; gap: var(--sp-6); align-items: center; }
+
+@media (min-width: 900px) {
+  .duo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .duo--image-droite .visuel { order: 2; }
 }
-.hinge img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius-0);   /* coins vifs, toujours */
-  /* width/height dans le HTML + aspect-ratio en CSS : CLS = 0 */
-}
-/* La section qui reçoit le débordement compense son padding */
-.section--receives-hinge {
-  position: relative;
-  z-index: 1;
-  padding-top: calc(var(--section-y) + var(--overlap));
+
+/* Le débordement vers le bord, du seul côté où la photo est rangée. */
+@media (min-width: 1200px) {
+  .duo--image-droite .visuel { margin-right: calc(-1 * var(--gutter)); }
 }
 ```
 
-**Règles de la charnière — non négociables :**
+**Règles du duo — non négociables :**
 
-1. **Sens unique : la lumière verse dans l'encre.** L'image est toujours ancrée dans la bande blanche et déborde dans la bande d'encre. L'inverse (une image qui remonte du noir vers le blanc) fait flotter l'image et casse la lecture.
-   *Seule exception : le bandeau d'accès direct (§ 6.3), qui est un bloc de contenu, pas une photo, et qui descend du hero.*
-2. **Trois charnières par page au maximum**, jamais deux consécutives. Au-delà, le procédé devient un tic et la page se met à onduler.
-3. **Aucune ombre, aucune bordure, aucun arrondi.** La profondeur vient du décalage de la frontière — une ombre transformerait la photo en composant collé.
-4. **Le conteneur ne doit jamais avoir `overflow: hidden`**, sinon le débordement est rogné. À vérifier explicitement en intégration.
-5. **Rien de critique dans la zone de chevauchement** : ni titre, ni prix, ni bouton. La bande qui reçoit commence son contenu sous l'image.
-6. **Mobile** : l'overlap tombe automatiquement à `--overlap-small` via le `clamp()`. Le chevauchement reste perceptible mais ne mange plus l'écran.
+1. **Les deux moitiés portent quelque chose.** C'est la seule règle qui compte. Une photo rangée le long d'un bord avec du vide en face — le dispositif précédent, dit « charnière » — se voulait une respiration ; sur un grand écran, il se lisait comme un trou. Une respiration se remarque parce qu'elle est tenue par quelque chose ; le vide, lui, ne se remarque pas, il se subit.
+2. **Le format vertical est un avantage, pas une contrainte.** Les originaux du restaurant sont tous cadrés en hauteur. Une demi-page est exactement ce que demande un 4:5 : l'image y est servie à sa définition native au lieu d'être rognée en bandeau.
+3. **On alterne le côté d'un duo au suivant.** Deux duos consécutifs du même côté font une colonne d'images et une colonne de texte, c'est-à-dire un tableau.
+4. **Un seul duo par page**, sauf sur l'accueil où il en existe un. Au-delà, le procédé devient un tic.
+5. **Le duo qui ouvre une page ne s'anime pas.** Il est déjà à l'écran au premier affichage : le révéler en fondu le ferait clignoter.
+6. **Rayon `--radius-image` sur le cadre, jamais sur l'image.** Une image arrondie qui zoome au survol laisserait apparaître ses angles vifs dans le coin.
 
-#### Variante B — Bord perdu latéral
+#### Variante B — La galerie d'ambiance
 
-L'image sort de la grille et touche le bord de l'écran d'un seul côté, tandis que le texte reste dans le conteneur. Utilisée pour les blocs « plat signature » et « la salle ». Technique robuste, sans `100vw` (qui provoque un débordement horizontal quand la barre de défilement est visible) :
+Cinq images en quinconce, en bande, sur l'encre. Aucun prix, aucun nom de plat, aucun lien : c'est le seul endroit du site qui ne vend rien. Il répond à la seule question à laquelle une carte ne répond pas — *à quoi ça ressemble d'y être*.
 
-```css
-.section-grid {
-  display: grid;
-  grid-template-columns:
-    [full-start] minmax(var(--gutter), 1fr)
-    [content-start] min(var(--container-max), 100% - var(--gutter) * 2) [content-end]
-    minmax(var(--gutter), 1fr) [full-end];
-}
-.section-grid > *          { grid-column: content; }
-.section-grid > .bleed-end { grid-column: content-start / full-end; }
-```
+Sur grand écran, cinq de front, une sur deux descendue de 14 % : alignées au cordeau elles font une planche de catalogue, décalées elles redeviennent des photographies. Au doigt, un ruban qui défile au cran, à 68 vw par image — jamais cinq vignettes écrasées.
 
 #### Variante C — Respiration pleine largeur
 
-Photo en 21:9 sur toute la largeur, intercalée **toutes les deux catégories** dans la section carte. Aucun texte dessus. Elle sert à aérer une longue liste sans en interrompre la lecture.
+Photo en bandeau 2:1 sur toute la largeur utile, intercalée **toutes les trois catégories** dans la section carte. Aucun texte dessus. Elle sert à aérer une longue liste sans en interrompre la lecture — ce qu'une image calée sur la seule largeur de la colonne de menu ne faisait pas : à cette taille, une photographie ne repose pas le regard, elle ponctue.
+
+C'est le seul emplacement où un gros plan rogné en bande est admis : la matière — pâtes, fruits de mer — est justement ce qu'on veut voir entre deux listes de prix.
 
 #### Où les photos vivent, sur la page d'accueil
 
@@ -492,11 +475,10 @@ Photo en 21:9 sur toute la largeur, intercalée **toutes les deux catégories** 
 |---|---|---|---|
 | Hero | Pleine largeur, pleine hauteur | 16:9 desktop / 4:5 mobile | Donner faim immédiatement |
 | Plats signature | Grille 1 / 2 / 4 colonnes | 4:5 | Montrer, pas décrire |
-| Entrée de la section carte | **Charnière A** (blanc → encre) | 3:2 | Coudre la bascule vers la carte |
-| Dans la carte | Variante C | 21:9 | Respiration |
-| Sortie de la section carte | **Charnière A** (blanc → encre du footer) | 3:2 | Coudre la fin de page |
-| Bloc « la salle » | **Bord perdu B** | 4:5 | Situer le lieu |
-| Galerie | Mosaïque alignée sur la grille | 3:2 et 2:3 | Prouver la régularité |
+| Bloc « la maison » | **Duo A** (image à droite) | 4:5 | Dire qui l'on est, une fois |
+| Galerie d'ambiance | **Variante B**, en quinconce | 4:5 et 1:1 | Montrer le lieu, pas la carte |
+| Index de la carte | Deux colonnes, sans image | — | Chapeau à gauche, liste à droite |
+| Dans la page carte | **Variante C** | 2:1 | Respiration |
 
 ### 6.5 Section carte — **le cœur du site**
 
@@ -710,7 +692,7 @@ Trait 1,5 px, coins carrés, `currentColor`, **jamais de remplissage, jamais de 
 - **Une deuxième nuance claire.** Blanc cassé, crème, beige, `#FAFAFA`, gris très clair : tous interdits en fond, en carte, en champ de formulaire et en survol. Il n'existe qu'un seul clair, `#FFFFFF`.
 - **Un gris de fond pour distinguer un bloc.** La distinction se fait par le filet 1 px ou par le passage à l'encre, jamais par une nuance.
 - **Le rouge en fond de plus d'une section.** Un seul aplat rouge par page, sur le bandeau infos pratiques.
-- **Une image qui remonte du noir vers le blanc.** Les charnières vont toujours dans le sens clair → encre (§ 6.4).
+- **Une photographie posée en face du vide.** Les deux moitiés d'un duo portent toujours quelque chose (§ 6.4).
 - **Plus de trois chevauchements par page**, ou deux consécutifs : le procédé devient un tic et la page ondule.
 - **Une ombre portée sous une image qui chevauche.** La profondeur vient du décalage, pas de l'ombre.
 - **Le rouge en texte courant** (`--red-500` échoue AA — utiliser `--red-600`).

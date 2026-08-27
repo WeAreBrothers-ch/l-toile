@@ -1,5 +1,34 @@
-.entete {
-  margin-bottom: var(--sp-7);
+/*
+  L'index de la carte. Une seule question : qu'est-ce qu'il y a, combien, à
+  partir de combien. Le chapeau tient une colonne, la liste tient l'autre — sur
+  un grand écran, une liste seule au milieu d'une bande noire n'a plus d'échelle.
+*/
+
+.duo {
+  display: grid;
+  gap: var(--sp-7);
+}
+
+@media (min-width: 1000px) {
+  .duo {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .entete {
+    position: sticky;
+    /* Sous l'en-tête réduit, jamais dessous. */
+    top: calc(var(--header-h-lg) + var(--sp-6));
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-6);
+  margin-top: var(--sp-6);
 }
 
 .index {
@@ -15,6 +44,12 @@
   padding-block: var(--sp-4);
   border-bottom: 1px solid var(--ligne);
   transition: color var(--dur-fast) var(--ease-out);
+}
+
+@media (min-width: 1000px) {
+  .rang {
+    padding-block: var(--sp-5);
+  }
 }
 
 .rang:hover .categorie,
@@ -56,12 +91,4 @@
 .chiffres b {
   color: var(--encre);
   font-weight: 600;
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--sp-4) var(--sp-6);
-  margin-top: var(--sp-7);
 }

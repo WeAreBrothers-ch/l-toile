@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { CARTE } from '@data/menu';
 import { PIZZAS } from '@data/pizzas';
 import { BoutonLien } from '@/components/ui/Bouton';
-import { classeReception } from '@/components/ui/Charniere';
 import { formaterPrix } from '@/lib/format';
 import styles from './ApercuCarte.module.css';
 
@@ -42,33 +41,21 @@ const RANGS: readonly Rang[] = [
  */
 export function ApercuCarte() {
   return (
-    <section className={`surfaceEncre ${classeReception}`} aria-labelledby="titre-carte">
-      <div className="wrap">
-        <div className="read">
-          <div className={styles.entete} data-reveal>
-            <p className="eyebrow">La carte</p>
-            <h2 className="titreSection" id="titre-carte">
-              Tout est <em className="italique">là</em>, rien n’est caché
-            </h2>
-            <p className="chapo">
-              Dix familles de plats, des entrées aux pizzas. Les prix sont affichés en entier :
-              vous savez avant d’entrer.
-            </p>
-          </div>
+    <section className={`surfaceEncre section ${styles.apercu}`} aria-labelledby="titre-carte">
+      <div className={`wrapLarge ${styles.duo}`}>
+        {/* La colonne de gauche ne défile pas avec la liste : elle reste en face
+            d'elle sur un grand écran, comme le chapeau d'un article. */}
+        <div className={styles.entete} data-reveal>
+          <p className="eyebrow">La carte</p>
+          <h2 className="titreSection" id="titre-carte">
+            Tout est <em className="italique">là</em>, rien n’est caché
+          </h2>
+          <p className="chapo">
+            Dix familles de plats, des entrées aux pizzas. Les prix sont affichés en entier :
+            vous savez avant d’entrer.
+          </p>
 
-          <nav className={styles.index} aria-label="Les catégories de la carte" data-reveal>
-            {RANGS.map((rang) => (
-              <Link key={rang.href} href={rang.href} className={styles.rang}>
-                <span className={styles.categorie}>{rang.titre}</span>
-                <span className={styles.rappel} aria-hidden="true" />
-                <span className={styles.chiffres}>
-                  {rang.nombre} {rang.unite} · dès <b>{formaterPrix(rang.prixMini)}</b>
-                </span>
-              </Link>
-            ))}
-          </nav>
-
-          <div className={styles.actions} data-reveal>
+          <div className={styles.actions}>
             <BoutonLien href="/carte" variante="secondaire">
               Voir toute la carte
             </BoutonLien>
@@ -77,6 +64,18 @@ export function ApercuCarte() {
             </BoutonLien>
           </div>
         </div>
+
+        <nav className={styles.index} aria-label="Les catégories de la carte" data-reveal>
+          {RANGS.map((rang) => (
+            <Link key={rang.href} href={rang.href} className={styles.rang}>
+              <span className={styles.categorie}>{rang.titre}</span>
+              <span className={styles.rappel} aria-hidden="true" />
+              <span className={styles.chiffres}>
+                {rang.nombre} {rang.unite} · dès <b>{formaterPrix(rang.prixMini)}</b>
+              </span>
+            </Link>
+          ))}
+        </nav>
       </div>
     </section>
   );

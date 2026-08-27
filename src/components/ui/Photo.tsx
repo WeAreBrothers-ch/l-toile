@@ -34,7 +34,11 @@ function fichierPresent(src: string): boolean {
  */
 export function Photo({ photo, sizes, prioritaire = false, zoom = false, className }: Props) {
   const cadre = [styles.cadre, zoom ? styles.zoom : '', className ?? ''].filter(Boolean).join(' ');
-  const ratio = { aspectRatio: `${photo.largeur} / ${photo.hauteur}` } as const;
+  /* Le ratio passe par une variable plutôt que par `aspect-ratio` en clair :
+     posé en style en ligne, il l'emporterait sur toute règle de feuille, et un
+     emplacement ne pourrait plus demander un autre cadrage que celui du fichier
+     (le bandeau des respirations de la carte, par exemple). */
+  const ratio = { ['--ratio' as string]: `${photo.largeur} / ${photo.hauteur}` } as const;
 
   if (!fichierPresent(photo.src)) {
     return (

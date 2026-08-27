@@ -17,10 +17,17 @@
   --red-800: #7f1016;
   --red-900: #5c0a0f;
 
-  /* ---------- Surfaces — trois, pas une de plus ---------- */
-  --surface: #ffffff;
-  --surface-ink: #121110;
-  --surface-ink-soft: #1d1b19;
+  /* ---------- Surfaces — trois, pas une de plus ----------
+     Le papier n'est pas blanc : un blanc pur sous une photographie chaude et un
+     rouge profond donne un site de bureau, pas de salle à manger. Le fond est
+     donc un ivoire très légèrement chaud, qui laisse aux photos toute leur
+     chaleur au lieu de la contredire. */
+  --surface: #faf7f2;
+  /* Le blanc pur ne sert plus de fond : il ne reste que pour les cartes posées
+     sur le papier, qui doivent se détacher d'un demi-ton. */
+  --surface-carte: #ffffff;
+  --surface-ink: #14110f;
+  --surface-ink-soft: #1f1a17;
   --surface-brand: #a1171e;
 
   /* ---------- Texte sur blanc ---------- */
@@ -58,7 +65,7 @@
   --serif: var(--font-newsreader), 'Iowan Old Style', Georgia, 'Times New Roman', serif;
   --sans: var(--font-archivo), -apple-system, 'Helvetica Neue', Arial, sans-serif;
 
-  --fs-display: clamp(2.75rem, 1.6rem + 5.75vw, 5rem);
+  --fs-display: clamp(2.875rem, 1.55rem + 6.6vw, 5.75rem);
   --fs-h1: clamp(2rem, 1.4rem + 3vw, 3.5rem);
   --fs-h2: clamp(1.625rem, 1.24rem + 1.93vw, 2.5rem);
   --fs-h3: clamp(1.25rem, 1.11rem + 0.7vw, 1.625rem);
@@ -92,14 +99,23 @@
   --container-read: 720px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
 
-  /* ---------- Rayons ---------- */
+  /* ---------- Rayons ----------
+     L'angle vif partout donnait un objet imprimé — juste pour une carte de
+     restaurant, faux pour un site. Les images et les cartes prennent donc un
+     rayon franc, les contrôles un rayon discret, et les filets restent nets. */
   --radius-0: 0;
-  --radius-sm: 2px;
-  --radius-md: 4px;
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-image: 22px;
   --radius-full: 9999px;
 
-  /* ---------- Ombres — trois, et rien d'autre ---------- */
+  /* ---------- Ombres — quatre, et rien d'autre ----------
+     Toutes teintées de l'encre du site : une ombre grise sur un fond ivoire
+     salit, une ombre brune enfonce. */
   --shadow-sticky: 0 1px 0 0 #e7e4df;
+  --shadow-carte: 0 2px 6px -2px rgb(20 17 15 / 0.06), 0 12px 28px -12px rgb(20 17 15 / 0.14);
+  --shadow-lift: 0 6px 14px -6px rgb(20 17 15 / 0.1), 0 26px 50px -20px rgb(20 17 15 / 0.24);
   --shadow-overlay: 0 8px 32px -8px rgb(18 17 16 / 0.2);
 
   /* ---------- Hauteurs de barres ---------- */
@@ -121,6 +137,7 @@
   --dur-fast: 160ms;
   --dur-base: 240ms;
   --dur-slow: 400ms;
+  --dur-reveal: 720ms;
   --dur-image: 600ms;
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);

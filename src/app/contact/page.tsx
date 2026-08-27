@@ -5,7 +5,7 @@ import { BandeauAppel } from '@/components/commun/BandeauAppel';
 import { Plan } from '@/components/commun/Plan';
 import { FormulaireContact } from '@/components/contact/FormulaireContact';
 import { BoutonLien } from '@/components/ui/Bouton';
-import { Charniere } from '@/components/ui/Charniere';
+import { Duo } from '@/components/ui/Duo';
 import { Icone } from '@/components/ui/Icone';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { decrireServices } from '@/lib/horaires';
@@ -31,52 +31,60 @@ export default function PageContact() {
       />
 
       <section className="surfacePapier section">
-        <div className="wrap">
-          <p className="eyebrow">Nous trouver</p>
-          <h1 className={styles.titre}>
-            Contact et accès — L’Étoile, <em className="italique">Lausanne</em>
-          </h1>
+        <Duo
+          photo={PHOTOS.duoContact}
+          eyebrow="Nous trouver"
+          titre={
+            <>
+              Contact et accès — L’Étoile, <em className="italique">Lausanne</em>
+            </>
+          }
+          niveau="h1"
+          cote="droite"
+          prioritaire
+        >
           <p className="chapo">
             Rue de Genève 102, à deux pas de la gare de Lausanne-Sébeillon et de Malley.
           </p>
-
-          <div className={styles.duo}>
-            <div className={styles.bloc}>
-              <h2>Adresse</h2>
-              <address>
-                {RESTAURANT.nom}
-                <br />
-                {RESTAURANT.rue}
-                <br />
-                {RESTAURANT.codePostal} {RESTAURANT.ville}, Suisse
-              </address>
-              <p>
-                <a href={`tel:${RESTAURANT.telephone}`} data-analytics="call">
-                  {RESTAURANT.telephoneInternational}
-                </a>
-                <br />
-                <a href={`mailto:${RESTAURANT.email}`}>{RESTAURANT.email}</a>
-              </p>
-              <div className={styles.action}>
-                <BoutonLien href={LIEN_ITINERAIRE} variante="secondaire">
-                  <Icone nom="epingle" taille={16} />
-                  Ouvrir l’itinéraire
-                </BoutonLien>
-              </div>
-            </div>
-
-            <div className={styles.bloc} id="horaires">
-              <h2>Horaires d’ouverture</h2>
-              <dl className={styles.semaine}>
-                {HORAIRES.map((jour) => (
-                  <div key={jour.nom} className={styles.jour} data-ferme={!jour.midi && !jour.soir}>
-                    <dt>{jour.nom}</dt>
-                    <dd>{decrireServices(jour)}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+          <address className={styles.adresse}>
+            {RESTAURANT.nom}
+            <br />
+            {RESTAURANT.rue}
+            <br />
+            {RESTAURANT.codePostal} {RESTAURANT.ville}, Suisse
+          </address>
+          <p className={styles.coordonnees}>
+            <a href={`tel:${RESTAURANT.telephone}`} data-analytics="call">
+              {RESTAURANT.telephoneInternational}
+            </a>
+            <br />
+            <a href={`mailto:${RESTAURANT.email}`}>{RESTAURANT.email}</a>
+          </p>
+          <div data-actions>
+            <BoutonLien href={LIEN_ITINERAIRE} variante="secondaire">
+              <Icone nom="epingle" taille={16} />
+              Ouvrir l’itinéraire
+            </BoutonLien>
           </div>
+        </Duo>
+      </section>
+
+      {/* La semaine tient sur deux colonnes plutôt qu'une : sept lignes empilées
+          dans une demi-page se lisaient comme un horaire de train. */}
+      <section className="surfacePapier sectionSerree" aria-labelledby="titre-horaires" id="horaires">
+        <div className="wrapLarge">
+          <p className="eyebrow">Horaires d’ouverture</p>
+          <h2 className="titreSection" id="titre-horaires">
+            Midi et soir, <em className="italique">sauf le dimanche</em>
+          </h2>
+          <dl className={styles.semaine}>
+            {HORAIRES.map((jour) => (
+              <div key={jour.nom} className={styles.jour} data-ferme={!jour.midi && !jour.soir}>
+                <dt>{jour.nom}</dt>
+                <dd>{decrireServices(jour)}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
@@ -87,23 +95,22 @@ export default function PageContact() {
       </section>
 
       <section className="surfacePapier section" aria-labelledby="titre-message">
-        <div className="wrap">
-          <p className="eyebrow">Une question</p>
-          <h2 className="titreSection" id="titre-message">
-            Écrivez-nous
-          </h2>
-          <p className="chapo">
-            Groupe, allergie, événement privé : posez votre question ici. Pour réserver une table,
-            le téléphone reste le plus rapide.
-          </p>
-          <div className={styles.action}>
+        <div className={`wrapLarge ${styles.message}`}>
+          <div className={styles.messageTexte}>
+            <p className="eyebrow">Une question</p>
+            <h2 className="titreSection" id="titre-message">
+              Écrivez-nous
+            </h2>
+            <p className="chapo">
+              Groupe, allergie, événement privé : posez votre question ici. Pour réserver une
+              table, le téléphone reste le plus rapide.
+            </p>
+          </div>
+          <div className={styles.carteFormulaire}>
             <FormulaireContact />
           </div>
         </div>
       </section>
-
-      {/* Dernière charnière du site : la photo verse dans l'encre du pied de page. */}
-      <Charniere photo={PHOTOS.charniereContact} cote="gauche" versPied />
     </>
   );
 }

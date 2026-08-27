@@ -24,3 +24,20 @@
   margin-top: var(--sp-5);
   border-top: 1px solid var(--ligne);
 }
+
+/*
+  Au-delà d'un certain écran, une catégorie se lit sur deux colonnes — comme une
+  carte imprimée. En une seule, la page faisait onze mille pixels de haut et
+  laissait la moitié droite de l'écran vide du début à la fin.
+
+  Le filet du haut appartient à la liste entière, donc il traverse les deux
+  colonnes : c'est bien ce qu'on veut, il ouvre la catégorie, pas la colonne.
+*/
+@media (min-width: 1100px) {
+  .liste {
+    columns: 2;
+    column-gap: clamp(2.5rem, 5vw, 4.5rem);
+    /* Un filet vertical séparerait mieux qu'un vide, mais il ferait un troisième
+       trait dans un composant qui en a déjà deux. Le blanc suffit. */
+  }
+}

@@ -104,7 +104,8 @@ node scripts/preparer-photos.mjs
 ```
 
 Le script recadre tout aux bons formats, renomme au nouveau millésime et supprime
-l’ancien jeu. Cette étape demande le logiciel ImageMagick (`brew install imagemagick`).
+l’ancien jeu. Il n’y a rien d’autre à installer : il se sert de la bibliothèque d’images
+déjà livrée avec le site.
 
 ---
 

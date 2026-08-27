@@ -7,21 +7,31 @@
   margin-bottom: var(--sp-7);
 }
 
+/*
+  Deux vignettes de front dès le téléphone. En une seule colonne, quatre
+  photographies pleine largeur faisaient à elles seules deux écrans et demi de
+  défilement avant la moindre autre information — on quittait la page avant
+  d'avoir vu la carte.
+*/
 .grille {
   display: grid;
-  gap: var(--sp-6) var(--sp-5);
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 560px) {
-  .grille {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  gap: var(--sp-5) var(--sp-4);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 @media (min-width: 1024px) {
   .grille {
     grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1rem, 1.8vw, 1.75rem);
+    /* Les vignettes se posent en haut de leur case : c'est le décalage d'une
+       carte sur deux qui donne le rythme, pas un étirement. */
+    align-items: start;
+  }
+
+  /* Une carte sur deux descend d'un cran. Quatre photographies alignées au
+     cordeau font une planche de catalogue ; décalées, elles font une vitrine. */
+  .plat:nth-child(even) {
+    margin-top: var(--sp-7);
   }
 }
 
@@ -32,6 +42,11 @@
 .plat:focus-visible {
   outline: 2px solid var(--red-500);
   outline-offset: 6px;
+  border-radius: var(--radius-image);
+}
+
+.visuel {
+  position: relative;
 }
 
 .nom {
@@ -51,7 +66,8 @@
 
 .description {
   margin-top: var(--sp-2);
-  /* Deux lignes réservées : sans cela les prix se décalent d'une carte à l'autre. */
+  /* Deux lignes réservées : sans cela les cartes se décalent l'une par rapport
+     à l'autre au bas de la grille. */
   min-height: calc(2 * 1.5 * var(--fs-body-sm));
   color: var(--text-secondary);
   font-size: var(--fs-body-sm);
@@ -62,13 +78,32 @@
   overflow: hidden;
 }
 
+/*
+  L'étiquette de prix, posée dans le coin de la photographie. Elle est opaque :
+  un fond translucide passerait du lisible à l'illisible selon l'assiette qui se
+  trouve dessous, et le prix est précisément ce qu'on ne peut pas laisser au
+  hasard.
+*/
 .prix {
-  margin-top: var(--sp-3);
+  position: absolute;
+  left: var(--sp-3);
+  bottom: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-full);
+  background-color: var(--surface-carte);
+  box-shadow: var(--shadow-carte);
   color: var(--red-600);
   font-size: var(--fs-body-sm);
   font-weight: 600;
   letter-spacing: 0.01em;
   font-variant-numeric: tabular-nums;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .plat:hover .prix {
+    transform: translateY(-2px);
+  }
 }
 
 /* « / pers. » reste attaché au prix sans en prendre le poids : c'est une

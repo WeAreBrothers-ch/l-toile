@@ -53,12 +53,12 @@ const SIGNATURES: readonly PlatSignature[] = [
   },
 ];
 
-const TAILLES = '(min-width: 1024px) 22vw, (min-width: 560px) 44vw, 88vw';
+const TAILLES = '(min-width: 1024px) 24vw, 46vw';
 
 export function PlatsSignature() {
   return (
     <section className="surfacePapier section" aria-labelledby="titre-signature">
-      <div className="wrap">
+      <div className="wrapLarge">
         <div className={styles.entete} data-reveal>
           <div>
             <p className="eyebrow">Ce qu’on commande le plus</p>
@@ -80,15 +80,19 @@ export function PlatsSignature() {
               data-reveal
               style={{ ['--reveal-delai' as string]: `${index * 60}ms` }}
             >
-              <Photo photo={plat.photo} sizes={TAILLES} zoom />
+              <div className={styles.visuel}>
+                <Photo photo={plat.photo} sizes={TAILLES} zoom />
+                {/* Le prix est posé sur la photo, pas sous la description : c'est
+                    la seule information qu'on cherche du regard avant de lire. */}
+                <p className={styles.prix}>
+                  {formaterPrix(plat.prix)}
+                  {plat.suffixePrix ? (
+                    <span className={styles.suffixePrix}> {plat.suffixePrix}</span>
+                  ) : null}
+                </p>
+              </div>
               <h3 className={styles.nom}>{plat.nom}</h3>
               <p className={styles.description}>{plat.description}</p>
-              <p className={styles.prix}>
-                {formaterPrix(plat.prix)}
-                {plat.suffixePrix ? (
-                  <span className={styles.suffixePrix}> {plat.suffixePrix}</span>
-                ) : null}
-              </p>
             </Link>
           ))}
         </div>

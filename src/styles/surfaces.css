@@ -16,7 +16,7 @@
   --ligne-champ: var(--border-interactive);
   --accent: var(--red-600); /* porte du texte */
   --accent-identite: var(--red-500); /* ne porte jamais de texte */
-  --ombre-focus: 0 0 0 2px #ffffff, 0 0 0 4px var(--red-500);
+  --ombre-focus: 0 0 0 2px var(--surface), 0 0 0 4px var(--red-500);
   /* Bouton primaire : rouge plein, texte blanc */
   --btn-fond: var(--red-600);
   --btn-fond-survol: var(--red-700);

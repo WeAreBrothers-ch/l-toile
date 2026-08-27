@@ -40,12 +40,3 @@
   border-top: 1px solid var(--border-ink);
 }
 
-/*
-  Quand la dernière chose de la page est une image-charnière, c'est le pied de
-  page qui reçoit le débordement : il recule le début de son contenu d'autant.
-  Sur un navigateur sans `:has()`, la photo se pose simplement dans l'espace
-  vide du pied — rien ne se chevauche, rien ne se casse.
-*/
-main:has(> .pontFinal:last-child) + footer {
-  padding-top: calc(var(--section-y) + var(--overlap));
-}

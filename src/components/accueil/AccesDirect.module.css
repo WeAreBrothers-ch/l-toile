@@ -12,8 +12,13 @@
 .grille {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  background-color: var(--surface);
+  background-color: var(--surface-carte);
   border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  /* Le rayon doit rogner les filets internes des cellules d'angle, sinon ils
+     dépassent du coin arrondi. */
+  overflow: hidden;
+  box-shadow: var(--shadow-lift);
 }
 
 @media (min-width: 900px) {

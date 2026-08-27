@@ -32,7 +32,7 @@ export interface Photo {
  * **À changer à chaque remplacement de visuels**, puis relancer
  * `node scripts/preparer-photos.mjs`, qui renomme les fichiers en conséquence.
  */
-export const VERSION_PHOTOS = '2026-08c';
+export const VERSION_PHOTOS = '2026-08d';
 
 const p = (
   nom: string,
@@ -53,7 +53,7 @@ const p = (
 export const PHOTOS = {
   heroSalle: p('hero-salle', 1290, 726, '16:9', 'Accueil — bandeau d’ouverture (grand écran)',
     'La salle du Restaurant L’Étoile, rue de Genève à Lausanne, tables dressées avant le service'),
-  heroSallePortrait: p('hero-salle-portrait', 1280, 1600, '4:5', 'Accueil — bandeau d’ouverture (mobile)',
+  heroSallePortrait: p('hero-salle-portrait', 1180, 1475, '4:5', 'Accueil — bandeau d’ouverture (mobile)',
     'Table dressée du Restaurant L’Étoile à Lausanne, verres alignés et lumière tamisée'),
 
   platPlateauMer: p('plat-plateau-mer', 1000, 1250, '4:5', 'Accueil — plats signature',
@@ -65,18 +65,29 @@ export const PHOTOS = {
   platLinguine: p('plat-linguine', 1000, 1250, '4:5', 'Accueil — plats signature',
     'Linguine à l’ail, tomates cerises et basilic, servies au Restaurant L’Étoile, restaurant italien à Lausanne'),
 
-  charniereCarte: p('charniere-carte', 1000, 1250, '4:5', 'Accueil — image-charnière vers la carte',
+  duoMaison: p('duo-maison', 1100, 1375, '4:5', 'Accueil — duo « la maison »',
     'Le bar du Restaurant L’Étoile à Lausanne, verres suspendus et bougies allumées en soirée'),
-  charniereCartePage: p('charniere-carte-page', 1000, 1250, '4:5', 'Carte — image-charnière',
+  duoCarte: p('duo-carte', 1100, 1375, '4:5', 'Carte — duo d’ouverture',
     'Gambas à l’ail et riz safrané servis en salle au Restaurant L’Étoile à Lausanne'),
-  charnierePizzas: p('charniere-pizzas', 1000, 1250, '4:5', 'Pizzas — image-charnière',
+  duoPizzas: p('duo-pizzas', 1100, 1375, '4:5', 'Pizzas — duo d’ouverture',
     'Pizza au jambon cru, roquette et tomates cerises, cuite au four au Restaurant L’Étoile à Lausanne'),
-  charniereContact: p('charniere-contact', 1000, 1250, '4:5', 'Contact — image-charnière',
+  duoContact: p('duo-contact', 1100, 1375, '4:5', 'Contact — duo d’ouverture',
     'La salle du Restaurant L’Étoile, rue de Genève 102 à Lausanne, vue depuis l’entrée'),
 
-  respirationCarte1: p('respiration-carte-1', 1200, 800, '3:2', 'Carte — respiration entre catégories',
-    'Plateau de fruits de mer grillés et poisson, spécialité du Restaurant L’Étoile à Lausanne'),
-  respirationCarte2: p('respiration-carte-2', 1200, 800, '3:2', 'Carte — respiration entre catégories',
+  galerie1: p('galerie-1', 900, 1125, '4:5', 'Accueil — galerie d’ambiance',
+    'Cocktail servi au bar du Restaurant L’Étoile à Lausanne'),
+  galerie2: p('galerie-2', 900, 900, '1:1', 'Accueil — galerie d’ambiance',
+    'La salle du Restaurant L’Étoile à Lausanne, tables dressées et lumière du jour'),
+  galerie3: p('galerie-3', 900, 1125, '4:5', 'Accueil — galerie d’ambiance',
+    'Bouteille de vin rouge et verres dressés en salle au Restaurant L’Étoile à Lausanne'),
+  galerie4: p('galerie-4', 900, 900, '1:1', 'Accueil — galerie d’ambiance',
+    'Viande grillée au romarin, servie sur ardoise au Restaurant L’Étoile à Lausanne'),
+  galerie5: p('galerie-5', 900, 1125, '4:5', 'Accueil — galerie d’ambiance',
+    'Bouteilles de vin blanc de la carte des vins du Restaurant L’Étoile à Lausanne'),
+
+  respirationCarte1: p('respiration-carte-1', 1290, 645, '2:1', 'Carte — respiration entre catégories',
+    'Fruits de mer grillés, spécialité du Restaurant L’Étoile à Lausanne'),
+  respirationCarte2: p('respiration-carte-2', 1290, 645, '2:1', 'Carte — respiration entre catégories',
     'Paccheri à la burrata et aux tomates cerises, dressés au Restaurant L’Étoile à Lausanne'),
 } as const satisfies Record<string, Photo>;
 

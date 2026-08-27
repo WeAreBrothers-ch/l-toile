@@ -1,53 +1,43 @@
-.titre {
-  font-size: var(--fs-h1);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-}
-
-.duo {
-  display: grid;
-  gap: var(--sp-7);
-  margin-top: var(--sp-8);
-}
-
-@media (min-width: 768px) {
-  .duo {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--sp-8);
-  }
-}
-
-.bloc h2 {
-  margin-bottom: var(--sp-4);
-  color: var(--accent);
-  font-family: var(--sans);
-  font-size: var(--fs-eyebrow);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.bloc address,
-.bloc p {
+.adresse,
+.coordonnees {
   color: var(--encre-2);
   font-size: var(--fs-body-sm);
   line-height: 1.7;
 }
 
-.bloc a {
+.coordonnees a {
   padding-block: var(--sp-2);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
-.bloc a:hover {
+.coordonnees a:hover {
   color: var(--encre);
 }
 
+/* ---------------------------------------------------------------------------
+   LA SEMAINE
+   Sept lignes en deux colonnes : la semaine se lit d'un coup d'œil au lieu de
+   se dérouler. Le dimanche fermé reste seul sur sa ligne, ce qui est justement
+   l'information qu'on vient chercher.
+   --------------------------------------------------------------------------- */
 .semaine {
+  margin-top: var(--sp-6);
   border-top: 1px solid var(--ligne);
+}
+
+@media (min-width: 800px) {
+  .semaine {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  /* Chaque colonne porte son propre filet du haut. */
+  .jour:nth-child(4) {
+    border-top: 1px solid var(--ligne);
+  }
 }
 
 .jour {
@@ -55,7 +45,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: var(--sp-4);
-  padding-block: var(--sp-3);
+  padding-block: var(--sp-4);
   border-bottom: 1px solid var(--ligne);
   font-size: var(--fs-body-sm);
   font-variant-numeric: tabular-nums;
@@ -73,8 +63,36 @@
 
 .jour[data-ferme='true'] dd {
   color: var(--accent);
+  font-weight: 600;
 }
 
-.action {
-  margin-top: var(--sp-5);
+/* ---------------------------------------------------------------------------
+   LE MESSAGE
+   Le formulaire tenait une demi-colonne au milieu d'une page vide. Il est
+   maintenant posé dans une carte, en face de son explication.
+   --------------------------------------------------------------------------- */
+.message {
+  display: grid;
+  gap: var(--sp-6);
+}
+
+@media (min-width: 900px) {
+  .message {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .messageTexte {
+    position: sticky;
+    top: calc(var(--header-h-lg) + var(--sp-6));
+  }
+}
+
+.carteFormulaire {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background-color: var(--surface-carte);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-carte);
 }
