@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://www.restaurant-letoile.ch
+Sitemap: https://www.restaurant-letoile.ch/sitemap.xml

@@ -3,210 +3,175 @@
 Le site de L’Étoile, rue de Genève 102 à Lausanne. Quatre pages : l’accueil, la carte,
 les pizzas et le contact.
 
-Le principe est simple : **la carte d’abord**. Un visiteur doit pouvoir lire tous les
-plats et tous les prix en un clic, puis appeler. La réservation se fait au téléphone,
-donc le bouton d’appel est présent partout, y compris dans une barre fixe en bas de
-l’écran sur téléphone.
+C’est un site en **HTML, CSS et JavaScript ordinaires**. Rien à installer, rien à
+compiler, aucun outil. Vous ouvrez un fichier, vous le modifiez, vous l’envoyez.
+
+Le principe : **la carte d’abord**. Un visiteur doit pouvoir lire tous les plats et
+tous les prix en un clic, puis appeler. La réservation se fait au téléphone, donc le
+bouton d’appel est présent partout, y compris dans une barre fixe en bas de l’écran
+sur téléphone.
 
 ---
 
-## Lancer le site sur votre ordinateur
+## Voir le site sur votre ordinateur
 
-Une seule fois, pour installer :
+Double-cliquez sur **`index.html`**. Il s’ouvre dans votre navigateur. C’est tout.
 
-```bash
-npm install
-```
+Tout fonctionne ainsi, à une exception près : le plan d’accès et le formulaire de
+contact demandent une vraie adresse `http://`. Pour les essayer, faites glisser le
+dossier dans un petit serveur local, ou regardez-les directement en ligne.
 
-Puis, à chaque fois que vous voulez voir le site :
+---
 
-```bash
-npm run dev
-```
+## Ce qu’il y a dans le dossier
 
-Ouvrez ensuite l’adresse que le terminal affiche — en général
-**http://localhost:3000**. Toute modification apparaît immédiatement, sans rien
-relancer.
+| Fichier ou dossier | Contenu |
+| --- | --- |
+| `index.html` | L’accueil |
+| `carte.html` | La carte complète |
+| `pizzas.html` | Les pizzas |
+| `contact.html` | Contact, horaires, plan et formulaire |
+| `404.html` | La page affichée quand une adresse n’existe pas |
+| `css/style.css` | Toutes les couleurs, tailles et espacements du site |
+| `js/script.js` | Les sept comportements de la page (voir plus bas) |
+| `images/` | Toutes les photos et le logo |
+| `fonts/` | Les deux polices du site, hébergées ici plutôt que chez Google |
+| `photos-source/` | Les photos d’origine, avant recadrage. Ne sont pas publiées |
+| `robots.txt`, `sitemap.xml` | Ce que Google lit pour référencer le site |
+| `.nojekyll` | Indispensable à GitHub Pages. **Ne pas supprimer** (voir plus bas) |
 
-Pour arrêter : `Ctrl + C` dans la fenêtre du terminal.
+Les trois documents de cadrage — `DIRECTION-ARTISTIQUE.md`, `PHOTOS-A-FOURNIR.md` et
+`CONTENU-SITE-ACTUEL.md` — sont conservés à la racine.
 
 ---
 
 ## Modifier un prix ou un plat
 
-Tout le contenu de la carte tient dans trois fichiers texte du dossier `data/`. Il n’y a
-**rien d’autre à toucher** : l’affichage, le plan du site et les informations envoyées à
-Google se mettent à jour tout seuls.
+Ouvrez le fichier de la page concernée dans un éditeur de texte, cherchez le nom du
+plat, et modifiez ce qui l’entoure. Une ligne de carte ressemble à ceci :
 
-### La carte
-
-Ouvrez **`data/menu.ts`**. Chaque plat tient sur une ligne :
-
-```
-{ nom: 'Risotto aux morilles', description: 'Crème fraîche, pointes de morilles', prix: 23 },
-```
-
-- **Changer un prix** → modifiez le nombre après `prix:`. Écrivez `23` pour 23.— et
-  `8.5` pour 8.50. N’écrivez jamais « CHF » ni « .— », le site s’en charge.
-- **Ajouter un plat** → recopiez une ligne entière au bon endroit et modifiez-la.
-  Vérifiez qu’elle se termine bien par une virgule.
-- **Retirer un plat** → supprimez sa ligne.
-- **Changer un texte de catégorie** → modifiez `titre:`. Ne touchez pas à `id:`, qui
-  sert aux liens de la page.
-
-### Les pizzas
-
-Même principe dans **`data/pizzas.ts`** :
-
-```
-{ nom: 'Margherita', garniture: 'Sauce tomate, mozzarella et origan', prix: 17 },
+```html
+<li class="lignedeplat-plat">
+  <p class="lignedeplat-ligne">
+    <span class="lignedeplat-nom">Risotto aux morilles</span>
+    <span class="lignedeplat-rappel" aria-hidden="true"></span>
+    <span class="lignedeplat-prix">23.—</span>
+  </p>
+  <p class="lignedeplat-description">Crème fraîche, pointes de morilles</p>
+</li>
 ```
 
-### Les garnitures et les sauces
+- **Changer un prix** → modifiez le contenu de `lignedeplat-prix`. On écrit `23.—`
+  pour 23 francs et `8.50` pour huit francs cinquante.
+- **Ajouter un plat** → recopiez un bloc `<li>…</li>` entier au bon endroit et
+  modifiez-le.
+- **Retirer un plat** → supprimez son bloc `<li>…</li>` en entier, de la balise
+  ouvrante à la fermante.
 
-Le bloc de fin de carte se modifie dans **`data/accompagnements.ts`** : la liste des
-garnitures comprises, et les sauces avec leur supplément.
+### Attention : certaines informations existent à plusieurs endroits
 
-### Les horaires, le téléphone, l’adresse
+C’est la contrepartie d’un site en HTML écrit à la main. Si vous changez l’une de ces
+informations, **cherchez-la dans les quatre pages** et corrigez-la partout :
 
-Tout est dans **`data/restaurant.ts`**. Attention : ces informations doivent rester
-**strictement identiques** à celles de votre fiche Google, de local.ch et de search.ch.
-La moindre différence affaiblit votre position dans les recherches.
+| Information | Où elle apparaît |
+| --- | --- |
+| Le téléphone | En-tête, pied de page, barre du bas sur mobile, page Contact, `js/script.js` |
+| Les horaires | Pied de page, page Contact, bandeau du haut, et `js/script.js` (bloc `HORAIRES`) |
+| L’adresse | En-tête, pied de page, page Contact, menu mobile |
+| Le nombre de plats d’une catégorie | Encadré « Tout est là » de l’accueil |
 
-### Quelques règles d’écriture
+Un moteur de recherche compare ces informations à votre fiche Google, à local.ch et à
+search.ch : la moindre différence affaiblit votre position dans les recherches locales.
 
-- L’apostrophe s’écrit toujours `’` (courbe), jamais `'`. Faites un copier-coller depuis
-  une ligne existante en cas de doute.
-- On écrit « L’Étoile », avec le É majuscule accentué.
-- Après avoir modifié un fichier, regardez le site : s’il affiche une erreur rouge,
-  c’est presque toujours une virgule oubliée en fin de ligne.
+### Les horaires servent deux fois
+
+Le bandeau « Ouvert / Fermé » en haut de page est calculé en direct, à l’heure de
+Lausanne, quel que soit le pays depuis lequel on consulte le site. Ce calcul lit ses
+propres horaires, dans **`js/script.js`**, au bloc commenté `HORAIRES`. Si vous changez
+une heure d’ouverture, changez-la là aussi — sinon le bandeau annoncera « Ouvert »
+quand la porte est fermée.
 
 ---
 
 ## Remplacer une photo
 
-Déposez votre fichier dans `public/images/` **avec exactement le même nom** que celui
-que vous remplacez, en `.jpg`. Rien d’autre à faire.
+Déposez votre fichier dans `images/` **avec exactement le même nom** que celui que vous
+remplacez, et **aux mêmes dimensions**. Rien d’autre à faire.
 
-Les noms contiennent un millésime — `hero-salle-2026-08c.jpg`. Gardez-le : les navigateurs
-retiennent les images d’après leur adresse, et une photo remplacée sous le même nom
-continuerait de s’afficher en ancienne version chez les visiteurs déjà venus.
+Les noms contiennent un millésime — `hero-salle-2026-08d.jpg`. Gardez-le : les
+navigateurs retiennent les images d’après leur adresse, et une photo remplacée sous le
+même nom continuerait de s’afficher en ancienne version chez les visiteurs déjà venus.
+Pour forcer le changement, donnez un nouveau millésime au fichier **et** corrigez son
+nom dans les pages qui l’utilisent.
 
 La liste complète des emplacements, avec le format et la taille attendus, est dans
 **`PHOTOS-A-FOURNIR.md`** — c’est aussi le document à remettre au photographe.
-
-**Pour remplacer tout un jeu de photos**, déposez les originaux dans
-`photos-source/2026-08-client/`, indiquez dans `scripts/preparer-photos.mjs` quel original
-va à quel emplacement, changez `VERSION_PHOTOS` dans `data/photos.ts`, puis lancez :
-
-```bash
-node scripts/preparer-photos.mjs
-```
-
-Le script recadre tout aux bons formats, renomme au nouveau millésime et supprime
-l’ancien jeu. Il n’y a rien d’autre à installer : il se sert de la bibliothèque d’images
-déjà livrée avec le site.
 
 ---
 
 ## Mettre le site en ligne
 
-```bash
-npm run build
-```
-
-Cette commande écrit un dossier **`out/`** : des fichiers `.html`, `.css`, `.js` et
-`.jpg`, et rien d’autre. C’est le site fini. Il se dépose tel quel sur n’importe quel
-hébergement — un FTP Infomaniak, GitHub Pages, un dossier Apache. **Aucun serveur,
-aucun Node, aucune configuration côté hébergeur.**
-
-**Ne lancez jamais `npm run build` pendant que `npm run dev` tourne** : les deux
-utilisent le même dossier de travail et se gênent. Arrêtez le mode dev, construisez,
-puis relancez si besoin.
-
-### Le principe
-
-Les pages ne sont pas écrites en HTML à la main, elles sont **fabriquées**. Le contenu
-n’existe qu’une fois — la carte dans `data/menu.ts`, les horaires et le téléphone dans
-`data/restaurant.ts` — et le build en tire les quatre pages, le plan du site et les
-données envoyées à Google.
-
-C’est tout l’intérêt : changer un prix à un endroit le change partout. En contrepartie,
-il faut lancer `npm run build` avant chaque envoi — le dossier `out/` n’est pas
-conservé dans le dépôt, puisqu’il se refabrique à l’identique.
+Il n’y a rien à construire. Les fichiers du dossier **sont** le site.
 
 ### Sur le FTP d’Infomaniak
 
-Envoyez le **contenu** du dossier `out/` à la racine du site (souvent `web/` ou
-`public_html/`). Pas le dossier lui-même : son contenu.
-
-Pour automatiser depuis GitHub, un workflow qui construit puis dépose. Les identifiants
-se rangent dans Settings → Secrets and variables → Actions.
-
-```yaml
-- run: npm ci && npm run build
-- uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-  with:
-    server: ${{ secrets.FTP_HOTE }}
-    username: ${{ secrets.FTP_UTILISATEUR }}
-    password: ${{ secrets.FTP_MOTDEPASSE }}
-    local-dir: ./out/
-    server-dir: ./web/
-```
+Envoyez tout le contenu du dossier à la racine du site (souvent `web/` ou
+`public_html/`), à l’exception de `photos-source/` et des trois fichiers `.md`, qui ne
+servent qu’à vous.
 
 ### Sur GitHub Pages
 
-Un workflow est déjà en place, `.github/workflows/pages.yml`. Il ne demande qu’un
-réglage, **une seule fois** : Settings → Pages → Source → **GitHub Actions**.
+Settings → Pages → Source → **Deploy from a branch** → branche `main`, dossier `/ (root)`.
 
-Attention à ne pas choisir « Deploy from a branch » : c’est ce réglage qui affiche le
-README à la place du site.
+Rien d’autre. Le fichier `.nojekyll` à la racine est ce qui empêche GitHub de tenter
+d’interpréter le site avec Jekyll — **ne le supprimez pas**, sans lui la mise en page
+disparaît.
 
-L’aperçu vit alors sous `https://wearebrothers-ch.github.io/l-toile/`, donc dans un
-sous-dossier — d’où la variable `NEXT_PUBLIC_BASE_PATH` que le workflow pose. Sur le
-domaine du restaurant, cette variable n’existe pas et le site vit à la racine.
+---
 
-### Le formulaire de contact
+## Le formulaire de contact
 
-Le site n’ayant pas de serveur à lui, le formulaire s’adresse à un **service de
-réception extérieur** : Formspree, Basin, Formcarry, ou un script sur l’hébergement.
-Son adresse se pose dans la variable `NEXT_PUBLIC_CONTACT_ENDPOINT` au moment du build.
+Le site n’a pas de serveur : il ne peut donc pas recevoir un message lui-même. Le
+formulaire s’adresse à un **service de réception** — Formspree, Basin, Formcarry, ou
+un script sur votre hébergement.
 
-C’est une adresse d’envoi publique, pas un secret — exactement comme l’adresse e-mail
-affichée juste à côté sur la page. **N’y mettez jamais une clé d’API.**
-
-Tant qu’elle n’est pas renseignée, le formulaire l’annonce clairement au visiteur et le
-renvoie vers le téléphone et l’e-mail du restaurant — il n’avale jamais un message en
-silence.
+Dans **`contact.html`**, cherchez `formspree.io/f/VOTRE-IDENTIFIANT` et remplacez cette
+adresse par la vôtre. Tant que ce n’est pas fait, l’envoi échoue proprement : le
+visiteur voit un message et le numéro de téléphone du restaurant.
 
 C’est volontairement **un formulaire de contact, pas de réservation** : une demande de
 table qui n’aboutirait pas serait pire qu’un numéro bien visible.
 
-## Ce qu’il y a dans le dossier
+---
 
-| Dossier | Contenu |
-| --- | --- |
-| `data/` | Tout le contenu : la carte, les pizzas, les horaires, la liste des photos |
-| `src/app/` | Les quatre pages |
-| `src/components/` | Les éléments réutilisables : en-tête, ligne de carte, galerie… |
-| `src/styles/` | Les couleurs, les typographies et les espacements, définis une seule fois |
-| `src/fonts/` | Les polices du site, hébergées ici plutôt que chez Google |
-| `public/images/` | Toutes les photos et le logo |
-| `photos-source/` | Les photos d’origine, avant recadrage |
-| `scripts/` | Les outils de préparation des photos et des polices |
+## Ce que fait `js/script.js`
 
-Les deux documents de cadrage du projet, `DIRECTION-ARTISTIQUE.md` et
-`CONTENU-SITE-ACTUEL.md`, sont conservés à la racine.
+Sept comportements, indépendants les uns des autres, chacun dans son bloc commenté :
+
+1. **L’en-tête** se compacte après quarante pixels de défilement.
+2. **La barre d’appel** apparaît en bas de l’écran sur téléphone.
+3. **Le menu mobile** s’ouvre et se ferme.
+4. **Ouvert / Fermé** se calcule à l’heure de Lausanne.
+5. **Les onglets de la carte** suivent la catégorie qu’on est en train de lire.
+6. **Le plan** ne contacte OpenStreetMap qu’au clic du visiteur.
+7. **Le formulaire de contact** vérifie les champs et affiche la réponse sur place.
+
+Le site reste **entièrement lisible sans ce fichier** : les liens sont de vrais liens,
+la carte est écrite en entier dans les pages, le formulaire s’envoie tout seul. Le
+script n’ajoute que du confort.
+
+Un huitième comportement, l’apparition des blocs au défilement, est écrit directement
+dans l’en-tête de chaque page : il doit s’exécuter avant le premier affichage, sinon
+les blocs se verraient puis disparaîtraient avant de réapparaître.
 
 ---
 
 ## Bon à savoir
 
-- Le site est **entièrement pré-calculé** : les pages sont fabriquées une fois pour
-  toutes, ce qui les rend très rapides à afficher et faciles à lire pour Google.
-- L’indication « ouvert / fermé » en haut de page est calculée en direct, à l’heure de
-  Lausanne, quel que soit le pays depuis lequel on consulte le site.
+- Le site respecte le réglage « réduire les animations » du système.
 - Le plan d’accès ne contacte aucun service extérieur tant que le visiteur n’a pas
   cliqué dessus.
-- Le site reste entièrement lisible même si le JavaScript ne se charge pas, et respecte
-  le réglage « réduire les animations » du système.
+- Les polices sont hébergées avec le site, elles ne sont pas demandées à Google.
+- L’apostrophe s’écrit toujours `’` (courbe), jamais `'`. Faites un copier-coller
+  depuis une ligne existante en cas de doute. On écrit « L’Étoile », avec le É
+  majuscule accentué.

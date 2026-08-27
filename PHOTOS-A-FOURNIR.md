@@ -55,24 +55,22 @@ jour : **la façade et l’entrée du restaurant** (utile pour être reconnu dep
 
 ## Comment remplacer une photo
 
-Les fichiers portent un **millésime** dans leur nom : `hero-salle-2026-08c.jpg`. Ce n’est
+Les fichiers portent un **millésime** dans leur nom : `hero-salle-2026-08d.jpg`. Ce n’est
 pas une coquetterie. Les navigateurs gardent les images en mémoire d’après leur adresse :
 si on remplace une photo sans changer son nom, les visiteurs déjà venus continuent de voir
 l’ancienne, parfois pendant des semaines. Changer le millésime règle le problème d’un coup.
 
-**Pour un remplacement ponctuel**, déposez le fichier neuf dans `public/images/` sous
+**Pour un remplacement ponctuel**, déposez le fichier neuf dans `images/` sous
 exactement le même nom, millésime compris. Rien d’autre à faire.
 
-**Pour un nouveau jeu de photos :**
+**Pour un nouveau jeu de photos**, il n’y a plus d’outil : le site est en HTML
+ordinaire, sans étape de fabrication. Recadrez chaque photo aux dimensions exactes du
+tableau ci-dessus dans n’importe quel logiciel d’images, nommez les fichiers comme
+indiqué, et déposez-les dans `images/`.
 
-1. Déposez les originaux dans `photos-source/2026-08-client/`.
-2. Dans `scripts/preparer-photos.mjs`, indiquez quel original va à quel emplacement.
-3. Dans `data/photos.ts`, changez `VERSION_PHOTOS` (par exemple `'2026-09'`).
-4. Lancez `node scripts/preparer-photos.mjs`.
-
-Le script recadre tout aux bons formats, renomme au nouveau millésime et supprime
-l’ancien jeu. Si un fichier venait à manquer, le site ne casse pas : il affiche à sa
-place un cadre sombre indiquant le format attendu.
+Si vous changez le millésime dans les noms de fichiers, corrigez-le aussi dans les
+pages HTML qui les appellent — un simple rechercher-remplacer de `2026-08d` par le
+nouveau millésime, dans les quatre pages, suffit.
 
 ## Ce qu’on cherche
 
