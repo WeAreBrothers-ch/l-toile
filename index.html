@@ -6,112 +6,18 @@
     <link rel="preload" href="fonts/archivo.woff2" as="font" crossorigin="" type="font/woff2" />
     <link
       rel="preload"
-      href="fonts/newsreader_italic.woff2"
+      href="fonts/fraunces-latin.woff2"
       as="font"
       crossorigin=""
       type="font/woff2"
     />
     <link
       rel="preload"
-      href="fonts/newsreader_roman.woff2"
-      as="font"
-      crossorigin=""
-      type="font/woff2"
-    />
-    <link
-      rel="preload"
-      href="images/hero-salle-2026-08d.jpg"
       as="image"
-      fetchpriority="high"
-      imagesizes="100vw"
-      media="(min-width: 768px)"
-    />
-    <link
-      rel="preload"
-      href="images/hero-salle-portrait-2026-08d.jpg"
-      as="image"
-      fetchpriority="high"
-      imagesizes="100vw"
-      media="(max-width: 767.98px)"
-    />
-    <link
-      rel="preload"
-      as="image"
-      media="(min-width: 768px)"
-      href="images/hero-salle-2026-08d.jpg"
-      fetchpriority="high"
-    />
-    <link
-      rel="preload"
-      as="image"
-      media="(max-width: 767.98px)"
       href="images/hero-salle-portrait-2026-08d.jpg"
       fetchpriority="high"
     />
     <link rel="preload" as="image" href="images/logo-letoile.svg" />
-    <meta name="theme-color" content="#121110" />
-    <title>Restaurant L’Étoile — Restaurant italien et pizzeria à Lausanne</title>
-    <meta
-      name="description"
-      content="Restaurant italien à Lausanne-Malley : pizzas cuites au four, pâtes fraîches, viandes sur ardoise et poissons. Rue de Genève 102. Réservation au 021 625 15 44."
-    />
-    <meta name="application-name" content="Restaurant L’Étoile" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="https://www.restaurant-letoile.ch/" />
-    <meta
-      property="og:title"
-      content="Restaurant L’Étoile — Restaurant italien et pizzeria à Lausanne"
-    />
-    <meta
-      property="og:description"
-      content="Restaurant italien à Lausanne-Malley : pizzas cuites au four, pâtes fraîches, viandes sur ardoise et poissons. Rue de Genève 102. Réservation au 021 625 15 44."
-    />
-    <meta property="og:url" content="https://www.restaurant-letoile.ch/" />
-    <meta property="og:site_name" content="Restaurant L’Étoile" />
-    <meta property="og:locale" content="fr_CH" />
-    <meta property="og:image" content="https://www.restaurant-letoile.ch/images/og-2026-08d.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Pizza au jambon cru du Restaurant L’Étoile, cuisine italienne et pizzeria à Lausanne"
-    />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Restaurant L’Étoile — Restaurant italien et pizzeria à Lausanne"
-    />
-    <meta
-      name="twitter:description"
-      content="Restaurant italien à Lausanne-Malley : pizzas cuites au four, pâtes fraîches, viandes sur ardoise et poissons. Rue de Genève 102. Réservation au 021 625 15 44."
-    />
-    <meta name="twitter:image" content="https://www.restaurant-letoile.ch/images/og-2026-08d.jpg" />
-    <link
-      rel="icon"
-      href="/favicon.ico?favicon.3zxueus_twa87.ico"
-      sizes="32x32"
-      type="image/x-icon"
-    />
-    <link rel="icon" href="images/logo-mono.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <meta name="next-size-adjust" content="" />
-    <link
-      rel="preload"
-      as="image"
-      media="(min-width: 768px)"
-      href="images/hero-salle-2026-08d.jpg"
-      imagesizes="100vw"
-      fetchpriority="high"
-    />
-    <link
-      rel="preload"
-      as="image"
-      media="(max-width: 767.98px)"
-      href="images/hero-salle-portrait-2026-08d.jpg"
-      imagesizes="100vw"
-      fetchpriority="high"
-    />
     <link rel="stylesheet" href="css/style.css" />
     <script>
       (function () {
@@ -200,7 +106,11 @@
             ><a class="header-lienNav" href="pizzas.html">Pizzas</a
             ><a class="header-lienNav" href="contact.html">Contact</a>
           </nav>
-          <div class="header-actions"><span class="header-etat etatouverturelive-etat"><span class="etatouverturelive-pastille"></span><span class="etatouverturelive-detail">Midi et soir, du lundi au samedi</span></span>
+          <div class="header-actions">
+            <span class="header-etat etatouverturelive-etat"
+              ><span class="etatouverturelive-pastille"></span
+              ><span class="etatouverturelive-detail">Midi et soir, du lundi au samedi</span></span
+            >
             <a
               class="header-iconeSeule header-telIcone"
               href="tel:+41216251544"
@@ -346,36 +256,49 @@
       </div>
     </dialog>
     <main id="contenu">
-      <section class="hero-hero" aria-labelledby="titre-accueil">
-        <!-- Deux cadrages, un seul téléchargement : le navigateur ne charge que
-             celui qui correspond à son écran. En 4:5 sur téléphone la salle
-             reste lisible ; en 16:9 sur grand écran, elle respire. -->
-        <picture>
-          <source
-            media="(min-width: 768px)"
-            srcset="images/hero-salle-2026-08d.jpg"
-            width="1290"
-            height="726"
-          />
-          <img
-            alt="La salle du Restaurant L’Étoile, rue de Genève à Lausanne, tables dressées avant le service"
-            src="images/hero-salle-portrait-2026-08d.jpg"
-            width="1180"
-            height="1475"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-        </picture>
-        <div class="hero-voile"></div>
-        <div class="wrap hero-contenu">
-          <p class="hero-eyebrow">Restaurant · Lausanne-Malley</p>
-          <h1 class="hero-titre" id="titre-accueil">
-            L’Étoile, cuisine <em>italienne</em> à Lausanne
-          </h1>
-          <p class="hero-chapo">
-            Pizzas cuites au four, pâtes fraîches et viandes sur ardoise, rue de Genève 102.
-          </p>
+      <!-- LE BANDEAU D'OUVERTURE
+           Il ne repose plus sur une photographie étalée sur tout l'écran. Les
+           originaux font 1290 px de large : agrandis à la taille d'un écran, ils
+           deviennent flous, et leurs défauts se voient. Ici la photographie est
+           servie à moins de la moitié de sa définition — elle est nette — et
+           c'est le nom de la maison qui tient la page. -->
+      <section class="hero surfaceEncre" aria-labelledby="titre-accueil">
+        <div class="wrapLarge hero-grille">
+          <div class="hero-texte">
+            <p class="hero-exergue">Cuisine italienne et brasserie · Lausanne-Malley</p>
+            <h1 class="hero-titre" id="titre-accueil">
+              <span class="hero-nom">L’Étoile</span>
+              <span class="hero-descriptif">Restaurant italien à Lausanne</span>
+            </h1>
+            <p class="hero-chapo">
+              Pizzas cuites au four, pâtes fraîches, viandes sur ardoise et poissons. Rue de Genève
+              102, à deux pas de la gare de Sébeillon.
+            </p>
+            <div class="hero-actions">
+              <a
+                class="bouton-base bouton-primaire bouton-grand"
+                href="tel:+41216251544"
+                data-analytics="call"
+                aria-label="Réserver par téléphone au +41 21 625 15 44"
+                >Réserver · 021 625 15 44</a
+              >
+              <a class="bouton-base bouton-secondaire bouton-grand" href="carte.html"
+                >Voir la carte</a
+              >
+            </div>
+          </div>
+
+          <figure class="hero-figure">
+            <img
+              src="images/hero-salle-portrait-2026-08d.jpg"
+              alt="La salle du Restaurant L’Étoile, rue de Genève à Lausanne, tables dressées avant le service"
+              width="1160"
+              height="1450"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </figure>
         </div>
       </section>
       <div class="accesdirect-chevauchement">
@@ -457,23 +380,25 @@
           </nav>
         </div>
       </div>
-  
-    <!-- Le bandeau défilant : ce que fait la maison, en cinq mots, sans ponctuation
+
+      <!-- Le bandeau défilant : ce que fait la maison, en cinq mots, sans ponctuation
          ni prix. Il ne se lit pas vraiment, il donne le ton — et il met du
          mouvement entre la photographie et la première grille de plats.
          Le contenu est écrit deux fois pour que le défilement boucle sans trou ;
          la seconde copie est cachée aux lecteurs d'écran. -->
-    <div class="ruban surfaceEncre">
-      <div class="ruban-piste">
-        <span class="ruban-serie">
-          <span>Pizza au four</span><span>Pâtes fraîches</span><span>Viandes sur ardoise</span><span>Poissons et fruits de mer</span><span>Fondues à discrétion</span>
-        </span>
-        <span class="ruban-serie" aria-hidden="true">
-          <span>Pizza au four</span><span>Pâtes fraîches</span><span>Viandes sur ardoise</span><span>Poissons et fruits de mer</span><span>Fondues à discrétion</span>
-        </span>
+      <div class="ruban surfaceEncre">
+        <div class="ruban-piste">
+          <span class="ruban-serie">
+            <span>Pizza au four</span><span>Pâtes fraîches</span><span>Viandes sur ardoise</span
+            ><span>Poissons et fruits de mer</span><span>Fondues à discrétion</span>
+          </span>
+          <span class="ruban-serie" aria-hidden="true">
+            <span>Pizza au four</span><span>Pâtes fraîches</span><span>Viandes sur ardoise</span
+            ><span>Poissons et fruits de mer</span><span>Fondues à discrétion</span>
+          </span>
+        </div>
       </div>
-    </div>
-    <section class="surfacePapier section" aria-labelledby="titre-signature">
+      <section class="surfacePapier section" aria-labelledby="titre-signature">
         <div class="wrapLarge">
           <div class="platssignature-entete" data-reveal="true">
             <div>

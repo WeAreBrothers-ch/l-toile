@@ -1,53 +1,39 @@
 /* Restaurant L'Étoile — feuille de style du site.
    Les couleurs, les tailles et les espacements sont réglés une seule fois,
    dans le bloc « :root » ci-dessous. Tout le reste s'y réfère. */
-:root {
-  --font-newsreader: "newsreader", "newsreader Fallback";
-  --font-newsreader-italique: "newsreaderItalique", "newsreaderItalique Fallback";
-  --font-archivo: "archivo", "archivo Fallback";
-}
+/* ---------------------------------------------------------------------------
+   LES DEUX POLICES DU SITE
+
+   Fraunces porte tout ce qui se lit lentement : les titres, les noms de plats,
+   les prix. C'est un caractère à fort contraste dont le dessin change avec la
+   taille — l'axe « opsz » affine ses déliés et resserre son dessin quand il
+   grandit, l'assouplit quand il rapetisse. C'est ce qui lui donne son air de
+   plomb plutôt que d'écran.
+
+   Archivo porte tout ce qui se lit vite : la navigation, les descriptions, les
+   boutons, les horaires. Une grotesque neutre, qui ne discute pas.
+
+   Les deux sont hébergées ici, jamais demandées à Google. Pour en changer,
+   déposez le `.woff2` dans `fonts/` et changez la seule ligne `src:` ci-dessous.
+   --------------------------------------------------------------------------- */
 @font-face {
-  font-family: newsreader;
-  src: url(../fonts/newsreader_roman.woff2) format("woff2");
+  font-family: Fraunces;
+  src: url(../fonts/fraunces-latin.woff2) format("woff2");
+  font-weight: 100 900;
   font-display: swap;
-  font-weight: 400 500;
-  font-style: normal;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: newsreader Fallback;
-  src: local(Times New Roman);
-  ascent-override: 73.61%;
-  descent-override: 26.54%;
-  line-gap-override: 0%;
-  size-adjust: 99.84%;
-}
-.newsreader_ee9b12ca-className {
-  font-family:
-    newsreader,
-    newsreader Fallback;
-  font-style: normal;
-}
-@font-face {
-  font-family: newsreaderItalique;
-  src: url(../fonts/newsreader_italic.woff2) format("woff2");
+  font-family: Fraunces;
+  src: url(../fonts/fraunces-latin-ext.woff2) format("woff2");
+  font-weight: 100 900;
   font-display: swap;
-  font-weight: 400;
-  font-style: italic;
-}
-@font-face {
-  font-family: newsreaderItalique Fallback;
-  src: local(Times New Roman);
-  ascent-override: 77.1%;
-  descent-override: 27.8%;
-  line-gap-override: 0%;
-  size-adjust: 95.33%;
-}
-.newsreaderitalique_46ea246-className {
-  font-family:
-    newsreaderItalique,
-    newsreaderItalique Fallback;
-  font-style: italic;
-  font-weight: 400;
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
 }
 @font-face {
   font-family: archivo;
@@ -56,6 +42,8 @@
   font-weight: 400 600;
   font-style: normal;
 }
+/* La police de secours est ajustée pour occuper exactement la même place que la
+   vraie : rien ne saute au moment où celle-ci arrive. */
 @font-face {
   font-family: archivo Fallback;
   src: local(Arial);
@@ -64,11 +52,8 @@
   line-gap-override: 0%;
   size-adjust: 102.8%;
 }
-.archivo_19038e41-className {
-  font-family:
-    archivo,
-    archivo Fallback;
-  font-style: normal;
+:root {
+  --font-archivo: "archivo", "archivo Fallback";
 }
 .bouton-base {
   justify-content: center;
@@ -1230,7 +1215,7 @@
   --state-warning-ink: #e0a24a;
   --state-disabled-bg: #f0eeeb;
   --state-disabled-text: #8a857e;
-  --serif: var(--font-newsreader), "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --serif: Fraunces, "Iowan Old Style", Georgia, "Times New Roman", serif;
   --sans: var(--font-archivo), -apple-system, "Helvetica Neue", Arial, sans-serif;
   --fs-display: clamp(2.875rem, 1.55rem + 6.6vw, 5.75rem);
   --fs-h1: clamp(2rem, 1.4rem + 3vw, 3.5rem);
@@ -1379,10 +1364,16 @@ body {
   margin: 0;
   line-height: 1.65;
 }
+/*
+  Tout ce qui est en Fraunces demande son échelle optique. Sans elle, le
+  navigateur applique la valeur par défaut — celle d'un texte de labeur — et le
+  caractère perd le contraste qui fait tout son intérêt en grand.
+*/
 h1,
 h2,
 h3,
 h4 {
+  font-variation-settings: "opsz" 96;
   font-family: var(--serif);
   text-wrap: balance;
   margin: 0;
@@ -1392,13 +1383,18 @@ p {
   text-wrap: pretty;
   margin: 0;
 }
+/*
+  Les titres ne penchent plus. Le mot mis en avant garde la même famille et la
+  même graisse : c'est l'axe optique qui le distingue, poussé à son maximum, ce
+  qui affine ses déliés et resserre son dessin. La nuance est faible, et c'est
+  voulu — un titre se lit d'un bloc, pas en deux morceaux.
+*/
 h1 em,
 h2 em,
 h3 em,
 .italique {
-  font-family: var(--font-newsreader-italique), var(--serif);
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "opsz" 144;
 }
 ul,
 ol {
@@ -1755,81 +1751,146 @@ address {
   line-height: 1.6;
 }
 
-.hero-hero {
+/* ============================================================================
+   LE BANDEAU D'OUVERTURE
+
+   Il ne repose plus sur une photographie étalée d'un bord à l'autre. Les
+   originaux du restaurant font 1290 px de large : à la taille d'un écran, ils
+   sont agrandis d'un tiers, ils perdent leur netteté, et le grain du téléphone
+   qui les a pris devient visible. Une photographie ne porte une page entière
+   que si elle est meilleure que la page.
+
+   Ici c'est le nom de la maison qui la porte, et la photographie l'accompagne
+   dans une colonne de six cents pixels — soit la moitié de sa définition. Elle
+   y est nette, et son cadrage vertical d'origine est enfin celui qu'on lui
+   demande.
+   ============================================================================ */
+.hero {
+  padding-block: var(--sp-9) var(--sp-8);
   background-color: var(--surface-ink);
+  color: var(--text-on-ink);
   isolation: isolate;
-  align-items: flex-end;
-  min-height: 82svh;
-  display: flex;
   position: relative;
   overflow: hidden;
 }
-@media (min-width: 768px) {
-  .hero-hero {
-    min-height: 90svh;
+
+@media (min-width: 900px) {
+  .hero {
+    padding-block: clamp(5rem, 4rem + 6vw, 9rem) var(--sp-9);
   }
 }
-.hero-hero picture,
-.hero-hero img {
-  z-index: -2;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+
+/* Une lueur chaude dans l'angle, comme une lampe hors champ. */
+.hero::before {
+  content: "";
   position: absolute;
   inset: 0;
-}
-.hero-hero img {
-  animation: hero-approche 14s var(--ease-out) both;
-  transform-origin: 52% 58%;
-}
-@keyframes hero-approche {
-  0% {
-    transform: scale(1.08);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-.hero-voile {
   z-index: -1;
-  background:
-    linear-gradient(#0f0c0a47 0%, #0f0c0a2e 38%, #0f0c0a8c 68%, #0f0c0ae0 100%),
-    radial-gradient(120% 90% at 8% 92%, #0f0c0a8c 0%, #0000 62%);
-  position: absolute;
-  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 55% at 78% 18%, rgb(161 23 30 / 0.28) 0%, transparent 70%);
 }
-.hero-contenu {
-  width: 100%;
-  padding-block: var(--sp-9) var(--sp-9);
-  color: var(--text-on-ink);
+
+.hero-grille {
+  display: grid;
+  gap: var(--sp-7);
+  align-items: center;
 }
-.hero-eyebrow {
-  margin: 0 0 var(--sp-4);
-  color: var(--text-on-ink);
+
+@media (min-width: 900px) {
+  .hero-grille {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+  }
+}
+
+.hero-exergue {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+  color: var(--text-on-ink-secondary);
   font-family: var(--sans);
   font-size: var(--fs-eyebrow);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
+
+.hero-exergue::before {
+  content: "";
+  width: var(--sp-6);
+  height: 1px;
+  background-color: var(--red-500);
+}
+
 .hero-titre {
-  max-width: 15ch;
-  font-size: var(--fs-display);
-  letter-spacing: -0.025em;
-  text-shadow: 0 1px 40px #0f0c0a59;
+  display: grid;
+  gap: var(--sp-4);
+}
+
+/*
+  Le nom, à l'échelle d'une enseigne. L'axe optique est poussé au maximum : à
+  cette taille, Fraunces affine ses déliés jusqu'au trait de plume, ce qu'un
+  dessin unique ne saurait pas faire.
+*/
+.hero-nom {
+  font-size: clamp(4rem, 2rem + 11vw, 10.5rem);
+  font-variation-settings: "opsz" 144;
   font-weight: 400;
-  line-height: 0.96;
+  letter-spacing: -0.035em;
+  line-height: 0.82;
 }
-.hero-titre em {
-  font-style: italic;
-}
-.hero-chapo {
-  max-width: 46ch;
-  margin-top: var(--sp-5);
-  color: var(--text-on-photo);
+
+.hero-descriptif {
+  color: var(--text-on-ink-secondary);
+  font-family: var(--sans);
   font-size: var(--fs-lead);
-  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
 }
+
+.hero-chapo {
+  max-width: 42ch;
+  margin-top: var(--sp-6);
+  color: var(--text-on-ink-secondary);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-top: var(--sp-7);
+}
+
+/*
+  La photographie. Six cents pixels au plus : au-delà, on dépasserait la moitié
+  de la définition du fichier et le flou reviendrait.
+*/
+.hero-figure {
+  margin: 0;
+  justify-self: center;
+  width: 100%;
+  max-width: 26rem;
+}
+
+@media (min-width: 900px) {
+  .hero-figure {
+    justify-self: end;
+    max-width: 100%;
+  }
+}
+
+.hero-figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-image);
+}
+
 .accesdirect-chevauchement {
   z-index: 2;
   margin-top: calc(-1 * var(--overlap-small));
@@ -2245,9 +2306,8 @@ body[data-hero] .header-entete[data-compact="false"] .header-barre {
   border-bottom-color: transparent;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  /* Aucun dégradé ici : posé sur la seule hauteur de l'en-tête, il se coupait
-     net à son bord et laissait une couture visible en travers de la photo.
-     C'est le bandeau lui-même qui assombrit son haut (voir `.hero-voile`). */
+  /* Aucun dégradé ici : le bandeau d'ouverture est désormais un aplat d'encre,
+     l'en-tête y est lisible sans qu'on ait à l'assombrir. */
 }
 
 /* Tout ce que l'en-tête contient passe en clair, le temps qu'il flotte. */
@@ -2273,53 +2333,12 @@ body[data-hero] .header-entete[data-compact="false"] .header-logo {
 }
 
 /* ---------------------------------------------------------------------------
-   4. LE BANDEAU D'OUVERTURE
+   4. LE RUBAN
    Il occupe désormais la hauteur entière de l'écran, en descendant sous
    l'en-tête qui le survole. Le titre gagne en écart et le sous-titre en
    distance : c'est la seule image que tout le monde verra, elle a le droit de
    prendre toute la place.
    --------------------------------------------------------------------------- */
-body[data-hero] .hero-hero {
-  min-height: 100svh;
-}
-
-/*
-  L'en-tête flottant se pose sur cette photographie : son haut doit donc être
-  assez sombre pour porter un logo blanc, quelle que soit la photographie du
-  jour. L'assombrissement est fondu sur trois cents pixels — bien au-delà de la
-  hauteur de l'en-tête — pour qu'aucune limite ne se devine.
-*/
-body[data-hero] .hero-voile {
-  background-image:
-    linear-gradient(to bottom, rgb(15 12 10 / 0.62) 0%, rgb(15 12 10 / 0) 300px),
-    linear-gradient(
-      to top,
-      rgb(15 12 10 / 0.88) 0%,
-      rgb(15 12 10 / 0.55) 32%,
-      rgb(15 12 10 / 0.18) 62%,
-      rgb(15 12 10 / 0.2) 100%
-    ),
-    radial-gradient(120% 90% at 8% 92%, rgb(15 12 10 / 0.55) 0%, transparent 62%);
-}
-
-.hero-eyebrow {
-  /* Un filet court avant l'exergue, comme un trait de plume avant la phrase. */
-  align-items: center;
-  gap: var(--sp-3);
-  display: inline-flex;
-}
-
-.hero-eyebrow::before {
-  content: "";
-  width: var(--sp-6);
-  height: 1px;
-  background-color: var(--red-300);
-}
-
-.hero-titre {
-  letter-spacing: -0.03em;
-}
-
 /* ---------------------------------------------------------------------------
    5. LE RUBAN
    Une bande qui défile lentement, entre la photographie et la première grille.
