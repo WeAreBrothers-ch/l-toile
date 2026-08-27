@@ -1818,6 +1818,163 @@ address {
    pleine largeur, séparée par des filets d'un pixel — la même information, sans
    le meuble autour.
    ============================================================================ */
+/* ---------------------------------------------------------------------------
+   LE BANDEAU SUR TÉLÉPHONE
+
+   Sur un écran de téléphone, la mise en page à deux moitiés n'a plus de sens :
+   elle empile un mur de texte sur du papier, puis la photographie en dessous.
+   On fait défiler avant d'avoir rien vu.
+
+   Ici la photographie occupe l'écran entier et le texte se pose dessus. C'est
+   aussi le seul endroit où elle est vraiment à son avantage : servie sur 390 px
+   depuis un fichier de 1160, elle est trois fois plus définie que nécessaire —
+   l'inverse exact du problème qu'elle pose sur un grand écran.
+   --------------------------------------------------------------------------- */
+@media (max-width: 899px) {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    min-height: calc(100svh - var(--entete-place));
+    background-color: var(--surface-ink);
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    min-height: 0;
+  }
+
+  /* Le voile : sombre en bas, où se pose le texte ; presque transparent en
+     haut, où la photographie doit rester visible. */
+  .hero-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgb(15 12 10 / 0.92) 0%,
+      rgb(15 12 10 / 0.72) 34%,
+      rgb(15 12 10 / 0.28) 64%,
+      rgb(15 12 10 / 0.15) 100%
+    );
+  }
+
+  .hero-texte {
+    justify-content: flex-end;
+    padding-block: var(--sp-9) var(--sp-7);
+    color: var(--text-on-ink);
+  }
+
+  .hero-exergue,
+  .hero-descriptif,
+  .hero-chapo {
+    color: rgb(255 255 255 / 0.82);
+  }
+
+  .hero-exergue::before {
+    background-color: var(--red-300);
+  }
+
+  /* « · Lausanne-Malley » ferait passer l'exergue sur deux lignes, et le filet
+     qui l'ouvre se retrouverait seul en bout de première ligne. */
+  .hero-exergueLieu {
+    display: none;
+  }
+
+  .hero-nom {
+    font-size: clamp(3.25rem, 2rem + 14vw, 5rem);
+  }
+
+  /* Deux boutons de largeurs différentes l'un sous l'autre font un escalier.
+     Au doigt, ils prennent la même largeur, celle de la colonne. */
+  .hero-actions {
+    gap: var(--sp-3);
+  }
+
+  .hero-actions .bouton-base {
+    flex: 1 1 100%;
+  }
+
+  .hero-actions .bouton-secondaire {
+    border-color: rgb(255 255 255 / 0.5);
+    color: var(--text-on-ink);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LES PAGES INTÉRIEURES SUR TÉLÉPHONE
+
+   Elles s'ouvraient sur une photographie occupant les deux tiers de l'écran,
+   posée AVANT le titre : on atterrissait sur une texture non identifiable et il
+   fallait faire défiler pour savoir sur quelle page on était.
+
+   Le titre passe donc devant, et l'image derrière lui, en bandeau.
+   --------------------------------------------------------------------------- */
+@media (max-width: 899px) {
+  .duo-texte {
+    order: 1;
+  }
+
+  .duo-visuel {
+    order: 2;
+  }
+
+  /* Un bandeau, pas un mur : le 4:5 d'origine mangeait l'écran entier. */
+  .duo-visuel .photo-cadre {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LA GALERIE SUR TÉLÉPHONE
+
+   C'était un ruban à faire défiler du doigt, à côté du défilement vertical de
+   la page. Deux gestes concurrents sur le même écran : on ne sait plus lequel
+   on déclenche, et la moitié des images n'est jamais vue.
+
+   C'est maintenant une grille de deux colonnes, qui se lit sans rien faire.
+   --------------------------------------------------------------------------- */
+@media (max-width: 899px) {
+  .galerie-bande {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-3);
+    overflow: visible;
+  }
+
+  .galerie-vignette {
+    flex: none;
+  }
+
+  /* Toutes les vignettes au même format : en grille, des hauteurs inégales
+     laisseraient des trous. */
+  .galerie-vignette .photo-cadre {
+    aspect-ratio: 1 / 1;
+  }
+
+  /* La première tient la largeur entière : elle ouvre la série. */
+  .galerie-vignette:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .galerie-vignette:first-child .photo-cadre {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+/* Un duo sans image : le titre prend la colonne de lecture et rien d'autre.
+   La page Carte l'utilise — aucune des photographies fournies ne dit « la
+   carte », et une mauvaise image coûte plus qu'elle ne rapporte. */
+.duo-seul {
+  display: block;
+}
+
+.duo-seul .duo-texte {
+  max-width: var(--container-read);
+  margin-inline: 0;
+}
+
 .accesdirect-chevauchement {
   border-block: 1px solid var(--border-hairline);
   background-color: var(--surface);
