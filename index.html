@@ -66,7 +66,7 @@
     </script>
     <script src="js/script.js" defer></script>
   </head>
-  <body data-page="index" data-hero>
+  <body data-page="index">
     <div hidden=""><!--$--><!--/$--></div>
     <a class="lienEvitement" href="#contenu">Aller au contenu</a>
     <header class="header-entete" data-compact="false">
@@ -257,147 +257,127 @@
     </dialog>
     <main id="contenu">
       <!-- LE BANDEAU D'OUVERTURE
-           Il ne repose plus sur une photographie étalée sur tout l'écran. Les
-           originaux font 1290 px de large : agrandis à la taille d'un écran, ils
-           deviennent flous, et leurs défauts se voient. Ici la photographie est
-           servie à moins de la moitié de sa définition — elle est nette — et
-           c'est le nom de la maison qui tient la page. -->
-      <section class="hero surfaceEncre" aria-labelledby="titre-accueil">
-        <div class="wrapLarge hero-grille">
-          <div class="hero-texte">
-            <p class="hero-exergue">Cuisine italienne et brasserie · Lausanne-Malley</p>
-            <h1 class="hero-titre" id="titre-accueil">
-              <span class="hero-nom">L’Étoile</span>
-              <span class="hero-descriptif">Restaurant italien à Lausanne</span>
-            </h1>
-            <p class="hero-chapo">
-              Pizzas cuites au four, pâtes fraîches, viandes sur ardoise et poissons. Rue de Genève
-              102, à deux pas de la gare de Sébeillon.
-            </p>
-            <div class="hero-actions">
-              <a
-                class="bouton-base bouton-primaire bouton-grand"
-                href="tel:+41216251544"
-                data-analytics="call"
-                aria-label="Réserver par téléphone au +41 21 625 15 44"
-                >Réserver · 021 625 15 44</a
-              >
-              <a class="bouton-base bouton-secondaire bouton-grand" href="carte.html"
-                >Voir la carte</a
-              >
-            </div>
+           Deux moitiés franches, séparées par une arête. À gauche le papier et
+           le nom de la maison ; à droite la photographie, qui touche le haut,
+           la droite et le bas de l'écran. Rien ne flotte, rien n'a d'ombre,
+           rien n'a d'angle arrondi : ce sont ces trois choses réunies qui
+           faisaient ressembler la page à un gabarit. -->
+      <section class="hero" aria-labelledby="titre-accueil">
+        <div class="hero-texte">
+          <p class="hero-exergue">Cuisine italienne et brasserie · Lausanne-Malley</p>
+          <h1 class="hero-titre" id="titre-accueil">
+            <span class="hero-nom">L’Étoile</span>
+            <span class="hero-descriptif">Restaurant italien à Lausanne</span>
+          </h1>
+          <p class="hero-chapo">
+            Pizzas cuites au four, pâtes fraîches, viandes sur ardoise et poissons. Rue de Genève
+            102, à deux pas de la gare de Sébeillon.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="bouton-base bouton-primaire bouton-grand"
+              href="tel:+41216251544"
+              data-analytics="call"
+              aria-label="Réserver par téléphone au +41 21 625 15 44"
+              >Réserver · 021 625 15 44</a
+            >
+            <a class="bouton-base bouton-secondaire bouton-grand" href="carte.html"
+              >Voir la carte</a
+            >
           </div>
+        </div>
 
-          <figure class="hero-figure">
-            <img
-              src="images/hero-salle-portrait-2026-08d.jpg"
-              alt="La salle du Restaurant L’Étoile, rue de Genève à Lausanne, tables dressées avant le service"
-              width="1160"
-              height="1450"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-            />
-          </figure>
+        <div class="hero-image">
+          <img
+            src="images/hero-salle-portrait-2026-08d.jpg"
+            alt="La salle du Restaurant L’Étoile, rue de Genève à Lausanne, tables dressées avant le service"
+            width="1160"
+            height="1450"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
         </div>
       </section>
+
       <div class="accesdirect-chevauchement">
-        <div class="wrap">
-          <nav class="accesdirect-grille" aria-label="Accès direct">
-            <a class="accesdirect-cellule" href="carte.html"
-              ><span class="accesdirect-libelle"
-                >La carte<svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="square"
-                  stroke-linejoin="miter"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path d="M9 5l7 7-7 7"></path></svg></span
-              ><span class="accesdirect-valeur">Pâtes, viandes, poissons</span></a
-            ><a
-              class="accesdirect-cellule"
-              href="tel:+41216251544"
-              aria-label="Réserver par téléphone au +41 21 625 15 44"
-              data-analytics="call"
-              ><span class="accesdirect-libelle"
-                >Réserver<svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="square"
-                  stroke-linejoin="miter"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path d="M9 5l7 7-7 7"></path></svg></span
-              ><span class="accesdirect-valeur">021 625 15 44</span></a
-            ><a class="accesdirect-cellule" href="contact.html#horaires"
-              ><span class="accesdirect-libelle"
-                >Horaires<svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="square"
-                  stroke-linejoin="miter"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path d="M9 5l7 7-7 7"></path></svg></span
-              ><span class="accesdirect-valeur">Midi et soir, sauf dimanche</span></a
-            ><a
-              class="accesdirect-cellule"
-              href="https://www.google.com/maps/dir/?api=1&amp;destination=Rue%20de%20Gen%C3%A8ve%20102%2C%201004%20Lausanne%2C%20Suisse"
-              target="_blank"
-              rel="noopener"
-              ><span class="accesdirect-libelle"
-                >Itinéraire<svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="square"
-                  stroke-linejoin="miter"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path d="M9 5l7 7-7 7"></path></svg></span
-              ><span class="accesdirect-valeur">Rue de Genève 102</span></a
-            >
-          </nav>
-        </div>
+        <nav class="accesdirect-grille" aria-label="Accès direct">
+          <a class="accesdirect-cellule" href="carte.html"
+            ><span class="accesdirect-libelle"
+              >La carte<svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="square"
+                stroke-linejoin="miter"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M9 5l7 7-7 7"></path></svg></span
+            ><span class="accesdirect-valeur">Pâtes, viandes, poissons</span></a
+          ><a
+            class="accesdirect-cellule"
+            href="tel:+41216251544"
+            aria-label="Réserver par téléphone au +41 21 625 15 44"
+            data-analytics="call"
+            ><span class="accesdirect-libelle"
+              >Réserver<svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="square"
+                stroke-linejoin="miter"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M9 5l7 7-7 7"></path></svg></span
+            ><span class="accesdirect-valeur">021 625 15 44</span></a
+          ><a class="accesdirect-cellule" href="contact.html#horaires"
+            ><span class="accesdirect-libelle"
+              >Horaires<svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="square"
+                stroke-linejoin="miter"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M9 5l7 7-7 7"></path></svg></span
+            ><span class="accesdirect-valeur">Midi et soir, sauf dimanche</span></a
+          ><a
+            class="accesdirect-cellule"
+            href="https://www.google.com/maps/dir/?api=1&amp;destination=Rue%20de%20Gen%C3%A8ve%20102%2C%201004%20Lausanne%2C%20Suisse"
+            target="_blank"
+            rel="noopener"
+            ><span class="accesdirect-libelle"
+              >Itinéraire<svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="square"
+                stroke-linejoin="miter"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M9 5l7 7-7 7"></path></svg></span
+            ><span class="accesdirect-valeur">Rue de Genève 102</span></a
+          >
+        </nav>
       </div>
 
-      <!-- Le bandeau défilant : ce que fait la maison, en cinq mots, sans ponctuation
-         ni prix. Il ne se lit pas vraiment, il donne le ton — et il met du
-         mouvement entre la photographie et la première grille de plats.
-         Le contenu est écrit deux fois pour que le défilement boucle sans trou ;
-         la seconde copie est cachée aux lecteurs d'écran. -->
-      <div class="ruban surfaceEncre">
-        <div class="ruban-piste">
-          <span class="ruban-serie">
-            <span>Pizza au four</span><span>Pâtes fraîches</span><span>Viandes sur ardoise</span
-            ><span>Poissons et fruits de mer</span><span>Fondues à discrétion</span>
-          </span>
-          <span class="ruban-serie" aria-hidden="true">
-            <span>Pizza au four</span><span>Pâtes fraîches</span><span>Viandes sur ardoise</span
-            ><span>Poissons et fruits de mer</span><span>Fondues à discrétion</span>
-          </span>
-        </div>
-      </div>
       <section class="surfacePapier section" aria-labelledby="titre-signature">
         <div class="wrapLarge">
           <div class="platssignature-entete" data-reveal="true">

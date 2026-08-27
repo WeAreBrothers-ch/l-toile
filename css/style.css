@@ -1231,15 +1231,21 @@
   --container-wide: 1440px;
   --container-read: 720px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
+  /*
+    L'angle est vif. Les coins arrondis, les pilules et les cartes posées avec
+    une ombre sont le vocabulaire des pages fabriquées à la chaîne : on les
+    reconnaît avant de les lire. Une image qui touche le bord de l'écran et un
+    filet d'un pixel disent mieux qu'on a décidé quelque chose.
+  */
   --radius-0: 0;
-  --radius-sm: 4px;
-  --radius-md: 10px;
-  --radius-lg: 18px;
-  --radius-image: 22px;
-  --radius-full: 9999px;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-image: 0;
+  --radius-full: 2px;
   --shadow-sticky: 0 1px 0 0 #e7e4df;
-  --shadow-carte: 0 2px 6px -2px #14110f0f, 0 12px 28px -12px #14110f24;
-  --shadow-lift: 0 6px 14px -6px #14110f1a, 0 26px 50px -20px #14110f3d;
+  --shadow-carte: none;
+  --shadow-lift: none;
   --shadow-overlay: 0 8px 32px -8px #12111033;
   --header-h: 56px;
   --header-h-lg: 72px;
@@ -1649,60 +1655,6 @@ address {
     column-gap: clamp(2.5rem, 5vw, 4.5rem);
   }
 }
-.ongletscategories-barre {
-  top: var(--header-h);
-  z-index: 40;
-  background-color: var(--fond, var(--surface-ink));
-  border-bottom: 1px solid var(--ligne);
-  position: sticky;
-}
-.ongletscategories-defilement {
-  gap: var(--sp-6);
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-  display: flex;
-  overflow-x: auto;
-  -webkit-mask-image: linear-gradient(90deg, #0000 0, #000 16px calc(100% - 24px), #0000 100%);
-  mask-image: linear-gradient(90deg, #0000 0, #000 16px calc(100% - 24px), #0000 100%);
-}
-.ongletscategories-defilement::-webkit-scrollbar {
-  display: none;
-}
-@media (min-width: 900px) {
-  .ongletscategories-defilement {
-    justify-content: center;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-}
-.ongletscategories-onglet {
-  padding-block: var(--sp-4) var(--sp-3);
-  color: var(--encre-3);
-  font-size: var(--fs-caption);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transition:
-    color var(--dur-base) var(--ease-in-out),
-    border-color var(--dur-base) var(--ease-in-out);
-  border-bottom: 2px solid #0000;
-  flex: none;
-  margin-bottom: -1px;
-  font-weight: 600;
-  line-height: 1;
-}
-.ongletscategories-onglet:hover {
-  color: var(--encre);
-}
-.ongletscategories-onglet[aria-current="true"] {
-  color: var(--encre);
-  border-bottom-color: var(--accent-identite);
-}
-.ongletscategories-onglet:focus-visible {
-  outline: 2px solid var(--red-500);
-  outline-offset: -4px;
-}
-
 .bandeauappel-bande {
   padding-block: var(--section-y);
   text-align: center;
@@ -1740,173 +1692,157 @@ address {
 /* ============================================================================
    LE BANDEAU D'OUVERTURE
 
-   Il ne repose plus sur une photographie étalée d'un bord à l'autre. Les
-   originaux du restaurant font 1290 px de large : à la taille d'un écran, ils
-   sont agrandis d'un tiers, ils perdent leur netteté, et le grain du téléphone
-   qui les a pris devient visible. Une photographie ne porte une page entière
-   que si elle est meilleure que la page.
+   Deux moitiés franches. À gauche le papier, le nom de la maison et ce qu'il
+   faut pour appeler ; à droite la photographie, qui touche le haut, la droite
+   et le bas de l'écran.
 
-   Ici c'est le nom de la maison qui la porte, et la photographie l'accompagne
-   dans une colonne de six cents pixels — soit la moitié de sa définition. Elle
-   y est nette, et son cadrage vertical d'origine est enfin celui qu'on lui
-   demande.
+   Ce qui a disparu et pourquoi : l'image posée en carte flottante avec un coin
+   arrondi et une ombre, le halo coloré derrière elle, le ruban défilant. Pris
+   ensemble, ces trois procédés sont le vocabulaire des pages fabriquées en
+   série — on les reconnaît avant de les lire. Une image qui va jusqu'au bord de
+   l'écran et une arête franche disent l'inverse.
    ============================================================================ */
 .hero {
-  padding-block: var(--sp-9) var(--sp-8);
-  background-color: var(--surface-ink);
-  color: var(--text-on-ink);
-  isolation: isolate;
-  position: relative;
-  overflow: hidden;
+  display: grid;
+  background-color: var(--surface);
+  color: var(--text-primary);
 }
-
 @media (min-width: 900px) {
   .hero {
-    padding-block: clamp(5rem, 4rem + 6vw, 9rem) var(--sp-9);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    /* Le bandeau occupe l'écran moins l'en-tête : la page commence entière. */
+    min-height: calc(100svh - var(--entete-place));
   }
 }
-
-/* Une lueur chaude dans l'angle, comme une lampe hors champ. */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(70% 55% at 78% 18%, rgb(161 23 30 / 0.28) 0%, transparent 70%);
+.hero-texte {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: var(--sp-8);
+  /*
+    Le texte se cale sur la colonne du site, pas sur le bord de sa moitié : sur
+    un grand écran, la première lettre du nom tombe exactement sous le logo de
+    l'en-tête. C'est ce calage-là qui fait qu'une page paraît dessinée.
+  */
+  padding-left: max(var(--gutter), calc((100vw - var(--container-max)) / 2 + var(--gutter)));
+  padding-right: var(--gutter);
 }
-
-.hero-grille {
-  display: grid;
-  gap: var(--sp-7);
-  align-items: center;
-}
-
 @media (min-width: 900px) {
-  .hero-grille {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: clamp(2.5rem, 5vw, 5rem);
+  .hero-texte {
+    padding-right: clamp(2rem, 5vw, 5rem);
   }
 }
-
 .hero-exergue {
   display: inline-flex;
   align-items: center;
   gap: var(--sp-3);
   margin-bottom: var(--sp-6);
-  color: var(--text-on-ink-secondary);
+  color: var(--text-secondary);
   font-family: var(--sans);
   font-size: var(--fs-eyebrow);
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
-
 .hero-exergue::before {
   content: "";
   width: var(--sp-6);
   height: 1px;
-  background-color: var(--red-500);
+  background-color: var(--red-600);
 }
-
 .hero-titre {
   display: grid;
   gap: var(--sp-4);
 }
-
 /*
   Le nom, à l'échelle d'une enseigne. L'axe optique est poussé au maximum : à
-  cette taille, Fraunces affine ses déliés jusqu'au trait de plume, ce qu'un
-  dessin unique ne saurait pas faire.
+  cette taille, Fraunces affine ses déliés jusqu'au trait de plume.
 */
 .hero-nom {
-  font-size: clamp(4rem, 2rem + 11vw, 10.5rem);
+  font-size: clamp(3.5rem, 1.5rem + 9vw, 8.5rem);
   font-variation-settings: "opsz" 144;
   font-weight: 400;
   letter-spacing: -0.035em;
-  line-height: 0.82;
+  line-height: 0.84;
 }
-
 .hero-descriptif {
-  color: var(--text-on-ink-secondary);
+  color: var(--text-secondary);
   font-family: var(--sans);
   font-size: var(--fs-lead);
   font-weight: 400;
-  letter-spacing: 0.01em;
   line-height: 1.3;
 }
-
 .hero-chapo {
-  max-width: 42ch;
+  max-width: 40ch;
   margin-top: var(--sp-6);
-  color: var(--text-on-ink-secondary);
+  color: var(--text-secondary);
   font-size: var(--fs-body);
   line-height: 1.65;
 }
-
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sp-4);
+  gap: var(--sp-3);
   margin-top: var(--sp-7);
 }
-
 /*
-  La photographie. Six cents pixels au plus : au-delà, on dépasserait la moitié
-  de la définition du fichier et le flou reviendrait.
+  La photographie tient sa moitié entière, sans marge, sans coin arrondi et sans
+  ombre. Sur un écran de 1440, elle est servie à 720 px de large depuis un
+  fichier de 1160 : elle reste nette.
 */
-.hero-figure {
-  margin: 0;
-  justify-self: center;
-  width: 100%;
-  max-width: 26rem;
+.hero-image {
+  position: relative;
+  min-height: 60svh;
+  background-color: var(--surface-ink);
 }
-
 @media (min-width: 900px) {
-  .hero-figure {
-    justify-self: end;
-    max-width: 100%;
+  .hero-image {
+    min-height: 0;
+    /* L'arête entre les deux moitiés. Un filet, pas une ombre. */
+    border-left: 1px solid var(--border-hairline);
   }
 }
-
-.hero-figure img {
+.hero-image img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
+  height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-image);
 }
+/* ============================================================================
+   LA BANDE D'ACCÈS DIRECT
 
+   Quatre réponses aux quatre seules questions qu'on se pose devant un site de
+   restaurant. C'était une carte blanche arrondie et ombrée, posée à cheval sur
+   le bandeau : le composant le plus daté de la page. C'est maintenant une bande
+   pleine largeur, séparée par des filets d'un pixel — la même information, sans
+   le meuble autour.
+   ============================================================================ */
 .accesdirect-chevauchement {
-  z-index: 2;
-  margin-top: calc(-1 * var(--overlap-small));
-  position: relative;
+  border-block: 1px solid var(--border-hairline);
+  background-color: var(--surface);
 }
 .accesdirect-grille {
-  background-color: var(--surface-carte);
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lift);
-  grid-template-columns: repeat(2, 1fr);
   display: grid;
-  overflow: hidden;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 @media (min-width: 900px) {
   .accesdirect-grille {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 .accesdirect-cellule {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: var(--sp-2);
-  min-height: 96px;
-  padding: var(--sp-5);
-  border-top: 1px solid var(--border-hairline);
+  min-height: 104px;
+  padding: var(--sp-5) var(--gutter);
   border-left: 1px solid var(--border-hairline);
-  flex-direction: column;
-  display: flex;
-  position: relative;
+  border-top: 1px solid var(--border-hairline);
+  transition: background-color var(--dur-fast) var(--ease-out);
 }
+/* Les filets ne doublent jamais celui de la bande, ni celui du bord. */
 .accesdirect-cellule:nth-child(-n + 2) {
   border-top: 0;
 }
@@ -1916,31 +1852,17 @@ address {
 @media (min-width: 900px) {
   .accesdirect-cellule {
     border-top: 0;
-  }
-  .accesdirect-cellule:nth-child(odd) {
     border-left: 1px solid var(--border-hairline);
   }
   .accesdirect-cellule:first-child {
     border-left: 0;
   }
 }
-.accesdirect-cellule:before {
-  content: "";
-  inset-inline: -1px;
-  background-color: var(--red-500);
-  transform-origin: 0;
-  height: 2px;
-  transition: transform var(--dur-base) var(--ease-in-out);
-  position: absolute;
-  top: -1px;
-  transform: scaleX(0);
-}
-.accesdirect-cellule:focus-visible:before {
-  transform: scaleX(1);
-}
+/* Au survol, la cellule s'assombrit d'un demi-ton. Pas de liseré qui pousse,
+   pas de flèche qui glisse : un seul changement, franc. */
 @media (hover: hover) and (pointer: fine) {
-  .accesdirect-cellule:hover:before {
-    transform: scaleX(1);
+  .accesdirect-cellule:hover {
+    background-color: #f2ede5;
   }
 }
 .accesdirect-cellule:focus-visible {
@@ -1948,41 +1870,31 @@ address {
   outline-offset: -2px;
 }
 .accesdirect-libelle {
-  justify-content: space-between;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--sp-3);
   color: var(--text-tertiary);
   font-size: var(--fs-eyebrow);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  transition: color var(--dur-fast) var(--ease-out);
   font-weight: 600;
+  letter-spacing: 0.14em;
   line-height: 1.2;
-  display: flex;
+  text-transform: uppercase;
 }
 .accesdirect-cellule:hover .accesdirect-libelle,
 .accesdirect-cellule:focus-visible .accesdirect-libelle {
   color: var(--red-600);
 }
 .accesdirect-libelle svg {
-  transition: transform var(--dur-fast) var(--ease-out);
   flex: none;
-}
-.accesdirect-cellule:focus-visible .accesdirect-libelle svg {
-  transform: translate(4px);
-}
-@media (hover: hover) and (pointer: fine) {
-  .accesdirect-cellule:hover .accesdirect-libelle svg {
-    transform: translate(4px);
-  }
 }
 .accesdirect-valeur {
   color: var(--text-primary);
   font-family: var(--serif);
   font-size: var(--fs-dish);
-  font-variant-numeric: tabular-nums;
   font-weight: 500;
   line-height: 1.25;
+  font-variant-numeric: tabular-nums;
 }
 .photo-cadre {
   background-color: var(--surface-ink);
@@ -2275,119 +2187,14 @@ a:focus-visible > .photo-zoom .photo-image {
 }
 
 /* ---------------------------------------------------------------------------
-   3. L'EN-TÊTE FLOTTE SUR LA PHOTOGRAPHIE
-   Sur l'accueil, la page ne commence plus par une barre blanche posée au-dessus
-   d'une image : elle commence par l'image. L'en-tête n'y reprend son fond qu'une
-   fois le défilement commencé — c'est-à-dire quand il en a besoin pour rester
-   lisible sur du texte.
-
-   Les autres pages s'ouvrent sur du papier : rien ne change pour elles.
+   3. L'EN-TÊTE
+   Il ne flotte plus au-dessus d'une photographie : le bandeau d'ouverture
+   commence désormais par du papier, et l'en-tête y est lisible tel quel. Une
+   barre pleine, un filet dessous, rien de plus.
    --------------------------------------------------------------------------- */
-body[data-hero] {
-  padding-top: 0;
-}
-
-body[data-hero] .header-entete[data-compact="false"] .header-barre {
-  background-color: transparent;
-  border-bottom-color: transparent;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  /* Aucun dégradé ici : le bandeau d'ouverture est désormais un aplat d'encre,
-     l'en-tête y est lisible sans qu'on ait à l'assombrir. */
-}
-
-/* Tout ce que l'en-tête contient passe en clair, le temps qu'il flotte. */
-body[data-hero] .header-entete[data-compact="false"] .header-lienNav,
-body[data-hero] .header-entete[data-compact="false"] .header-iconeSeule,
-body[data-hero] .header-entete[data-compact="false"] .header-etat,
-body[data-hero] .header-entete[data-compact="false"] .header-etat .etatouverturelive-libelle,
-body[data-hero] .header-entete[data-compact="false"] .header-etat .etatouverturelive-detail {
-  color: var(--text-on-ink);
-}
-
-body[data-hero] .header-entete[data-compact="false"] .header-etat {
-  border-color: rgb(255 255 255 / 0.35);
-}
-
-body[data-hero] .header-entete[data-compact="false"] .header-lienNav::after {
-  background-color: var(--text-on-ink);
-}
-
-/* Le logo est dessiné en noir : sur la photographie, on l'inverse. */
-body[data-hero] .header-entete[data-compact="false"] .header-logo {
-  filter: brightness(0) invert(1);
-}
 
 /* ---------------------------------------------------------------------------
-   4. LE RUBAN
-   Il occupe désormais la hauteur entière de l'écran, en descendant sous
-   l'en-tête qui le survole. Le titre gagne en écart et le sous-titre en
-   distance : c'est la seule image que tout le monde verra, elle a le droit de
-   prendre toute la place.
-   --------------------------------------------------------------------------- */
-/* ---------------------------------------------------------------------------
-   5. LE RUBAN
-   Une bande qui défile lentement, entre la photographie et la première grille.
-   Elle ne dit rien qu'on ne sache déjà : elle donne le ton et met du mouvement
-   là où la page en manquait.
-   --------------------------------------------------------------------------- */
-.ruban {
-  padding-block: var(--sp-5);
-  border-block: 1px solid var(--border-ink);
-  overflow: hidden;
-}
-
-.ruban-piste {
-  gap: 0;
-  width: max-content;
-  display: flex;
-  animation: ruban-defile 46s linear infinite;
-}
-
-.ruban-serie {
-  align-items: center;
-  gap: 0;
-  display: flex;
-}
-
-.ruban-serie span {
-  padding-inline: clamp(1.5rem, 3vw, 3rem);
-  color: var(--text-on-ink);
-  font-family: var(--serif);
-  font-size: clamp(1.125rem, 0.9rem + 1.1vw, 1.75rem);
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-/* Une étoile entre deux mentions : c'est le nom de la maison, pas un signe
-   de ponctuation pris au hasard. */
-.ruban-serie span::after {
-  content: "✦";
-  margin-left: clamp(1.5rem, 3vw, 3rem);
-  color: var(--red-300);
-  font-size: 0.5em;
-  vertical-align: middle;
-}
-
-@keyframes ruban-defile {
-  /* La piste porte deux fois la même série : à mi-course, l'image est
-     exactement celle du départ, et la boucle ne se voit pas. */
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* Le réglage « réduire les animations » du système arrête le ruban plutôt que
-   de l'accélérer : une bande qui file à toute vitesse serait pire que rien. */
-@media (prefers-reduced-motion: reduce) {
-  .ruban-piste {
-    animation: none !important;
-    transform: none !important;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   6. LE GRAIN
+   4. LE GRAIN
    Un bruit très fin sur le papier et sur l'encre. On ne le voit pas, on le
    sent : c'est ce qui sépare une surface imprimée d'un aplat d'écran, et c'est
    le remède le plus court à une page qui paraît lisse.

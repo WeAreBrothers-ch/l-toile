@@ -33,7 +33,7 @@ dossier dans un petit serveur local, ou regardez-les directement en ligne.
 | `contact.html` | Contact, horaires, plan et formulaire |
 | `404.html` | La page affichée quand une adresse n’existe pas |
 | `css/style.css` | Toutes les couleurs, tailles et espacements du site |
-| `js/script.js` | Les sept comportements de la page (voir plus bas) |
+| `js/script.js` | Les six comportements de la page (voir plus bas) |
 | `images/` | Toutes les photos et le logo |
 | `fonts/` | Les deux polices du site, hébergées ici plutôt que chez Google |
 | `photos-source/` | Les photos d’origine, avant recadrage. Ne sont pas publiées |
@@ -146,21 +146,20 @@ table qui n’aboutirait pas serait pire qu’un numéro bien visible.
 
 ## Ce que fait `js/script.js`
 
-Sept comportements, indépendants les uns des autres, chacun dans son bloc commenté :
+Six comportements, indépendants les uns des autres, chacun dans son bloc commenté :
 
 1. **L’en-tête** se compacte après quarante pixels de défilement.
 2. **La barre d’appel** apparaît en bas de l’écran sur téléphone.
 3. **Le menu mobile** s’ouvre et se ferme.
 4. **Ouvert / Fermé** se calcule à l’heure de Lausanne.
-5. **Les onglets de la carte** suivent la catégorie qu’on est en train de lire.
-6. **Le plan** ne contacte OpenStreetMap qu’au clic du visiteur.
-7. **Le formulaire de contact** vérifie les champs et affiche la réponse sur place.
+5. **Le plan** ne contacte OpenStreetMap qu’au clic du visiteur.
+6. **Le formulaire de contact** vérifie les champs et affiche la réponse sur place.
 
 Le site reste **entièrement lisible sans ce fichier** : les liens sont de vrais liens,
 la carte est écrite en entier dans les pages, le formulaire s’envoie tout seul. Le
 script n’ajoute que du confort.
 
-Un huitième comportement, l’apparition des blocs au défilement, est écrit directement
+Un septième comportement, l’apparition des blocs au défilement, est écrit directement
 dans l’en-tête de chaque page : il doit s’exécuter avant le premier affichage, sinon
 les blocs se verraient puis disparaîtraient avant de réapparaître.
 

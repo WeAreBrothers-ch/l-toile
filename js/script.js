@@ -1,7 +1,7 @@
 /* ============================================================================
    Restaurant L'Étoile — le script du site.
 
-   Sept comportements, indépendants les uns des autres. Chacun commence par
+   Six comportements, indépendants les uns des autres. Chacun commence par
    chercher ce dont il a besoin et s'arrête si la page ne le contient pas : on
    peut donc charger ce fichier sur n'importe laquelle des quatre pages.
 
@@ -214,63 +214,7 @@
   })();
 
   /* ==========================================================================
-     5. LES ONGLETS DE LA CARTE
-     Ce sont de vrais liens vers de vraies ancres : ils fonctionnent sans ce
-     script, ils sont copiables et partageables. On n'ajoute qu'une chose :
-     savoir où l'on est.
-     ========================================================================== */
-  (function onglets() {
-    var piste = $(".ongletscategories-defilement");
-    if (!piste) return;
-
-    var liens = $$(".ongletscategories-onglet", piste);
-    if (liens.length === 0) return;
-
-    /* La hauteur à laquelle une ancre se pose est lue dans la feuille de style,
-       jamais recopiée ici : c'est la même valeur qui positionne le titre et qui
-       décide de l'onglet souligné. Régler l'une sans l'autre décalerait tout. */
-    var pointDAtterrissage = function () {
-      var valeur = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
-      return (isFinite(valeur) ? valeur : 116) + 8;
-    };
-
-    var attente = 0;
-
-    var calculer = function () {
-      attente = 0;
-      var seuil = pointDAtterrissage();
-      var actif = liens[0];
-
-      liens.forEach(function (lien) {
-        var section = document.getElementById(lien.getAttribute("href").slice(1));
-        if (section && section.getBoundingClientRect().top <= seuil) actif = lien;
-      });
-
-      liens.forEach(function (lien) {
-        if (lien === actif) lien.setAttribute("aria-current", "true");
-        else lien.removeAttribute("aria-current");
-      });
-
-      // Garder l'onglet actif visible sans jamais déplacer la page elle-même.
-      var debut = actif.offsetLeft;
-      var fin = debut + actif.offsetWidth;
-      if (debut < piste.scrollLeft) piste.scrollLeft = Math.max(0, debut - 16);
-      else if (fin > piste.scrollLeft + piste.clientWidth) {
-        piste.scrollLeft = fin - piste.clientWidth + 16;
-      }
-    };
-
-    var surDefilement = function () {
-      if (attente) return;
-      attente = window.requestAnimationFrame(calculer);
-    };
-
-    calculer();
-    window.addEventListener("scroll", surDefilement, { passive: true });
-  })();
-
-  /* ==========================================================================
-     6. LE PLAN
+     5. LE PLAN
      Le fond est une image : rien n'est demandé à OpenStreetMap tant que le
      visiteur ne l'a pas décidé. C'est meilleur pour la vitesse d'affichage
      comme pour sa vie privée.
@@ -298,7 +242,7 @@
   })();
 
   /* ==========================================================================
-     7. LE FORMULAIRE DE CONTACT
+     6. LE FORMULAIRE DE CONTACT
      Il fonctionne sans ce script : `action` et `method` sont posés sur la
      balise, donc un envoi ordinaire part quand même — le visiteur atterrit
      simplement sur la page du service de réception au lieu de rester ici.
