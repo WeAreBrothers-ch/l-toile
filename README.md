@@ -115,22 +115,72 @@ déjà livrée avec le site.
 npm run build
 ```
 
-Cette commande fabrique la version définitive. **Ne la lancez jamais pendant que
-`npm run dev` tourne** : les deux utilisent le même dossier de travail et se gênent.
-Arrêtez le mode dev, construisez, puis relancez si besoin.
+Cette commande écrit un dossier **`out/`** : des fichiers `.html`, `.css`, `.js` et
+`.jpg`, et rien d’autre. C’est le site fini. Il se dépose tel quel sur n’importe quel
+hébergement — un FTP Infomaniak, GitHub Pages, un dossier Apache. **Aucun serveur,
+aucun Node, aucune configuration côté hébergeur.**
+
+**Ne lancez jamais `npm run build` pendant que `npm run dev` tourne** : les deux
+utilisent le même dossier de travail et se gênent. Arrêtez le mode dev, construisez,
+puis relancez si besoin.
+
+### Le principe
+
+Les pages ne sont pas écrites en HTML à la main, elles sont **fabriquées**. Le contenu
+n’existe qu’une fois — la carte dans `data/menu.ts`, les horaires et le téléphone dans
+`data/restaurant.ts` — et le build en tire les quatre pages, le plan du site et les
+données envoyées à Google.
+
+C’est tout l’intérêt : changer un prix à un endroit le change partout. En contrepartie,
+il faut lancer `npm run build` avant chaque envoi — le dossier `out/` n’est pas
+conservé dans le dépôt, puisqu’il se refabrique à l’identique.
+
+### Sur le FTP d’Infomaniak
+
+Envoyez le **contenu** du dossier `out/` à la racine du site (souvent `web/` ou
+`public_html/`). Pas le dossier lui-même : son contenu.
+
+Pour automatiser depuis GitHub, un workflow qui construit puis dépose. Les identifiants
+se rangent dans Settings → Secrets and variables → Actions.
+
+```yaml
+- run: npm ci && npm run build
+- uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+  with:
+    server: ${{ secrets.FTP_HOTE }}
+    username: ${{ secrets.FTP_UTILISATEUR }}
+    password: ${{ secrets.FTP_MOTDEPASSE }}
+    local-dir: ./out/
+    server-dir: ./web/
+```
+
+### Sur GitHub Pages
+
+Un workflow est déjà en place, `.github/workflows/pages.yml`. Il ne demande qu’un
+réglage, **une seule fois** : Settings → Pages → Source → **GitHub Actions**.
+
+Attention à ne pas choisir « Deploy from a branch » : c’est ce réglage qui affiche le
+README à la place du site.
+
+L’aperçu vit alors sous `https://wearebrothers-ch.github.io/l-toile/`, donc dans un
+sous-dossier — d’où la variable `NEXT_PUBLIC_BASE_PATH` que le workflow pose. Sur le
+domaine du restaurant, cette variable n’existe pas et le site vit à la racine.
 
 ### Le formulaire de contact
 
-Le formulaire de la page Contact envoie les messages vers une adresse de réception
-définie côté serveur, dans une variable nommée `CONTACT_WEBHOOK_URL` (un service de
-formulaire type Formspree, ou une automatisation maison). Tant que cette variable n’est
-pas renseignée, le formulaire l’annonce clairement au visiteur et le renvoie vers le
-téléphone et l’e-mail du restaurant — il n’avale jamais un message en silence.
+Le site n’ayant pas de serveur à lui, le formulaire s’adresse à un **service de
+réception extérieur** : Formspree, Basin, Formcarry, ou un script sur l’hébergement.
+Son adresse se pose dans la variable `NEXT_PUBLIC_CONTACT_ENDPOINT` au moment du build.
+
+C’est une adresse d’envoi publique, pas un secret — exactement comme l’adresse e-mail
+affichée juste à côté sur la page. **N’y mettez jamais une clé d’API.**
+
+Tant qu’elle n’est pas renseignée, le formulaire l’annonce clairement au visiteur et le
+renvoie vers le téléphone et l’e-mail du restaurant — il n’avale jamais un message en
+silence.
 
 C’est volontairement **un formulaire de contact, pas de réservation** : une demande de
 table qui n’aboutirait pas serait pire qu’un numéro bien visible.
-
----
 
 ## Ce qu’il y a dans le dossier
 
