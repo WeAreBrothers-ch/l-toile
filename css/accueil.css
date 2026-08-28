@@ -310,6 +310,14 @@
   .duo-visuel {
     order: 2;
   }
+
+  /* Au doigt, la photographie du bloc « cuisine » s'intercalait entre le texte
+     et la paire d'images qui suit : trois photographies d'affilée, dont deux
+     de la même salle. On la retire — sur petit écran elle n'apportait rien que
+     de la longueur. */
+  .duo-visuel--horsMobile {
+    display: none;
+  }
 }
 
 /* Un duo sans image : le titre prend la colonne de lecture et rien d'autre. */
@@ -366,9 +374,12 @@
   align-items: start;
 }
 
-/* La paysage descend : 49 px au doigt, 116 sur grand écran. */
+/* La paysage descend encore, mais à peine : 16 px au doigt, 32 sur grand
+   écran. Il reste juste ce qu'il faut de décalage pour que les deux
+   photographies ne démarrent pas sur la même ligne — le reste tenait la
+   colonne du dessin beaucoup trop bas. */
 .paire-paysage {
-  margin-top: clamp(3rem, 7.25vw, 7.25rem);
+  margin-top: clamp(1rem, 2vw, 2rem);
 }
 
 /* Les formats changent avec la taille de l'écran — c'est le cas chez eux
@@ -426,16 +437,26 @@
   display: block;
   width: clamp(99px, 12vw, 192px);
   height: auto;
-  margin-top: clamp(4.5rem, 9.3vw, 9.3rem);
+  margin-top: clamp(2.5rem, 5vw, 5rem);
 }
 
-/* Colonne de gauche : le dessin se cale à droite, sous le bord intérieur. */
+/* Le dessin des mains est presque carré. À largeur égale il pèserait deux fois
+   plus que celui de l'assiette : on le réduit pour que les deux fassent la
+   même hauteur à l'œil. */
+.trait-dessin--haut {
+  width: clamp(96px, 9.4vw, 150px);
+}
+
+/* Colonne de gauche : le dessin se cale à droite, sous le bord intérieur —
+   mais pas collé à lui. Les 14 % le décollent du milieu de la page, où les
+   deux colonnes se rejoignent. */
 .paire-colonne:first-child .trait-dessin {
   margin-left: auto;
-  margin-right: 0;
+  margin-right: 14%;
 }
 
-/* Colonne de droite : il se cale à gauche. */
+/* Colonne de droite : il se cale à gauche. Ici pas de retrait — le décoller du
+   milieu le pousserait contre le bord de l'écran au doigt. */
 .paire-colonne:last-child .trait-dessin {
   margin-left: 0;
 }

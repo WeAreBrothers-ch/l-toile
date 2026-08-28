@@ -897,9 +897,12 @@ restent réguliers. Dans un ruban qu'on fait glisser, des hauteurs inégales se 
 comme un défaut d'alignement ; dans une grille où l'on compare quatre prix, un décalage
 rend la comparaison pénible.
 
-**3. Le vide est un élément.** Entre deux sections, un **dessin au trait** est posé seul
-au milieu d'un grand vide (`--respiration`, jusqu'à 11 rem de chaque côté). Deux dessins
-existent : `images/trait-couvert.svg` et `images/trait-verres.svg`.
+**3. Le vide est un élément.** Entre deux sections, un **dessin à la main, en rouge de
+la maison**, est posé seul au milieu d'un grand vide (`--respiration`, jusqu'à 11 rem de
+chaque côté). Deux dessins existent : `images/trait-assiette-2026-08i.png` (un verre et
+une assiette de pâtes) et `images/trait-bouteille-2026-08i.png` (deux mains qui tiennent
+une bouteille). Ce sont des PNG détourés — fond transparent, trait plein en `#e9323c` —
+et non plus des tracés vectoriels fins.
 
 **4. La colonne est étroite.** `--colonne` passe de 1280 à **1180 px**, et la colonne de
 texte d'un bloc n'occupe que 39 % de la largeur. Sur un grand écran, une large bande de
