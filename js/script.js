@@ -41,7 +41,6 @@
     var vues = $$(".ouverture__vue", scene);
     if (vues.length < 2) return;
 
-    var points = $$(".ouverture__point", $("[data-points]") || document);
     var DUREE = 6000;
 
     /* Les vues suivantes portent leur adresse en attente : elles sont à l'écran,
@@ -67,9 +66,6 @@
       vues.forEach(function (vue, i) {
         vue.setAttribute("data-visible", String(i === courante));
       });
-      points.forEach(function (point, i) {
-        point.setAttribute("aria-current", String(i === courante));
-      });
     };
 
     var relancer = function () {
@@ -80,13 +76,6 @@
         afficher(courante + 1);
       }, DUREE);
     };
-
-    points.forEach(function (point, i) {
-      point.addEventListener("click", function () {
-        afficher(i);
-        relancer();
-      });
-    });
 
     // Rien ne tourne dans un onglet qu'on ne regarde pas.
     document.addEventListener("visibilitychange", function () {
@@ -109,25 +98,196 @@
   (function bande() {
     var bande = $("[data-ruban]");
     if (!bande) return;
+    var piste = $(".ruban__piste", bande);
+    if (!piste) return;
 
+    var images = $$("img", piste);
+    if (!images.length) return;
+
+    /* --- Les images ---------------------------------------------------------
+       Décalées vers la droite par le mouvement, elles ne croisent jamais le
+       cadre de l'écran : « loading=lazy » les laisserait vides pour toujours.
+       On va les chercher quand la bande approche. */
     var charger = function () {
-      $$("img[data-src]", bande).forEach(function (img) {
-        img.src = img.getAttribute("data-src");
+      images.forEach(function (img) {
+        var attente = img.getAttribute("data-src");
+        if (!attente) return;
+        img.src = attente;
         img.removeAttribute("data-src");
       });
     };
 
-    if (!("IntersectionObserver" in window)) return charger();
+    var guetteur = null;
+    var chargee = false;
+    var chargerUneFois = function () {
+      if (chargee) return;
+      chargee = true;
+      if (guetteur) guetteur.disconnect();
+      charger();
+    };
 
-    var guetteur = new IntersectionObserver(
-      function (entrees) {
-        if (!entrees[0].isIntersecting) return;
-        guetteur.disconnect();
-        charger();
+    if ("IntersectionObserver" in window) {
+      guetteur = new IntersectionObserver(
+        function (entrees) {
+          /* Le navigateur peut livrer plusieurs enregistrements d'un coup pour
+             la même cible : ne regarder que le premier, c'est parfois lire un
+             « non » périmé. */
+          if (!entrees.some((e) => e.isIntersecting)) return;
+          chargerUneFois();
+        },
+        { rootMargin: "400px" },
+      );
+      guetteur.observe(bande);
+
+      /* Et une sécurité, parce qu'un observateur peut manquer son moment : qui
+         parcourt la page d'un trait puis remonte d'un coup la fait défiler plus
+         vite que le navigateur ne rend son verdict, et la bande resterait vide.
+         Passé le premier affichage et un temps mort, on les charge de toute
+         façon — 269 Ko, hors du chemin critique. */
+      var filet = function () {
+        window.setTimeout(function () {
+          if (window.requestIdleCallback)
+            window.requestIdleCallback(chargerUneFois, { timeout: 2000 });
+          else chargerUneFois();
+        }, 3500);
+      };
+      if (document.readyState === "complete") filet();
+      else window.addEventListener("load", filet);
+    } else {
+      charger();
+    }
+
+    /* --- Le mouvement -------------------------------------------------------
+       La piste porte deux fois la même série : dès qu'on a défilé d'une série
+       entière, on revient au départ, et le saut ne se voit pas. Le calcul est
+       fait ici plutôt que par une animation CSS, parce qu'une animation ne se
+       laisse pas prendre en cours de route — or on veut pouvoir l'attraper. */
+    var VITESSE = 0.035; // pixels par milliseconde, vers la gauche
+    var FROTTEMENT = 0.94; // ce qui reste de l'élan à chaque image
+    var position = 0;
+    var serie = 0;
+    var precedent = 0;
+    var elan = 0;
+    var tire = false;
+    var pointeur = null;
+    var departX = 0;
+    var departPosition = 0;
+    var dernierX = 0;
+    var dernierTemps = 0;
+    var aBouge = false;
+
+    var calme = function () {
+      return (
+        window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      );
+    };
+
+    var mesurer = function () {
+      // La moitié de la piste : une série complète, sans le doublon.
+      serie = piste.scrollWidth / 2;
+    };
+
+    var ramener = function () {
+      if (!serie) return;
+      // Un modulo qui reste positif, quel que soit le sens du geste.
+      position = ((position % serie) + serie) % serie;
+    };
+
+    var poser = function () {
+      piste.style.transform = "translate3d(" + -position + "px, 0, 0)";
+    };
+
+    var image = function (temps) {
+      var ecart = precedent ? Math.min(temps - precedent, 64) : 0;
+      precedent = temps;
+
+      if (!serie) mesurer();
+
+      if (tire) {
+        // Rien à avancer : c'est la main qui décide.
+      } else if (Math.abs(elan) > 0.002) {
+        // L'élan du geste, qui s'éteint.
+        position += elan * ecart;
+        elan *= Math.pow(FROTTEMENT, ecart / 16);
+      } else {
+        elan = 0;
+        if (!calme()) position += VITESSE * ecart;
+      }
+
+      ramener();
+      poser();
+      window.requestAnimationFrame(image);
+    };
+
+    /* --- La prise en main ---------------------------------------------------
+       « touch-action: pan-y » sur la piste laisse le doigt faire défiler la
+       page verticalement : on ne prend que l'horizontale. */
+    piste.addEventListener("pointerdown", function (e) {
+      if (pointeur !== null) return;
+      pointeur = e.pointerId;
+      tire = true;
+      aBouge = false;
+      elan = 0;
+      departX = dernierX = e.clientX;
+      departPosition = position;
+      dernierTemps = e.timeStamp;
+      piste.setAttribute("data-tire", "true");
+      try {
+        piste.setPointerCapture(pointeur);
+      } catch (err) {
+        /* Navigateur sans capture : le geste marche quand même, il se perd
+           seulement si le curseur sort de la piste. */
+      }
+    });
+
+    piste.addEventListener("pointermove", function (e) {
+      if (!tire || e.pointerId !== pointeur) return;
+      var deplacement = e.clientX - departX;
+      if (Math.abs(deplacement) > 3) aBouge = true;
+      position = departPosition - deplacement;
+      ramener();
+      poser();
+
+      // La vitesse du geste, mesurée sur son dernier fragment.
+      var duree = e.timeStamp - dernierTemps;
+      if (duree > 0) elan = -(e.clientX - dernierX) / duree;
+      dernierX = e.clientX;
+      dernierTemps = e.timeStamp;
+    });
+
+    var lacher = function (e) {
+      if (e.pointerId !== pointeur) return;
+      tire = false;
+      pointeur = null;
+      piste.removeAttribute("data-tire");
+      // Un élan démesuré est un artefact de mesure, pas une intention.
+      elan = Math.max(-2.2, Math.min(2.2, elan));
+    };
+    piste.addEventListener("pointerup", lacher);
+    piste.addEventListener("pointercancel", lacher);
+
+    // Un geste ne doit pas déclencher le lien qu'il a survolé.
+    piste.addEventListener(
+      "click",
+      function (e) {
+        if (aBouge) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
       },
-      { rootMargin: "400px" },
+      true,
     );
-    guetteur.observe(bande);
+
+    // La largeur d'une série change avec celle des images : on remesure.
+    window.addEventListener("resize", mesurer);
+    images.forEach(function (img) {
+      img.addEventListener("load", mesurer);
+    });
+
+    mesurer();
+    poser();
+    window.requestAnimationFrame(image);
   })();
 
   /* ==========================================================================
@@ -305,8 +465,22 @@
       return { ouvert: false, detail: "à demain" };
     };
 
+    /* Le tableau des horaires marque son jour. C'est la seule ligne qu'on y
+       cherche vraiment, et elle dépend de l'heure de Lausanne, pas de celle de
+       l'appareil : elle ne peut donc pas être écrite dans la page. */
+    var marquerLeJour = function (jour) {
+      $$("[data-semaine] .semaine__jour").forEach(function (ligne) {
+        if (Number(ligne.getAttribute("data-jour")) === jour) {
+          ligne.setAttribute("data-aujourdhui", "");
+        } else {
+          ligne.removeAttribute("data-aujourdhui");
+        }
+      });
+    };
+
     var afficher = function () {
       var etat = calculer();
+      marquerLeJour(instantLausannois(new Date()).jour);
       cible.setAttribute("data-ouvert", String(etat.ouvert));
       cible.innerHTML =
         '<span class="etat__pastille"></span>' +

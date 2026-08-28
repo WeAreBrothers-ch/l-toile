@@ -110,6 +110,12 @@
   */
   --trace: 255px 15px 225px 15px / 15px 225px 15px 255px;
   --trace-2: 15px 225px 15px 255px / 255px 15px 225px 15px;
+  /* Le même trait, mais à l'échelle d'un petit cadre. Les rayons de 255 px
+     dévorent une photographie de 300 px de côté : le navigateur les rabat tous
+     ensemble et le cadre devient un pétale au lieu d'un rectangle un peu de
+     travers. */
+  --trace-cadre: 44px 7px 38px 8px / 8px 40px 7px 46px;
+  --trace-cadre-2: 8px 40px 7px 46px / 44px 7px 38px 8px;
 }
 
 /* ============================================================================
@@ -763,44 +769,6 @@ address {
   }
 }
 
-/* Les pastilles de diaporama, en bas. */
-.ouverture__points {
-  position: absolute;
-  /* Le rond ne fait que 8 px, mais le bouton qui le porte en fait 44 : c'est
-     un pouce qui vise, pas une souris. Le décalage compense cette hauteur. */
-  bottom: calc(var(--e6) - 18px);
-  left: 50%;
-  z-index: 2;
-  display: flex;
-  gap: 0;
-  transform: translateX(-50%);
-}
-
-.ouverture__point {
-  display: grid;
-  place-items: center;
-  height: 44px;
-  padding-inline: var(--e3);
-  background: none;
-}
-
-.ouverture__point::after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: rgb(246 239 226 / 0.45);
-  transition:
-    width var(--normal) var(--sortie),
-    background-color var(--normal) var(--sortie);
-}
-
-.ouverture__point[aria-current="true"]::after {
-  width: 30px;
-  border-radius: 4px;
-  background-color: var(--creme);
-}
-
 /* ============================================================================
    L'EN-TÊTE DES PAGES INTÉRIEURES
    Pas de photographie : un aplat vert, le titre en grand, une frise d'étoiles.
@@ -944,12 +912,14 @@ address {
 
 /* ============================================================================
    LE RUBAN DE PHOTOGRAPHIES
-   Une bande d'images qui défile sans fin. Elle ne dit rien : elle montre la
-   maison, et elle met du mouvement là où une page de restaurant en manque.
-   Le réglage « réduire les animations » l'arrête.
+   Une bande d'images qui défile sans fin, et qu'on peut attraper — à la souris
+   comme au doigt — pour la faire tourner soi-même dans un sens ou dans l'autre.
+   Le mouvement est calculé par le script, pas par une animation CSS : une
+   animation ne se laisse pas prendre en cours de route.
+
+   Sans script, ses images ne peuvent pas être chargées (voir js/script.js) :
+   une rangée de cadres vides vaudrait moins que pas de bande du tout.
    ============================================================================ */
-/* Sans script, ses images ne peuvent pas être chargées (voir js/script.js) :
-   une rangée de cadres vides vaudrait moins que pas de bande du tout. */
 .ruban {
   display: none;
   padding-block: var(--e7);
@@ -964,7 +934,16 @@ address {
   display: flex;
   gap: var(--e4);
   width: max-content;
-  animation: defile 52s linear infinite;
+  /* Le doigt fait défiler la page verticalement ; horizontalement, c'est nous
+     qui prenons la main. */
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ruban__piste[data-tire="true"] {
+  cursor: grabbing;
 }
 
 .ruban__piste img {
@@ -973,14 +952,8 @@ address {
   flex: none;
   border: 3px solid var(--creme);
   object-fit: cover;
-}
-
-@keyframes defile {
-  /* La piste porte deux fois la même série : à mi-course, l'image est celle du
-     départ, et la boucle ne se voit pas. */
-  to {
-    transform: translateX(-50%);
-  }
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 
 /* ============================================================================
@@ -992,6 +965,33 @@ address {
   margin-top: var(--e8);
 }
 
+/* Sur grand écran, un rail à gauche : le titre et la photographie du plat. Il
+   donne à l'œil un point d'appui tous les dix plats — sans lui, la carte est un
+   mur de texte de six mille pixels de haut. Le rail suit le défilement tant que
+   la catégorie dure, pour que l'on sache toujours ce que l'on est en train de
+   lire. */
+@media (min-width: 1000px) {
+  .categorie {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: var(--e8);
+    align-items: start;
+  }
+}
+
+@media (min-width: 1240px) {
+  .categorie {
+    grid-template-columns: 300px minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .categorie__entete {
+    position: sticky;
+    top: calc(var(--entete) + var(--e5));
+  }
+}
+
 .categorie__titre {
   display: flex;
   align-items: center;
@@ -1001,6 +1001,8 @@ address {
   color: var(--vert);
 }
 
+/* Le filet ne prolonge le titre que sur téléphone : dans le rail, la
+   photographie tient déjà ce rôle. */
 .categorie__titre::after {
   content: "";
   flex: 1 1 auto;
@@ -1009,10 +1011,44 @@ address {
   opacity: 0.25;
 }
 
+@media (min-width: 1000px) {
+  .categorie__titre {
+    display: block;
+    font-size: var(--t-h2);
+    line-height: 1.05;
+  }
+
+  .categorie__titre::after {
+    display: none;
+  }
+}
+
 .categorie__note {
   margin-top: var(--e3);
   color: var(--texte-doux);
   font-size: var(--t-petit);
+}
+
+.categorie__photo {
+  display: block;
+  width: 100%;
+  height: 220px;
+  margin-top: var(--e5);
+  object-fit: cover;
+  border: 3px solid var(--vert);
+  border-radius: var(--trace-cadre);
+}
+
+/* Une catégorie sur deux prend le trait retourné : deux cadres voisins ne
+   doivent pas être jumeaux. */
+.categorie:nth-of-type(even) .categorie__photo {
+  border-radius: var(--trace-cadre-2);
+}
+
+@media (min-width: 1000px) {
+  .categorie__photo {
+    height: 300px;
+  }
 }
 
 .categorie__liste {
@@ -1021,8 +1057,17 @@ address {
 
 @media (min-width: 1000px) {
   .categorie__liste {
+    margin-top: 0;
     columns: 2;
-    column-gap: var(--e8);
+    column-gap: var(--e7);
+  }
+}
+
+/* Au-delà de dix plats, deux colonnes de cinq valent mieux qu'une de dix ;
+   en dessous, la colonne unique évite les orphelines. */
+@media (min-width: 1000px) and (max-width: 1239px) {
+  .categorie__liste {
+    columns: 1;
   }
 }
 
@@ -1151,36 +1196,119 @@ address {
   padding-bottom: 1px;
 }
 
+/* ---- La semaine ----------------------------------------------------------
+   Un vrai tableau : les jours en lignes, le midi et le soir en colonnes.
+   « 11h45 – 13h30 · 18h45 – 22h00 » sur une ligne se lisait comme une référence
+   de produit. Le script marque la ligne du jour, à l'heure de Lausanne : c'est
+   la seule qu'on cherche vraiment. */
 .semaine {
-  margin-top: var(--e4);
-  display: inline-grid;
-  gap: var(--e2);
+  width: 100%;
+  max-width: 520px;
+  margin: var(--e5) auto 0;
+  border: 3px solid var(--vert);
+  border-radius: var(--trace-cadre);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
   text-align: left;
-}
-
-.semaine__jour {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--e5);
   font-size: var(--t-petit);
   font-variant-numeric: tabular-nums;
 }
 
-.semaine__jour dt {
+.surfaceVerte .semaine {
+  border-color: rgb(246 239 226 / 0.4);
+}
+
+.semaine thead th {
+  padding: var(--e3) var(--e4);
+  background-color: var(--vert);
+  color: var(--texte-clair);
+  font-family: var(--courant);
+  font-size: var(--t-mention);
   font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.semaine__jour dd {
-  margin: 0;
+.surfaceVerte .semaine thead th {
+  background-color: rgb(246 239 226 / 0.12);
 }
 
-.semaine__jour[data-ferme="true"] dd {
+.semaine td,
+.semaine tbody th {
+  padding: var(--e3) var(--e4);
+  text-align: left;
+  /* Une plage horaire coupée en deux lignes — « 11h45 – » puis « 13h30 » — ne
+     se lit plus comme une plage. */
+  white-space: nowrap;
+}
+
+/* Sur les écrans étroits, c'est la marge qui cède, pas l'heure. */
+@media (max-width: 420px) {
+  .semaine {
+    font-size: var(--t-mention);
+  }
+
+  .semaine thead th,
+  .semaine td,
+  .semaine tbody th {
+    padding-inline: var(--e3);
+  }
+}
+
+.semaine tbody tr + tr th,
+.semaine tbody tr + tr td {
+  border-top: 2px solid rgb(23 96 74 / 0.16);
+}
+
+.surfaceVerte .semaine tbody tr + tr th,
+.surfaceVerte .semaine tbody tr + tr td {
+  border-top-color: rgb(246 239 226 / 0.16);
+}
+
+.semaine__nom {
+  font-family: var(--titre);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.semaine__ferme {
   color: var(--rouge);
   font-weight: 600;
 }
 
-.surfaceVerte .semaine__jour[data-ferme="true"] dd {
+.surfaceVerte .semaine__ferme {
   color: var(--jaune);
+}
+
+/* Aujourd'hui : l'étoile de la maison, et le jour appuyé. */
+.semaine__jour[data-aujourdhui] th,
+.semaine__jour[data-aujourdhui] td {
+  background-color: rgb(23 96 74 / 0.09);
+}
+
+.surfaceVerte .semaine__jour[data-aujourdhui] th,
+.surfaceVerte .semaine__jour[data-aujourdhui] td {
+  background-color: rgb(246 239 226 / 0.1);
+}
+
+.semaine__jour[data-aujourdhui] .semaine__nom {
+  color: var(--rouge);
+}
+
+.surfaceVerte .semaine__jour[data-aujourdhui] .semaine__nom {
+  color: var(--jaune);
+}
+
+.semaine__jour[data-aujourdhui] .semaine__nom::after {
+  content: "";
+  display: inline-block;
+  width: 0.62em;
+  height: 0.62em;
+  margin-left: 0.45em;
+  background-color: currentColor;
+  -webkit-mask: var(--etoile-svg) center / contain no-repeat;
+  mask: var(--etoile-svg) center / contain no-repeat;
 }
 
 /* ============================================================================

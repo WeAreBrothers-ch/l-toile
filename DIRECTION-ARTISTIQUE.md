@@ -151,19 +151,31 @@ Elle ne se compacte pas : elle est déjà à sa taille minimale.
 
 **L’ouverture de l’accueil** — trois vues en fondu croisé, plein écran, le logo au
 centre sur un voile sombre. Trois vues plutôt qu’une parce qu’aucune photographie ne
-tient seule un plein écran ; le fondu de 1,4 s laisse le temps de lire.
+tient seule un plein écran ; le fondu de 1,4 s laisse le temps de lire. **Aucune
+commande** : elle tourne seule. Des pastilles à cliquer sous une image qui change déjà
+d’elle-même ne servent personne — on ne clique pas sur une ouverture, on la regarde.
 
 **Les portes** — deux blocs, Carte et Pizzas, chacun une photographie encadrée d’un
 trait, un titre rouge, le compte réel des plats, un bouton. C’est le seul chemin
 proposé depuis l’accueil : le site n’a que deux choses à vendre.
 
-**La bande d’images** — neuf photographies qui défilent sans fin sur le vert. Elle ne
-dit rien ; elle met du mouvement là où une page de restaurant en manque. Ses tirages
-sont réduits à 560 × 420 (269 Ko en tout, contre 1,3 Mo pour les originaux), et ils ne
-sont demandés qu’au moment où l’on approche de la bande : décalées par l’animation,
-ses images ne croisent jamais le cadre de l’écran, et le chargement paresseux du
-navigateur les laisserait vides pour toujours. Une bande décorative ne doit peser ni le
-poids d’une galerie, ni sur le premier affichage.
+**La bande d’images** — neuf photographies qui défilent sans fin sur le vert, **et
+qu’on peut attraper** : à la souris comme au doigt, on la fait tourner dans un sens ou
+dans l’autre, et elle repart seule quand on la lâche, avec l’élan du geste. La boucle
+n’a ni fin ni couture : la piste porte deux fois la même série, et le retour au départ
+tombe pile sur la même image — mesuré, le pas d’un tour vaut 2,3 px contre 2,4 px en
+marche normale.
+
+C’est pour cette prise en main que le mouvement est calculé en JavaScript et non par
+une animation CSS : une animation ne se laisse pas saisir en cours de route. Le doigt
+garde le défilement vertical de la page (`touch-action: pan-y`) — on ne lui prend que
+l’horizontale.
+
+Ses tirages sont réduits à 560 × 420 (269 Ko en tout, contre 1,3 Mo pour les
+originaux), et ils ne sont demandés qu’à l’approche de la bande : décalées par le
+mouvement, ses images ne croisent jamais le cadre de l’écran, et le chargement
+paresseux du navigateur les laisserait vides pour toujours. Une bande décorative ne
+doit peser ni le poids d’une galerie, ni sur le premier affichage.
 
 **Les en-têtes de page intérieure** — un aplat vert, un surtitre à l’étoile, le titre en
 grand, une phrase, un bouton vers l’autre carte. **Pas de photographie** : il n’y en a
@@ -173,6 +185,28 @@ sur rien.
 **La carte** — deux colonnes sur grand écran, comme une carte imprimée : le nom en
 Bitter, un filet pointillé, le prix en rouge. Une colonne sur téléphone. Les 59 plats et
 les 15 pizzas sont écrits dans les pages, jamais chargés.
+
+À gauche, **un rail** : le nom de la famille en grand, et la photographie d’un de ses
+plats. Il suit le défilement tant que la famille dure, pour qu’on sache toujours ce
+qu’on est en train de lire. Sans lui, la carte était six mille pixels de texte
+d’affilée — le reproche exact du client : « un énorme bloc ».
+
+**Une photographie n’est posée que là où elle dit vrai.** Aucune des photographies
+disponibles ne montre un risotto, une fondue ni une assiette d’enfant : ces trois
+familles n’en ont pas, plutôt que d’en recevoir une qui mente. Un client qui commande
+d’après l’image le verrait.
+
+**Le trait à l’échelle du cadre.** Les rayons de `--trace` font 255 px : sur une
+photographie de 300 px de côté, le navigateur les rabat tous ensemble et le cadre
+devient un pétale. Les cadres de cette taille prennent donc `--trace-cadre`, le même
+trait dessiné plus petit.
+
+**Les horaires** — un vrai tableau : les jours en lignes, le midi et le soir en
+colonnes, nommées une seule fois en en-tête. « 11h45 – 13h30 · 18h45 – 22h00 » sur une
+seule ligne se lisait comme une référence de produit, et répéter « Midi » et « Soir » à
+chaque jour faisait douze fois le même mot. La ligne du jour porte l’étoile de la maison
+et son nom en rouge : c’est la seule qu’on cherche vraiment, et elle est calculée à
+l’heure de Lausanne, donc jamais figée dans la page.
 
 **Le pied de page** — le logo, une ligne pour venir et pour appeler, la navigation, les
 mentions. Il ne réimprime ni les horaires ni l’adresse en colonnes : elles sont déjà
@@ -207,9 +241,11 @@ document à remettre au photographe.
 Ce n’est pas une adaptation, c’est l’ordre de conception : tout est composé pour 390 px
 puis élargi. Les règles qui en découlent :
 
-- **Rien ne défile horizontalement**, sauf la bande d’images, qui est décorative et se
-  passe d’être lue. Faire défiler des photographies à la main sur un téléphone n’a
-  aucun sens : on ne sait pas qu’il y en a d’autres.
+- **Rien ne défile horizontalement**, sauf la bande d’images. Elle est décorative et se
+  passe d’être lue : elle tourne de toute façon toute seule, et on ne perd rien à ne pas
+  y toucher. C’est la différence avec une galerie qu’il *faut* faire défiler à la main
+  pour en voir le contenu — celle-là n’a aucun sens sur un téléphone : on ne sait même
+  pas qu’il y a autre chose.
 - **Une seule colonne** partout en dessous de 700 px.
 - **44 px de côté minimum** pour toute commande autonome — bouton, lien de
   navigation, logo. Les liens en pleine ligne de texte gardent leur taille de texte,

@@ -283,26 +283,6 @@
             <a class="bouton bouton--clair" href="carte.html">Voir la carte</a>
           </div>
         </div>
-        <div class="ouverture__points" data-points>
-          <button
-            type="button"
-            class="ouverture__point"
-            aria-current="true"
-            aria-label="Vue 1"
-          ></button>
-          <button
-            type="button"
-            class="ouverture__point"
-            aria-current="false"
-            aria-label="Vue 2"
-          ></button>
-          <button
-            type="button"
-            class="ouverture__point"
-            aria-current="false"
-            aria-label="Vue 3"
-          ></button>
-        </div>
       </section>
 
       <section class="section surfaceCreme" aria-labelledby="titre-cartes">
@@ -506,36 +486,51 @@
             </div>
             <div data-apparait>
               <h3 class="infos__titre">Horaires</h3>
-              <dl class="semaine">
-                <div class="semaine__jour" data-ferme="false">
-                  <dt>Lundi</dt>
-                  <dd>11h45 – 13h30 · 18h45 – 22h00</dd>
-                </div>
-                <div class="semaine__jour" data-ferme="false">
-                  <dt>Mardi</dt>
-                  <dd>11h45 – 13h30 · 18h45 – 22h00</dd>
-                </div>
-                <div class="semaine__jour" data-ferme="false">
-                  <dt>Mercredi</dt>
-                  <dd>11h45 – 13h30 · 18h45 – 22h00</dd>
-                </div>
-                <div class="semaine__jour" data-ferme="false">
-                  <dt>Jeudi</dt>
-                  <dd>11h45 – 13h30 · 18h45 – 22h00</dd>
-                </div>
-                <div class="semaine__jour" data-ferme="false">
-                  <dt>Vendredi</dt>
-                  <dd>11h45 – 13h30 · 18h45 – 22h30</dd>
-                </div>
-                <div class="semaine__jour" data-ferme="false">
-                  <dt>Samedi</dt>
-                  <dd>11h45 – 13h30 · 18h45 – 22h30</dd>
-                </div>
-                <div class="semaine__jour" data-ferme="true">
-                  <dt>Dimanche</dt>
-                  <dd>Fermé</dd>
-                </div>
-              </dl>
+              <table class="semaine" data-semaine>
+                <thead>
+                  <tr>
+                    <th scope="col"><span class="horsEcran">Jour</span></th>
+                    <th scope="col">Midi</th>
+                    <th scope="col">Soir</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="semaine__jour" data-jour="1">
+                    <th class="semaine__nom" scope="row">Lundi</th>
+                    <td>11h45 – 13h30</td>
+                    <td>18h45 – 22h00</td>
+                  </tr>
+                  <tr class="semaine__jour" data-jour="2">
+                    <th class="semaine__nom" scope="row">Mardi</th>
+                    <td>11h45 – 13h30</td>
+                    <td>18h45 – 22h00</td>
+                  </tr>
+                  <tr class="semaine__jour" data-jour="3">
+                    <th class="semaine__nom" scope="row">Mercredi</th>
+                    <td>11h45 – 13h30</td>
+                    <td>18h45 – 22h00</td>
+                  </tr>
+                  <tr class="semaine__jour" data-jour="4">
+                    <th class="semaine__nom" scope="row">Jeudi</th>
+                    <td>11h45 – 13h30</td>
+                    <td>18h45 – 22h00</td>
+                  </tr>
+                  <tr class="semaine__jour" data-jour="5">
+                    <th class="semaine__nom" scope="row">Vendredi</th>
+                    <td>11h45 – 13h30</td>
+                    <td>18h45 – 22h30</td>
+                  </tr>
+                  <tr class="semaine__jour" data-jour="6">
+                    <th class="semaine__nom" scope="row">Samedi</th>
+                    <td>11h45 – 13h30</td>
+                    <td>18h45 – 22h30</td>
+                  </tr>
+                  <tr class="semaine__jour" data-jour="0" data-ferme="true">
+                    <th class="semaine__nom" scope="row">Dimanche</th>
+                    <td class="semaine__ferme" colspan="2">Fermé</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div data-apparait>
               <h3 class="infos__titre">Réserver</h3>

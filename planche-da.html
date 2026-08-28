@@ -184,6 +184,10 @@
         border-radius: var(--trace-2);
       }
 
+      .echantillon--cadre {
+        border-radius: var(--trace-cadre);
+      }
+
       /* ---- Le proscrit ---- */
       .proscrit {
         width: 100%;
@@ -392,7 +396,14 @@
         <div class="grille">
           <div class="echantillon">--trace</div>
           <div class="echantillon echantillon--inverse">--trace-2</div>
+          <div class="echantillon echantillon--cadre">--trace-cadre</div>
         </div>
+        <p style="margin-top: var(--e4)">
+          Les rayons de <code>--trace</code> font 255 px : sur une photographie
+          de 300 px de côté, le navigateur les rabat tous ensemble et le cadre
+          devient un pétale. Les petits cadres prennent donc
+          <code>--trace-cadre</code>, le même trait dessiné plus petit.
+        </p>
 
         <div class="grille" style="margin-top: var(--e6)">
           <a class="bouton bouton--rouge" href="index.html">Bouton rouge</a>

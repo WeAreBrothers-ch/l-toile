@@ -98,6 +98,7 @@ informations, **cherchez-la dans les cinq pages** et corrigez-la partout :
 | --- | --- |
 | Le téléphone | En-tête, menu, pied de page, barre du bas sur mobile, page Contact |
 | Les horaires | Accueil (« Venir chez nous »), page Contact, et `js/script.js` (bloc `HORAIRES`) |
+| Les photos de la carte | `images/carte-*.jpg`, appelées dans `carte.html` et `pizzas.html` |
 | L’adresse | En-tête, menu, pied de page, page Contact |
 | Le nombre de plats ou de pizzas | Encadrés « Les cartes » de l’accueil, en-têtes des pages Carte et Pizzas |
 
@@ -128,6 +129,13 @@ nom dans les pages qui l’utilisent.
 Les neuf `ruban-1` à `ruban-9` sont les tirages réduits (560 × 420) de la bande qui
 défile sur l’accueil. Ils sont volontairement légers : la bande est décorative, elle ne
 doit pas peser le poids des grandes photographies.
+
+Les `carte-*` (640 × 800) sont les photographies du rail de la carte, une par famille
+de plats. **Elles doivent montrer un plat de cette famille-là** : une assiette de pâtes
+au-dessus de « Risotto » se verrait. C’est pour cette raison que Risotto, Fondues et
+Menu enfant n’en ont pas — aucune photographie disponible ne les montre. Pour en
+ajouter une, déposez `images/carte-risotto-2026-08d.jpg` et recopiez dans `carte.html`
+le bloc `categorie__photo` d’une autre famille.
 
 La liste complète des emplacements, avec le format et la taille attendus, est dans
 **`PHOTOS-A-FOURNIR.md`** — c’est aussi le document à remettre au photographe.
@@ -173,20 +181,25 @@ table qui n’aboutirait pas serait pire qu’un numéro bien visible.
 
 Sept comportements, indépendants les uns des autres, chacun dans son bloc commenté :
 
-1. **Le diaporama de l’accueil** fait se succéder trois vues en fondu, et va chercher
-   les deux dernières une fois la page affichée.
-2. **La bande d’images** charge ses photos quand on approche d’elle.
+1. **Le diaporama de l’accueil** fait se succéder trois vues en fondu, tout seul. Il
+   n’y a rien à cliquer. Il va chercher les deux dernières vues une fois la page
+   affichée.
+2. **La bande d’images** défile sans fin, et se laisse attraper à la souris comme au
+   doigt pour tourner dans un sens ou dans l’autre. Elle charge ses photos quand on
+   approche d’elle.
 3. **Le menu de téléphone** s’ouvre et se ferme.
-4. **Ouvert / Fermé** se calcule à l’heure de Lausanne.
+4. **Ouvert / Fermé** se calcule à l’heure de Lausanne, et marque du même coup la
+   ligne du jour dans le tableau des horaires.
 5. **La barre d’appel** apparaît en bas de l’écran sur téléphone.
 6. **Le plan** ne contacte OpenStreetMap qu’au clic du visiteur.
 7. **Le formulaire de contact** vérifie les champs et affiche la réponse sur place.
 
 Le site reste **entièrement lisible sans ce fichier** : les liens sont de vrais liens,
-la carte est écrite en entier dans les pages, le formulaire s’envoie tout seul, et la
-première vue du diaporama est déjà affichée. Seule la bande d’images ne s’affiche pas
-— elle est décorative, et une rangée de cadres vides vaudrait moins que rien. Le
-script n’ajoute que du confort.
+la carte est écrite en entier dans les pages, le formulaire s’envoie tout seul, la
+première vue du diaporama est déjà affichée et les horaires sont écrits en toutes
+lettres — seule la ligne du jour n’est plus mise en valeur. Seule la bande d’images ne
+s’affiche pas : elle est décorative, et une rangée de cadres vides vaudrait moins que
+rien. Le script n’ajoute que du confort.
 
 Un septième comportement, l’apparition des blocs au défilement, est écrit directement
 dans l’en-tête de chaque page : il doit s’exécuter avant le premier affichage, sinon
