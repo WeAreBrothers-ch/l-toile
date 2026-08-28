@@ -1,12 +1,12 @@
 /* ============================================================================
    Restaurant L'Étoile — le script du site.
 
-   Six comportements, indépendants les uns des autres. Chacun commence par
+   Sept comportements, indépendants les uns des autres. Chacun commence par
    chercher ce dont il a besoin et s'arrête si la page ne le contient pas : on
-   peut donc charger ce fichier sur n'importe laquelle des quatre pages.
+   peut donc charger ce fichier sur n'importe laquelle des pages.
 
    Règle générale : le site est entièrement lisible sans ce fichier. Les liens
-   sont de vrais liens, la carte est écrite en entier dans la page, le
+   sont de vrais liens, la carte est écrite en entier dans les pages, le
    formulaire s'envoie tout seul. Le script n'ajoute que du confort.
    ============================================================================ */
 (function () {
@@ -16,60 +16,128 @@
     return (racine || document).querySelector(selecteur);
   };
   var $$ = function (selecteur, racine) {
-    return Array.prototype.slice.call((racine || document).querySelectorAll(selecteur));
+    return Array.prototype.slice.call(
+      (racine || document).querySelectorAll(selecteur),
+    );
+  };
+
+  var animationsReduites = function () {
+    return (
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
   };
 
   /* ==========================================================================
-     1. L'EN-TÊTE
-     Passé quarante pixels, les deux étages fusionnent en une seule barre.
+     1. LE DIAPORAMA D'OUVERTURE
+     Trois vues qui se fondent l'une dans l'autre. Le restaurant n'a pas une
+     photographie assez forte pour tenir seule un plein écran : trois qui
+     défilent valent mieux qu'une qu'on regarde trop longtemps.
      ========================================================================== */
-  (function entete() {
-    var entete = $(".header-entete");
-    if (!entete) return;
+  (function diaporama() {
+    var scene = $("[data-diaporama]");
+    if (!scene) return;
 
-    var SEUIL = 40;
-    var surDefilement = function () {
-      entete.setAttribute("data-compact", String(window.scrollY > SEUIL));
+    var vues = $$(".ouverture__vue", scene);
+    if (vues.length < 2) return;
+
+    var points = $$(".ouverture__point", $("[data-points]") || document);
+    var DUREE = 6000;
+
+    /* Les vues suivantes portent leur adresse en attente : elles sont à l'écran,
+       superposées et transparentes, donc rien ne les aurait différées toutes
+       seules. On va les chercher une fois la première peinte — elles ne servent
+       qu'au bout de six secondes. */
+    var chargerLesSuivantes = function () {
+      vues.forEach(function (vue) {
+        var img = $("img[data-src]", vue);
+        if (!img) return;
+        img.src = img.getAttribute("data-src");
+        img.removeAttribute("data-src");
+      });
     };
+    if (document.readyState === "complete") chargerLesSuivantes();
+    else window.addEventListener("load", chargerLesSuivantes);
 
-    surDefilement();
-    window.addEventListener("scroll", surDefilement, { passive: true });
-  })();
+    var courante = 0;
+    var minuterie = null;
 
-  /* ==========================================================================
-     2. LA BARRE D'ACTION (téléphone)
-     Elle apparaît une fois le bandeau d'ouverture passé : avant, le numéro est
-     déjà à l'écran, elle ne ferait que masquer la photo.
-     ========================================================================== */
-  (function barreAction() {
-    var barre = $(".barreaction-barre");
-    if (!barre) return;
-
-    var SEUIL = 320;
-    var actions = $$("a", barre);
-
-    var surDefilement = function () {
-      var visible = window.scrollY > SEUIL;
-      barre.setAttribute("data-visible", String(visible));
-      barre.setAttribute("aria-hidden", String(!visible));
-      // Une barre invisible ne doit pas être atteignable au clavier.
-      actions.forEach(function (action) {
-        action.setAttribute("tabindex", visible ? "0" : "-1");
+    var afficher = function (indice) {
+      courante = (indice + vues.length) % vues.length;
+      vues.forEach(function (vue, i) {
+        vue.setAttribute("data-visible", String(i === courante));
+      });
+      points.forEach(function (point, i) {
+        point.setAttribute("aria-current", String(i === courante));
       });
     };
 
-    surDefilement();
-    window.addEventListener("scroll", surDefilement, { passive: true });
+    var relancer = function () {
+      window.clearInterval(minuterie);
+      // On ne fait pas défiler des images chez qui a demandé moins d'animation.
+      if (animationsReduites()) return;
+      minuterie = window.setInterval(function () {
+        afficher(courante + 1);
+      }, DUREE);
+    };
+
+    points.forEach(function (point, i) {
+      point.addEventListener("click", function () {
+        afficher(i);
+        relancer();
+      });
+    });
+
+    // Rien ne tourne dans un onglet qu'on ne regarde pas.
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) window.clearInterval(minuterie);
+      else relancer();
+    });
+
+    afficher(0);
+    relancer();
   })();
 
   /* ==========================================================================
-     3. LE MENU MOBILE
+     2. LA BANDE D'IMAGES
+     Ses photographies sont décalées vers la droite par l'animation : elles ne
+     croisent jamais le cadre de l'écran, et « loading=lazy » les laisserait
+     vides pour toujours. On les charge donc nous-mêmes, quand la bande
+     approche. Sans ce script, la bande n'est pas affichée du tout : elle est
+     décorative, une rangée de cadres vides vaudrait moins que rien.
+     ========================================================================== */
+  (function bande() {
+    var bande = $("[data-ruban]");
+    if (!bande) return;
+
+    var charger = function () {
+      $$("img[data-src]", bande).forEach(function (img) {
+        img.src = img.getAttribute("data-src");
+        img.removeAttribute("data-src");
+      });
+    };
+
+    if (!("IntersectionObserver" in window)) return charger();
+
+    var guetteur = new IntersectionObserver(
+      function (entrees) {
+        if (!entrees[0].isIntersecting) return;
+        guetteur.disconnect();
+        charger();
+      },
+      { rootMargin: "400px" },
+    );
+    guetteur.observe(bande);
+  })();
+
+  /* ==========================================================================
+     3. LE MENU DE TÉLÉPHONE
      Il s'appuie sur <dialog> : le piégeage du focus, la touche Échap et le
      rôle de dialogue sont assurés par le navigateur, pas par nous.
      ========================================================================== */
-  (function menuMobile() {
-    var panneau = document.getElementById("menu-mobile");
-    var bouton = $('[aria-controls="menu-mobile"]');
+  (function menu() {
+    var panneau = document.getElementById("menu");
+    var bouton = $('[aria-controls="menu"]');
     if (!panneau || !bouton) return;
 
     var ouvrir = function () {
@@ -89,8 +157,13 @@
     bouton.addEventListener("click", ouvrir);
 
     // Le bouton de fermeture, et tout lien du menu : on part, donc on ferme.
-    $$(".menumobile-fermer, .menumobile-lien", panneau).forEach(function (element) {
+    $$(".menu__fermer, .menu__lien", panneau).forEach(function (element) {
       element.addEventListener("click", fermer);
+    });
+
+    // Un clic sur le fond, hors du panneau, ferme aussi.
+    panneau.addEventListener("click", function (evenement) {
+      if (evenement.target === panneau) fermer();
     });
 
     // `close` couvre aussi la touche Échap, que le navigateur gère seul.
@@ -107,22 +180,53 @@
      figé au jour de la mise en ligne.
      ========================================================================== */
   (function etatOuverture() {
-    var cible = $(".etatouverturelive-etat");
+    var cible = $("[data-etat]");
     if (!cible) return;
 
     var FUSEAU = "Europe/Zurich";
     var JOURS = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
 
-    /* Les horaires du restaurant. À modifier ici — et **à garder identiques**
+    /* HORAIRES
+       Les horaires du restaurant. À modifier ici — et **à garder identiques**
        à ceux écrits dans les pages, dans le pied de page et sur la fiche
        Google. Une heure qui diffère d'un endroit à l'autre se voit. */
     var HORAIRES = [
-      { indice: 1, nom: "Lundi", midi: ["11:45", "13:30"], soir: ["18:45", "22:00"] },
-      { indice: 2, nom: "Mardi", midi: ["11:45", "13:30"], soir: ["18:45", "22:00"] },
-      { indice: 3, nom: "Mercredi", midi: ["11:45", "13:30"], soir: ["18:45", "22:00"] },
-      { indice: 4, nom: "Jeudi", midi: ["11:45", "13:30"], soir: ["18:45", "22:00"] },
-      { indice: 5, nom: "Vendredi", midi: ["11:45", "13:30"], soir: ["18:45", "22:30"] },
-      { indice: 6, nom: "Samedi", midi: ["11:45", "13:30"], soir: ["18:45", "22:30"] },
+      {
+        indice: 1,
+        nom: "Lundi",
+        midi: ["11:45", "13:30"],
+        soir: ["18:45", "22:00"],
+      },
+      {
+        indice: 2,
+        nom: "Mardi",
+        midi: ["11:45", "13:30"],
+        soir: ["18:45", "22:00"],
+      },
+      {
+        indice: 3,
+        nom: "Mercredi",
+        midi: ["11:45", "13:30"],
+        soir: ["18:45", "22:00"],
+      },
+      {
+        indice: 4,
+        nom: "Jeudi",
+        midi: ["11:45", "13:30"],
+        soir: ["18:45", "22:00"],
+      },
+      {
+        indice: 5,
+        nom: "Vendredi",
+        midi: ["11:45", "13:30"],
+        soir: ["18:45", "22:30"],
+      },
+      {
+        indice: 6,
+        nom: "Samedi",
+        midi: ["11:45", "13:30"],
+        soir: ["18:45", "22:30"],
+      },
       { indice: 0, nom: "Dimanche", midi: null, soir: null },
     ];
 
@@ -145,22 +249,31 @@
           hour12: false,
         }).formatToParts(date);
         var lire = function (type) {
-          for (var i = 0; i < parts.length; i++) if (parts[i].type === type) return parts[i].value;
+          for (var i = 0; i < parts.length; i++)
+            if (parts[i].type === type) return parts[i].value;
           return "";
         };
         var jour = JOURS[lire("weekday")];
         var heures = Number(lire("hour"));
         var minutes = Number(lire("minute"));
-        if (jour === undefined || isNaN(heures) || isNaN(minutes)) throw new Error("illisible");
+        if (jour === undefined || isNaN(heures) || isNaN(minutes))
+          throw new Error("illisible");
         return { jour: jour, minutes: (heures % 24) * 60 + minutes };
       } catch (e) {
         // Repli sur l'heure de l'appareil : moins juste, mais jamais de plantage.
-        return { jour: date.getDay(), minutes: date.getHours() * 60 + date.getMinutes() };
+        return {
+          jour: date.getDay(),
+          minutes: date.getHours() * 60 + date.getMinutes(),
+        };
       }
     };
 
     var dansLaPlage = function (minutes, plage) {
-      return !!plage && minutes >= enMinutes(plage[0]) && minutes < enMinutes(plage[1]);
+      return (
+        !!plage &&
+        minutes >= enMinutes(plage[0]) &&
+        minutes < enMinutes(plage[1])
+      );
     };
 
     var calculer = function () {
@@ -174,36 +287,33 @@
         return { ouvert: false, detail: "Fermé le " + jour.nom.toLowerCase() };
       }
       if (dansLaPlage(instant.minutes, jour.midi)) {
-        return {
-          ouvert: true,
-          detail: enFrancais(jour.midi[0]) + " – " + enFrancais(jour.midi[1]),
-        };
+        return { ouvert: true, detail: "jusqu’à " + enFrancais(jour.midi[1]) };
       }
       if (dansLaPlage(instant.minutes, jour.soir)) {
-        return {
-          ouvert: true,
-          detail: enFrancais(jour.soir[0]) + " – " + enFrancais(jour.soir[1]),
-        };
+        return { ouvert: true, detail: "jusqu’à " + enFrancais(jour.soir[1]) };
       }
 
       var plages = [jour.midi, jour.soir];
       for (var j = 0; j < plages.length; j++) {
         if (plages[j] && instant.minutes < enMinutes(plages[j][0])) {
-          return { ouvert: false, detail: "Ouvre à " + enFrancais(plages[j][0]) };
+          return {
+            ouvert: false,
+            detail: "ouvre à " + enFrancais(plages[j][0]),
+          };
         }
       }
-      return { ouvert: false, detail: "Fermé pour aujourd’hui" };
+      return { ouvert: false, detail: "à demain" };
     };
 
     var afficher = function () {
       var etat = calculer();
       cible.setAttribute("data-ouvert", String(etat.ouvert));
       cible.innerHTML =
-        '<span class="etatouverturelive-pastille"></span>' +
-        '<span class="etatouverturelive-libelle">' +
+        '<span class="etat__pastille"></span>' +
+        '<span class="etat__libelle">' +
         (etat.ouvert ? "Ouvert" : "Fermé") +
         "</span>" +
-        '<span class="etatouverturelive-detail">· ' +
+        '<span class="etat__detail">· ' +
         etat.detail +
         "</span>";
     };
@@ -214,15 +324,42 @@
   })();
 
   /* ==========================================================================
-     5. LE PLAN
+     5. LA BARRE D'APPEL (téléphone)
+     Elle apparaît une fois l'ouverture passée : avant, le numéro est déjà à
+     l'écran, elle ne ferait que masquer la photographie.
+     ========================================================================== */
+  (function barreAppel() {
+    var barre = $("[data-barre-appel]");
+    if (!barre) return;
+
+    var SEUIL = 320;
+    var actions = $$("a", barre);
+
+    var surDefilement = function () {
+      var visible = window.scrollY > SEUIL;
+      barre.setAttribute("data-visible", String(visible));
+      barre.setAttribute("aria-hidden", String(!visible));
+      // Une barre invisible ne doit pas être atteignable au clavier.
+      actions.forEach(function (action) {
+        action.setAttribute("tabindex", visible ? "0" : "-1");
+      });
+    };
+
+    surDefilement();
+    window.addEventListener("scroll", surDefilement, { passive: true });
+  })();
+
+  /* ==========================================================================
+     6. LE PLAN
      Le fond est une image : rien n'est demandé à OpenStreetMap tant que le
      visiteur ne l'a pas décidé. C'est meilleur pour la vitesse d'affichage
      comme pour sa vie privée.
      ========================================================================== */
   (function plan() {
-    var bouton = $(".plan-ouvrir");
-    var cadre = $(".plan-plan");
-    if (!bouton || !cadre) return;
+    var cadre = $("[data-plan]");
+    if (!cadre) return;
+    var bouton = $(".plan__ouvrir", cadre);
+    if (!bouton) return;
 
     bouton.addEventListener("click", function () {
       var adresse = cadre.getAttribute("data-carte");
@@ -230,7 +367,6 @@
       if (!adresse) return;
 
       var iframe = document.createElement("iframe");
-      iframe.className = "plan-cadre";
       iframe.src = adresse;
       iframe.title = titre;
       iframe.loading = "lazy";
@@ -242,17 +378,17 @@
   })();
 
   /* ==========================================================================
-     6. LE FORMULAIRE DE CONTACT
+     7. LE FORMULAIRE DE CONTACT
      Il fonctionne sans ce script : `action` et `method` sont posés sur la
      balise, donc un envoi ordinaire part quand même — le visiteur atterrit
      simplement sur la page du service de réception au lieu de rester ici.
      Le script ne fait que retenir l'envoi pour afficher la réponse sur place.
      ========================================================================== */
   (function formulaire() {
-    var form = $(".formulairecontact-formulaire");
+    var form = $("[data-formulaire]");
     if (!form || !form.getAttribute("action")) return;
 
-    var bouton = $(".formulairecontact-envoi", form);
+    var bouton = $("[data-envoi]", form);
     var zoneReponse = $("[data-reponse]", form);
     var TELEPHONE = form.getAttribute("data-telephone") || "";
 
@@ -261,26 +397,27 @@
     };
 
     var effacerErreurs = function () {
-      $$(".formulairecontact-champ", form).forEach(function (bloc) {
+      $$(".champ", form).forEach(function (bloc) {
         bloc.removeAttribute("data-erreur");
       });
-      $$(".formulairecontact-erreur", form).forEach(function (message) {
+      $$(".champ__erreur", form).forEach(function (message) {
         message.remove();
       });
       $$("[aria-invalid]", form).forEach(function (element) {
         element.removeAttribute("aria-invalid");
+        element.removeAttribute("aria-describedby");
       });
     };
 
     var signaler = function (nom, texte) {
       var element = champ(nom);
       if (!element) return;
-      var bloc = element.closest(".formulairecontact-champ");
+      var bloc = element.closest(".champ");
       if (bloc) bloc.setAttribute("data-erreur", "true");
       element.setAttribute("aria-invalid", "true");
 
       var message = document.createElement("span");
-      message.className = "formulairecontact-erreur";
+      message.className = "champ__erreur";
       message.id = "erreur-" + nom;
       message.textContent = texte;
       element.setAttribute("aria-describedby", message.id);
@@ -296,9 +433,17 @@
       zoneReponse.innerHTML = "";
       if (!texte) return;
       var p = document.createElement("p");
-      p.className = "formulairecontact-reponse";
+      p.className = "reponse";
       p.setAttribute("data-statut", statut);
       p.textContent = texte;
+      if (statut === "echec" && TELEPHONE) {
+        var lien = document.createElement("a");
+        lien.href = "tel:" + TELEPHONE.replace(/\s/g, "");
+        lien.textContent = TELEPHONE;
+        p.appendChild(document.createTextNode(" "));
+        p.appendChild(lien);
+        p.appendChild(document.createTextNode("."));
+      }
       zoneReponse.appendChild(p);
     };
 
@@ -324,7 +469,8 @@
         return;
       }
 
-      if (lire("nom").length < 2) return signaler("nom", "Merci d’indiquer votre nom.");
+      if (lire("nom").length < 2)
+        return signaler("nom", "Merci d’indiquer votre nom.");
       if (!emailPlausible(lire("email"))) {
         return signaler("email", "Cette adresse e-mail semble incomplète.");
       }
@@ -351,12 +497,15 @@
         .then(function (reponse) {
           if (!reponse.ok) throw new Error(String(reponse.status));
           form.reset();
-          repondre("Message envoyé. Nous vous répondons au plus vite.", "succes");
+          repondre(
+            "Message envoyé. Nous vous répondons au plus vite.",
+            "succes",
+          );
           rendreLeBouton();
         })
         .catch(function () {
           repondre(
-            "L’envoi n’a pas abouti. Appelez-nous au " + TELEPHONE + ", c’est le plus sûr.",
+            "L’envoi n’a pas abouti. Le plus sûr reste de nous appeler au",
             "echec",
           );
           rendreLeBouton();

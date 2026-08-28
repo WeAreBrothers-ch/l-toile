@@ -1,99 +1,77 @@
 <!doctype html>
-<html lang="fr-CH" data-scroll-behavior="smooth">
+<html lang="fr-CH">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preload" href="fonts/archivo.woff2" as="font" crossorigin="" type="font/woff2" />
-    <link
-      rel="preload"
-      href="fonts/fraunces-latin.woff2"
-      as="font"
-      crossorigin=""
-      type="font/woff2"
-    />
-    <link rel="preload" as="image" href="images/logo-letoile.svg" />
-    <meta name="theme-color" content="#121110" />
     <title>La carte — Restaurant L’Étoile, Lausanne-Malley</title>
     <meta
       name="description"
-      content="La carte complète du Restaurant L’Étoile à Lausanne : entrées, salades, 16 pâtes fraîches, risottos, poissons, viandes sur ardoise, fondues et menu enfant. Prix affichés."
+      content="La carte complète du Restaurant L’Étoile à Lausanne : entrées, salades, pâtes fraîches, risottos, poissons, viandes sur ardoise, fondues et menu enfant. Prix affichés."
     />
-    <meta name="application-name" content="Restaurant L’Étoile" />
+    <link rel="canonical" href="https://www.restaurant-letoile.ch/carte.html" />
+    <meta name="theme-color" content="#17604a" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="https://www.restaurant-letoile.ch/carte/" />
-    <meta property="og:title" content="La carte — Restaurant L’Étoile, Lausanne-Malley" />
+    <meta property="og:type" content="restaurant" />
+    <meta
+      property="og:title"
+      content="La carte — Restaurant L’Étoile, Lausanne-Malley"
+    />
     <meta
       property="og:description"
-      content="La carte complète du Restaurant L’Étoile à Lausanne : entrées, salades, 16 pâtes fraîches, risottos, poissons, viandes sur ardoise, fondues et menu enfant. Prix affichés."
+      content="La carte complète du Restaurant L’Étoile à Lausanne : entrées, salades, pâtes fraîches, risottos, poissons, viandes sur ardoise, fondues et menu enfant. Prix affichés."
     />
-    <meta property="og:url" content="https://www.restaurant-letoile.ch/carte/" />
-    <meta property="og:site_name" content="Restaurant L’Étoile" />
+    <meta
+      property="og:url"
+      content="https://www.restaurant-letoile.ch/carte.html"
+    />
+    <meta
+      property="og:image"
+      content="https://www.restaurant-letoile.ch/images/og-2026-08d.jpg"
+    />
     <meta property="og:locale" content="fr_CH" />
-    <meta property="og:image" content="https://www.restaurant-letoile.ch/images/og-2026-08d.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Pizza au jambon cru du Restaurant L’Étoile, cuisine italienne et pizzeria à Lausanne"
-    />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="La carte — Restaurant L’Étoile, Lausanne-Malley" />
-    <meta
-      name="twitter:description"
-      content="La carte complète du Restaurant L’Étoile à Lausanne : entrées, salades, 16 pâtes fraîches, risottos, poissons, viandes sur ardoise, fondues et menu enfant. Prix affichés."
-    />
-    <meta name="twitter:image" content="https://www.restaurant-letoile.ch/images/og-2026-08d.jpg" />
-    <link
-      rel="icon"
-      href="/favicon.ico?favicon.3zxueus_twa87.ico"
-      sizes="32x32"
-      type="image/x-icon"
-    />
     <link rel="icon" href="images/logo-mono.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <meta name="next-size-adjust" content="" />
+    <link
+      rel="preload"
+      href="fonts/bitter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="fonts/archivo.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="css/style.css" />
     <script>
       (function () {
         try {
           var r = document.documentElement;
-          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
           if (!("IntersectionObserver" in window)) return;
           r.setAttribute("data-js", "on");
-          var demarrer = function () {
-            try {
-              var o = new IntersectionObserver(
-                function (es) {
-                  for (var i = 0; i < es.length; i++) {
-                    var e = es[i];
-                    if (!e.isIntersecting && e.boundingClientRect.top > 0) continue;
+          var d = function () {
+            var o = new IntersectionObserver(
+              function (es) {
+                es.forEach(function (e) {
+                  if (e.isIntersecting || e.boundingClientRect.top < 0) {
                     e.target.setAttribute("data-vu", "1");
                     o.unobserve(e.target);
                   }
-                },
-                { threshold: 0, rootMargin: "0px 0px -8% 0px" },
-              );
-              var brancher = function (n) {
-                if (n.nodeType !== 1) return;
-                if (n.hasAttribute("data-reveal") && !n.hasAttribute("data-vu")) o.observe(n);
-                var d = n.querySelectorAll("[data-reveal]:not([data-vu])");
-                for (var i = 0; i < d.length; i++) o.observe(d[i]);
-              };
-              brancher(document.body);
-              new MutationObserver(function (ms) {
-                for (var i = 0; i < ms.length; i++) {
-                  var a = ms[i].addedNodes;
-                  for (var j = 0; j < a.length; j++) brancher(a[j]);
-                }
-              }).observe(document.body, { childList: true, subtree: true });
-            } catch (e) {
-              r.removeAttribute("data-js");
-            }
+                });
+              },
+              { rootMargin: "0px 0px -8% 0px" },
+            );
+            document.querySelectorAll("[data-apparait]").forEach(function (n) {
+              o.observe(n);
+            });
           };
-          if (document.readyState === "loading")
-            document.addEventListener("DOMContentLoaded", demarrer);
-          else demarrer();
+          document.readyState === "loading"
+            ? addEventListener("DOMContentLoaded", d)
+            : d();
         } catch (e) {
           document.documentElement.removeAttribute("data-js");
         }
@@ -101,18 +79,61 @@
     </script>
     <script src="js/script.js" defer></script>
   </head>
-  <body data-page="carte">
-    <div hidden=""><!--$--><!--/$--></div>
-    <a class="lienEvitement" href="#contenu">Aller au contenu</a>
-    <header class="header-entete" data-compact="false">
-      <div class="header-barre">
-        <div class="wrap header-barreContenu">
-          <button
-            type="button"
-            class="header-iconeSeule header-boutonMenu"
-            aria-label="Ouvrir le menu de navigation"
-            aria-expanded="false"
-            aria-controls="menu-mobile"
+  <body data-page="carte.html">
+    <a class="evitement" href="#contenu">Aller au contenu</a>
+
+    <header class="entete">
+      <div class="large entete__contenu">
+        <button
+          type="button"
+          class="entete__icone entete__ouvrir"
+          aria-label="Ouvrir le menu"
+          aria-expanded="false"
+          aria-controls="menu"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            aria-hidden="true"
+          >
+            <path d="M3 6h18M3 12h18M3 18h18" />
+          </svg>
+        </button>
+
+        <a
+          class="entete__logo"
+          href="index.html"
+          aria-label="Restaurant L’Étoile, accueil"
+        >
+          <img
+            src="images/logo-letoile.svg"
+            alt="Restaurant L’Étoile"
+            width="113"
+            height="32"
+          />
+        </a>
+
+        <nav class="entete__nav" aria-label="Navigation principale">
+          <a class="entete__lien" href="carte.html" aria-current="page"
+            >La carte</a
+          >
+          <a class="entete__lien" href="pizzas.html">Pizzas</a>
+          <a class="entete__lien" href="contact.html">Contact</a>
+        </nav>
+
+        <div class="entete__actions">
+          <span class="etat" data-etat>
+            <span class="etat__pastille"></span>
+            <span class="etat__detail">Midi et soir, du lundi au samedi</span>
+          </span>
+          <a
+            class="entete__icone entete__icone--tel"
+            href="tel:+41216251544"
+            aria-label="Appeler le restaurant au +41 21 625 15 44"
           >
             <svg
               width="22"
@@ -120,1012 +141,1046 @@
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
+              stroke-width="2"
               aria-hidden="true"
-              focusable="false"
             >
-              <path d="M3 6h18 M3 12h18 M3 18h18"></path>
-            </svg></button
-          ><a class="header-logoLien" aria-label="Restaurant L’Étoile, accueil" href="index.html"
-            ><img
-              class="header-logo"
-              src="images/logo-letoile.svg"
-              alt="Restaurant L’Étoile"
-              width="113"
-              height="32"
-          /></a>
-          <nav class="header-nav" aria-label="Navigation principale">
-            <a class="header-lienNav" aria-current="page" href="carte.html">La carte</a
-            ><a class="header-lienNav" href="pizzas.html">Pizzas</a
-            ><a class="header-lienNav" href="contact.html">Contact</a>
-          </nav>
-          <div class="header-actions">
-            <span class="header-etat etatouverturelive-etat"
-              ><span class="etatouverturelive-pastille"></span
-              ><span class="etatouverturelive-detail">Midi et soir, du lundi au samedi</span></span
-            >
-            <a
-              class="header-iconeSeule header-telIcone"
-              href="tel:+41216251544"
-              aria-label="Appeler le restaurant au +41 21 625 15 44"
-              data-analytics="call"
-              ><svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="square"
-                stroke-linejoin="miter"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-                ></path></svg></a
-            ><a
-              href="tel:+41216251544"
-              class="bouton-base bouton-primaire header-reserverLong"
-              aria-label="Réserver par téléphone au +41 21 625 15 44"
-              data-analytics="call"
-              ><svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="square"
-                stroke-linejoin="miter"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-                ></path></svg
-              >Réserver ·
-              <!-- -->021 625 15 44</a
-            >
-          </div>
+              <path
+                d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+              />
+            </svg>
+          </a>
+          <a
+            class="bouton bouton--rouge entete__reserver"
+            href="tel:+41216251544"
+          >
+            Réserver · 021 625 15 44
+          </a>
         </div>
       </div>
     </header>
-    <dialog id="menu-mobile" class="menumobile-panneau" aria-label="Navigation du site">
-      <div class="wrap">
-        <div class="menumobile-entete">
+
+    <dialog id="menu" class="menu" aria-label="Navigation du site">
+      <div class="menu__contenu">
+        <div class="menu__haut">
           <img
-            class="menumobile-logo"
-            alt="Restaurant L’Étoile"
-            width="84"
-            height="24"
             src="images/logo-letoile-clair.svg"
-          /><button type="button" class="menumobile-fermer" aria-label="Fermer le menu">
+            alt="Restaurant L’Étoile"
+            width="113"
+            height="32"
+          />
+          <button
+            type="button"
+            class="menu__fermer"
+            aria-label="Fermer le menu"
+          >
             <svg
-              width="22"
-              height="22"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
+              stroke-width="2.5"
               aria-hidden="true"
-              focusable="false"
             >
-              <path d="M5 5l14 14 M19 5L5 19"></path>
+              <path d="M5 5l14 14M19 5L5 19" />
             </svg>
           </button>
         </div>
-        <nav class="menumobile-liens" aria-label="Navigation principale">
-          <a class="menumobile-lien" href="carte.html" style="--delai: 0ms"
-            >La carte<svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
-          ><a class="menumobile-lien" href="pizzas.html" style="--delai: 40ms"
-            >Pizzas<svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
-          ><a class="menumobile-lien" href="contact.html" style="--delai: 80ms"
-            >Contact<svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg
-          ></a>
+        <nav class="menu__liens" aria-label="Navigation principale">
+          <a class="menu__lien" href="index.html"
+            ><span class="etoile" aria-hidden="true"></span>Accueil</a
+          >
+          <a class="menu__lien" href="carte.html" aria-current="page"
+            ><span class="etoile" aria-hidden="true"></span>La carte</a
+          >
+          <a class="menu__lien" href="pizzas.html"
+            ><span class="etoile" aria-hidden="true"></span>Pizzas</a
+          >
+          <a class="menu__lien" href="contact.html"
+            ><span class="etoile" aria-hidden="true"></span>Contact</a
+          >
         </nav>
-        <div class="menumobile-pied">
-          <a
-            href="tel:+41216251544"
-            class="bouton-base bouton-primaire bouton-grand bouton-pleineLargeur"
-            data-analytics="call"
-            ><svg
+        <div class="menu__pied">
+          <a class="bouton bouton--clair bouton--large" href="tel:+41216251544">
+            <svg
               width="16"
               height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
+              stroke-width="2"
               aria-hidden="true"
-              focusable="false"
             >
               <path
                 d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-              ></path></svg
-            >Réserver · 021 625 15 44</a
-          >
-          <address>Rue de Genève 102, 1004 Lausanne<br />Fermé le dimanche</address>
+              />
+            </svg>
+            Réserver · 021 625 15 44
+          </a>
+          <address class="menu__adresse">
+            Rue de Genève 102, 1004 Lausanne<br />Fermé le dimanche
+          </address>
         </div>
       </div>
     </dialog>
+
     <main id="contenu">
-      <section class="surfacePapier section">
-        <div class="wrapLarge duo-duo duo-seul">
+      <section class="intro">
+        <div class="large">
+          <p class="intro__exergue">
+            <span class="etoile" aria-hidden="true"></span> Cuisine italienne
+            &amp; brasserie
+          </p>
+          <h1 class="intro__titre">La carte</h1>
+          <p class="intro__texte">
+            59 plats, des entrées aux fondues. Tout est écrit ici, prix compris
+            — il n’y a rien à télécharger.
+          </p>
+          <div class="intro__actions">
+            <a class="bouton bouton--clair" href="pizzas.html"
+              >Voir aussi les 15 pizzas</a
+            >
+          </div>
+        </div>
       </section>
-      <section class="surfaceEncre page-carte" aria-label="La carte">
-        
-        </div>
-        <div>
-          <div class="wrap">
-            <div class="page-colonneCarte">
-              <section
-                class="categoriecarte-categorie"
-                id="entrees"
-                aria-labelledby="titre-entrees"
-              >
-                <h2 class="categoriecarte-titre" id="titre-entrees">Les entrées</h2>
-                <ul class="categoriecarte-liste">
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Salade verte</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">5.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Salade de saison, sauce française maison</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Salade mêlée</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">8.50</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Salade de saison et mélange de crudités, sauce française maison
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom"
-                        >Assortiment de légumes grillés à l’italienne</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">12.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Courgettes, aubergines, poivrons, oignon, ail et huile d’olive
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Focaccia à l’ail &amp; mozzarella</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">14.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Huile d’olive, gros sel, ail et romarin — idéal à partager
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Roulée d’aubergine &amp; bufala</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">15.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Aubergines grillées farcies à la bufala et tomate fraîche, gratinées au four
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Carpaccio de bœuf</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">16.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Roquette, écailles de Grana Padano</p>
-                    <p class="lignedeplat-meta">
-                      <span>En plat <b>27.—</b></span>
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Burrata façon caprese parfumée truffe</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">17.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Burrata, tomate fraîche, basilic, câpres et roquette
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Crevettes à l’espagnole</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">17.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Crevettes à l’ail et poivrons</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Assortiment de charcuterie et fromage</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">19.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Sélection fromage et charcuterie</p>
-                    <p class="lignedeplat-meta">
-                      <span>En plat <b>34.—</b></span>
-                    </p>
-                  </li>
-                </ul>
-              </section>
-              <section
-                class="categoriecarte-categorie"
-                id="assiettes-froides"
-                aria-labelledby="titre-assiettes-froides"
-              >
-                <h2 class="categoriecarte-titre" id="titre-assiettes-froides">Assiettes froides</h2>
-                <ul class="categoriecarte-liste">
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Assiette de crudités végétarienne</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">17.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Mélange de crudités de saison</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Salade de chèvre chaud au miel</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">22.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Salade de saison, œuf, cherry, figues, noix, chèvre et miel
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Salade César</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">25.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Poulet grillé, œuf, croûtons, carottes, tomate, parmesan frais, sauce César
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Salade Fitness</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">29.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Grande salade de crudités et légumes, fines tranches de bœuf grillé,
-                      vinaigrette
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Tartare de bœuf classique</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">30.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Servi avec frites, beurre et toasts grillés
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Tartare de bœuf parfumé au gin</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">32.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Servi avec frites, beurre et toasts grillés
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Tartare de bœuf saveur truffe</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">34.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Servi avec frites, beurre et toasts grillés
-                    </p>
-                  </li>
-                </ul>
-              </section>
-              <section class="categoriecarte-categorie" id="pasta" aria-labelledby="titre-pasta">
-                <h2 class="categoriecarte-titre" id="titre-pasta">Pasta</h2>
-                <p class="categoriecarte-note">
-                  Possibilité sans gluten. Suppléments : crevettes +7.— · poulet +7.— · burrata +5.—
+
+      <div class="section surfaceCreme">
+        <div class="large">
+          <section
+            class="categorie"
+            id="entrees"
+            aria-labelledby="titre-entrees"
+            data-apparait
+          >
+            <h2 class="categorie__titre" id="titre-entrees">Les entrées</h2>
+            <ul class="categorie__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Salade verte</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">5.—</span>
                 </p>
-                <ul class="categoriecarte-liste">
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom"
-                        >Linguine aglio, olio e pepperoncino à l’Étoile</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">19.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Ail, tomate cherry, basilic</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Rigatoni Arrabbiata</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">19.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Sauce tomate au basilic pimentée</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Gnocchi au gorgonzola</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">22.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Sauce onctueuse au gorgonzola</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Tagliatelle fraîches alla carbonara</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">22.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Carbonara façon française, à la crème, sans œuf
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom"
-                        >Orecchiette à la bolognaise et parmesan frais</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">24.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Mijoté de bœuf à la tomate et basilic</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Paccheri du Patron</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">24.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Façon ottomane, saucisse de bœuf fumée (soudjouk) et crème fraîche
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Rigatoni alla vodka</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">24.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Crème tomatée à l’origan et vodka</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Gnocchi au pesto &amp; burrata</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">25.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Pesto de basilic et roquette, burrata et fricassée de noix
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Fagottini à la truffe</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">26.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Pâtes farcies à la truffe, crème de truffe noire
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Paccheri à la pistache &amp; crevettes</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">27.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Pesto de pistache maison (pistaches siciliennes), crevettes sautées
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Paccheri au saumon et aneth</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">27.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Saumon fumé et saumon frais, citron et aneth
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Linguine alle vongole &amp; cherry</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">28.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Vongole, déglacé au vin blanc, ail, persil et piment
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Linguine du Chef façon péruvienne</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">28.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Sauté de bœuf, oignons, poivrons, champignons, courgette, piment, sauce soja
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Tagliatelle aux pointes de morilles</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">28.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Sauce crémeuse aux pointes de morilles et parmesan frais
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Linguine frutti di mare</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">30.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Vin blanc, tomate cherry, ail et fruits de mer mixtes
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Paccheri à l’homard et fricassée de gambas</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">34.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Demi-homard, gambas et vongole, sauce à l’armoricaine
-                    </p>
-                  </li>
-                </ul>
-              </section>
-            </div>
-          </div>
-          <div class="wrapLarge respirationcarte-respiration">
-            <div class="photo-cadre respirationcarte-cadre" style="--ratio: 1290 / 516">
-              <img
-                alt="La salle du Restaurant L’Étoile, rue de Genève 102 à Lausanne"
-                loading="lazy"
-                width="1290"
-                height="516"
-                decoding="async"
-                data-nimg="1"
-                class="photo-image"
-                style="color: transparent"
-                src="images/respiration-carte-1-2026-08d.jpg"
-              />
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="wrap">
-            <div class="page-colonneCarte">
-              <section
-                class="categoriecarte-categorie"
-                id="risotto"
-                aria-labelledby="titre-risotto"
-              >
-                <h2 class="categoriecarte-titre" id="titre-risotto">Risotto</h2>
-                <ul class="categoriecarte-liste">
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Risotto aux morilles</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">23.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Crème fraîche, pointes de morilles</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Risotto au saumon fumé et gambas</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">26.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Saumon gravlax et fricassée de gambas</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Risotto à la milanaise et jambon cru</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">29.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Risotto au safran, jambon cru</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Risotto Chicken Alfredo</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">31.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Crème fraîche, champignons et poulet</p>
-                  </li>
-                </ul>
-              </section>
-              <section
-                class="categoriecarte-categorie"
-                id="poissons"
-                aria-labelledby="titre-poissons"
-              >
-                <h2 class="categoriecarte-titre" id="titre-poissons">Poissons et fruits de mer</h2>
-                <ul class="categoriecarte-liste">
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Moules marinières &amp; frites</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">28.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Salade en entrée, moules, céleri, persil, frites
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Filets de perche meunière</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">31.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Sauce tartare et frites</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Filets de dorade à la crème citronnée</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">36.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Filet sans arêtes, garniture au choix</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom"
-                        >Gambas à l’ail mi-décortiquées et citron vert</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">38.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Servi avec frites et légumes</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Gambas et calamars grillés à l’ail</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">42.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Servi avec risotto au safran</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom"
-                        >Plateau de fruits de mer grillés et poisson</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix"
-                        >49.—<span class="lignedeplat-parPersonne"> <!-- -->/ pers.</span></span
-                      >
-                    </p>
-                    <p class="lignedeplat-description">
-                      Gambas, poulpes, calamars, moules, filet de loup de mer, sauce tartare. Salade
-                      en entrée, garniture au choix
-                    </p>
-                    <p class="lignedeplat-meta">
-                      <span>Spécialité de la maison · min. 2 personnes</span>
-                    </p>
-                  </li>
-                </ul>
-              </section>
-              <section
-                class="categoriecarte-categorie"
-                id="viandes"
-                aria-labelledby="titre-viandes"
-              >
-                <h2 class="categoriecarte-titre" id="titre-viandes">Viandes</h2>
-                <ul class="categoriecarte-liste">
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Émincé à la zurichoise de poulet</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">28.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Poulet grillé, sauce aux champignons de Paris, riz et légumes
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Paillard de poulet à l’ail et citron</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">29.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Marinade à l’ail maison, tagliatelle au beurre
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Tagliata de bœuf à l’italienne</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">36.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Entrecôte suisse taillée, roquette, parmesan, crème balsamique, légumes et
-                      frites
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Entrecôte de bœuf</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">38.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Garniture au choix, sauce en extra</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Entrecôte de bœuf sauce café de Paris</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">38.—</span>
-                    </p>
-                    <p class="lignedeplat-description">250 g, garniture au choix</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Filet de bœuf</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">48.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Garniture au choix, sauce en extra</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Grillade de viandes mixtes</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix"
-                        >55.—<span class="lignedeplat-parPersonne"> <!-- -->/ pers.</span></span
-                      >
-                    </p>
-                    <p class="lignedeplat-description">
-                      Bœuf, cheval, poulet, agneau. 3 sauces et garniture au choix
-                    </p>
-                    <p class="lignedeplat-meta"><span>min. 2 personnes</span></p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Côte de bœuf Tomahawk irlandaise</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">130.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Maturée 2 mois minimum, environ 1,2 kg. 3 sauces et garniture au choix
-                    </p>
-                    <p class="lignedeplat-meta"><span>min. 2 personnes · sur commande</span></p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Côte de bœuf maturée de Galice</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">150.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Maturée 2 mois minimum, environ 1,2 kg. 3 sauces et garniture au choix
-                    </p>
-                    <p class="lignedeplat-meta"><span>min. 2 personnes · sur commande</span></p>
-                  </li>
-                </ul>
-              </section>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="wrap">
-            <div class="page-colonneCarte">
-              <section
-                class="categoriecarte-categorie"
-                id="ardoises"
-                aria-labelledby="titre-ardoises"
-              >
-                <h2 class="categoriecarte-titre" id="titre-ardoises">Nos ardoises</h2>
-                <p class="categoriecarte-note">
-                  Sauces servies : beurre café de Paris, poivre vert, champignons.
+                <p class="plat__description">
+                  Salade de saison, sauce française maison
                 </p>
-                <ul class="categoriecarte-liste">
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Entrecôte de bœuf sur ardoise</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">43.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Salade en entrée, 220 g, garniture au choix et ses sauces
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Filet de bœuf sur ardoise</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">53.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Salade en entrée, 220 g, garniture au choix et ses sauces
-                    </p>
-                  </li>
-                </ul>
-              </section>
-              <section
-                class="categoriecarte-categorie"
-                id="fondues"
-                aria-labelledby="titre-fondues"
-              >
-                <h2 class="categoriecarte-titre" id="titre-fondues">Fondues à discrétion</h2>
-                <p class="categoriecarte-note">Sauces à fondue : cocktail, ail, tartare, curry.</p>
-                <ul class="categoriecarte-liste">
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Fondue bourguignonne</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">38.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Cheval, bœuf, poulet, garniture au choix et sauces à fondue
-                    </p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Fondue chinoise</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">38.—</span>
-                    </p>
-                    <p class="lignedeplat-description">
-                      Cheval, bœuf (crevettes et poulet sur demande), garniture au choix et sauces
-                    </p>
-                  </li>
-                </ul>
-              </section>
-              <section
-                class="categoriecarte-categorie"
-                id="menu-enfant"
-                aria-labelledby="titre-menu-enfant"
-              >
-                <h2 class="categoriecarte-titre" id="titre-menu-enfant">Menu enfant</h2>
-                <ul class="categoriecarte-liste">
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Chicken nuggets</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">10.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Poulet frit avec frites</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Mini pizza enfant</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">10.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Margherita ou jambon</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Penne enfant</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">10.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Sauce tomate, au beurre ou à la crème</p>
-                  </li>
-                  <li class="lignedeplat-plat">
-                    <p class="lignedeplat-ligne">
-                      <span class="lignedeplat-nom">Steak frites enfant</span
-                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
-                      ><span class="lignedeplat-prix">15.—</span>
-                    </p>
-                    <p class="lignedeplat-description">Steak de bœuf avec frites</p>
-                  </li>
-                </ul>
-              </section>
-              <section class="garnitures-bloc" id="garnitures" aria-labelledby="titre-garnitures">
-                <h2 class="garnitures-titre" id="titre-garnitures">Garnitures &amp; sauces</h2>
-                <p class="garnitures-intro">
-                  Valable sur les viandes, les fondues et le menu enfant. Garniture au choix,
-                  comprise :<!-- -->
-                  <!-- -->pâtes au beurre ou à l’ail · frites · riz · risotto · légumes<!-- -->.
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Salade mêlée</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">8.50</span>
                 </p>
-                <h3 class="garnitures-sousTitre">Sauces en supplément</h3>
-                <ul class="garnitures-sauces">
-                  <li class="garnitures-sauce">
-                    <span>Beurre maison</span
-                    ><span class="garnitures-rappel" aria-hidden="true"></span
-                    ><span class="garnitures-prix">3.—</span>
-                  </li>
-                  <li class="garnitures-sauce">
-                    <span>Poivre vert</span
-                    ><span class="garnitures-rappel" aria-hidden="true"></span
-                    ><span class="garnitures-prix">5.—</span>
-                  </li>
-                  <li class="garnitures-sauce">
-                    <span>Champignons</span
-                    ><span class="garnitures-rappel" aria-hidden="true"></span
-                    ><span class="garnitures-prix">5.—</span>
-                  </li>
-                  <li class="garnitures-sauce">
-                    <span>Morilles</span><span class="garnitures-rappel" aria-hidden="true"></span
-                    ><span class="garnitures-prix">8.—</span>
-                  </li>
-                </ul>
-              </section>
-              <div class="appelreservation-bloc" data-reveal="true">
-                <h2 class="appelreservation-titre">Une table ce soir ?</h2>
-                <p class="appelreservation-detail">
-                  La réservation se fait par téléphone, du lundi au samedi.<br />Midi 11h45 – 13h30
-                  · Soir 18h45 – 22h00 (22h30 vendredi et samedi).
+                <p class="plat__description">
+                  Salade de saison et mélange de crudités, sauce française
+                  maison
                 </p>
-                <div class="appelreservation-action">
-                  <a
-                    href="tel:+41216251544"
-                    class="bouton-base bouton-primaire bouton-grand"
-                    aria-label="Appeler le restaurant au +41 21 625 15 44"
-                    data-analytics="call"
-                    ><svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="square"
-                      stroke-linejoin="miter"
-                      aria-hidden="true"
-                      focusable="false"
-                    >
-                      <path
-                        d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-                      ></path></svg
-                    >021 625 15 44</a
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Assortiment de légumes grillés à l’italienne</span
                   >
-                </div>
-              </div>
-            </div>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">12.—</span>
+                </p>
+                <p class="plat__description">
+                  Courgettes, aubergines, poivrons, oignon, ail et huile d’olive
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Focaccia à l’ail & mozzarella</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">14.—</span>
+                </p>
+                <p class="plat__description">
+                  Huile d’olive, gros sel, ail et romarin — idéal à partager
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Roulée d’aubergine & bufala</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">15.—</span>
+                </p>
+                <p class="plat__description">
+                  Aubergines grillées farcies à la bufala et tomate fraîche,
+                  gratinées au four
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Carpaccio de bœuf</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">16.—</span>
+                </p>
+                <p class="plat__description">
+                  Roquette, écailles de Grana Padano
+                </p>
+                <p class="plat__mention">En plat 27.—</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Burrata façon caprese parfumée truffe</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">17.—</span>
+                </p>
+                <p class="plat__description">
+                  Burrata, tomate fraîche, basilic, câpres et roquette
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Crevettes à l’espagnole</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">17.—</span>
+                </p>
+                <p class="plat__description">Crevettes à l’ail et poivrons</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Assortiment de charcuterie et fromage</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">19.—</span>
+                </p>
+                <p class="plat__description">
+                  Sélection fromage et charcuterie
+                </p>
+                <p class="plat__mention">En plat 34.—</p>
+              </li>
+            </ul>
+          </section>
+
+          <div class="frise" aria-hidden="true">
+            <span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span>
           </div>
+
+          <section
+            class="categorie"
+            id="assiettes-froides"
+            aria-labelledby="titre-assiettes-froides"
+            data-apparait
+          >
+            <h2 class="categorie__titre" id="titre-assiettes-froides">
+              Assiettes froides
+            </h2>
+            <ul class="categorie__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Assiette de crudités végétarienne</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">17.—</span>
+                </p>
+                <p class="plat__description">Mélange de crudités de saison</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Salade de chèvre chaud au miel</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">22.—</span>
+                </p>
+                <p class="plat__description">
+                  Salade de saison, œuf, cherry, figues, noix, chèvre et miel
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Salade César</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">25.—</span>
+                </p>
+                <p class="plat__description">
+                  Poulet grillé, œuf, croûtons, carottes, tomate, parmesan
+                  frais, sauce César
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Salade Fitness</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">29.—</span>
+                </p>
+                <p class="plat__description">
+                  Grande salade de crudités et légumes, fines tranches de bœuf
+                  grillé, vinaigrette
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Tartare de bœuf classique</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">30.—</span>
+                </p>
+                <p class="plat__description">
+                  Servi avec frites, beurre et toasts grillés
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Tartare de bœuf parfumé au gin</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">32.—</span>
+                </p>
+                <p class="plat__description">
+                  Servi avec frites, beurre et toasts grillés
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Tartare de bœuf saveur truffe</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">34.—</span>
+                </p>
+                <p class="plat__description">
+                  Servi avec frites, beurre et toasts grillés
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <div class="frise" aria-hidden="true">
+            <span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span>
+          </div>
+
+          <section
+            class="categorie"
+            id="pasta"
+            aria-labelledby="titre-pasta"
+            data-apparait
+          >
+            <h2 class="categorie__titre" id="titre-pasta">Pasta</h2>
+            <p class="categorie__note">
+              Possibilité sans gluten. Suppléments : crevettes +7.— · poulet
+              +7.— · burrata +5.—
+            </p>
+            <ul class="categorie__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Linguine aglio, olio e pepperoncino à l’Étoile</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">19.—</span>
+                </p>
+                <p class="plat__description">Ail, tomate cherry, basilic</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Rigatoni Arrabbiata</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">19.—</span>
+                </p>
+                <p class="plat__description">
+                  Sauce tomate au basilic pimentée
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Gnocchi au gorgonzola</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">22.—</span>
+                </p>
+                <p class="plat__description">Sauce onctueuse au gorgonzola</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Tagliatelle fraîches alla carbonara</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">22.—</span>
+                </p>
+                <p class="plat__description">
+                  Carbonara façon française, à la crème, sans œuf
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Orecchiette à la bolognaise et parmesan frais</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">24.—</span>
+                </p>
+                <p class="plat__description">
+                  Mijoté de bœuf à la tomate et basilic
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Paccheri du Patron</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">24.—</span>
+                </p>
+                <p class="plat__description">
+                  Façon ottomane, saucisse de bœuf fumée (soudjouk) et crème
+                  fraîche
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Rigatoni alla vodka</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">24.—</span>
+                </p>
+                <p class="plat__description">
+                  Crème tomatée à l’origan et vodka
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Gnocchi au pesto & burrata</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">25.—</span>
+                </p>
+                <p class="plat__description">
+                  Pesto de basilic et roquette, burrata et fricassée de noix
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Fagottini à la truffe</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">26.—</span>
+                </p>
+                <p class="plat__description">
+                  Pâtes farcies à la truffe, crème de truffe noire
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Paccheri à la pistache & crevettes</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">27.—</span>
+                </p>
+                <p class="plat__description">
+                  Pesto de pistache maison (pistaches siciliennes), crevettes
+                  sautées
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Paccheri au saumon et aneth</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">27.—</span>
+                </p>
+                <p class="plat__description">
+                  Saumon fumé et saumon frais, citron et aneth
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Linguine alle vongole & cherry</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">28.—</span>
+                </p>
+                <p class="plat__description">
+                  Vongole, déglacé au vin blanc, ail, persil et piment
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Linguine du Chef façon péruvienne</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">28.—</span>
+                </p>
+                <p class="plat__description">
+                  Sauté de bœuf, oignons, poivrons, champignons, courgette,
+                  piment, sauce soja
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Tagliatelle aux pointes de morilles</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">28.—</span>
+                </p>
+                <p class="plat__description">
+                  Sauce crémeuse aux pointes de morilles et parmesan frais
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Linguine frutti di mare</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">30.—</span>
+                </p>
+                <p class="plat__description">
+                  Vin blanc, tomate cherry, ail et fruits de mer mixtes
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Paccheri à l’homard et fricassée de gambas</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">34.—</span>
+                </p>
+                <p class="plat__description">
+                  Demi-homard, gambas et vongole, sauce à l’armoricaine
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <div class="frise" aria-hidden="true">
+            <span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span>
+          </div>
+
+          <section
+            class="categorie"
+            id="risotto"
+            aria-labelledby="titre-risotto"
+            data-apparait
+          >
+            <h2 class="categorie__titre" id="titre-risotto">Risotto</h2>
+            <ul class="categorie__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Risotto aux morilles</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">23.—</span>
+                </p>
+                <p class="plat__description">
+                  Crème fraîche, pointes de morilles
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Risotto au saumon fumé et gambas</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">26.—</span>
+                </p>
+                <p class="plat__description">
+                  Saumon gravlax et fricassée de gambas
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Risotto à la milanaise et jambon cru</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">29.—</span>
+                </p>
+                <p class="plat__description">Risotto au safran, jambon cru</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Risotto Chicken Alfredo</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">31.—</span>
+                </p>
+                <p class="plat__description">
+                  Crème fraîche, champignons et poulet
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <div class="frise" aria-hidden="true">
+            <span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span>
+          </div>
+
+          <section
+            class="categorie"
+            id="poissons"
+            aria-labelledby="titre-poissons"
+            data-apparait
+          >
+            <h2 class="categorie__titre" id="titre-poissons">
+              Poissons et fruits de mer
+            </h2>
+            <ul class="categorie__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Moules marinières & frites</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">28.—</span>
+                </p>
+                <p class="plat__description">
+                  Salade en entrée, moules, céleri, persil, frites
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Filets de perche meunière</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">31.—</span>
+                </p>
+                <p class="plat__description">Sauce tartare et frites</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Filets de dorade à la crème citronnée</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">36.—</span>
+                </p>
+                <p class="plat__description">
+                  Filet sans arêtes, garniture au choix
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Gambas à l’ail mi-décortiquées et citron vert</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">38.—</span>
+                </p>
+                <p class="plat__description">Servi avec frites et légumes</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Gambas et calamars grillés à l’ail</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">42.—</span>
+                </p>
+                <p class="plat__description">Servi avec risotto au safran</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Plateau de fruits de mer grillés et poisson</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">49.— / pers.</span>
+                </p>
+                <p class="plat__description">
+                  Gambas, poulpes, calamars, moules, filet de loup de mer, sauce
+                  tartare. Salade en entrée, garniture au choix
+                </p>
+                <p class="plat__mention">
+                  Spécialité de la maison · min. 2 personnes
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <div class="frise" aria-hidden="true">
+            <span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span>
+          </div>
+
+          <section
+            class="categorie"
+            id="viandes"
+            aria-labelledby="titre-viandes"
+            data-apparait
+          >
+            <h2 class="categorie__titre" id="titre-viandes">Viandes</h2>
+            <ul class="categorie__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Émincé à la zurichoise de poulet</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">28.—</span>
+                </p>
+                <p class="plat__description">
+                  Poulet grillé, sauce aux champignons de Paris, riz et légumes
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Paillard de poulet à l’ail et citron</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">29.—</span>
+                </p>
+                <p class="plat__description">
+                  Marinade à l’ail maison, tagliatelle au beurre
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Tagliata de bœuf à l’italienne</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">36.—</span>
+                </p>
+                <p class="plat__description">
+                  Entrecôte suisse taillée, roquette, parmesan, crème
+                  balsamique, légumes et frites
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Entrecôte de bœuf</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">38.—</span>
+                </p>
+                <p class="plat__description">
+                  Garniture au choix, sauce en extra
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Entrecôte de bœuf sauce café de Paris</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">38.—</span>
+                </p>
+                <p class="plat__description">250 g, garniture au choix</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Filet de bœuf</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">48.—</span>
+                </p>
+                <p class="plat__description">
+                  Garniture au choix, sauce en extra
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Grillade de viandes mixtes</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">55.— / pers.</span>
+                </p>
+                <p class="plat__description">
+                  Bœuf, cheval, poulet, agneau. 3 sauces et garniture au choix
+                </p>
+                <p class="plat__mention">min. 2 personnes</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom"
+                    >Côte de bœuf Tomahawk irlandaise</span
+                  >
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">130.—</span>
+                </p>
+                <p class="plat__description">
+                  Maturée 2 mois minimum, environ 1,2 kg. 3 sauces et garniture
+                  au choix
+                </p>
+                <p class="plat__mention">min. 2 personnes · sur commande</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Côte de bœuf maturée de Galice</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">150.—</span>
+                </p>
+                <p class="plat__description">
+                  Maturée 2 mois minimum, environ 1,2 kg. 3 sauces et garniture
+                  au choix
+                </p>
+                <p class="plat__mention">min. 2 personnes · sur commande</p>
+              </li>
+            </ul>
+          </section>
+
+          <div class="frise" aria-hidden="true">
+            <span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span>
+          </div>
+
+          <section
+            class="categorie"
+            id="ardoises"
+            aria-labelledby="titre-ardoises"
+            data-apparait
+          >
+            <h2 class="categorie__titre" id="titre-ardoises">Nos ardoises</h2>
+            <p class="categorie__note">
+              Sauces servies : beurre café de Paris, poivre vert, champignons.
+            </p>
+            <ul class="categorie__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Entrecôte de bœuf sur ardoise</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">43.—</span>
+                </p>
+                <p class="plat__description">
+                  Salade en entrée, 220 g, garniture au choix et ses sauces
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Filet de bœuf sur ardoise</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">53.—</span>
+                </p>
+                <p class="plat__description">
+                  Salade en entrée, 220 g, garniture au choix et ses sauces
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <div class="frise" aria-hidden="true">
+            <span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span>
+          </div>
+
+          <section
+            class="categorie"
+            id="fondues"
+            aria-labelledby="titre-fondues"
+            data-apparait
+          >
+            <h2 class="categorie__titre" id="titre-fondues">
+              Fondues à discrétion
+            </h2>
+            <p class="categorie__note">
+              Sauces à fondue : cocktail, ail, tartare, curry.
+            </p>
+            <ul class="categorie__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Fondue bourguignonne</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">38.—</span>
+                </p>
+                <p class="plat__description">
+                  Cheval, bœuf, poulet, garniture au choix et sauces à fondue
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Fondue chinoise</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">38.—</span>
+                </p>
+                <p class="plat__description">
+                  Cheval, bœuf (crevettes et poulet sur demande), garniture au
+                  choix et sauces
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <div class="frise" aria-hidden="true">
+            <span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span
+            ><span class="etoile" aria-hidden="true"></span>
+          </div>
+
+          <section
+            class="categorie"
+            id="menu-enfant"
+            aria-labelledby="titre-menu-enfant"
+            data-apparait
+          >
+            <h2 class="categorie__titre" id="titre-menu-enfant">Menu enfant</h2>
+            <ul class="categorie__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Chicken nuggets</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">10.—</span>
+                </p>
+                <p class="plat__description">Poulet frit avec frites</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Mini pizza enfant</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">10.—</span>
+                </p>
+                <p class="plat__description">Margherita ou jambon</p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Penne enfant</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">10.—</span>
+                </p>
+                <p class="plat__description">
+                  Sauce tomate, au beurre ou à la crème
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Steak frites enfant</span>
+                  <span class="plat__rappel" aria-hidden="true"></span>
+                  <span class="plat__prix">15.—</span>
+                </p>
+                <p class="plat__description">Steak de bœuf avec frites</p>
+              </li>
+            </ul>
+          </section>
+
+          <section
+            class="garnitures"
+            aria-labelledby="titre-garnitures"
+            data-apparait
+          >
+            <h2 class="garnitures__titre" id="titre-garnitures">
+              Garnitures &amp; sauces
+            </h2>
+            <p class="garnitures__intro">
+              Valable sur les viandes, les fondues et le menu enfant. Garniture
+              au choix, comprise : pâtes au beurre ou à l’ail · frites · riz ·
+              risotto · légumes.
+            </p>
+            <h3 class="garnitures__sousTitre">Sauces en supplément</h3>
+            <ul class="garnitures__liste">
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Beurre maison</span
+                  ><span class="plat__rappel" aria-hidden="true"></span
+                  ><span class="plat__prix">3.—</span>
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Poivre vert</span
+                  ><span class="plat__rappel" aria-hidden="true"></span
+                  ><span class="plat__prix">5.—</span>
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Champignons</span
+                  ><span class="plat__rappel" aria-hidden="true"></span
+                  ><span class="plat__prix">5.—</span>
+                </p>
+              </li>
+              <li class="plat">
+                <p class="plat__ligne">
+                  <span class="plat__nom">Morilles</span
+                  ><span class="plat__rappel" aria-hidden="true"></span
+                  ><span class="plat__prix">8.—</span>
+                </p>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <section
+        class="section surfaceVerte centre"
+        aria-labelledby="titre-appel"
+      >
+        <div class="large">
+          <h2 class="titreSection" id="titre-appel">Une table ce soir ?</h2>
+          <p class="chapeau" style="margin-inline: auto">
+            La réservation se fait par téléphone, du lundi au samedi. Midi 11h45
+            – 13h30 · Soir 18h45 – 22h00 (22h30 vendredi et samedi).
+          </p>
+          <p style="margin-top: var(--e6)">
+            <a class="bouton bouton--rouge" href="tel:+41216251544">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+                />
+              </svg>
+              021 625 15 44
+            </a>
+          </p>
         </div>
       </section>
-      <!--$--><!--/$-->
     </main>
-    <footer class="surfaceEncre footer-pied">
-      <div class="wrap">
-        <div class="footer-colonnes">
-          <div class="footer-colonne">
-            <h2>Adresse</h2>
-            <address>
-              Restaurant L’Étoile<br />Rue de Genève 102<br />1004<!-- -->
-              <!-- -->Lausanne<br /><a
-                href="https://www.google.com/maps/dir/?api=1&amp;destination=Rue%20de%20Gen%C3%A8ve%20102%2C%201004%20Lausanne%2C%20Suisse"
-                target="_blank"
-                rel="noopener"
-                >Voir l’itinéraire</a
-              >
-            </address>
-          </div>
-          <div class="footer-colonne">
-            <h2>Horaires</h2>
-            <dl>
-              <div class="footer-horaire">
-                <dt>Lundi – jeudi</dt>
-                <dd>11h45 – 13h30 · 18h45 – 22h00</dd>
-              </div>
-              <div class="footer-horaire">
-                <dt>Vendredi – samedi</dt>
-                <dd>11h45 – 13h30 · 18h45 – 22h30</dd>
-              </div>
-              <div class="footer-horaire">
-                <dt>Dimanche</dt>
-                <dd class="footer-fermeture">Fermé</dd>
-              </div>
-            </dl>
-          </div>
-          <div class="footer-colonne">
-            <h2>Réservation</h2>
-            <p>
-              <a href="tel:+41216251544" data-analytics="call">+41 21 625 15 44</a><br /><a
-                href="mailto:etoile.restaurant@hotmail.com"
-                >etoile.restaurant@hotmail.com</a
-              ><br />Réservation par téléphone
-            </p>
-          </div>
-          <div class="footer-colonne">
-            <h2>Le site</h2>
-            <nav class="footer-navPied" aria-label="Navigation de pied de page">
-              <a href="index.html">Accueil</a><a href="carte.html">La carte</a
-              ><a href="pizzas.html">Pizzas</a><a href="contact.html">Contact</a>
-            </nav>
-          </div>
-        </div>
-        <p class="footer-mentions">
-          <span
-            >©
-            <!-- -->2026<!-- -->
-            <!-- -->Restaurant L’Étoile</span
-          ><span>Rue de Genève 102, 1004 Lausanne</span
-          ><span>Cuisine italienne, pizzeria et brasserie</span>
+
+    <footer class="pied">
+      <div class="large pied__contenu">
+        <img
+          class="pied__logo"
+          src="images/logo-letoile.svg"
+          alt="Restaurant L’Étoile"
+          width="200"
+          height="57"
+        />
+        <p class="pied__ligne">
+          <a
+            href="https://www.google.com/maps/dir/?api=1&amp;destination=Rue%20de%20Gen%C3%A8ve%20102%2C%201004%20Lausanne%2C%20Suisse"
+            target="_blank"
+            rel="noopener"
+          >
+            Rue de Genève 102, 1004 Lausanne
+          </a>
+          <span class="pied__separateur" aria-hidden="true"
+            ><span class="etoile" aria-hidden="true"></span
+          ></span>
+          <a href="tel:+41216251544">+41 21 625 15 44</a>
+          <span class="pied__separateur" aria-hidden="true"
+            ><span class="etoile" aria-hidden="true"></span
+          ></span>
+          <a href="mailto:etoile.restaurant@hotmail.com"
+            >etoile.restaurant@hotmail.com</a
+          >
+        </p>
+        <nav class="pied__nav" aria-label="Navigation de pied de page">
+          <a href="index.html">Accueil</a>
+          <a href="carte.html">La carte</a>
+          <a href="pizzas.html">Pizzas</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <p class="pied__mentions">
+          © 2026 Restaurant L’Étoile · Cuisine italienne, pizzeria et brasserie
+          · Fermé le dimanche
         </p>
       </div>
     </footer>
-    <div class="barreaction-barre" data-visible="false" aria-hidden="true">
-      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte.html">La carte</a
-      ><a
-        class="barreaction-action barreaction-appeler"
+
+    <div class="barreAppel" data-barre-appel aria-hidden="true">
+      <a class="barreAppel__carte" href="carte.html" tabindex="-1">La carte</a>
+      <a
+        class="barreAppel__appel"
         href="tel:+41216251544"
-        data-analytics="call"
         tabindex="-1"
         aria-label="Appeler le restaurant au +41 21 625 15 44"
-        ><svg
+      >
+        <svg
           width="16"
           height="16"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="square"
-          stroke-linejoin="miter"
+          stroke-width="2"
           aria-hidden="true"
-          focusable="false"
         >
           <path
             d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-          ></path></svg
-        >Appeler</a
-      >
+          />
+        </svg>
+        Appeler
+      </a>
     </div>
   </body>
 </html>

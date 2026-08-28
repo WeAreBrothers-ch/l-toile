@@ -1,73 +1,77 @@
 <!doctype html>
-<html lang="fr-CH" data-scroll-behavior="smooth">
+<html lang="fr-CH">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preload" href="fonts/archivo.woff2" as="font" crossorigin="" type="font/woff2" />
-    <link
-      rel="preload"
-      href="fonts/fraunces-latin.woff2"
-      as="font"
-      crossorigin=""
-      type="font/woff2"
-    />
-    <link rel="preload" as="image" href="images/logo-letoile.svg" />
-    <meta name="robots" content="noindex" />
-    <meta name="theme-color" content="#121110" />
     <title>Page introuvable — Restaurant L’Étoile</title>
-    <meta name="description" content="Cuisine italienne et brasserie à Lausanne" />
-    <meta name="application-name" content="Restaurant L’Étoile" />
-    <meta name="robots" content="noindex, follow" />
-    <link
-      rel="icon"
-      href="/favicon.ico?favicon.3zxueus_twa87.ico"
-      sizes="32x32"
-      type="image/x-icon"
+    <meta
+      name="description"
+      content="Cette page n’existe pas. Retrouvez la carte, les pizzas et les horaires du Restaurant L’Étoile à Lausanne."
     />
+    <link rel="canonical" href="https://www.restaurant-letoile.ch/404.html" />
+    <meta name="theme-color" content="#17604a" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta property="og:type" content="restaurant" />
+    <meta
+      property="og:title"
+      content="Page introuvable — Restaurant L’Étoile"
+    />
+    <meta
+      property="og:description"
+      content="Cette page n’existe pas. Retrouvez la carte, les pizzas et les horaires du Restaurant L’Étoile à Lausanne."
+    />
+    <meta
+      property="og:url"
+      content="https://www.restaurant-letoile.ch/404.html"
+    />
+    <meta
+      property="og:image"
+      content="https://www.restaurant-letoile.ch/images/og-2026-08d.jpg"
+    />
+    <meta property="og:locale" content="fr_CH" />
     <link rel="icon" href="images/logo-mono.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <meta name="next-size-adjust" content="" />
+    <link
+      rel="preload"
+      href="fonts/bitter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="fonts/archivo.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="css/style.css" />
     <script>
       (function () {
         try {
           var r = document.documentElement;
-          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
           if (!("IntersectionObserver" in window)) return;
           r.setAttribute("data-js", "on");
-          var demarrer = function () {
-            try {
-              var o = new IntersectionObserver(
-                function (es) {
-                  for (var i = 0; i < es.length; i++) {
-                    var e = es[i];
-                    if (!e.isIntersecting && e.boundingClientRect.top > 0) continue;
+          var d = function () {
+            var o = new IntersectionObserver(
+              function (es) {
+                es.forEach(function (e) {
+                  if (e.isIntersecting || e.boundingClientRect.top < 0) {
                     e.target.setAttribute("data-vu", "1");
                     o.unobserve(e.target);
                   }
-                },
-                { threshold: 0, rootMargin: "0px 0px -8% 0px" },
-              );
-              var brancher = function (n) {
-                if (n.nodeType !== 1) return;
-                if (n.hasAttribute("data-reveal") && !n.hasAttribute("data-vu")) o.observe(n);
-                var d = n.querySelectorAll("[data-reveal]:not([data-vu])");
-                for (var i = 0; i < d.length; i++) o.observe(d[i]);
-              };
-              brancher(document.body);
-              new MutationObserver(function (ms) {
-                for (var i = 0; i < ms.length; i++) {
-                  var a = ms[i].addedNodes;
-                  for (var j = 0; j < a.length; j++) brancher(a[j]);
-                }
-              }).observe(document.body, { childList: true, subtree: true });
-            } catch (e) {
-              r.removeAttribute("data-js");
-            }
+                });
+              },
+              { rootMargin: "0px 0px -8% 0px" },
+            );
+            document.querySelectorAll("[data-apparait]").forEach(function (n) {
+              o.observe(n);
+            });
           };
-          if (document.readyState === "loading")
-            document.addEventListener("DOMContentLoaded", demarrer);
-          else demarrer();
+          document.readyState === "loading"
+            ? addEventListener("DOMContentLoaded", d)
+            : d();
         } catch (e) {
           document.documentElement.removeAttribute("data-js");
         }
@@ -75,18 +79,59 @@
     </script>
     <script src="js/script.js" defer></script>
   </head>
-  <body data-page="404">
-    <div hidden=""><!--$--><!--/$--></div>
-    <a class="lienEvitement" href="#contenu">Aller au contenu</a>
-    <header class="header-entete" data-compact="false">
-      <div class="header-barre">
-        <div class="wrap header-barreContenu">
-          <button
-            type="button"
-            class="header-iconeSeule header-boutonMenu"
-            aria-label="Ouvrir le menu de navigation"
-            aria-expanded="false"
-            aria-controls="menu-mobile"
+  <body data-page="404.html">
+    <a class="evitement" href="#contenu">Aller au contenu</a>
+
+    <header class="entete">
+      <div class="large entete__contenu">
+        <button
+          type="button"
+          class="entete__icone entete__ouvrir"
+          aria-label="Ouvrir le menu"
+          aria-expanded="false"
+          aria-controls="menu"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            aria-hidden="true"
+          >
+            <path d="M3 6h18M3 12h18M3 18h18" />
+          </svg>
+        </button>
+
+        <a
+          class="entete__logo"
+          href="index.html"
+          aria-label="Restaurant L’Étoile, accueil"
+        >
+          <img
+            src="images/logo-letoile.svg"
+            alt="Restaurant L’Étoile"
+            width="113"
+            height="32"
+          />
+        </a>
+
+        <nav class="entete__nav" aria-label="Navigation principale">
+          <a class="entete__lien" href="carte.html">La carte</a>
+          <a class="entete__lien" href="pizzas.html">Pizzas</a>
+          <a class="entete__lien" href="contact.html">Contact</a>
+        </nav>
+
+        <div class="entete__actions">
+          <span class="etat" data-etat>
+            <span class="etat__pastille"></span>
+            <span class="etat__detail">Midi et soir, du lundi au samedi</span>
+          </span>
+          <a
+            class="entete__icone entete__icone--tel"
+            href="tel:+41216251544"
+            aria-label="Appeler le restaurant au +41 21 625 15 44"
           >
             <svg
               width="22"
@@ -94,296 +139,176 @@
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
+              stroke-width="2"
               aria-hidden="true"
-              focusable="false"
             >
-              <path d="M3 6h18 M3 12h18 M3 18h18"></path>
-            </svg></button
-          ><a class="header-logoLien" aria-label="Restaurant L’Étoile, accueil" href="index.html"
-            ><img
-              class="header-logo"
-              src="images/logo-letoile.svg"
-              alt="Restaurant L’Étoile"
-              width="113"
-              height="32"
-          /></a>
-          <nav class="header-nav" aria-label="Navigation principale">
-            <a class="header-lienNav" href="carte.html">La carte</a
-            ><a class="header-lienNav" href="pizzas.html">Pizzas</a
-            ><a class="header-lienNav" href="contact.html">Contact</a>
-          </nav>
-          <div class="header-actions">
-            <span class="header-etat etatouverturelive-etat"
-              ><span class="etatouverturelive-pastille"></span
-              ><span class="etatouverturelive-detail">Midi et soir, du lundi au samedi</span></span
-            >
-            <a
-              class="header-iconeSeule header-telIcone"
-              href="tel:+41216251544"
-              aria-label="Appeler le restaurant au +41 21 625 15 44"
-              data-analytics="call"
-              ><svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="square"
-                stroke-linejoin="miter"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-                ></path></svg></a
-            ><a
-              href="tel:+41216251544"
-              class="bouton-base bouton-primaire header-reserverLong"
-              aria-label="Réserver par téléphone au +41 21 625 15 44"
-              data-analytics="call"
-              ><svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="square"
-                stroke-linejoin="miter"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-                ></path></svg
-              >Réserver ·
-              <!-- -->021 625 15 44</a
-            >
-          </div>
+              <path
+                d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+              />
+            </svg>
+          </a>
+          <a
+            class="bouton bouton--rouge entete__reserver"
+            href="tel:+41216251544"
+          >
+            Réserver · 021 625 15 44
+          </a>
         </div>
       </div>
     </header>
-    <dialog id="menu-mobile" class="menumobile-panneau" aria-label="Navigation du site">
-      <div class="wrap">
-        <div class="menumobile-entete">
+
+    <dialog id="menu" class="menu" aria-label="Navigation du site">
+      <div class="menu__contenu">
+        <div class="menu__haut">
           <img
-            class="menumobile-logo"
-            alt="Restaurant L’Étoile"
-            width="84"
-            height="24"
             src="images/logo-letoile-clair.svg"
-          /><button type="button" class="menumobile-fermer" aria-label="Fermer le menu">
+            alt="Restaurant L’Étoile"
+            width="113"
+            height="32"
+          />
+          <button
+            type="button"
+            class="menu__fermer"
+            aria-label="Fermer le menu"
+          >
             <svg
-              width="22"
-              height="22"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
+              stroke-width="2.5"
               aria-hidden="true"
-              focusable="false"
             >
-              <path d="M5 5l14 14 M19 5L5 19"></path>
+              <path d="M5 5l14 14M19 5L5 19" />
             </svg>
           </button>
         </div>
-        <nav class="menumobile-liens" aria-label="Navigation principale">
-          <a class="menumobile-lien" href="carte.html" style="--delai: 0ms"
-            >La carte<svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
-          ><a class="menumobile-lien" href="pizzas.html" style="--delai: 40ms"
-            >Pizzas<svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
-          ><a class="menumobile-lien" href="contact.html" style="--delai: 80ms"
-            >Contact<svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg
-          ></a>
+        <nav class="menu__liens" aria-label="Navigation principale">
+          <a class="menu__lien" href="index.html"
+            ><span class="etoile" aria-hidden="true"></span>Accueil</a
+          >
+          <a class="menu__lien" href="carte.html"
+            ><span class="etoile" aria-hidden="true"></span>La carte</a
+          >
+          <a class="menu__lien" href="pizzas.html"
+            ><span class="etoile" aria-hidden="true"></span>Pizzas</a
+          >
+          <a class="menu__lien" href="contact.html"
+            ><span class="etoile" aria-hidden="true"></span>Contact</a
+          >
         </nav>
-        <div class="menumobile-pied">
-          <a
-            href="tel:+41216251544"
-            class="bouton-base bouton-primaire bouton-grand bouton-pleineLargeur"
-            data-analytics="call"
-            ><svg
+        <div class="menu__pied">
+          <a class="bouton bouton--clair bouton--large" href="tel:+41216251544">
+            <svg
               width="16"
               height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              stroke-linejoin="miter"
+              stroke-width="2"
               aria-hidden="true"
-              focusable="false"
             >
               <path
                 d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-              ></path></svg
-            >Réserver · 021 625 15 44</a
-          >
-          <address>Rue de Genève 102, 1004 Lausanne<br />Fermé le dimanche</address>
+              />
+            </svg>
+            Réserver · 021 625 15 44
+          </a>
+          <address class="menu__adresse">
+            Rue de Genève 102, 1004 Lausanne<br />Fermé le dimanche
+          </address>
         </div>
       </div>
     </dialog>
+
     <main id="contenu">
-      <section class="surfacePapier not-found-page">
-        <div class="wrap">
-          <p class="not-found-code">Erreur 404</p>
-          <h1 class="not-found-titre">
-            Cette page n’est plus <em class="italique">à la carte</em>
-          </h1>
-          <p class="not-found-chapo">
-            Le lien a peut-être changé. La carte complète, elle, est toujours au même endroit.
+      <section
+        class="intro"
+        style="min-height: 60svh; display: grid; place-content: center"
+      >
+        <div class="large">
+          <p class="intro__exergue">
+            <span class="etoile" aria-hidden="true"></span> Erreur 404
           </p>
-          <div class="not-found-actions">
-            <a class="bouton-base bouton-primaire" href="carte.html">Voir la carte</a
-            ><a class="bouton-base bouton-secondaire" href="index.html">Retour à l’accueil</a
-            ><a href="tel:+41216251544" class="bouton-base bouton-tertiaire" data-analytics="call"
-              ><svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="square"
-                stroke-linejoin="miter"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-                ></path></svg
-              >021 625 15 44</a
+          <h1 class="intro__titre">Cette page n’existe pas</h1>
+          <p class="intro__texte">
+            Elle a peut-être changé d’adresse. La carte, elle, n’a pas bougé.
+          </p>
+          <div class="intro__actions">
+            <a class="bouton bouton--clair" href="index.html"
+              >Retour à l’accueil</a
             >
+            <a class="bouton bouton--clair" href="carte.html">Voir la carte</a>
           </div>
         </div>
       </section>
-      <!--$--><!--/$-->
     </main>
-    <footer class="surfaceEncre footer-pied">
-      <div class="wrap">
-        <div class="footer-colonnes">
-          <div class="footer-colonne">
-            <h2>Adresse</h2>
-            <address>
-              Restaurant L’Étoile<br />Rue de Genève 102<br />1004<!-- -->
-              <!-- -->Lausanne<br /><a
-                href="https://www.google.com/maps/dir/?api=1&amp;destination=Rue%20de%20Gen%C3%A8ve%20102%2C%201004%20Lausanne%2C%20Suisse"
-                target="_blank"
-                rel="noopener"
-                >Voir l’itinéraire</a
-              >
-            </address>
-          </div>
-          <div class="footer-colonne">
-            <h2>Horaires</h2>
-            <dl>
-              <div class="footer-horaire">
-                <dt>Lundi – jeudi</dt>
-                <dd>11h45 – 13h30 · 18h45 – 22h00</dd>
-              </div>
-              <div class="footer-horaire">
-                <dt>Vendredi – samedi</dt>
-                <dd>11h45 – 13h30 · 18h45 – 22h30</dd>
-              </div>
-              <div class="footer-horaire">
-                <dt>Dimanche</dt>
-                <dd class="footer-fermeture">Fermé</dd>
-              </div>
-            </dl>
-          </div>
-          <div class="footer-colonne">
-            <h2>Réservation</h2>
-            <p>
-              <a href="tel:+41216251544" data-analytics="call">+41 21 625 15 44</a><br /><a
-                href="mailto:etoile.restaurant@hotmail.com"
-                >etoile.restaurant@hotmail.com</a
-              ><br />Réservation par téléphone
-            </p>
-          </div>
-          <div class="footer-colonne">
-            <h2>Le site</h2>
-            <nav class="footer-navPied" aria-label="Navigation de pied de page">
-              <a href="index.html">Accueil</a><a href="carte.html">La carte</a
-              ><a href="pizzas.html">Pizzas</a><a href="contact.html">Contact</a>
-            </nav>
-          </div>
-        </div>
-        <p class="footer-mentions">
-          <span
-            >©
-            <!-- -->2026<!-- -->
-            <!-- -->Restaurant L’Étoile</span
-          ><span>Rue de Genève 102, 1004 Lausanne</span
-          ><span>Cuisine italienne, pizzeria et brasserie</span>
+
+    <footer class="pied">
+      <div class="large pied__contenu">
+        <img
+          class="pied__logo"
+          src="images/logo-letoile.svg"
+          alt="Restaurant L’Étoile"
+          width="200"
+          height="57"
+        />
+        <p class="pied__ligne">
+          <a
+            href="https://www.google.com/maps/dir/?api=1&amp;destination=Rue%20de%20Gen%C3%A8ve%20102%2C%201004%20Lausanne%2C%20Suisse"
+            target="_blank"
+            rel="noopener"
+          >
+            Rue de Genève 102, 1004 Lausanne
+          </a>
+          <span class="pied__separateur" aria-hidden="true"
+            ><span class="etoile" aria-hidden="true"></span
+          ></span>
+          <a href="tel:+41216251544">+41 21 625 15 44</a>
+          <span class="pied__separateur" aria-hidden="true"
+            ><span class="etoile" aria-hidden="true"></span
+          ></span>
+          <a href="mailto:etoile.restaurant@hotmail.com"
+            >etoile.restaurant@hotmail.com</a
+          >
+        </p>
+        <nav class="pied__nav" aria-label="Navigation de pied de page">
+          <a href="index.html">Accueil</a>
+          <a href="carte.html">La carte</a>
+          <a href="pizzas.html">Pizzas</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <p class="pied__mentions">
+          © 2026 Restaurant L’Étoile · Cuisine italienne, pizzeria et brasserie
+          · Fermé le dimanche
         </p>
       </div>
     </footer>
-    <div class="barreaction-barre" data-visible="false" aria-hidden="true">
-      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte.html">La carte</a
-      ><a
-        class="barreaction-action barreaction-appeler"
+
+    <div class="barreAppel" data-barre-appel aria-hidden="true">
+      <a class="barreAppel__carte" href="carte.html" tabindex="-1">La carte</a>
+      <a
+        class="barreAppel__appel"
         href="tel:+41216251544"
-        data-analytics="call"
         tabindex="-1"
         aria-label="Appeler le restaurant au +41 21 625 15 44"
-        ><svg
+      >
+        <svg
           width="16"
           height="16"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="square"
-          stroke-linejoin="miter"
+          stroke-width="2"
           aria-hidden="true"
-          focusable="false"
         >
           <path
             d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-          ></path></svg
-        >Appeler</a
-      >
+          />
+        </svg>
+        Appeler
+      </a>
     </div>
   </body>
 </html>
