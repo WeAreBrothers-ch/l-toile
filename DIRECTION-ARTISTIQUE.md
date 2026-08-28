@@ -1,3 +1,21 @@
+> **Document d’étape — révisé en août 2026.**
+> Cette note décrit la première direction artistique du site. Elle a depuis été révisée sur
+> quatre points, à la demande du client :
+>
+> - **Rouge d’identité** : `#E9323C` → `#C8322A` (rouge laqué, plus chaud, plus profond).
+>   La rampe entière a été redérivée. Le logo SVG a été mis à jour en conséquence.
+> - **Noir** : `#14110F` → `#0E0B0A`. **Papier** : `#FAF7F2` → `#F7F1E7`, plus chaud.
+> - **Typographie** : Archivo → **Switzer** (Indian Type Foundry, distribuée sur Fontshare).
+>   Fraunces est conservée, et poussée beaucoup plus loin en corps.
+> - **Composition** : le bandeau d’ouverture occupe l’écran entier, l’en-tête se pose dessus,
+>   les photographies débordent de la colonne, et le site s’autorise **deux rubans défilants**
+>   — un de mots, un d’images — que la section 9.1 proscrivait. C’est un arbitrage assumé :
+>   les références données par le client (Gran Torino, Nidaba, Da Maria) reposent toutes
+>   dessus, et le site précédent était jugé trop sage.
+>
+> **La référence à jour, ce sont les jetons de `css/style.css`.** Cette note reste valable pour
+> l’analyse des inspirations, la grille, l’échelle d’espacement et les règles d’imagerie.
+
 # Direction artistique — Restaurant L'Étoile (Lausanne)
 
 > Version 1.1 — 21 août 2026 · révisée après retour client : une seule nuance claire, un seul aplat rouge, photos en chevauchement

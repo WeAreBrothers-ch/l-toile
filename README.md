@@ -33,15 +33,35 @@ dossier dans un petit serveur local, ou regardez-les directement en ligne.
 | `contact.html` | Contact, horaires, plan et formulaire |
 | `404.html` | La page affichée quand une adresse n’existe pas |
 | `css/style.css` | Toutes les couleurs, tailles et espacements du site |
-| `js/script.js` | Les six comportements de la page (voir plus bas) |
+| `js/script.js` | Les sept comportements de la page (voir plus bas) |
 | `images/` | Toutes les photos et le logo |
-| `fonts/` | Les deux polices du site, hébergées ici plutôt que chez Google |
+| `fonts/` | Les deux polices du site, hébergées ici plutôt que chez Google ou Fontshare |
 | `photos-source/` | Les photos d’origine, avant recadrage. Ne sont pas publiées |
 | `robots.txt`, `sitemap.xml` | Ce que Google lit pour référencer le site |
 | `.nojekyll` | Indispensable à GitHub Pages. **Ne pas supprimer** (voir plus bas) |
 
-Les trois documents de cadrage — `DIRECTION-ARTISTIQUE.md`, `PHOTOS-A-FOURNIR.md` et
-`CONTENU-SITE-ACTUEL.md` — sont conservés à la racine.
+Les documents de cadrage — `DIRECTION-ARTISTIQUE.md`, `PHOTOS-A-FOURNIR.md`,
+`CONTENU-SITE-ACTUEL.md` et la planche `planche-da.html` — sont conservés à la racine. Ils
+ne font pas partie du site et ne sont pas mis en ligne. Ils décrivent la **première**
+direction artistique : la palette et la typographie ont depuis été révisées, et chacun
+s’ouvre sur un encadré qui dit ce qui a changé. **La référence à jour, ce sont les jetons
+de `css/style.css`.**
+
+---
+
+## Les cinq pièces de l’accueil
+
+L’accueil n’est plus une suite de blocs de même taille. Cinq pièces lui donnent son
+rythme, et chacune est **la seule de son espèce** : répétées, elles redeviendraient un
+gabarit.
+
+| Pièce | Où la modifier |
+| --- | --- |
+| **Le bandeau plein écran** | `index.html`, `<section class="hero">`. La photographie s’y trouve en deux cadrages : le vertical sous 700 px, le large au-dessus |
+| **Le ruban de mots** | `index.html`, `<div class="ruban">`. Les cinq mots sont écrits **deux fois** — c’est ce qui rend la boucle invisible. Si vous en changez un, changez-le dans les deux copies |
+| **Le mur de chiffres** | `index.html`, `<dl class="chiffres-mur">`. Quatre nombres, à garder d’accord avec la carte |
+| **Le ruban d’images** | `index.html`, `<ul class="galerie-bande">`. Huit images, écrites deux fois elles aussi. La seconde copie porte `aria-hidden` : elle ne dit rien de plus |
+| **Le bouton fixe** | Présent sur les cinq pages, en bas de chaque fichier. Le script le montre passé 520 px de défilement |
 
 ---
 
@@ -90,6 +110,35 @@ Lausanne, quel que soit le pays depuis lequel on consulte le site. Ce calcul lit
 propres horaires, dans **`js/script.js`**, au bloc commenté `HORAIRES`. Si vous changez
 une heure d’ouverture, changez-la là aussi — sinon le bandeau annoncera « Ouvert »
 quand la porte est fermée.
+
+---
+
+## Les couleurs et les polices
+
+Tout se règle au même endroit, dans le bloc `:root` en haut de **`css/style.css`**. Les
+couleurs y sont nommées deux fois : d’abord la palette brute (`--red-500`, `--surface-ink`,
+`--surface`…), puis les rôles qui s’en servent (`--accent`, `--encre`, `--fond`…). On change
+la palette, jamais les rôles.
+
+| Jeton | Valeur | Ce que c’est |
+| --- | --- | --- |
+| `--red-500` | `#C8322A` | Le rouge d’identité — celui du logo. Un rouge laqué, chaud |
+| `--red-600` | `#AB2117` | Le rouge du texte et des liens sur le papier |
+| `--red-700` | `#8E1B14` | Le rouge des bandeaux pleins et du ruban |
+| `--surface-ink` | `#0E0B0A` | Le noir des sections sombres |
+| `--surface` | `#F7F1E7` | Le papier |
+| `--laiton` | `#C39B5A` | Un laiton, pour les détails. Réservé, presque jamais employé |
+
+**Si vous changez `--red-500`, changez aussi le rouge du logo** : il est écrit en dur dans
+`images/logo-letoile.svg`, `logo-letoile-clair.svg` et `logo-mono.svg`. Cherchez la valeur
+et remplacez-la dans les trois.
+
+Les deux polices sont **Fraunces** (les titres, les noms de plats, les prix) et **Switzer**
+(tout le reste). Switzer est dessinée par l’Indian Type Foundry et distribuée sur
+[Fontshare](https://www.fontshare.com/fonts/switzer) ; les quatre graisses employées sont
+dans `fonts/`, et rien n’est demandé à un serveur extérieur. Pour en changer, déposez le
+`.woff2` dans `fonts/` et corrigez les blocs `@font-face` en haut de la feuille de style —
+puis les deux `<link rel="preload">` en tête de chaque page.
 
 ---
 
@@ -146,14 +195,16 @@ table qui n’aboutirait pas serait pire qu’un numéro bien visible.
 
 ## Ce que fait `js/script.js`
 
-Six comportements, indépendants les uns des autres, chacun dans son bloc commenté :
+Sept comportements, indépendants les uns des autres, chacun dans son bloc commenté :
 
-1. **L’en-tête** se compacte après quarante pixels de défilement.
-2. **La barre d’appel** apparaît en bas de l’écran sur téléphone.
-3. **Le menu mobile** s’ouvre et se ferme.
-4. **Ouvert / Fermé** se calcule à l’heure de Lausanne.
-5. **Le plan** ne contacte OpenStreetMap qu’au clic du visiteur.
-6. **Le formulaire de contact** vérifie les champs et affiche la réponse sur place.
+1. **L’en-tête** se compacte après quarante pixels de défilement. Sur l’accueil, il devient
+   en plus transparent tant que la photographie d’ouverture est derrière lui.
+2. **Le bouton « Réserver » fixe** (grand écran) et **le filet de lecture** en haut de page.
+3. **La barre d’appel** apparaît en bas de l’écran sur téléphone.
+4. **Le menu mobile** s’ouvre et se ferme.
+5. **Ouvert / Fermé** se calcule à l’heure de Lausanne.
+6. **Le plan** ne contacte OpenStreetMap qu’au clic du visiteur.
+7. **Le formulaire de contact** vérifie les champs et affiche la réponse sur place.
 
 Le site reste **entièrement lisible sans ce fichier** : les liens sont de vrais liens,
 la carte est écrite en entier dans les pages, le formulaire s’envoie tout seul. Le
@@ -170,7 +221,7 @@ les blocs se verraient puis disparaîtraient avant de réapparaître.
 - Le site respecte le réglage « réduire les animations » du système.
 - Le plan d’accès ne contacte aucun service extérieur tant que le visiteur n’a pas
   cliqué dessus.
-- Les polices sont hébergées avec le site, elles ne sont pas demandées à Google.
+- Les polices sont hébergées avec le site : ni Google ni Fontshare ne sont contactés.
 - L’apostrophe s’écrit toujours `’` (courbe), jamais `'`. Faites un copier-coller
   depuis une ligne existante en cas de doute. On écrit « L’Étoile », avec le É
   majuscule accentué.

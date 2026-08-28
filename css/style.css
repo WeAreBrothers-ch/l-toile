@@ -10,11 +10,16 @@
    grandit, l'assouplit quand il rapetisse. C'est ce qui lui donne son air de
    plomb plutôt que d'écran.
 
-   Archivo porte tout ce qui se lit vite : la navigation, les descriptions, les
-   boutons, les horaires. Une grotesque neutre, qui ne discute pas.
+   Switzer porte tout ce qui se lit vite : la navigation, les descriptions, les
+   boutons, les horaires. C'est une grotesque suisse dessinée par l'Indian Type
+   Foundry et distribuée sur Fontshare. Elle remplace Archivo : même sobriété,
+   mais des lettres un peu plus étroites et un dessin plus tendu — le « a », le
+   « g » et le « t » ont un caractère qu'Archivo n'avait pas. À côté d'un titre
+   de Fraunces poussé à sa graisse maximale, elle tient le contraste.
 
-   Les deux sont hébergées ici, jamais demandées à Google. Pour en changer,
-   déposez le `.woff2` dans `fonts/` et changez la seule ligne `src:` ci-dessous.
+   Les deux sont hébergées ici, jamais demandées à Google ni à Fontshare. Pour
+   en changer, déposez le `.woff2` dans `fonts/` et changez la seule ligne
+   `src:` ci-dessous.
    --------------------------------------------------------------------------- */
 @font-face {
   font-family: Fraunces;
@@ -36,24 +41,45 @@
     U+A720-A7FF;
 }
 @font-face {
-  font-family: archivo;
-  src: url(../fonts/archivo.woff2) format("woff2");
-  font-display: swap;
-  font-weight: 400 600;
+  font-family: Switzer;
+  src: url(../fonts/switzer-400.woff2) format("woff2");
+  font-weight: 400;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Switzer;
+  src: url(../fonts/switzer-500.woff2) format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Switzer;
+  src: url(../fonts/switzer-600.woff2) format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Switzer;
+  src: url(../fonts/switzer-700.woff2) format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 /* La police de secours est ajustée pour occuper exactement la même place que la
    vraie : rien ne saute au moment où celle-ci arrive. */
 @font-face {
-  font-family: archivo Fallback;
+  font-family: Switzer Fallback;
   src: local(Arial);
-  ascent-override: 85.41%;
-  descent-override: 20.43%;
-  line-gap-override: 0%;
-  size-adjust: 102.8%;
+  ascent-override: 99%;
+  descent-override: 25.3%;
+  line-gap-override: 9.1%;
+  size-adjust: 99%;
 }
 :root {
-  --font-archivo: "archivo", "archivo Fallback";
+  --font-switzer: "Switzer", "Switzer Fallback";
 }
 .bouton-base {
   justify-content: center;
@@ -479,23 +505,31 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: var(--sp-4) var(--sp-6);
-  margin-bottom: var(--sp-7);
+  margin-bottom: clamp(var(--sp-7), 6vw, var(--sp-9));
   flex-wrap: wrap;
   display: flex;
 }
+/*
+  Quatre plats sur quatre colonnes, c'étaient quatre vignettes de 320 px sur un
+  écran de 1440 : à cette taille, une assiette n'est plus une assiette, c'est
+  une texture. Deux colonnes, décalées d'un demi-cran, donnent à chaque
+  photographie 640 px de large — assez pour qu'on distingue une gambas d'un
+  calamar, ce qui est tout de même le sujet.
+*/
 .platssignature-grille {
-  gap: var(--sp-5) var(--sp-4);
-  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 3vw, 3rem);
+  grid-template-columns: minmax(0, 1fr);
   display: grid;
 }
-@media (min-width: 1024px) {
+@media (min-width: 700px) {
   .platssignature-grille {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
-    gap: clamp(1rem, 1.8vw, 1.75rem);
   }
+  /* Le demi-cran. Sans lui, les quatre plats forment un damier, et un damier
+     se regarde d'un bloc au lieu de se lire plat par plat. */
   .platssignature-plat:nth-child(2n) {
-    margin-top: var(--sp-7);
+    margin-top: clamp(3rem, 9vw, 8rem);
   }
 }
 .platssignature-plat {
@@ -504,58 +538,84 @@
 .platssignature-plat:focus-visible {
   outline: 2px solid var(--red-500);
   outline-offset: 6px;
-  border-radius: var(--radius-image);
 }
 .platssignature-visuel {
   position: relative;
+  overflow: hidden;
+}
+/* Un voile qui monte du bas de l'image au survol : le prix et le nom se
+   détachent sans qu'on ait posé une pastille blanche sur la photographie. */
+.platssignature-visuel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgb(7 5 4 / 0.9) 0%,
+    rgb(7 5 4 / 0.6) 20%,
+    rgb(7 5 4 / 0) 54%
+  );
+  opacity: 0.85;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.platssignature-plat:hover .platssignature-visuel::after,
+.platssignature-plat:focus-visible .platssignature-visuel::after {
+  opacity: 1;
 }
 .platssignature-nom {
-  margin-top: var(--sp-4);
-  color: var(--text-primary);
+  margin-top: var(--sp-5);
+  color: var(--encre);
   font-family: var(--serif);
-  font-size: var(--fs-dish);
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2.125rem);
+  font-variation-settings: "opsz" 96;
   transition: color var(--dur-fast) var(--ease-out);
-  font-weight: 500;
-  line-height: 1.25;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.14;
 }
 .platssignature-plat:hover .platssignature-nom,
 .platssignature-plat:focus-visible .platssignature-nom {
-  color: var(--red-600);
+  color: var(--accent);
 }
 .platssignature-description {
-  margin-top: var(--sp-2);
-  min-height: calc(2 * 1.5 * var(--fs-body-sm));
-  color: var(--text-secondary);
-  font-size: var(--fs-body-sm);
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  line-height: 1.5;
-  display: -webkit-box;
-  overflow: hidden;
+  margin-top: var(--sp-3);
+  max-width: 44ch;
+  color: var(--encre-2);
+  font-size: var(--fs-body);
+  line-height: 1.6;
 }
+/* Le prix est écrit sur la photographie, en chiffres de titre. C'était une
+   pastille blanche arrondie posée dans un coin — le seul objet flottant de la
+   page, et celui qui la datait le plus. */
 .platssignature-prix {
-  left: var(--sp-3);
-  bottom: var(--sp-3);
-  padding: var(--sp-2) var(--sp-3);
-  border-radius: var(--radius-full);
-  background-color: var(--surface-carte);
-  box-shadow: var(--shadow-carte);
-  color: var(--red-600);
-  font-size: var(--fs-body-sm);
-  letter-spacing: 0.01em;
-  font-variant-numeric: tabular-nums;
-  transition: transform var(--dur-base) var(--ease-out);
-  font-weight: 600;
   position: absolute;
+  left: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(0.75rem, 2vw, 1.5rem);
+  color: #fff;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 1.2rem + 3vw, 3.75rem);
+  font-variation-settings: "opsz" 144;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow:
+    0 1px 2px rgb(7 5 4 / 0.5),
+    0 2px 28px rgb(7 5 4 / 0.7);
+  transition: transform var(--dur-base) var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
   .platssignature-plat:hover .platssignature-prix {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
   }
 }
 .platssignature-suffixePrix {
-  color: var(--text-secondary);
-  font-weight: 400;
+  font-family: var(--sans);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgb(255 255 255 / 0.8);
 }
 .appelreservation-bloc {
   align-items: flex-start;
@@ -662,12 +722,12 @@
   display: flex;
 }
 .galerie-galerie {
-  padding-block: var(--section-y);
+  padding-block: var(--section-y) 0;
   overflow: hidden;
 }
 .galerie-entete {
   gap: var(--sp-4);
-  margin-bottom: var(--sp-7);
+  margin-bottom: clamp(var(--sp-7), 6vw, var(--sp-9));
   display: grid;
 }
 @media (min-width: 900px) {
@@ -680,38 +740,96 @@
     margin-top: 0;
   }
 }
+/*
+  LE RUBAN DE LA GALERIE
+
+  C'était cinq vignettes tenues dans la colonne du site — cinq images de 250 px
+  posées côte à côte, qui ne montraient rien. Le ruban défile de lui-même, sans
+  fin, en pleine largeur : les images font 400 px de haut au lieu de 250, il y
+  en a dix au lieu de cinq, et il n'y a plus de geste à faire pour les voir.
+
+  La série est écrite deux fois dans la page : quand la première copie a
+  entièrement défilé, la seconde est exactement à la place qu'occupait la
+  première. La boucle est invisible.
+*/
 .galerie-bande {
-  gap: var(--sp-3);
-  padding-inline: var(--gutter);
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--gutter);
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
   display: flex;
-  overflow-x: auto;
+  width: max-content;
+  padding-bottom: var(--section-y);
 }
-.galerie-bande::-webkit-scrollbar {
-  display: none;
+@media (prefers-reduced-motion: no-preference) {
+  .galerie-bande {
+    animation: galerie-defile 72s linear infinite;
+  }
+  /* Au survol, le ruban ralentit — il ne s'arrête pas : un arrêt net donne
+     l'impression que la page a planté. */
+  .galerie-galerie:hover .galerie-bande {
+    animation-duration: 200s;
+  }
 }
+@keyframes galerie-defile {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  /* La moitié : c'est la longueur d'une copie de la série. */
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+/* L'écart est porté par la vignette, pas par `gap` sur la bande : avec `gap`,
+   la piste compte quinze écarts pour seize images, et la moitié de sa largeur
+   ne tombe plus sur une copie entière — la boucle sauterait d'un demi-écart à
+   chaque tour. */
 .galerie-vignette {
-  scroll-snap-align: start;
-  flex: 0 0 68vw;
+  flex: none;
+  width: clamp(15rem, 26vw, 26rem);
+  margin-right: var(--sp-3);
 }
-@media (min-width: 900px) {
+.galerie-vignette .photo-cadre {
+  height: clamp(17rem, 30vw, 28rem);
+  aspect-ratio: auto;
+}
+/* Deux images sur huit sont plus étroites : sans cette respiration, le ruban
+   devient une frise, et une frise se regarde comme un motif. Le motif compte
+   par huit — la longueur d'une copie de la série — pour que les deux copies
+   soient exactement de la même largeur. */
+.galerie-vignette:nth-child(8n + 3),
+.galerie-vignette:nth-child(8n + 6) {
+  width: clamp(11rem, 19vw, 19rem);
+}
+/* Sur un ruban qui défile, le survol doit désigner une image, pas toutes. */
+@media (hover: hover) and (pointer: fine) {
+  .galerie-vignette .photo-image {
+    transition:
+      transform var(--dur-image) var(--ease-out),
+      filter var(--dur-image) var(--ease-out);
+  }
+  .galerie-vignette:hover .photo-image {
+    transform: scale(1.06);
+  }
+  .galerie-galerie:hover .galerie-vignette:not(:hover) .photo-image {
+    filter: brightness(0.62);
+  }
+}
+/* Sans script ni animation, le ruban redevient une bande qu'on fait glisser du
+   doigt — et la seconde copie de la série est masquée, elle ferait doublon. */
+@media (prefers-reduced-motion: reduce) {
   .galerie-bande {
+    width: auto;
+    gap: var(--sp-3);
     padding-inline: var(--gutter);
-    grid-template-columns: repeat(5, 1fr);
-    align-items: center;
-    gap: clamp(0.75rem, 1.4vw, 1.25rem);
-    display: grid;
-    overflow: visible;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overflow-x: auto;
   }
-  .galerie-vignette:nth-child(2n) {
-    transform: translateY(14%);
+  .galerie-bande::-webkit-scrollbar {
+    display: none;
   }
-  .galerie-bande {
-    max-width: var(--container-wide);
-    margin-inline: auto;
+  .galerie-vignette {
+    scroll-snap-align: start;
+  }
+  .galerie-copie {
+    display: none;
   }
 }
 .garnitures-bloc {
@@ -894,25 +1012,43 @@
 @media (min-width: 900px) {
   .duo-duo {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2.5rem, 5vw, 5.5rem);
+    gap: clamp(2.5rem, 6vw, 6.5rem);
+    align-items: stretch;
   }
   .duo-droite .duo-visuel {
     order: 2;
+  }
+  .duo-texte {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(2rem, 5vw, 5rem);
   }
 }
 .duo-visuel {
   position: relative;
 }
-@media (min-width: 1200px) {
+/*
+  L'image sort de la colonne et va toucher le bord de l'écran. C'est la seule
+  chose qui distingue une photographie mise en page d'une photographie posée
+  dans une case — et c'est ce qui manquait le plus à la page : tout y était
+  rangé, rien n'y débordait.
+*/
+@media (min-width: 900px) {
   .duo-droite .duo-visuel {
-    margin-right: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * max(var(--gutter), (100vw - var(--container-wide)) / 2 + var(--gutter)));
   }
   .duo-gauche .duo-visuel {
-    margin-left: calc(-1 * var(--gutter));
+    margin-left: calc(-1 * max(var(--gutter), (100vw - var(--container-wide)) / 2 + var(--gutter)));
+  }
+  .duo-visuel .photo-cadre {
+    aspect-ratio: auto;
+    min-height: min(78svh, 44rem);
+    height: 100%;
   }
 }
 .duo-texte {
-  max-width: 34rem;
+  max-width: 36rem;
 }
 @media (min-width: 900px) {
   .duo-droite .duo-texte {
@@ -1168,41 +1304,45 @@
 }
 
 :root {
-  --red-50: #fdeff0;
-  --red-100: #fbdadc;
-  --red-200: #f8abaf;
-  --red-300: #f76e75;
-  --red-400: #f5444e;
-  --red-500: #e9323c;
-  --red-600: #c11f28;
-  --red-700: #a1171e;
-  --red-800: #7f1016;
-  --red-900: #5c0a0f;
-  --surface: #faf7f2;
-  --surface-carte: #fff;
-  --surface-ink: #14110f;
-  --surface-ink-soft: #1f1a17;
-  --surface-brand: #a1171e;
-  --text-primary: #16130f;
-  --text-secondary: #5a5248;
-  --text-tertiary: #6e665c;
+  --red-50: #fcf0ec;
+  --red-100: #f9dcd4;
+  --red-200: #f2b4a6;
+  --red-300: #f0998a;
+  --red-400: #de5d48;
+  --red-500: #c8322a;
+  --red-600: #ab2117;
+  --red-700: #8e1b14;
+  --red-800: #661610;
+  --red-900: #430d09;
+  --surface: #f7f1e7;
+  --surface-craie: #efe7d8;
+  --surface-carte: #fffcf6;
+  --surface-ink: #0e0b0a;
+  --surface-ink-deep: #070504;
+  --surface-ink-soft: #191312;
+  --surface-brand: #8e1b14;
+  --text-primary: #181310;
+  --text-secondary: #6a5f52;
+  --text-tertiary: #7a6e5f;
   --text-on-ink: #fff;
   --text-on-photo: #fff;
-  --text-on-ink-secondary: #b0aba5;
-  --text-on-ink-tertiary: #8c867f;
-  --border-hairline: #e7e4df;
-  --border-default: #d5d1ca;
-  --border-interactive: #8a857e;
-  --border-ink: #2a2724;
-  --border-ink-strong: #6b645b;
+  --text-on-ink-secondary: #b9b2a8;
+  --text-on-ink-tertiary: #8c857a;
+  --border-hairline: #e6dfd1;
+  --border-default: #d3c9b6;
+  --border-interactive: #8b8071;
+  --border-ink: #2a2320;
+  --border-ink-strong: #6a6058;
   --state-success: #0f6b3f;
   --state-warning: #8a5a00;
   --state-success-ink: #34c17b;
   --state-warning-ink: #e0a24a;
-  --state-disabled-bg: #f0eeeb;
-  --state-disabled-text: #8a857e;
+  --state-disabled-bg: #efe9de;
+  --laiton: #c39b5a;
+  --laiton-clair: #d8b87a;
+  --state-disabled-text: #8b8071;
   --serif: Fraunces, "Iowan Old Style", Georgia, "Times New Roman", serif;
-  --sans: var(--font-archivo), -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --sans: var(--font-switzer), -apple-system, "Helvetica Neue", Arial, sans-serif;
   --fs-display: clamp(2.875rem, 1.55rem + 6.6vw, 5.75rem);
   --fs-h1: clamp(2rem, 1.4rem + 3vw, 3.5rem);
   --fs-h2: clamp(1.625rem, 1.24rem + 1.93vw, 2.5rem);
@@ -1243,7 +1383,7 @@
   --radius-lg: 0;
   --radius-image: 0;
   --radius-full: 2px;
-  --shadow-sticky: 0 1px 0 0 #e7e4df;
+  --shadow-sticky: 0 1px 0 0 #e6dfd1;
   --shadow-carte: none;
   --shadow-lift: none;
   --shadow-overlay: 0 8px 32px -8px #12111033;
@@ -1703,112 +1843,227 @@ address {
    l'écran et une arête franche disent l'inverse.
    ============================================================================ */
 .hero {
-  display: grid;
-  background-color: var(--surface);
-  color: var(--text-primary);
-}
-@media (min-width: 900px) {
-  .hero {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    /* Le bandeau occupe l'écran moins l'en-tête : la page commence entière. */
-    min-height: calc(100svh - var(--entete-place));
-  }
-}
-.hero-texte {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-block: var(--sp-8);
-  /*
-    Le texte se cale sur la colonne du site, pas sur le bord de sa moitié : sur
-    un grand écran, la première lettre du nom tombe exactement sous le logo de
-    l'en-tête. C'est ce calage-là qui fait qu'une page paraît dessinée.
-  */
-  padding-left: max(var(--gutter), calc((100vw - var(--container-max)) / 2 + var(--gutter)));
-  padding-right: var(--gutter);
-}
-@media (min-width: 900px) {
-  .hero-texte {
-    padding-right: clamp(2rem, 5vw, 5rem);
-  }
-}
-.hero-exergue {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-3);
-  margin-bottom: var(--sp-6);
-  color: var(--text-secondary);
-  font-family: var(--sans);
-  font-size: var(--fs-eyebrow);
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-.hero-exergue::before {
-  content: "";
-  width: var(--sp-6);
-  height: 1px;
-  background-color: var(--red-600);
-}
-.hero-titre {
-  display: grid;
-  gap: var(--sp-4);
-}
-/*
-  Le nom, à l'échelle d'une enseigne. L'axe optique est poussé au maximum : à
-  cette taille, Fraunces affine ses déliés jusqu'au trait de plume.
-*/
-.hero-nom {
-  font-size: clamp(3.5rem, 1.5rem + 9vw, 8.5rem);
-  font-variation-settings: "opsz" 144;
-  font-weight: 400;
-  letter-spacing: -0.035em;
-  line-height: 0.84;
-}
-.hero-descriptif {
-  color: var(--text-secondary);
-  font-family: var(--sans);
-  font-size: var(--fs-lead);
-  font-weight: 400;
-  line-height: 1.3;
-}
-.hero-chapo {
-  max-width: 40ch;
-  margin-top: var(--sp-6);
-  color: var(--text-secondary);
-  font-size: var(--fs-body);
-  line-height: 1.65;
-}
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-3);
-  margin-top: var(--sp-7);
-}
-/*
-  La photographie tient sa moitié entière, sans marge, sans coin arrondi et sans
-  ombre. Sur un écran de 1440, elle est servie à 720 px de large depuis un
-  fichier de 1160 : elle reste nette.
-*/
-.hero-image {
+  /* Une seule composition, du téléphone au grand écran : la photographie prend
+     l'écran entier, le nom se pose dessus. La version en deux moitiés — papier
+     à gauche, image à droite — donnait à la page l'allure d'un gabarit acheté :
+     on reconnaissait la grille avant de lire le nom. */
   position: relative;
-  min-height: 60svh;
-  background-color: var(--surface-ink);
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  min-height: 100svh;
+  padding-block: calc(var(--entete-place) + var(--sp-6)) clamp(5rem, 12vh, 9rem);
+  background-color: var(--surface-ink-deep);
+  color: var(--text-on-photo);
+  overflow: hidden;
 }
-@media (min-width: 900px) {
-  .hero-image {
-    min-height: 0;
-    /* L'arête entre les deux moitiés. Un filet, pas une ombre. */
-    border-left: 1px solid var(--border-hairline);
-  }
-}
-.hero-image img {
+.hero-media {
   position: absolute;
   inset: 0;
+  z-index: -2;
+}
+.hero-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+/* Un très lent mouvement d'approche. Vingt-huit secondes pour huit pour cent :
+   on ne le voit pas bouger, on sent que la salle respire. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-media img {
+    animation: hero-respire 28s var(--ease-in-out) infinite alternate;
+    transform-origin: 58% 52%;
+  }
+}
+@keyframes hero-respire {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+/* Le voile. Sombre en haut pour tenir la barre de navigation, sombre en bas
+   pour tenir le texte, presque transparent au milieu, où la salle doit rester
+   une salle. Le second dégradé referme les quatre coins : sans lui, le nom
+   flotte sur une image qui part dans tous les sens. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      rgb(7 5 4 / 0.78) 0%,
+      rgb(7 5 4 / 0.34) 22%,
+      rgb(7 5 4 / 0.3) 52%,
+      rgb(7 5 4 / 0.6) 78%,
+      rgb(7 5 4 / 0.88) 100%
+    ),
+    radial-gradient(125% 85% at 50% 48%, rgb(7 5 4 / 0) 30%, rgb(7 5 4 / 0.55) 100%);
+}
+.hero-contenu {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  max-width: var(--container-wide);
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+.hero-exergue {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: clamp(var(--sp-5), 3vh, var(--sp-7));
+  color: rgb(255 255 255 / 0.82);
+  font-family: var(--sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-indent: 0.28em;
+}
+/* Deux filets, un de chaque côté : la ligne se lit comme une légende de
+   frontispice, pas comme un intertitre. */
+.hero-exergue::before,
+.hero-exergue::after {
+  content: "";
+  width: clamp(1.5rem, 5vw, 3.5rem);
+  height: 1px;
+  background-color: var(--red-400);
+}
+.hero-titre {
+  display: grid;
+  justify-items: center;
+  /* À 270 px de corps, l'interlignage serré rapproche la ligne suivante du bas
+     des lettres au lieu du bas de la boîte : l'écart se règle ici, pas dans
+     l'interlignage du nom. */
+  gap: clamp(1.25rem, 3.5vh, 2.75rem);
+}
+/*
+  Le nom, à l'échelle d'une enseigne : il tient les trois quarts de la largeur
+  de l'écran, quel que soit l'écran. L'axe optique est poussé au maximum — à
+  cette taille, Fraunces affine ses déliés jusqu'au trait de plume, et c'est
+  exactement ce qui distingue une enseigne d'un titre agrandi.
+*/
+.hero-nom {
+  font-size: clamp(7rem, 26vw, 23rem);
+  font-variation-settings: "opsz" 144;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-wrap: nowrap;
+  text-shadow: 0 2px 40px rgb(7 5 4 / 0.45);
+}
+.hero-descriptif {
+  display: block;
+  color: rgb(255 255 255 / 0.86);
+  font-family: var(--sans);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-indent: 0.22em;
+  line-height: 1.4;
+}
+.hero-chapo {
+  max-width: 44ch;
+  margin-top: clamp(var(--sp-5), 3vh, var(--sp-7));
+  color: rgb(255 255 255 / 0.78);
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-top: clamp(var(--sp-6), 4vh, var(--sp-8));
+}
+.hero-actions .bouton-secondaire {
+  border-color: rgb(255 255 255 / 0.55);
+  color: #fff;
+}
+.hero-actions .bouton-secondaire:hover {
+  background-color: #fff;
+  border-color: #fff;
+  color: var(--surface-ink);
+}
+/* L'invite à descendre. Un mot, un filet qui coule : sur un écran occupé en
+   entier par une photographie, rien ne dit qu'il y a une suite. */
+.hero-descendre {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 2.75rem);
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-3);
+  color: rgb(255 255 255 / 0.72);
+  font-family: var(--sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-indent: 0.2em;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.hero-descendre:hover {
+  color: #fff;
+}
+.hero-descendre::after {
+  content: "";
+  width: 1px;
+  height: clamp(1.75rem, 5vh, 3rem);
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-descendre::after {
+    animation: hero-filet 2.4s var(--ease-in-out) infinite;
+    transform-origin: top;
+  }
+}
+@keyframes hero-filet {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+@media (max-width: 599px) {
+  /* « · Lausanne-Malley » ferait passer l'exergue sur deux lignes, et les deux
+     filets qui l'encadrent se retrouveraient l'un au-dessus de l'autre. */
+  .hero-exergueLieu {
+    display: none;
+  }
+  /* Sur 390 px, l'approche de 0,28 em suffit à elle seule à faire passer la
+     ligne sur deux hauteurs. On la resserre, et les filets avec. */
+  .hero-exergue {
+    gap: var(--sp-3);
+    letter-spacing: 0.16em;
+    text-indent: 0.16em;
+  }
+  .hero-exergue::before,
+  .hero-exergue::after {
+    width: 1rem;
+  }
+  .hero-chapo {
+    display: none;
+  }
+  .hero-actions .bouton-base {
+    flex: 1 1 100%;
+  }
+}
+
 /* ============================================================================
    LA BANDE D'ACCÈS DIRECT
 
@@ -1818,90 +2073,6 @@ address {
    pleine largeur, séparée par des filets d'un pixel — la même information, sans
    le meuble autour.
    ============================================================================ */
-/* ---------------------------------------------------------------------------
-   LE BANDEAU SUR TÉLÉPHONE
-
-   Sur un écran de téléphone, la mise en page à deux moitiés n'a plus de sens :
-   elle empile un mur de texte sur du papier, puis la photographie en dessous.
-   On fait défiler avant d'avoir rien vu.
-
-   Ici la photographie occupe l'écran entier et le texte se pose dessus. C'est
-   aussi le seul endroit où elle est vraiment à son avantage : servie sur 390 px
-   depuis un fichier de 1160, elle est trois fois plus définie que nécessaire —
-   l'inverse exact du problème qu'elle pose sur un grand écran.
-   --------------------------------------------------------------------------- */
-@media (max-width: 899px) {
-  .hero {
-    position: relative;
-    isolation: isolate;
-    min-height: calc(100svh - var(--entete-place));
-    background-color: var(--surface-ink);
-  }
-
-  .hero-image {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    min-height: 0;
-  }
-
-  /* Le voile : sombre en bas, où se pose le texte ; presque transparent en
-     haut, où la photographie doit rester visible. */
-  .hero-image::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgb(15 12 10 / 0.92) 0%,
-      rgb(15 12 10 / 0.72) 34%,
-      rgb(15 12 10 / 0.28) 64%,
-      rgb(15 12 10 / 0.15) 100%
-    );
-  }
-
-  .hero-texte {
-    justify-content: flex-end;
-    padding-block: var(--sp-9) var(--sp-7);
-    color: var(--text-on-ink);
-  }
-
-  .hero-exergue,
-  .hero-descriptif,
-  .hero-chapo {
-    color: rgb(255 255 255 / 0.82);
-  }
-
-  .hero-exergue::before {
-    background-color: var(--red-300);
-  }
-
-  /* « · Lausanne-Malley » ferait passer l'exergue sur deux lignes, et le filet
-     qui l'ouvre se retrouverait seul en bout de première ligne. */
-  .hero-exergueLieu {
-    display: none;
-  }
-
-  .hero-nom {
-    font-size: clamp(3.25rem, 2rem + 14vw, 5rem);
-  }
-
-  /* Deux boutons de largeurs différentes l'un sous l'autre font un escalier.
-     Au doigt, ils prennent la même largeur, celle de la colonne. */
-  .hero-actions {
-    gap: var(--sp-3);
-  }
-
-  .hero-actions .bouton-base {
-    flex: 1 1 100%;
-  }
-
-  .hero-actions .bouton-secondaire {
-    border-color: rgb(255 255 255 / 0.5);
-    color: var(--text-on-ink);
-  }
-}
-
 /* ---------------------------------------------------------------------------
    LES PAGES INTÉRIEURES SUR TÉLÉPHONE
 
@@ -1920,48 +2091,24 @@ address {
     order: 2;
   }
 
-  /* Un bandeau, pas un mur : le 4:5 d'origine mangeait l'écran entier. */
+  /* Le 4:5, et non plus le 3:2. La photographie arrive après le titre, jamais
+     avant : elle ne peut plus faire écran à la page, et le bandeau de 230 px
+     qui la remplaçait n'en montrait pas assez pour valoir d'être là. */
   .duo-visuel .photo-cadre {
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 4 / 5;
   }
 }
 
 /* ---------------------------------------------------------------------------
    LA GALERIE SUR TÉLÉPHONE
 
-   C'était un ruban à faire défiler du doigt, à côté du défilement vertical de
-   la page. Deux gestes concurrents sur le même écran : on ne sait plus lequel
-   on déclenche, et la moitié des images n'est jamais vue.
-
-   C'est maintenant une grille de deux colonnes, qui se lit sans rien faire.
+   Elle a été une grille de deux colonnes, précisément pour éviter le geste
+   horizontal en concurrence avec le défilement vertical de la page. Le ruban
+   qui défile seul règle le même problème sans rien demander au doigt : les
+   images passent d'elles-mêmes, et il n'y a plus qu'un seul geste sur l'écran.
+   La grille n'a donc plus lieu d'être, à un endroit près — le réglage « réduire
+   les animations », traité plus haut avec le ruban.
    --------------------------------------------------------------------------- */
-@media (max-width: 899px) {
-  .galerie-bande {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--sp-3);
-    overflow: visible;
-  }
-
-  .galerie-vignette {
-    flex: none;
-  }
-
-  /* Toutes les vignettes au même format : en grille, des hauteurs inégales
-     laisseraient des trous. */
-  .galerie-vignette .photo-cadre {
-    aspect-ratio: 1 / 1;
-  }
-
-  /* La première tient la largeur entière : elle ouvre la série. */
-  .galerie-vignette:first-child {
-    grid-column: 1 / -1;
-  }
-
-  .galerie-vignette:first-child .photo-cadre {
-    aspect-ratio: 3 / 2;
-  }
-}
 
 /* Un duo sans image : le titre prend la colonne de lecture et rien d'autre.
    La page Carte l'utilise — aucune des photographies fournies ne dit « la
@@ -2019,7 +2166,7 @@ address {
    pas de flèche qui glisse : un seul changement, franc. */
 @media (hover: hover) and (pointer: fine) {
   .accesdirect-cellule:hover {
-    background-color: #f2ede5;
+    background-color: var(--surface-craie);
   }
 }
 .accesdirect-cellule:focus-visible {
@@ -2344,11 +2491,68 @@ a:focus-visible > .photo-zoom .photo-image {
 }
 
 /* ---------------------------------------------------------------------------
-   3. L'EN-TÊTE
-   Il ne flotte plus au-dessus d'une photographie : le bandeau d'ouverture
-   commence désormais par du papier, et l'en-tête y est lisible tel quel. Une
-   barre pleine, un filet dessous, rien de plus.
+   3. L'EN-TÊTE AU-DESSUS DE LA PHOTOGRAPHIE
+
+   Sur l'accueil, le bandeau d'ouverture occupe l'écran entier : une barre
+   blanche posée dessus le couperait en deux et lui retirerait la moitié de son
+   effet. L'en-tête devient donc transparent tant que la photographie est
+   derrière lui, et reprend sa barre pleine dès qu'on l'a dépassée.
+
+   L'état est porté par `data-survol`, posé par le script. Sans script, la barre
+   reste pleine : c'est le comportement sûr, jamais du blanc sur du blanc.
    --------------------------------------------------------------------------- */
+/* Sur l'accueil, le bandeau d'ouverture passe SOUS l'en-tête : la place que le
+   corps de page lui réserve d'ordinaire lui est rendue, et c'est le bandeau qui
+   la réserve lui-même, dans son propre remplissage. */
+body[data-page="index"] {
+  padding-top: 0;
+}
+
+.header-logoClair {
+  display: none;
+}
+
+.header-entete[data-survol="true"] .header-barre {
+  background-color: #0000;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-bottom-color: rgb(255 255 255 / 0.16);
+}
+
+.header-entete[data-survol="true"] .header-logoSombre {
+  display: none;
+}
+
+.header-entete[data-survol="true"] .header-logoClair {
+  display: block;
+}
+
+.header-entete[data-survol="true"] .header-lienNav,
+.header-entete[data-survol="true"] .header-iconeSeule {
+  color: #fff;
+}
+
+.header-entete[data-survol="true"] .header-iconeSeule:hover {
+  color: var(--red-300);
+}
+
+.header-entete[data-survol="true"] .header-lienNav:after {
+  background-color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .header-entete[data-survol="true"] .header-etat {
+    border-color: rgb(255 255 255 / 0.32);
+    background-color: rgb(255 255 255 / 0.08);
+    color: rgb(255 255 255 / 0.78);
+  }
+
+  .header-entete[data-survol="true"] .header-etat .etatouverturelive-libelle,
+  .header-entete[data-survol="true"] .header-etat .etatouverturelive-detail {
+    color: #fff;
+  }
+}
+
 
 /* ---------------------------------------------------------------------------
    4. LE GRAIN
@@ -2384,4 +2588,423 @@ a:focus-visible > .photo-zoom .photo-image {
 
 .surfaceRouge::after {
   opacity: 0.09;
+}
+
+/* ============================================================================
+   LES QUATRE PIÈCES AJOUTÉES À LA REFONTE
+
+   Le site disait tout ce qu'il devait dire, mais il le disait sur un seul ton :
+   des blocs de même taille, posés l'un sous l'autre, tous à la même distance du
+   bord. On lisait la page sans jamais s'arrêter dessus.
+
+   Ces quatre pièces cassent la régularité. Chacune est le seul objet de son
+   espèce dans la page — un ruban, un mur de chiffres, un bouton fixe, un filet
+   qui suit la lecture. Répétées, elles redeviendraient un gabarit.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   LE RUBAN
+
+   Une ligne qui défile sous le bandeau d'ouverture, et qui dit en cinq mots ce
+   qu'on mange ici. La note précédente de direction artistique proscrivait le
+   ruban défilant : elle visait le ruban de logos ou de mots creux, celui qui
+   remplit une page qui n'a rien à dire. Celui-ci porte la carte, en rouge de
+   marque, et c'est la seule bande de la page.
+   --------------------------------------------------------------------------- */
+.ruban {
+  background-color: var(--surface-brand);
+  color: #fff;
+  overflow: hidden;
+  border-block: 1px solid rgb(0 0 0 / 0.18);
+}
+
+.ruban-piste {
+  display: flex;
+  width: max-content;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ruban-piste {
+    animation: ruban-defile 46s linear infinite;
+  }
+}
+
+@keyframes ruban-defile {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.ruban-groupe {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding-inline: clamp(0.75rem, 2vw, 1.75rem);
+  padding-block: clamp(0.75rem, 1.6vw, 1.25rem);
+}
+
+.ruban-mot {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 0.85rem + 0.7vw, 1.5rem);
+  font-variation-settings: "opsz" 72;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* L'étoile du logo, réduite à un signe de ponctuation. */
+.ruban-etoile {
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  rotate: 45deg;
+  background-color: rgb(255 255 255 / 0.55);
+}
+
+/* Sans animation, une seule copie de la série suffit : la seconde ferait
+   doublon pour un lecteur d'écran comme pour l'œil. */
+@media (prefers-reduced-motion: reduce) {
+  .ruban-piste {
+    width: 100%;
+    justify-content: center;
+  }
+  .ruban-groupe + .ruban-groupe {
+    display: none;
+  }
+  .ruban-groupe {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LE MUR DE CHIFFRES
+
+   Quatre nombres, à la taille d'un titre. C'est la même information que la
+   phrase « 16 pâtes fraîches, 15 pizzas cuites au four… » qui la précède, mais
+   une phrase se lit et des chiffres se retiennent.
+   --------------------------------------------------------------------------- */
+.chiffres-mur {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(var(--sp-7), 6vw, var(--sp-9));
+  background-color: var(--ligne);
+  border: 1px solid var(--ligne);
+}
+
+@media (min-width: 900px) {
+  .chiffres-mur {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.chiffres-case {
+  display: grid;
+  align-content: start;
+  gap: var(--sp-2);
+  padding: clamp(1.25rem, 3vw, 2.25rem) clamp(1rem, 2.5vw, 2rem);
+  background-color: var(--fond, var(--surface));
+}
+
+.chiffres-nombre {
+  color: var(--accent);
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4.5rem);
+  font-variation-settings: "opsz" 144;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  font-variant-numeric: tabular-nums;
+}
+
+.chiffres-unite {
+  font-family: var(--sans);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--encre-2);
+}
+
+.chiffres-libelle {
+  /* Deux lignes réservées : sans cela, un libellé qui passe sur deux hauteurs
+     décale son chiffre, et les quatre chiffres ne s'alignent plus. */
+  min-height: 2.8em;
+  color: var(--encre-2);
+  font-family: var(--sans);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* ---------------------------------------------------------------------------
+   LE BOUTON FIXE
+
+   Sur téléphone, la barre d'appel du bas fait déjà ce travail. Sur un grand
+   écran, il n'y avait rien : le numéro était en haut de la page, et on le
+   perdait dès le premier défilement. Un seul bouton, dans le coin, à partir du
+   moment où le bandeau d'ouverture est passé.
+   --------------------------------------------------------------------------- */
+.reserverflottant-bouton {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .reserverflottant-bouton {
+    position: fixed;
+    right: clamp(1rem, 2vw, 2rem);
+    bottom: clamp(1rem, 2vw, 2rem);
+    z-index: 55;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-4) var(--sp-6);
+    background-color: var(--red-600);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-overlay);
+    opacity: 0;
+    transform: translateY(120%);
+    pointer-events: none;
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out),
+      background-color var(--dur-fast) var(--ease-out);
+  }
+
+  .reserverflottant-bouton[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .reserverflottant-bouton:hover {
+    background-color: var(--red-700);
+  }
+
+  .reserverflottant-bouton:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -6px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LE FILET DE LECTURE
+
+   Un trait de deux pixels en haut de l'écran, qui avance avec la lecture. Sur
+   une carte de dix familles de plats, c'est la seule indication qu'on approche
+   de la fin.
+   --------------------------------------------------------------------------- */
+.progression-filet {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  width: 100%;
+  height: 2px;
+  background-color: var(--red-500);
+  transform: scaleX(var(--avancement, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+/* ============================================================================
+   CE QUI A GRANDI
+
+   Les titres, les intertitres et les rangs de la carte étaient dessinés pour
+   une page de texte. Sur une page qui commence par une photographie plein
+   écran, ils paraissaient timides. Ils ne changent pas de nature — ils
+   changent d'échelle.
+   ============================================================================ */
+.titreSection {
+  font-size: clamp(2rem, 1.35rem + 3.2vw, 4rem);
+  font-variation-settings: "opsz" 144;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  font-weight: 500;
+}
+
+.eyebrow::before {
+  content: "";
+  width: var(--sp-5);
+  height: 1px;
+  background-color: currentcolor;
+  opacity: 0.5;
+}
+
+/* Les rangs de l'aperçu de la carte : plus hauts, en chiffres de titre, et
+   d'un rouge qui balaie la ligne au survol. Une liste de dix lignes doit se
+   parcourir des yeux, pas se lire mot à mot. */
+.apercucarte-rang {
+  position: relative;
+  isolation: isolate;
+  padding-inline: var(--sp-4);
+  margin-inline: calc(-1 * var(--sp-4));
+}
+
+.apercucarte-rang::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--accent);
+  opacity: 0.1;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .apercucarte-rang:hover::before {
+    transform: scaleX(1);
+  }
+}
+
+.apercucarte-categorie {
+  font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.875rem);
+  font-variation-settings: "opsz" 96;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ---------------------------------------------------------------------------
+   LA BANDE D'ACCÈS DIRECT, SUR L'ENCRE
+
+   Elle était sur du papier, à cheval sur le bandeau. Le bandeau touchant
+   maintenant le bas de l'écran, la bande se pose dessous, en pleine largeur, et
+   prolonge le noir de la photographie d'un cran avant que le papier n'arrive.
+   --------------------------------------------------------------------------- */
+.accesdirect-chevauchement[data-sur-encre="true"] {
+  background-color: var(--surface-ink);
+  border-block-color: var(--border-ink);
+  color: var(--text-on-ink);
+}
+
+.accesdirect-chevauchement[data-sur-encre="true"] .accesdirect-cellule {
+  border-color: var(--border-ink);
+}
+
+.accesdirect-chevauchement[data-sur-encre="true"] .accesdirect-libelle {
+  color: var(--text-on-ink-tertiary);
+}
+
+.accesdirect-chevauchement[data-sur-encre="true"] .accesdirect-valeur {
+  color: var(--text-on-ink);
+}
+
+.accesdirect-chevauchement[data-sur-encre="true"] .accesdirect-cellule:hover {
+  background-color: var(--surface-ink-soft);
+}
+
+.accesdirect-chevauchement[data-sur-encre="true"] .accesdirect-cellule:hover .accesdirect-libelle {
+  color: var(--red-300);
+}
+
+/* ---------------------------------------------------------------------------
+   L'EN-TÊTE ET LE SOMMAIRE DE LA CARTE
+
+   Dix familles de plats sur six mille pixels : sans sommaire, on cherche les
+   pizzas en faisant défiler. Chaque entrée porte son nombre de plats et son
+   premier prix — la même information que l'aperçu de l'accueil, au même
+   endroit dans l'œil, pour qu'on la retrouve.
+   --------------------------------------------------------------------------- */
+.entetecarte-entete {
+  padding-top: calc(var(--section-y-tight) + var(--sp-4));
+}
+
+.entetecarte-haut {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 900px) {
+  .entetecarte-haut {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+  .entetecarte-haut .chapo {
+    margin-top: 0;
+  }
+}
+
+.sommairecarte-sommaire {
+  margin-top: clamp(var(--sp-7), 6vw, var(--sp-9));
+}
+
+.sommairecarte-liste {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  background-color: var(--ligne);
+  border-block: 1px solid var(--ligne);
+}
+
+@media (min-width: 700px) {
+  .sommairecarte-liste {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 4vw, 4rem);
+    background-color: #0000;
+    border-bottom: 0;
+  }
+}
+
+.sommairecarte-lien {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: var(--sp-4);
+  background-color: var(--fond, var(--surface));
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+@media (min-width: 700px) {
+  .sommairecarte-lien {
+    border-bottom: 1px solid var(--ligne);
+    background-color: #0000;
+  }
+}
+
+.sommairecarte-nom {
+  font-family: var(--serif);
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  font-variation-settings: "opsz" 72;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.sommairecarte-compte {
+  flex: none;
+  color: var(--encre-3);
+  font-family: var(--sans);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sommairecarte-lien:hover .sommairecarte-nom,
+.sommairecarte-lien:focus-visible .sommairecarte-nom {
+  color: var(--accent);
 }

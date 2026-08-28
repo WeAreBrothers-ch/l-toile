@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preload" href="fonts/archivo.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="fonts/switzer-400.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="fonts/switzer-600.woff2" as="font" crossorigin="" type="font/woff2" />
     <link
       rel="preload"
       href="fonts/fraunces-latin.woff2"
@@ -12,7 +13,7 @@
       type="font/woff2"
     />
     <link rel="preload" as="image" href="images/logo-letoile.svg" />
-    <meta name="theme-color" content="#121110" />
+    <meta name="theme-color" content="#0e0b0a" />
     <title>Contact et accès — Restaurant L’Étoile, Lausanne</title>
     <meta
       name="description"
@@ -103,6 +104,7 @@
   </head>
   <body data-page="contact">
     <div hidden=""><!--$--><!--/$--></div>
+    <div class="progression-filet" aria-hidden="true"></div>
     <a class="lienEvitement" href="#contenu">Aller au contenu</a>
     <header class="header-entete" data-compact="false">
       <div class="header-barre">
@@ -130,9 +132,16 @@
             </svg></button
           ><a class="header-logoLien" aria-label="Restaurant L’Étoile, accueil" href="index.html"
             ><img
-              class="header-logo"
+              class="header-logo header-logoSombre"
               src="images/logo-letoile.svg"
               alt="Restaurant L’Étoile"
+              width="113"
+              height="32"
+            /><img
+              class="header-logo header-logoClair"
+              src="images/logo-letoile-clair.svg"
+              alt=""
+              aria-hidden="true"
               width="113"
               height="32"
           /></a>
@@ -635,5 +644,35 @@
         >Appeler</a
       >
     </div>
+    <!-- LE BOUTON FIXE
+         Sur téléphone, la barre du bas fait déjà ce travail. Sur un grand
+         écran il n'y avait rien : le numéro était en haut de la page et on le
+         perdait au premier défilement. Le script le montre une fois le bandeau
+         d'ouverture passé, et le cache tant qu'il ne sert à rien. -->
+    <a
+      class="reserverflottant-bouton"
+      href="tel:+41216251544"
+      data-visible="false"
+      tabindex="-1"
+      aria-hidden="true"
+      data-analytics="call"
+      aria-label="Réserver par téléphone au +41 21 625 15 44"
+      ><svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="square"
+        stroke-linejoin="miter"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path
+          d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+        ></path></svg
+      >Réserver · 021 625 15 44</a
+    >
   </body>
 </html>

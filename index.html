@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preload" href="fonts/archivo.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="fonts/switzer-400.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="fonts/switzer-600.woff2" as="font" crossorigin="" type="font/woff2" />
     <link
       rel="preload"
       href="fonts/fraunces-latin.woff2"
@@ -11,13 +12,28 @@
       crossorigin=""
       type="font/woff2"
     />
+    <!-- Le bandeau d'ouverture existe en deux cadrages. On ne précharge que
+         celui que l'écran va réellement demander : précharger les deux, c'est
+         faire télécharger 230 ko pour rien à la moitié des visiteurs. -->
     <link
       rel="preload"
       as="image"
       href="images/hero-salle-portrait-2026-08d.jpg"
+      media="(max-width: 699px)"
       fetchpriority="high"
     />
+    <link
+      rel="preload"
+      as="image"
+      href="images/hero-salle-2026-08d.jpg"
+      media="(min-width: 700px)"
+      fetchpriority="high"
+    />
+    <!-- Sur l'accueil, l'en-tête se pose sur la photographie : c'est le logo
+         clair qui s'affiche en premier. -->
+    <link rel="preload" as="image" href="images/logo-letoile-clair.svg" />
     <link rel="preload" as="image" href="images/logo-letoile.svg" />
+    <meta name="theme-color" content="#0e0b0a" />
     <link rel="stylesheet" href="css/style.css" />
     <script>
       (function () {
@@ -68,6 +84,7 @@
   </head>
   <body data-page="index">
     <div hidden=""><!--$--><!--/$--></div>
+    <div class="progression-filet" aria-hidden="true"></div>
     <a class="lienEvitement" href="#contenu">Aller au contenu</a>
     <header class="header-entete" data-compact="false">
       <div class="header-barre">
@@ -95,9 +112,16 @@
             </svg></button
           ><a class="header-logoLien" aria-label="Restaurant L’Étoile, accueil" href="index.html"
             ><img
-              class="header-logo"
+              class="header-logo header-logoSombre"
               src="images/logo-letoile.svg"
               alt="Restaurant L’Étoile"
+              width="113"
+              height="32"
+            /><img
+              class="header-logo header-logoClair"
+              src="images/logo-letoile-clair.svg"
+              alt=""
+              aria-hidden="true"
               width="113"
               height="32"
           /></a>
@@ -257,13 +281,35 @@
     </dialog>
     <main id="contenu">
       <!-- LE BANDEAU D'OUVERTURE
-           Deux moitiés franches, séparées par une arête. À gauche le papier et
-           le nom de la maison ; à droite la photographie, qui touche le haut,
-           la droite et le bas de l'écran. Rien ne flotte, rien n'a d'ombre,
-           rien n'a d'angle arrondi : ce sont ces trois choses réunies qui
-           faisaient ressembler la page à un gabarit. -->
+           La photographie prend l'écran entier et le nom se pose dessus. Il y
+           avait ici deux moitiés — papier à gauche, image à droite — séparées
+           par une arête. C'était propre, et c'était exactement la mise en page
+           qu'on reconnaît avant de l'avoir lue. Une salle photographiée le soir
+           mérite l'écran, pas une moitié d'écran. -->
       <section class="hero" aria-labelledby="titre-accueil">
-        <div class="hero-texte">
+        <div class="hero-media">
+          <picture>
+            <!-- Sur téléphone, le cadrage vertical : le cadrage large, recadré
+                 sur 390 px, ne montrerait plus qu'un mur et une nappe. -->
+            <source
+              media="(max-width: 699px)"
+              srcset="images/hero-salle-portrait-2026-08d.jpg"
+              width="1160"
+              height="1450"
+            />
+            <img
+              src="images/hero-salle-2026-08d.jpg"
+              alt="La salle du Restaurant L’Étoile, rue de Genève à Lausanne, tables dressées avant le service du soir"
+              width="1290"
+              height="726"
+              loading="eager"
+              decoding="sync"
+              fetchpriority="high"
+            />
+          </picture>
+        </div>
+
+        <div class="hero-contenu">
           <p class="hero-exergue">
             Cuisine italienne et brasserie<span class="hero-exergueLieu"> · Lausanne-Malley</span>
           </p>
@@ -289,20 +335,43 @@
           </div>
         </div>
 
-        <div class="hero-image">
-          <img
-            src="images/hero-salle-portrait-2026-08d.jpg"
-            alt="La salle du Restaurant L’Étoile, rue de Genève à Lausanne, tables dressées avant le service"
-            width="1160"
-            height="1450"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-        </div>
+        <a class="hero-descendre" href="#signature">La carte</a>
       </section>
 
-      <div class="accesdirect-chevauchement">
+      <!-- LE RUBAN
+           Cinq mots qui disent la cuisine, en rouge de marque, entre la
+           photographie et le papier. C'est la seule bande défilante du site :
+           c'est ce qui lui permet d'être un signe et non un tic. -->
+      <div class="ruban" role="img" aria-label="Pâtes fraîches, pizza au feu de bois, fruits de mer, ardoises de 220 grammes, fondues à discrétion">
+        <div class="ruban-piste">
+          <span class="ruban-groupe" aria-hidden="true"
+            ><span class="ruban-mot">Pâtes fraîches</span
+            ><span class="ruban-etoile"></span
+            ><span class="ruban-mot">Pizza au four</span
+            ><span class="ruban-etoile"></span
+            ><span class="ruban-mot">Fruits de mer</span
+            ><span class="ruban-etoile"></span
+            ><span class="ruban-mot">Ardoises 220 g</span
+            ><span class="ruban-etoile"></span
+            ><span class="ruban-mot">Fondues à discrétion</span
+            ><span class="ruban-etoile"></span
+          ></span>
+          <span class="ruban-groupe" aria-hidden="true"
+            ><span class="ruban-mot">Pâtes fraîches</span
+            ><span class="ruban-etoile"></span
+            ><span class="ruban-mot">Pizza au four</span
+            ><span class="ruban-etoile"></span
+            ><span class="ruban-mot">Fruits de mer</span
+            ><span class="ruban-etoile"></span
+            ><span class="ruban-mot">Ardoises 220 g</span
+            ><span class="ruban-etoile"></span
+            ><span class="ruban-mot">Fondues à discrétion</span
+            ><span class="ruban-etoile"></span
+          ></span>
+        </div>
+      </div>
+
+      <div class="accesdirect-chevauchement" data-sur-encre="true">
         <nav class="accesdirect-grille" aria-label="Accès direct">
           <a class="accesdirect-cellule" href="carte.html"
             ><span class="accesdirect-libelle"
@@ -380,7 +449,7 @@
         </nav>
       </div>
 
-      <section class="surfacePapier section" aria-labelledby="titre-signature">
+      <section class="surfacePapier section" id="signature" aria-labelledby="titre-signature">
         <div class="wrapLarge">
           <div class="platssignature-entete" data-reveal="true">
             <div>
@@ -533,6 +602,31 @@
             </div>
           </div>
         </div>
+
+        <!-- LE MUR DE CHIFFRES
+             La même information que la phrase juste au-dessus. Une phrase se
+             lit, des chiffres se retiennent : c'est le seul endroit de la page
+             où l'on peut savoir ce qu'on mange ici sans lire une ligne. -->
+        <div class="wrapLarge">
+          <dl class="chiffres-mur" data-reveal="true">
+            <div class="chiffres-case">
+              <dt class="chiffres-libelle">Pâtes fraîches</dt>
+              <dd class="chiffres-nombre">16</dd>
+            </div>
+            <div class="chiffres-case">
+              <dt class="chiffres-libelle">Pizzas cuites au four</dt>
+              <dd class="chiffres-nombre">15</dd>
+            </div>
+            <div class="chiffres-case">
+              <dt class="chiffres-libelle">L’ardoise de bœuf</dt>
+              <dd class="chiffres-nombre">220<span class="chiffres-unite"> g</span></dd>
+            </div>
+            <div class="chiffres-case">
+              <dt class="chiffres-libelle">Familles de plats</dt>
+              <dd class="chiffres-nombre">10</dd>
+            </div>
+          </dl>
+        </div>
       </section>
       <section class="surfaceEncre galerie-galerie" aria-labelledby="titre-galerie">
         <div class="wrapLarge galerie-entete" data-reveal="true">
@@ -547,79 +641,218 @@
             Genève 102, à Malley.
           </p>
         </div>
+        <!-- LE RUBAN D'IMAGES
+             Il défile de lui-même, sans fin, en pleine largeur. La série est
+             écrite deux fois : quand la première copie a fini de passer, la
+             seconde est exactement à sa place, et la boucle ne se voit pas. La
+             seconde est masquée aux lecteurs d'écran — elle ne dit rien de
+             plus que la première. -->
         <ul class="galerie-bande">
-          <li class="galerie-vignette" data-reveal="true" style="--reveal-delai: 0ms">
-            <div class="photo-cadre" style="--ratio: 900 / 1125">
+          <li class="galerie-vignette">
+            <div class="photo-cadre">
               <img
                 alt="Cocktail servi au bar du Restaurant L’Étoile à Lausanne"
                 loading="lazy"
                 width="900"
                 height="1125"
                 decoding="async"
-                data-nimg="1"
                 class="photo-image"
-                style="color: transparent"
                 src="images/galerie-1-2026-08d.jpg"
               />
             </div>
           </li>
-          <li class="galerie-vignette" data-reveal="true" style="--reveal-delai: 70ms">
-            <div class="photo-cadre" style="--ratio: 900 / 900">
+          <li class="galerie-vignette">
+            <div class="photo-cadre">
               <img
                 alt="La salle du Restaurant L’Étoile à Lausanne, tables dressées et lumière du jour"
                 loading="lazy"
                 width="900"
                 height="900"
                 decoding="async"
-                data-nimg="1"
                 class="photo-image"
-                style="color: transparent"
                 src="images/galerie-2-2026-08d.jpg"
               />
             </div>
           </li>
-          <li class="galerie-vignette" data-reveal="true" style="--reveal-delai: 140ms">
-            <div class="photo-cadre" style="--ratio: 900 / 1125">
+          <li class="galerie-vignette">
+            <div class="photo-cadre">
               <img
                 alt="Bouteille de vin rouge et verres dressés en salle au Restaurant L’Étoile à Lausanne"
                 loading="lazy"
                 width="900"
                 height="1125"
                 decoding="async"
-                data-nimg="1"
                 class="photo-image"
-                style="color: transparent"
                 src="images/galerie-3-2026-08d.jpg"
               />
             </div>
           </li>
-          <li class="galerie-vignette" data-reveal="true" style="--reveal-delai: 210ms">
-            <div class="photo-cadre" style="--ratio: 900 / 900">
+          <li class="galerie-vignette">
+            <div class="photo-cadre">
+              <img
+                alt="Pizza sortie du four au Restaurant L’Étoile à Lausanne"
+                loading="lazy"
+                width="1100"
+                height="1375"
+                decoding="async"
+                class="photo-image"
+                src="images/duo-pizzas-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette">
+            <div class="photo-cadre">
               <img
                 alt="Viande grillée au romarin, servie sur ardoise au Restaurant L’Étoile à Lausanne"
                 loading="lazy"
                 width="900"
                 height="900"
                 decoding="async"
-                data-nimg="1"
                 class="photo-image"
-                style="color: transparent"
                 src="images/galerie-4-2026-08d.jpg"
               />
             </div>
           </li>
-          <li class="galerie-vignette" data-reveal="true" style="--reveal-delai: 280ms">
-            <div class="photo-cadre" style="--ratio: 900 / 1125">
+          <li class="galerie-vignette">
+            <div class="photo-cadre">
+              <img
+                alt="Détail d’une table dressée au Restaurant L’Étoile à Lausanne"
+                loading="lazy"
+                width="1290"
+                height="516"
+                decoding="async"
+                class="photo-image"
+                src="images/respiration-carte-1-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette">
+            <div class="photo-cadre">
               <img
                 alt="Bouteilles de vin blanc de la carte des vins du Restaurant L’Étoile à Lausanne"
                 loading="lazy"
                 width="900"
                 height="1125"
                 decoding="async"
-                data-nimg="1"
                 class="photo-image"
-                style="color: transparent"
                 src="images/galerie-5-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette">
+            <div class="photo-cadre">
+              <img
+                alt="La salle du Restaurant L’Étoile, rue de Genève 102 à Lausanne, vue depuis l’entrée"
+                loading="lazy"
+                width="1100"
+                height="1375"
+                decoding="async"
+                class="photo-image"
+                src="images/duo-contact-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette galerie-copie" aria-hidden="true">
+            <div class="photo-cadre">
+              <img
+                alt=""
+                loading="lazy"
+                width="900"
+                height="1125"
+                decoding="async"
+                class="photo-image"
+                src="images/galerie-1-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette galerie-copie" aria-hidden="true">
+            <div class="photo-cadre">
+              <img
+                alt=""
+                loading="lazy"
+                width="900"
+                height="900"
+                decoding="async"
+                class="photo-image"
+                src="images/galerie-2-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette galerie-copie" aria-hidden="true">
+            <div class="photo-cadre">
+              <img
+                alt=""
+                loading="lazy"
+                width="900"
+                height="1125"
+                decoding="async"
+                class="photo-image"
+                src="images/galerie-3-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette galerie-copie" aria-hidden="true">
+            <div class="photo-cadre">
+              <img
+                alt=""
+                loading="lazy"
+                width="1100"
+                height="1375"
+                decoding="async"
+                class="photo-image"
+                src="images/duo-pizzas-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette galerie-copie" aria-hidden="true">
+            <div class="photo-cadre">
+              <img
+                alt=""
+                loading="lazy"
+                width="900"
+                height="900"
+                decoding="async"
+                class="photo-image"
+                src="images/galerie-4-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette galerie-copie" aria-hidden="true">
+            <div class="photo-cadre">
+              <img
+                alt=""
+                loading="lazy"
+                width="1290"
+                height="516"
+                decoding="async"
+                class="photo-image"
+                src="images/respiration-carte-1-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette galerie-copie" aria-hidden="true">
+            <div class="photo-cadre">
+              <img
+                alt=""
+                loading="lazy"
+                width="900"
+                height="1125"
+                decoding="async"
+                class="photo-image"
+                src="images/galerie-5-2026-08d.jpg"
+              />
+            </div>
+          </li>
+          <li class="galerie-vignette galerie-copie" aria-hidden="true">
+            <div class="photo-cadre">
+              <img
+                alt=""
+                loading="lazy"
+                width="1100"
+                height="1375"
+                decoding="async"
+                class="photo-image"
+                src="images/duo-contact-2026-08d.jpg"
               />
             </div>
           </li>
@@ -954,5 +1187,35 @@
         >Appeler</a
       >
     </div>
+    <!-- LE BOUTON FIXE
+         Sur téléphone, la barre du bas fait déjà ce travail. Sur un grand
+         écran il n'y avait rien : le numéro était en haut de la page et on le
+         perdait au premier défilement. Le script le montre une fois le bandeau
+         d'ouverture passé, et le cache tant qu'il ne sert à rien. -->
+    <a
+      class="reserverflottant-bouton"
+      href="tel:+41216251544"
+      data-visible="false"
+      tabindex="-1"
+      aria-hidden="true"
+      data-analytics="call"
+      aria-label="Réserver par téléphone au +41 21 625 15 44"
+      ><svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="square"
+        stroke-linejoin="miter"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path
+          d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+        ></path></svg
+      >Réserver · 021 625 15 44</a
+    >
   </body>
 </html>

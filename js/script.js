@@ -1,7 +1,7 @@
 /* ============================================================================
    Restaurant L'Étoile — le script du site.
 
-   Six comportements, indépendants les uns des autres. Chacun commence par
+   Sept comportements, indépendants les uns des autres. Chacun commence par
    chercher ce dont il a besoin et s'arrête si la page ne le contient pas : on
    peut donc charger ce fichier sur n'importe laquelle des quatre pages.
 
@@ -22,18 +22,78 @@
   /* ==========================================================================
      1. L'EN-TÊTE
      Passé quarante pixels, les deux étages fusionnent en une seule barre.
+
+     Sur l'accueil, l'en-tête se pose en plus au-dessus du bandeau d'ouverture,
+     qui occupe l'écran entier : la barre devient transparente et son contenu
+     passe en blanc tant que la photographie est derrière elle. Elle reprend sa
+     barre pleine dès qu'on l'a dépassée.
+
+     Sans ce script, `data-survol` n'est jamais posé et la barre reste pleine :
+     c'est le comportement sûr, jamais du blanc sur du blanc.
      ========================================================================== */
   (function entete() {
     var entete = $(".header-entete");
     if (!entete) return;
 
     var SEUIL = 40;
+    var bandeau = $(".hero");
+
     var surDefilement = function () {
       entete.setAttribute("data-compact", String(window.scrollY > SEUIL));
+
+      if (!bandeau) return;
+      // On bascule un peu avant le bas du bandeau : la barre doit être pleine
+      // au moment où le papier arrive dessous, pas une fraction de seconde
+      // après.
+      var reste = bandeau.getBoundingClientRect().bottom - entete.offsetHeight;
+      entete.setAttribute("data-survol", String(reste > 0));
     };
 
     surDefilement();
     window.addEventListener("scroll", surDefilement, { passive: true });
+    window.addEventListener("resize", surDefilement, { passive: true });
+  })();
+
+  /* ==========================================================================
+     1 bis. LE BOUTON FIXE ET LE FILET DE LECTURE
+     Deux repères de défilement, calculés dans la même écoute : le navigateur ne
+     recalcule la géométrie de la page qu'une fois par image.
+     ========================================================================== */
+  (function reperesDefilement() {
+    var bouton = $(".reserverflottant-bouton");
+    var filet = $(".progression-filet");
+    if (!bouton && !filet) return;
+
+    var SEUIL = 520;
+    var enAttente = false;
+
+    var mesurer = function () {
+      enAttente = false;
+      var y = window.scrollY;
+
+      if (bouton) {
+        var visible = y > SEUIL;
+        bouton.setAttribute("data-visible", String(visible));
+        bouton.setAttribute("aria-hidden", String(!visible));
+        // Un bouton invisible ne doit pas être atteignable au clavier.
+        bouton.setAttribute("tabindex", visible ? "0" : "-1");
+      }
+
+      if (filet) {
+        var course = document.documentElement.scrollHeight - window.innerHeight;
+        filet.style.setProperty("--avancement", course > 0 ? String(Math.min(1, y / course)) : "0");
+      }
+    };
+
+    var surDefilement = function () {
+      if (enAttente) return;
+      enAttente = true;
+      window.requestAnimationFrame(mesurer);
+    };
+
+    mesurer();
+    window.addEventListener("scroll", surDefilement, { passive: true });
+    window.addEventListener("resize", surDefilement, { passive: true });
   })();
 
   /* ==========================================================================
