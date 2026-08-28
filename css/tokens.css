@@ -1,0 +1,370 @@
+/* ============================================================================
+   LES RÉGLAGES DU SITE
+   Restaurant L'Étoile — Lausanne-Malley
+
+   Tout ce qui se règle une seule fois vit ici : les trois polices, les couleurs,
+   les tailles de texte, les espacements. Le reste du site n'écrit jamais une
+   couleur ni une taille en dur — il pointe vers ce fichier.
+
+   Pour changer l'allure du site, c'est le seul fichier à ouvrir.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   LES POLICES DE LECTURE
+
+   Fraunces porte tout ce qui se lit lentement : les titres, les noms de plats,
+   le numéro de téléphone. C'est un caractère à fort contraste dont le dessin
+   change avec la taille — l'axe « opsz » affine ses déliés quand il grandit,
+   les épaissit quand il rapetisse. C'est ce qui lui donne son air de plomb
+   plutôt que d'écran.
+
+   Archivo porte tout ce qui se lit vite : la navigation, les descriptions, les
+   boutons, les horaires. Une grotesque neutre, qui ne discute pas.
+
+   Les deux sont hébergées ici, jamais demandées à Google : aucune requête ne
+   part vers un tiers quand quelqu'un ouvre le site. Une troisième police — la
+   machine à écrire — les rejoint plus bas, pour les libellés.
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: Fraunces;
+  src: url(../fonts/fraunces-latin.woff2) format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: Fraunces;
+  src: url(../fonts/fraunces-latin-ext.woff2) format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+@font-face {
+  font-family: Archivo;
+  src: url(../fonts/archivo.woff2) format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+/* La police de secours est ajustée pour occuper exactement la même place que la
+   vraie : rien ne saute au moment où celle-ci arrive. */
+@font-face {
+  font-family: "Archivo secours";
+  src: local(Arial);
+  ascent-override: 85.41%;
+  descent-override: 20.43%;
+  line-gap-override: 0%;
+  size-adjust: 102.8%;
+}
+
+/* ---------------------------------------------------------------------------
+   LA TROISIÈME VOIX : LA MACHINE À ÉCRIRE
+
+   Elle ne porte aucun texte de lecture. Elle sert aux petites choses qu'on ne
+   lit pas vraiment mais qu'on repère : les intertitres en capitales, les
+   libellés des boutons, les légendes, les chiffres. C'est ce qui donne au site
+   de référence son air de document imprimé plutôt que d'interface.
+
+   ⚠ Le fichier `courier-prime.woff2` n'est PAS encore dans ce dossier — il n'a
+   pas pu être téléchargé depuis ici. Tant qu'il manque, le navigateur passe
+   tout seul à la ligne suivante de la pile : le Courier de l'appareil, qui est
+   une machine à écrire lui aussi. Rien n'est cassé, c'est simplement moins fin.
+
+   Pour installer la bonne police, une seule commande :
+   curl -L -o fonts/courier-prime.woff2 \
+     "https://cdn.jsdelivr.net/fontsource/fonts/courier-prime@latest/latin-400-normal.woff2"
+
+   Rien d'autre à changer : la règle ci-dessous la prendra automatiquement.
+   (Courier Prime est sous licence SIL Open Font, libre d'usage commercial.)
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Courier Prime";
+  src: url(../fonts/courier-prime.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* -------------------------------------------------------------------------
+     LES COULEURS
+
+     Le socle vient du logo, échantillonné pixel par pixel : il ne contient que
+     deux couleurs, un noir et le rouge #E9323C. Ce rouge-là est donc la seule
+     couleur de la maison — tout le reste est du papier et de l'encre.
+
+     Le site est noir. Le rouge du logo y devient beaucoup plus vif — c'est la
+     seule couleur d'une page qui n'en a pas d'autre, et les photographies,
+     toutes prises à la bougie, s'y détachent comme sur une nappe sombre.
+     ------------------------------------------------------------------------- */
+
+  /* Le rouge de la maison, et ses variations. */
+  --rouge-300: #f76e75; /* sur fond sombre uniquement */
+  --rouge-500: #e9323c; /* la couleur exacte du logo */
+  --rouge-600: #c11f28; /* les liens et les accents sur papier */
+  --rouge-700: #a1171e; /* le survol des boutons */
+
+  /*
+    LES SURFACES — LE SITE EST NOIR.
+
+    Trois noirs, très proches les uns des autres. L'écart entre eux se compte
+    en deux ou trois points de luminosité : assez pour qu'une bande se détache,
+    jamais assez pour qu'on voie une frontière.
+
+    Le fond est à peine chaud (une pointe de rouge et de vert dans le bleu) :
+    un noir parfaitement neutre ferait paraître grises les photographies, qui
+    sont toutes prises à la bougie.
+  */
+  --nuit: #0a0908; /* le fond du site */
+  --nuit-claire: #131110; /* la bande d'à côté, un ton plus haut */
+  --nuit-profonde: #050404; /* le pied de page, le plus bas */
+  --champ: #141210; /* le fond des champs de formulaire */
+
+  /* Les encres, désormais claires. */
+  --texte-1: #f5f1ea;
+  --texte-2: #b3a897;
+  --texte-3: #8b8172;
+
+  /* Les filets. Sur du noir, ils sont clairs — mais à peine. */
+  --filet-tenu: #25221f;
+  --filet-champ: #635c53;
+
+  /* Ouvert / fermé. */
+  --etat-ouvert-sombre: #34c17b;
+  --etat-ferme-sombre: #e0a24a;
+
+  /* -------------------------------------------------------------------------
+     LES CARACTÈRES
+     ------------------------------------------------------------------------- */
+  --serif: Fraunces, "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sans: Archivo, "Archivo secours", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: "Courier Prime", "Courier New", Courier, ui-monospace, monospace;
+
+  --fs-h1: clamp(2rem, 1.4rem + 2.6vw, 3rem);
+  --fs-h2: clamp(1.75rem, 1.35rem + 1.9vw, 2.75rem);
+  --fs-h3: clamp(1.25rem, 1.11rem + 0.7vw, 1.625rem);
+  --fs-plat: clamp(1.0625rem, 1.02rem + 0.22vw, 1.25rem);
+  --fs-chapo: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  --fs-corps: clamp(1rem, 0.95rem + 0.25vw, 1.25rem); /* 20 px sur grand écran */
+  --fs-corps-sm: 0.9375rem;
+  --fs-legende: 0.8125rem;
+  --fs-exergue: 0.75rem;
+
+  /* -------------------------------------------------------------------------
+     LES ESPACEMENTS
+
+     Une seule échelle, doublée à chaque cran ou presque. Rien dans le site ne
+     doit inventer une valeur en dehors d'elle.
+     ------------------------------------------------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+
+  /*
+    L'air entre les sections. C'est le réglage le plus important de la page :
+    c'est lui, plus que les couleurs, qui distingue une adresse qu'on choisit
+    d'une page qui liste des prestations. Il est passé de 4–7,5 rem à 6–13 rem,
+    soit un peu moins du double sur un grand écran.
+  */
+  --section-y: clamp(4rem, 2rem + 8vw, 9rem);
+  --section-y-serree: clamp(3.5rem, 2.25rem + 5vw, 6rem);
+
+
+  /* -------------------------------------------------------------------------
+     LES LARGEURS
+
+     La colonne est volontairement étroite pour un écran d'aujourd'hui : sur un
+     grand moniteur, il reste une large bande de papier vide de chaque côté.
+     C'est la mesure du site de référence, et c'est ce qui empêche la page de
+     ressembler à un tableau de bord.
+     ------------------------------------------------------------------------- */
+  --colonne: 1280px; /* bande de contenu de 1216 px à 1600 : la mesure exacte */
+  --colonne-large: 1520px; /* le ruban de photographies, lui seul */
+  --colonne-lecture: 620px; /* un paragraphe qui se lit d'une traite */
+  --marge: clamp(1.25rem, 3vw, 2rem);
+
+  /* -------------------------------------------------------------------------
+     L'ANGLE EST VIF
+
+     Les coins arrondis, les pilules et les cartes posées avec une ombre sont le
+     vocabulaire des pages fabriquées à la chaîne : on les reconnaît avant de
+     les lire. Une image qui touche le bord de l'écran et un filet d'un pixel
+     disent mieux qu'on a décidé quelque chose.
+     ------------------------------------------------------------------------- */
+  --arrondi: 0;
+  --arrondi-bouton: 2px;
+
+  /* -------------------------------------------------------------------------
+     LES HAUTEURS FIXES
+     ------------------------------------------------------------------------- */
+  --entete-h: 60px;
+  --entete-h-lg: 96px;
+  --barre-action-h: 56px;
+  --ancre-haut: calc(var(--entete-h) + 60px);
+
+  /* -------------------------------------------------------------------------
+     LE TEMPS
+
+     Rien ne dure plus d'une demi-seconde, sauf les apparitions au défilement.
+     Une interface qui se fait attendre paraît lente, jamais soignée.
+     ------------------------------------------------------------------------- */
+  --dur-vif: 0.16s;
+  --dur: 0.24s;
+  --dur-image: 0.7s;
+  --sortie: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --entree-sortie: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* -------------------------------------------------------------------------
+     L'APPARITION DES PHOTOGRAPHIES
+
+     Ces trois réglages viennent du site de référence, où ils sont pilotés par
+     une bibliothèque d'animation de 70 ko. Ici ils sont tenus par des
+     transitions CSS ordinaires : même sensation, rien à télécharger.
+
+     La lenteur est le sujet. Trois secondes de montée, sur une courbe
+     exponentielle : l'essentiel du déplacement se fait dans les six premiers
+     dixièmes, puis le bloc se pose sur une trajectoire de plus en plus douce.
+     C'est ce très long atterrissage qui donne l'impression de calme — une
+     apparition rapide, elle, se remarque.
+
+     La durée est ramenée de 3 s à 2,4 s : au-delà, la courbe a déjà parcouru
+     99,6 % du chemin, et il reste moins d'un dixième de pixel à faire. On perd
+     une queue invisible et on libère l'élément plus tôt.
+     ------------------------------------------------------------------------- */
+  --dur-apparition: 2.4s;
+  --retard-apparition: 0.2s;
+  --montee-apparition: 30px;
+
+  /* Approximation en Bézier de « expo.out » : 1 − 2^(−10t). */
+  --sortie-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --ancre-haut: calc(var(--entete-h-lg) + 60px);
+  }
+}
+
+/* ============================================================================
+   LES TROIS SURFACES
+
+   Une section déclare sur quelle surface elle est posée, et hérite d'un jeu
+   complet d'encres, de filets et de boutons accordés. Aucune section n'a
+   besoin de connaître les couleurs : elle connaît sa surface.
+
+   `--fond`, `--encre-texte` et les autres sont les noms que le reste du site
+   emploie. Ils changent de valeur selon la surface, jamais de nom.
+   ============================================================================ */
+:root,
+.surface-nuit {
+  --fond: var(--nuit);
+  --encre: var(--texte-1);
+  --encre-2: var(--texte-2);
+  --encre-3: var(--texte-3);
+  --trait: var(--filet-tenu);
+  --trait-champ: var(--filet-champ);
+  --accent: var(--rouge-300);
+  --focus: 0 0 0 2px var(--nuit), 0 0 0 4px var(--rouge-500);
+  --btn-fond: var(--rouge-600);
+  --btn-fond-survol: var(--rouge-700);
+  --btn-texte: #fff;
+  --btn2-trait: var(--filet-champ);
+  --btn2-texte: var(--texte-1);
+  --btn2-fond-survol: var(--nuit-profonde);
+  --btn2-texte-survol: var(--texte-1);
+  --etat-ouvert: var(--etat-ouvert-sombre);
+  --etat-ferme: var(--etat-ferme-sombre);
+}
+
+/* Un ton plus HAUT que le fond, pas plus bas : sur du noir, on détache une
+   bande en l'éclaircissant. Elle sert à séparer deux sections voisines sans
+   avoir à tirer un trait. */
+.surface-nuit-haute {
+  --fond: var(--nuit-claire);
+  --encre: var(--texte-1);
+  --encre-2: var(--texte-2);
+  --encre-3: var(--texte-3);
+  --trait: #292623;
+  --trait-champ: var(--filet-champ);
+  --accent: var(--rouge-300);
+  --focus: 0 0 0 2px var(--nuit-claire), 0 0 0 4px var(--rouge-500);
+  --btn-fond: var(--rouge-600);
+  --btn-fond-survol: var(--rouge-700);
+  --btn-texte: #fff;
+  --btn2-trait: var(--filet-champ);
+  --btn2-texte: var(--texte-1);
+  --btn2-fond-survol: var(--nuit-profonde);
+  --btn2-texte-survol: var(--texte-1);
+  --etat-ouvert: var(--etat-ouvert-sombre);
+  --etat-ferme: var(--etat-ferme-sombre);
+}
+
+/* Le noir le plus bas : le pied de page, et lui seul. La page s'y enfonce
+   plutôt que de s'y arrêter. */
+.surface-nuit-basse {
+  --fond: var(--nuit-profonde);
+  --encre: var(--texte-1);
+  --encre-2: var(--texte-2);
+  --encre-3: var(--texte-3);
+  --trait: var(--filet-tenu);
+  --trait-champ: var(--filet-champ);
+  --accent: var(--rouge-300);
+  --focus: 0 0 0 2px var(--nuit-profonde), 0 0 0 4px var(--rouge-500);
+  --btn-fond: var(--rouge-600);
+  --btn-fond-survol: var(--rouge-700);
+  --btn-texte: #fff;
+  --btn2-trait: var(--filet-champ);
+  --btn2-texte: var(--texte-1);
+  --btn2-fond-survol: #ffffff1f;
+  --btn2-texte-survol: var(--texte-1);
+  --etat-ouvert: var(--etat-ouvert-sombre);
+  --etat-ferme: var(--etat-ferme-sombre);
+}
+
+.surface-nuit,
+.surface-nuit-haute,
+.surface-nuit-basse {
+  background-color: var(--fond);
+  color: var(--encre);
+  position: relative;
+  isolation: isolate;
+}
+
+/* ---------------------------------------------------------------------------
+   LE GRAIN
+
+   Un bruit très fin sur le noir. On ne le voit pas, on le sent : c'est ce qui
+   sépare une surface d'un aplat d'écran, et c'est le remède le plus court à
+   une page qui paraît morte. Sur du noir, il éclaircit très légèrement — un
+   bruit sombre y serait invisible.
+
+   Il est posé en couche non cliquable, jamais en fond, pour ne pas empêcher les
+   surfaces de garder leur couleur propre.
+   --------------------------------------------------------------------------- */
+.surface-nuit::after,
+.surface-nuit-haute::after,
+.surface-nuit-basse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+.surface-nuit-basse::after {
+  opacity: 0.035;
+}

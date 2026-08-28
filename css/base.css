@@ -1,0 +1,334 @@
+/* ============================================================================
+   LES FONDATIONS
+   Remise à zéro du navigateur, réglages de texte, et la poignée de classes
+   utilitaires employées partout dans le site.
+   ============================================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Une ancre ne doit jamais atterrir sous l'en-tête fixe. */
+  scroll-padding-top: var(--ancre-haut);
+}
+
+body {
+  margin: 0;
+  padding-top: var(--entete-h);
+  background-color: var(--nuit);
+  color: var(--texte-1);
+  font-family: var(--sans);
+  font-size: var(--fs-corps);
+  line-height: 1.65;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding-top: var(--entete-h-lg);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LES TITRES
+
+   Tout ce qui est en Fraunces demande son échelle optique. Sans elle, le
+   navigateur applique la valeur par défaut — celle d'un texte de labeur — et le
+   caractère perd le contraste qui fait tout son intérêt en grand.
+   --------------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-variation-settings: "opsz" 96;
+  text-wrap: balance;
+}
+
+/*
+  Les titres ne penchent pas. Le mot mis en avant garde la même famille et la
+  même graisse : c'est l'axe optique qui le distingue, poussé à son maximum, ce
+  qui affine ses déliés et resserre son dessin. La nuance est faible, et c'est
+  voulu — un titre se lit d'un bloc, pas en deux morceaux.
+*/
+h1 em,
+h2 em,
+h3 em,
+.italique {
+  font-style: normal;
+  font-variation-settings: "opsz" 144;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+a,
+button,
+summary,
+[role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+svg,
+picture,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+address {
+  font-style: normal;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rouge-500);
+  outline-offset: 3px;
+}
+
+::selection {
+  background-color: var(--rouge-500);
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   LES COLONNES
+   --------------------------------------------------------------------------- */
+.wrap {
+  width: 100%;
+  max-width: var(--colonne);
+  margin-inline: auto;
+  padding-inline: var(--marge);
+}
+
+.wrapLarge {
+  width: 100%;
+  max-width: var(--colonne-large);
+  margin-inline: auto;
+  padding-inline: var(--marge);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+.sectionSerree {
+  position: relative;
+  padding-block: var(--section-y-serree);
+}
+
+/* Deux sections de même surface qui se suivent ne sont plus séparées par un
+   filet. Avec l'espacement d'aujourd'hui — jusqu'à treize rem de chaque côté —
+   le vide sépare mieux qu'un trait, et un trait de plus ferait grille. */
+
+/* ---------------------------------------------------------------------------
+   LES BLOCS DE TEXTE COURANTS
+   --------------------------------------------------------------------------- */
+
+/* Le petit intertitre en capitales espacées qui ouvre une section. En machine
+   à écrire, comme tous les petits textes qu'on repère sans les lire. C'est le
+   seul endroit du site où le rouge apparaît en texte. */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin: 0 0 var(--sp-5);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: var(--fs-exergue);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* Le filet qui l'ouvre. Court, de la couleur de l'accent : c'est la signature
+   graphique qui se répète d'une section à l'autre. */
+.eyebrow::before {
+  content: "";
+  flex: none;
+  width: var(--sp-6);
+  height: 1px;
+  background-color: currentColor;
+}
+
+/* Centré, le filet passe des deux côtés. */
+.eyebrow-centre {
+  justify-content: center;
+}
+
+.eyebrow-centre::after {
+  content: "";
+  flex: none;
+  width: var(--sp-6);
+  height: 1px;
+  background-color: currentColor;
+}
+
+.titreSection {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+
+/* ---------------------------------------------------------------------------
+   LA PROSE
+
+   Tout ce qui se lit en phrases — et rien d'autre — est composé dans le serif,
+   à une échelle optique basse. C'est la même police que les titres, mais à
+   « opsz 14 » Fraunces change de dessin : ses déliés s'épaississent, ses
+   contreformes s'ouvrent, et elle devient un caractère de labeur plutôt que
+   d'affiche.
+
+   C'est le changement le plus lourd de conséquence de toute la refonte. Mesuré
+   sur le site de référence, son corps de texte est un serif de 20 px sur 30 —
+   pas une grotesque. C'est de là que vient son allure de livre.
+
+   Les listes, les horaires, la carte et les formulaires restent en Archivo :
+   ce sont des données qu'on parcourt, pas des phrases qu'on lit.
+   --------------------------------------------------------------------------- */
+.chapo,
+.duo-texte > p:not(.eyebrow) {
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 14;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.chapo {
+  max-width: 56ch;
+  margin-top: var(--sp-5);
+  color: var(--encre-2);
+  font-size: var(--fs-chapo);
+}
+
+.mention {
+  max-width: 66ch;
+  color: var(--encre-3);
+  font-size: var(--fs-legende);
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------------------
+   L'ACCESSIBILITÉ
+   --------------------------------------------------------------------------- */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip-path: inset(50%);
+}
+
+.lienEvitement {
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--sp-4);
+  z-index: 100;
+  padding: var(--sp-3) var(--sp-5);
+  background-color: var(--nuit-profonde);
+  color: var(--texte-1);
+  font-size: var(--fs-legende);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: translateY(-200%);
+  transition: transform var(--dur) var(--sortie);
+}
+
+.lienEvitement:focus {
+  transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------------------
+   LES APPARITIONS AU DÉFILEMENT
+
+   Un bloc entre par le bas — trente pixels — en même temps qu'il apparaît, une
+   seule fois, quand son haut atteint le bas de l'écran. Rien ne rejoue au
+   retour : une animation qu'on remarque deux fois est une animation ratée.
+
+   Le mouvement est volontairement très long et très mou (voir le commentaire
+   des réglages dans `tokens.css`). C'est ce qui sépare une page qui se pose
+   d'une page qui s'affiche.
+
+   Sans JavaScript, `data-js` n'est jamais posé et tout s'affiche normalement.
+   --------------------------------------------------------------------------- */
+[data-js] [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--montee-apparition));
+}
+
+[data-js] [data-reveal][data-vu] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--dur-apparition) var(--sortie-expo),
+    transform var(--dur-apparition) var(--sortie-expo);
+  /* Le retard commun laisse le temps à l'œil d'arriver sur le bloc ; le retard
+     particulier, posé au cas par cas, échelonne les séries. */
+  transition-delay: calc(var(--retard-apparition) + var(--reveal-delai, 0s));
+}
+
+/* ---------------------------------------------------------------------------
+   MOUVEMENT RÉDUIT
+
+   Quand le système le demande, il ne reste que les changements de couleur.
+   Aucun déplacement, aucun fondu d'entrée.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-property:
+      opacity, color, background-color, border-color, box-shadow, text-decoration-color,
+      text-decoration-thickness !important;
+    transition-duration: 0.12s !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-js] [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

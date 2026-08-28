@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr-CH" data-scroll-behavior="smooth">
+<html lang="fr-CH">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,8 +11,8 @@
       crossorigin=""
       type="font/woff2"
     />
-    <link rel="preload" as="image" href="images/logo-letoile.svg" />
-    <meta name="theme-color" content="#121110" />
+    <link rel="preload" as="image" href="images/logo-letoile-clair.svg" />
+    <meta name="theme-color" content="#0a0908" />
     <title>La carte — Restaurant L’Étoile, Lausanne-Malley</title>
     <meta
       name="description"
@@ -53,56 +53,21 @@
     <link rel="icon" href="images/logo-mono.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <meta name="next-size-adjust" content="" />
-    <link rel="stylesheet" href="css/style.css" />
-    <script>
-      (function () {
-        try {
-          var r = document.documentElement;
-          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-          if (!("IntersectionObserver" in window)) return;
-          r.setAttribute("data-js", "on");
-          var demarrer = function () {
-            try {
-              var o = new IntersectionObserver(
-                function (es) {
-                  for (var i = 0; i < es.length; i++) {
-                    var e = es[i];
-                    if (!e.isIntersecting && e.boundingClientRect.top > 0) continue;
-                    e.target.setAttribute("data-vu", "1");
-                    o.unobserve(e.target);
-                  }
-                },
-                { threshold: 0, rootMargin: "0px 0px -8% 0px" },
-              );
-              var brancher = function (n) {
-                if (n.nodeType !== 1) return;
-                if (n.hasAttribute("data-reveal") && !n.hasAttribute("data-vu")) o.observe(n);
-                var d = n.querySelectorAll("[data-reveal]:not([data-vu])");
-                for (var i = 0; i < d.length; i++) o.observe(d[i]);
-              };
-              brancher(document.body);
-              new MutationObserver(function (ms) {
-                for (var i = 0; i < ms.length; i++) {
-                  var a = ms[i].addedNodes;
-                  for (var j = 0; j < a.length; j++) brancher(a[j]);
-                }
-              }).observe(document.body, { childList: true, subtree: true });
-            } catch (e) {
-              r.removeAttribute("data-js");
-            }
-          };
-          if (document.readyState === "loading")
-            document.addEventListener("DOMContentLoaded", demarrer);
-          else demarrer();
-        } catch (e) {
-          document.documentElement.removeAttribute("data-js");
-        }
-      })();
-    </script>
-    <script src="js/script.js" defer></script>
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/composants.css" />
+    <link rel="stylesheet" href="css/accueil.css" />
+    <link rel="stylesheet" href="css/pages.css" />
+    <script src="js/apparitions.js"></script>
+    <script src="js/entete.js" defer></script>
+    <script src="js/barre-action.js" defer></script>
+    <script src="js/menu-mobile.js" defer></script>
+    <script src="js/horaires.js" defer></script>
+    <script src="js/galerie.js" defer></script>
+    <script src="js/plan.js" defer></script>
+    <script src="js/formulaire.js" defer></script>
   </head>
   <body data-page="carte">
-    <div hidden=""><!--$--><!--/$--></div>
     <a class="lienEvitement" href="#contenu">Aller au contenu</a>
     <header class="header-entete" data-compact="false">
       <div class="header-barre">
@@ -131,7 +96,7 @@
           ><a class="header-logoLien" aria-label="Restaurant L’Étoile, accueil" href="index.html"
             ><img
               class="header-logo"
-              src="images/logo-letoile.svg"
+              src="images/logo-letoile-clair.svg"
               alt="Restaurant L’Étoile"
               width="113"
               height="32"
@@ -291,12 +256,28 @@
       </div>
     </dialog>
     <main id="contenu">
-      <section class="surfacePapier section">
+      <!-- Le haut de page. Il était vide dans la version précédente : la
+           balise ouvrait un bloc qu'elle refermait aussitôt, et la page
+           arrivait sur « Les entrées » sans jamais dire où l'on était. -->
+      <section class="surface-nuit section">
         <div class="wrapLarge duo-duo duo-seul">
-      </section>
-      <section class="surfaceEncre page-carte" aria-label="La carte">
-        
+          <div class="duo-texte">
+            <p class="eyebrow">Midi et soir</p>
+            <h1 class="duo-titre">
+              La carte de L’Étoile, <em class="italique">à Lausanne</em>
+            </h1>
+            <p class="chapo">
+              Dix familles de plats, des entrées aux fondues. Les pâtes sont fraîches, les prix sont
+              affichés en entier : vous savez avant d’entrer.
+            </p>
+            <div data-actions="true">
+              <a class="bouton-base bouton-tertiaire" href="pizzas.html">Voir les 15 pizzas</a>
+            </div>
+          </div>
         </div>
+      </section>
+
+      <section class="surface-nuit page-carte" aria-label="La carte">
         <div>
           <div class="wrap">
             <div class="page-colonneCarte">
@@ -639,7 +620,7 @@
             </div>
           </div>
           <div class="wrapLarge respirationcarte-respiration">
-            <div class="photo-cadre respirationcarte-cadre" style="--ratio: 1290 / 516">
+            <div class="photo-cadre respirationcarte-cadre photo-derive" style="--ratio: 1290 / 516">
               <img
                 alt="La salle du Restaurant L’Étoile, rue de Genève 102 à Lausanne"
                 loading="lazy"
@@ -1040,9 +1021,9 @@
           </div>
         </div>
       </section>
-      <!--$--><!--/$-->
+      
     </main>
-    <footer class="surfaceEncre footer-pied">
+    <footer class="surface-nuit-basse footer-pied">
       <div class="wrap">
         <div class="footer-colonnes">
           <div class="footer-colonne">

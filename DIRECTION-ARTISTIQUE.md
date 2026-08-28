@@ -1,6 +1,7 @@
 # Direction artistique — Restaurant L'Étoile (Lausanne)
 
-> Version 1.1 — 21 août 2026 · révisée après retour client : une seule nuance claire, un seul aplat rouge, photos en chevauchement
+> Version 3.0 — 28 août 2026 · **le site est noir** · disposition mesurée au pixel
+> (les sections 0 à 11 décrivent la v1.1 du 21 août ; **la révision 3.0 en fin de document fait foi**)
 > Statut : livrable exploitable directement en intégration front.
 > Périmètre : refonte complète de https://www.restaurant-letoile.ch/
 
@@ -729,3 +730,324 @@ Trait 1,5 px, coins carrés, `currentColor`, **jamais de remplissage, jamais de 
 ## 11. En une phrase
 
 > **L'Étoile, c'est une carte de restaurant magnifiquement imprimée sur nappe blanche : blanc pur, encre noire éditoriale, un rouge qui ne sert qu'à montrer où regarder — et des photos qui enjambent les sections pour tout tenir ensemble.**
+
+---
+
+# Révision 2.0 — 28 août 2026
+
+> **Motif de la révision :** demande client de s'inspirer fortement de
+> [stagecoachsalado.com](https://stagecoachsalado.com/) — hôtellerie patrimoniale texane :
+> photographie pleine page, alternance texte/image, beaucoup d'air, palette chaude.
+> Arbitrage retenu : **structure ET ambiance**, l'identité du logo restant intacte.
+
+## A. Ce qui ne change pas
+
+Le socle de la marque est mesuré sur le logo, pas choisi : il reste **non négociable**.
+
+- Le rouge de la maison est exactement **`#E9323C`**.
+- Les caractères restent **Fraunces** (titres, noms de plats, téléphone) et **Archivo** (tout ce qui
+  se lit vite). Les deux sont hébergées sur le site, jamais demandées à Google.
+- L'angle reste vif : aucun coin arrondi, aucune ombre portée, aucune carte flottante.
+- La réservation est **au téléphone uniquement**. Le bouton d'appel reste le premier de la page.
+
+## B. Ce qui change
+
+### 1. Le papier se réchauffe
+
+Le blanc froid `#faf7f2` devient une **crème** `#F4EFE5`, doublée d'un **sable** `#EAE2D4` pour les
+bandes intercalaires. Motif : toutes les photographies du restaurant sont chaudes — salle à la
+bougie, bois, laiton. Un papier froid les faisait paraître sales.
+
+| Rôle | Avant | Après |
+| --- | --- | --- |
+| Papier | `#faf7f2` | **`#F4EFE5`** crème |
+| Bande d'à côté | *(n'existait pas)* | **`#EAE2D4`** sable |
+| Encre de fin de page | `#14110f` | **`#17120E`** noir chaud |
+| Texte principal | `#16130f` | **`#1B1510`** |
+| Texte secondaire | `#5a5248` | **`#574B3E`** |
+| Filets | `#e7e4df` | **`#E2D9C9`** |
+
+Tous les couples sont vérifiés par `scripts/verifier-contraste.mjs` — **21 couples, tous au-dessus
+du seuil AA**. À relancer après toute retouche de la palette.
+
+### 2. Le rouge redevient un accent
+
+L'aplat rouge pleine largeur (`surfaceRouge`) **est supprimé**. Étalée sur mille pixels, la couleur
+de la maison n'est plus une couleur : c'est un fond. Le rouge ne sert désormais qu'aux filets
+d'intertitre, aux liens, aux prix et au bouton d'appel.
+
+Il ne reste que **trois surfaces** : `surface-creme`, `surface-sable`, `surface-encre`.
+
+### 3. Les pages de carte passent du noir au papier
+
+`carte.html` et `pizzas.html` affichaient toute la carte sur fond noir. Elles sont désormais sur
+papier : une carte de restaurant se lit en noir sur clair. L'encre est réservée au pied de page.
+
+### 4. L'air double
+
+`--section-y` passe de `4 → 7,5 rem` à **`5,5 → 11 rem`**. C'est le réglage qui compte le plus :
+plus que la couleur, c'est l'espace qui distingue une adresse qu'on choisit d'une page qui liste
+des prestations.
+
+### 5. Le bandeau d'ouverture
+
+Les deux moitiés (papier à gauche, photo à droite) laissent place à une **photographie pleine
+page**, l'en-tête posé dessus sans fond jusqu'au premier défilement. Deux cadrages, portrait au
+doigt et paysage à l'écran ; un seul des deux est téléchargé.
+
+### 6. Le rythme de la page d'accueil
+
+Emprunté à la référence, adapté à un restaurant :
+
+1. Bandeau pleine page
+2. Bande d'accès direct — les quatre questions qu'on se pose
+3. **Récit** — le seul endroit où l'on parle de la maison
+4. **Le lieu** — ruban de cinq photographies qui sort de l'écran par la droite
+5. La cuisine + les quatre plats les plus commandés
+6. Les pizzas *(l'image passe à gauche : le motif s'inverse)*
+7. L'aperçu de la carte
+8. Venir chez nous + plan
+9. Le grand appel téléphonique
+
+### 7. L'apparition des photographies
+
+Relevée dans le code du site de référence, puis reproduite **sans sa bibliothèque d'animation**
+(70 ko de GSAP) : transitions CSS et animations liées au défilement, natives, calculées hors du
+fil principal.
+
+| | Référence (GSAP) | Ici (CSS) |
+| --- | --- | --- |
+| Montée d'un bloc | `y: 30 → 0`, `opacity: 0 → 1`, **3 s**, `expo.out`, retard 0,2 s | identique, **2,4 s** |
+| Dérive d'une photo | image en `scale(1.2)`, `y: 50 → 0`, calée sur le défilement | image en `scale(1.12)`, `y: ±4 %`, calée sur le défilement |
+| Photo d'ouverture | fondu + `scale → 1.05` sur **3 s** après 0,5 s d'attente | fondu **1,1 s** sans attente + `scale → 1.06` sur **2,8 s** |
+| Décor du bandeau | `yPercent: 10` au défilement | `translateY: 5 %` au défilement |
+
+**La lenteur est le sujet.** C'est elle, et rien d'autre, qui fait la sensation de calme du site de
+référence. Sur une courbe exponentielle, l'essentiel du déplacement se fait dans les six premiers
+dixièmes de seconde, puis le bloc se pose sur une trajectoire de plus en plus douce. Une apparition
+rapide, elle, se remarque.
+
+**Trois écarts assumés :**
+
+1. **2,4 s au lieu de 3 s.** Au-delà, la courbe a parcouru 99,6 % du chemin : il reste moins d'un
+   dixième de pixel à faire. On perd une queue invisible et l'élément est libéré plus tôt.
+2. **Le fondu du bandeau est court (1,1 s) et sans retard.** Sur la référence, la photographie
+   d'ouverture — le plus grand élément de l'écran, donc celui que les navigateurs mesurent pour
+   juger de la vitesse du site — n'est pleinement visible qu'après 3,5 s. Le zoom lent suffit à
+   donner la sensation ; on ne fait pas attendre l'image pour l'obtenir.
+3. **Agrandissement 1,12 au lieu de 1,2.** Nos fichiers plafonnent à 1290 px : chaque point
+   d'agrandissement coûte de la netteté. La translation de ±4 % ne consomme que les trois quarts
+   de la réserve ainsi créée.
+
+Réglages : `--dur-apparition`, `--retard-apparition`, `--montee-apparition` et `--sortie-expo`
+dans `css/tokens.css`. Les images-clés `photo-derive`, `bandeau-fondu`, `bandeau-zoom` et
+`bandeau-derive` dans `css/composants.css` et `css/accueil.css`.
+
+**Dégradation :** la dérive s'appuie sur `animation-timeline`, connue de Chrome, Edge et Safari
+récents. Ailleurs — Firefox aujourd'hui — la photographie reste simplement immobile **et non
+recadrée** : on ne paie l'agrandissement que là où on en profite. La montée des blocs, elle, est
+une transition CSS ordinaire : elle fonctionne partout. Tout est désactivé si le système demande
+de réduire les animations.
+
+### 8. L'écart à la grille
+
+Le nom **L'Étoile** déborde d'un cran vers la gauche et tombe sur le bord réel de la colonne,
+quand tout le reste s'aligne sur son bord intérieur. C'est le seul écart du site à sa propre
+grille — et il n'y en aura pas d'autre.
+
+## C. Ce qui reste à faire
+
+- **`planche-da.html` est périmée.** Elle montre encore les trois surfaces de la v1.1 (blanc, encre,
+  rouge) et compose en Newsreader, alors que le site est en Fraunces. Document de travail interne,
+  non publié — à refaire ou à supprimer.
+- **Photographies :** les fichiers propres plafonnent à **1290 px de large**. Sur un écran de 1920,
+  la photographie d'ouverture est donc agrandie d'environ 1,5×. Invisible sous le voile sombre,
+  mais **demander au client des originaux en 2400 px** réglerait la question.
+  *(Les fichiers `photos-source/LETOILE-*.jpg` sont plus grands mais portent le filigrane de
+  l'ancien site — inutilisables.)*
+
+## D. En une phrase, version 2.0
+
+> **L'Étoile, c'est une salle éclairée à la bougie photographiée en pleine page, puis racontée sur
+> un papier crème avec beaucoup d'air — et un rouge qui ne sert qu'à montrer où regarder.**
+
+---
+
+# Révision 2.1 — 28 août 2026 · la mise en page
+
+> **Motif :** la révision 2.0 avait repris l'**enchaînement** des sections du site de
+> référence, mais pas sa **façon d'occuper l'espace**. Le résultat était bien fait et
+> ne ressemblait pas au modèle. Quatre règles corrigent cela.
+
+## Les quatre règles de mise en page
+
+**1. Aucune photographie ne touche le bord de l'écran.** Il y a toujours du papier
+autour, y compris pour la photographie d'ouverture — qui n'est plus en pleine largeur
+mais en retrait, posée sous la barre de navigation. Les débordements volontaires de la
+v2.0 (marges négatives sur les blocs texte/image) sont supprimés.
+
+**2. Deux photographies ne sont jamais d'accord.** Pas la même largeur, pas le même
+format, pas la même hauteur de départ. `--decalage` fait descendre l'image par rapport
+à son texte, et change d'un bloc à l'autre. Cinq formats sont disponibles :
+`photo-portraitHaut` (3/4), `photo-portrait` (4/5), `photo-carre`, `photo-paysage`
+(4/3), `photo-paysageLarge` (3/2).
+
+*Une exception assumée :* le ruban de photographies et la grille des quatre plats
+restent réguliers. Dans un ruban qu'on fait glisser, des hauteurs inégales se lisent
+comme un défaut d'alignement ; dans une grille où l'on compare quatre prix, un décalage
+rend la comparaison pénible.
+
+**3. Le vide est un élément.** Entre deux sections, un **dessin au trait** est posé seul
+au milieu d'un grand vide (`--respiration`, jusqu'à 11 rem de chaque côté). Deux dessins
+existent : `images/trait-couvert.svg` et `images/trait-verres.svg`.
+
+**4. La colonne est étroite.** `--colonne` passe de 1280 à **1180 px**, et la colonne de
+texte d'un bloc n'occupe que 39 % de la largeur. Sur un grand écran, une large bande de
+papier reste vide de chaque côté.
+
+## La troisième voix : la machine à écrire
+
+Tous les petits textes qu'on repère sans les lire — intertitres, boutons, navigation,
+légendes, chiffres de la carte, libellés de formulaire — passent en **machine à écrire**.
+C'est ce qui donne au site de référence son air de document imprimé plutôt que
+d'interface, et c'est le changement typographique le plus visible de cette révision.
+
+⚠ **Le fichier de police n'est pas encore dans le dossier** (téléchargement impossible
+depuis l'environnement de travail). La pile retombe sur le Courier de l'appareil, qui
+fait le travail. La commande d'installation est notée en tête de `css/tokens.css` et
+dans le README ; rien d'autre ne sera à changer.
+
+## L'en-tête
+
+Il n'est plus transparent par-dessus la photographie d'ouverture. C'est un effet qu'on
+voit partout, et qui oblige la photographie à s'assombrir sous un voile pour que les
+libellés restent lisibles. Le site de référence ne le fait pas : **sa barre est toujours
+pleine**, et la photographie commence dessous, entière et claire. Le voile sombre du
+bandeau a donc disparu, et avec lui la version claire du logo.
+
+## Ce que nous ne pouvons pas reprendre
+
+- **Leur ouverture est une vidéo** — un plan de drone sur l'enseigne au néon, la nuit.
+  Nous n'avons que des photographies fixes.
+- **Leurs dessins au trait sont d'un illustrateur.** Les deux nôtres sont dessinés
+  proprement mais restent plus proches du pictogramme que du croquis. Un illustrateur
+  ferait mieux, et ce serait un budget bien employé.
+
+---
+
+# Révision 2.3 — 28 août 2026 · le haut de page
+
+> **Motif :** retour client sur la page « restaurant » du site de référence.
+> Le haut de page ne s'ouvre PAS sur une photographie.
+
+## Ce qui change
+
+**La photographie d'ouverture disparaît.** À la place : un exergue, un grand titre centré,
+et du papier. Les photographies viennent juste après, en ruban.
+
+Valeurs relevées au navigateur sur `stagecoachsalado.com/restaurant/`, à 1600 px :
+
+| | Relevé chez eux | Obtenu ici |
+| --- | --- | --- |
+| Vide sous la barre de navigation | 124 px | **123 px** |
+| Exergue | 20 px, interlettrage 2 px, centré | 20 px, 2 px |
+| Titre | 48 px / 60 px, serif | **48 px / 60 px** |
+| Colonne du haut de page | 576 px, centrée | **576 px** |
+| Images du ruban | 63 % de large, rapport 1,58 | **63 %, 1,58** |
+| Flèches | empilées, 30 px du bord | 32 px du bord |
+
+## Pourquoi c'est mieux ainsi
+
+Un grand visuel en ouverture oblige à poser du texte blanc dessus, donc à assombrir la
+photographie sous un voile, donc à choisir entre lire et voir. Ici, on lit une phrase sur
+du papier, **puis** on voit les photographies en pleine lumière. Chacune fait son travail.
+
+Accessoirement, la photographie n'est plus le premier élément affiché : le titre l'est.
+La page paraît donc prête plus tôt, et les moteurs de recherche mesurent une page rapide.
+
+## Le nom de la maison
+
+Chez eux, le petit exergue est le `<h1>` et la grande phrase un simple paragraphe — un
+choix discutable pour les moteurs de recherche. Ici l'ordre est rétabli : **le `<h1>` est
+la grande phrase, et l'exergue vit à l'intérieur**, en première ligne. La page garde donc
+son nom, sa ville et sa phrase dans un seul titre.
+
+## Ce qui a été retiré au passage
+
+Le bandeau photographique et ses trois animations (fondu, zoom lent, dérive du décor)
+n'existent plus. Les photographies de la salle qui les servaient ont été supprimées, et
+les cinq images du ruban ont été recadrées en paysage 1264 × 800. **La dérive au
+défilement, elle, reste** — sur toutes les autres photographies de la page.
+
+---
+
+# Révision 3.0 — 28 août 2026 · le site passe au noir
+
+> **Deux demandes client :** que la disposition des photographies et les écarts entre
+> elles soient repris fidèlement, et que **tout le fond du site soit noir profond**.
+
+## A. La disposition, cette fois vraiment mesurée
+
+La révision 2.2 mesurait les images **agrandies par la dérive** (× 1,2), pas leurs
+cadres. Toutes les valeurs étaient donc trop grandes d'un cinquième. Les relevés
+ci-dessous sont pris transformations neutralisées, sur un écran de 1600 px.
+
+| | Relevé chez eux | Version 2.2 | **Version 3.0** |
+| --- | --- | --- | --- |
+| Bande de contenu | 1216 px (marges de 192) | 1336 | **1216** |
+| Grande photographie | 614 px — **38 %** | 735 — 46 % | **614 — 38 %** |
+| Paire : paysage | 448 px — 28 % | 534 — 33 % | **448 — 28 %** |
+| Paire : portrait | 434 px — 27 % | 521 — 33 % | **434 — 27 %** |
+| **Vide entre les deux** | **212 px** | 120 | **212** |
+| Décalage vertical | 116 px | 157 | **116** |
+| Photographie → paire | 313 px | 213 | **312** |
+| Dessin → section suivante | 280 px | 264 | **280** |
+| Écart du ruban | 44 px | 24 | **44** |
+
+**Les images étaient toutes trop grandes et trop serrées.** C'est ce qui faisait que la
+page « ne ressemblait pas » alors que l'enchaînement des blocs était le bon : une
+photographie qui occupe 46 % de l'écran remplit la page ; à 38 %, elle y est posée.
+
+Détails désormais exacts : le texte est plaqué contre le bord **extérieur** de sa
+colonne (56 px), laissant 90 px entre lui et la photographie ; le dessin au trait est à
+23,7 % du bord, de l'un ou l'autre côté ; la photographie paysage de la paire a le
+rapport 448/310, qui n'est ni 3/2 ni 16/10 mais le sien.
+
+## B. Le site est noir
+
+Trois noirs très proches, séparés de deux ou trois points de luminosité : assez pour
+qu'une bande se détache, jamais assez pour qu'on voie une frontière.
+
+| Rôle | Couleur |
+| --- | --- |
+| Le fond du site | **`#0A0908`** |
+| La bande d'à côté (un ton plus **haut**) | `#131110` |
+| Le pied de page (le plus bas) | `#050404` |
+| Texte principal | `#F5F1EA` |
+| Texte secondaire | `#B3A897` |
+| Texte tertiaire | `#8B8172` |
+| Filets | `#25221F` |
+| Bordure de champ | `#635C53` |
+
+Le noir n'est pas neutre : il porte une pointe de rouge et de vert. Un noir parfaitement
+neutre ferait paraître grises les photographies, qui sont toutes prises à la bougie.
+
+**Le rouge de la maison change de rôle.** `#E9323C` n'a que 4,21 de contraste avec du
+blanc : il ne peut plus porter de texte. Les mots en rouge passent donc au `#F76E75`
+(7,05 sur le fond), et `#C11F28` reste pour les aplats de bouton avec du blanc dessus.
+
+Les vingt couples de couleurs du site sont vérifiés par `scripts/verifier-contraste.mjs`,
+réécrit pour la palette de nuit. **Tous passent.** Les quatre qui échouaient au premier
+essai — bordure de champ, deux filets, survol de bouton — ont été relevés au seuil par
+calcul, pas à l'œil.
+
+## C. Ce que le noir entraîne
+
+- **Le logo passe à sa version claire** partout ; la version sombre est retirée du site.
+- **Les surfaces changent de nom** : `surface-nuit`, `surface-nuit-haute`,
+  `surface-nuit-basse`. Les anciens noms — crème, sable, encre — décrivaient une palette
+  qui n'existe plus.
+- **Le grain s'éclaircit** au lieu d'assombrir (`mix-blend-mode: screen`) : un bruit
+  sombre sur du noir est invisible.
+- **Le fond de plan est assombri** (`brightness .62`) : une carte claire au milieu d'une
+  page noire éblouit et attire l'œil plus que tout le reste.
