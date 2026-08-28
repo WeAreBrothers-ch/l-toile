@@ -192,7 +192,7 @@
   --colonne: 1280px; /* bande de contenu de 1216 px à 1600 : la mesure exacte */
   --colonne-large: 1520px; /* le ruban de photographies, lui seul */
   --colonne-lecture: 620px; /* un paragraphe qui se lit d'une traite */
-  --marge: clamp(1.25rem, 3vw, 2rem);
+  --marge: clamp(0.875rem, 3vw, 2rem); /* 14 px au doigt, 32 px sur grand écran */
 
   /* -------------------------------------------------------------------------
      L'ANGLE EST VIF

@@ -44,30 +44,71 @@
 }
 
 .annonce-contenu {
-  max-width: 40rem; /* 640 px de boîte pour 576 px de texte */
+  max-width: 44rem;
   margin-inline: auto;
 }
 
+/*
+  Le titre est plus grand et un peu plus gras que sur la référence, et c'est
+  volontaire : leur page est claire, la nôtre est noire. Un texte clair sur
+  fond sombre paraît toujours plus maigre qu'il ne l'est — l'œil fait déborder
+  la lumière sur le noir. Sans ce demi-cran de graisse, le titre a l'air
+  étique au milieu de tout ce vide.
+
+  L'échelle optique est ramenée à 80 : à 144, Fraunces affine ses déliés
+  jusqu'au trait de plume, ce qui est superbe sur du papier et disparaît sur
+  du noir.
+*/
 .annonce-titre {
-  font-size: var(--fs-h1); /* 48 px sur grand écran */
-  font-variation-settings: "opsz" 96;
-  letter-spacing: -0.015em;
-  line-height: 1.25;
+  font-size: clamp(2.25rem, 1.3rem + 3.75vw, 3.875rem);
+  font-variation-settings: "opsz" 80;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  line-height: 1.14;
   text-wrap: balance;
 }
 
-/* L'exergue vit DANS le titre, mais s'en détache complètement : autre police,
-   autre taille, autre couleur. */
+/*
+  L'exergue vit DANS le titre, mais s'en détache complètement : autre police,
+  autre taille, autre couleur.
+
+  Deux filets rouges l'encadrent. C'est le vocabulaire employé partout ailleurs
+  sur le site pour ouvrir une section — et c'est surtout la seule couleur de la
+  maison, qui n'apparaissait nulle part sur le premier écran hormis le bouton
+  d'appel. Ils lui donnent aussi une largeur tenue : sans eux, la ligne
+  s'étalait toute seule.
+*/
 .annonce-exergue {
-  display: block;
-  margin-bottom: var(--sp-5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin-bottom: var(--sp-6);
   color: var(--encre-2);
   font-family: var(--mono);
-  font-size: 1.25rem; /* 20 px */
+  font-size: 1rem;
   font-variation-settings: normal;
-  letter-spacing: 0.1em; /* 2 px, la mesure relevée */
+  letter-spacing: 0.16em;
   line-height: 1.4;
   text-transform: uppercase;
+}
+
+/* Au doigt, « · Lausanne-Malley » fait passer l'exergue sur deux lignes et les
+   filets rouges restent seuls sur la première. La ville est de toute façon
+   répétée dans la bande d'accès direct, juste en dessous. */
+@media (max-width: 599px) {
+  .annonce-exergueLieu {
+    display: none;
+  }
+}
+
+.annonce-exergue::before,
+.annonce-exergue::after {
+  content: "";
+  flex: none;
+  width: clamp(1.25rem, 3.5vw, 3rem);
+  height: 1px;
+  background-color: var(--accent);
 }
 
 /* ============================================================================
@@ -307,22 +348,54 @@
   padding-top: clamp(2.5rem, 10.5vw, 10.5rem);
 }
 
+/*
+  La paire reste en DEUX COLONNES au doigt. C'était l'erreur : je les empilais,
+  et le bloc perdait tout son sens — c'est le fait que deux photographies
+  différentes se répondent côte à côte, à des hauteurs différentes, qui fait
+  l'image. Empilées, ce ne sont plus que deux photographies l'une sous l'autre.
+
+  Relevé à 390 px : deux images de 169 px (43 % de l'écran), 24 px entre elles,
+  14 px de marge de chaque côté, et 49 px de décalage vertical.
+*/
 .paire {
   display: grid;
-  gap: var(--sp-6);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
 }
 
-@media (min-width: 900px) {
-  .paire {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0;
-    align-items: start;
+/*
+  Le décalage vertical, d'un bout à l'autre de l'échelle : 49 px sur un
+  téléphone, 116 px sur un grand écran. Une seule formule les couvre.
+*/
+.paire-basse {
+  margin-top: clamp(3rem, 7.25vw, 7.25rem);
+}
+
+/*
+  Les formats changent avec la taille de l'écran — c'est le cas chez eux aussi,
+  leurs classes disent « aspect-[4/3] sm:aspect-[322/223] ». Au doigt, des
+  images moins étirées tiennent mieux dans une demi-colonne.
+*/
+@media (max-width: 899px) {
+  .paire .photo-paysageLarge {
+    --ratio: 4 / 3;
   }
 
-  /* Deux colonnes de 608 px dans une bande de 1216. La photographie de gauche
-     occupe 448 px posés à 32 px du bord ; celle de droite, 434 px posés à
-     84 px du début de sa colonne. Les 212 px de vide entre les deux tombent
-     tout seuls. */
+  .paire .photo-portrait {
+    --ratio: 3 / 4;
+  }
+}
+
+/* Sur grand écran, les images cessent de remplir leur colonne : deux colonnes
+   de 608 px dans une bande de 1216, la photographie de gauche occupant 448 px
+   posés à 32 px du bord, celle de droite 434 px posés à 84 px du début de sa
+   colonne. Les 212 px de vide entre les deux tombent tout seuls. */
+@media (min-width: 900px) {
+  .paire {
+    gap: 0;
+  }
+
   .paire-visuel:first-child {
     width: 73.7%;
     margin-left: 5.3%;
@@ -331,19 +404,6 @@
   .paire-visuel:last-child {
     width: 71.4%;
     margin-left: 13.8%;
-  }
-
-  /* Le décalage vertical : 116 px sur un écran de 1600, soit 7,25 %. */
-  .paire-basse {
-    margin-top: clamp(1.5rem, 7.25vw, 7.25rem);
-  }
-}
-
-/* Au doigt, les deux photographies se suivent simplement, sans décalage : sur
-   une colonne unique, un décalage ne se voit pas — il ne fait qu'allonger. */
-@media (max-width: 899px) {
-  .paire-basse {
-    margin-top: 0;
   }
 }
 
@@ -355,7 +415,7 @@
    du site de référence, et le moins coûteux.
    ============================================================================ */
 .trait-bloc {
-  padding-top: var(--sp-6);
+  padding-top: var(--sp-5);
   padding-bottom: clamp(3rem, 8.5vw, 8.5rem);
 }
 
@@ -364,7 +424,7 @@
    est la seule position qui ne veut rien dire. */
 .trait-dessin {
   display: block;
-  width: clamp(120px, 12vw, 192px);
+  width: clamp(99px, 25vw, 192px); /* 25 % au doigt, 12 % sur grand écran */
   height: auto;
 }
 
@@ -379,9 +439,15 @@
   margin-right: 23.7%;
 }
 
+/* Il n'est pas centré au doigt non plus : 19,3 % du bord, la valeur relevée
+   à 390 px. Un dessin centré au milieu d'un vide ne veut rien dire. */
 @media (max-width: 899px) {
-  .trait-dessin {
-    margin-inline: auto;
+  .trait-gauche .trait-dessin {
+    margin-left: 19.3%;
+  }
+
+  .trait-droite .trait-dessin {
+    margin-right: 19.3%;
   }
 }
 
@@ -533,7 +599,8 @@
 
 .lieu-ruban {
   display: flex;
-  gap: 44px; /* l'écart relevé entre deux images du carrousel */
+  /* 14 px au doigt, 44 px sur grand écran : les deux valeurs relevées. */
+  gap: clamp(14px, 2.75vw, 44px);
   padding-inline: var(--marge);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -563,7 +630,7 @@
 }
 
 .lieu-vignette {
-  flex: 0 0 84vw;
+  flex: 0 0 80vw; /* la mesure au doigt */
   scroll-snap-align: start;
 }
 
