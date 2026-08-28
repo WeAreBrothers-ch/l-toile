@@ -323,40 +323,42 @@
 }
 
 /* ============================================================================
-   4 bis. LA PAIRE D'IMAGES
+   4 bis. LA PAIRE D'IMAGES, ET SON DESSIN
 
-   Le bloc qui manquait, et sans doute celui qui manquait le plus. Après chaque
-   bloc texte/photographie, le site de référence pose DEUX photographies seules,
-   sans un mot :
+   Après chaque bloc texte/photographie, deux photographies seules, sans un mot,
+   et un dessin au trait posé SOUS LA PLUS COURTE des deux — dans sa colonne,
+   aligné sur son bord intérieur. Le dessin n'est pas un bloc à part qui
+   flotterait au milieu de la page : il achève la paire.
 
-     — l'une en paysage (448 px, rapport 1,44), l'autre en portrait (434 px,
-       rapport 0,80). Jamais le même format, jamais la même largeur.
-     — 212 px de vide ENTRE LES DEUX. C'est énorme, et c'est le sujet.
-     — celle de gauche commence 116 px plus bas que celle de droite.
-     — aucune des deux ne touche le bord de la bande : 32 px restent à gauche,
-       90 px à droite.
+   Tout est mesuré au navigateur sur le site de référence, aux deux extrémités
+   de l'échelle.
 
-   Toutes ces valeurs sont mesurées, à 1600 px de large, et exprimées ici en
-   pourcentages pour qu'elles tiennent à toutes les tailles d'écran.
+                                    à 1600 px        à 390 px
+     bande de contenu ............. 1216            362
+     photographie paysage ......... 448 (36,8 %)    169 (46,7 %)
+     photographie portrait ........ 434 (35,7 %)    169 (46,7 %)
+     vide entre les deux .......... 212             24
+     marge extérieure, côté paysage  32             14
+     marge extérieure, côté portrait 90             14
+     décalage vertical ............ 116             49
+     dessin ....................... 192             99
+     vide au-dessus du dessin ..... 149             73
+     format paysage ............... 1,44            4/3
+     format portrait .............. 4/5             3/4
 
-   C'est ce bloc, répété, qui donne au site son rythme : on lit, puis on regarde
-   sans lire, puis on lit à nouveau.
+   La photographie paysage est TOUJOURS la plus basse des deux, et c'est
+   toujours elle qui porte le dessin. Seul son côté change d'une paire à
+   l'autre — c'est ce qui empêche deux blocs successifs de se ressembler.
    ============================================================================ */
-/* 313 px séparent le bas de la grande photographie du haut de la paire. La
-   section précédente en fournit 144 ; celle-ci ajoute les 169 qui manquent. */
+/* 313 px séparent le bas de la grande photographie du haut de la paire ; la
+   section précédente en fournit 144, celle-ci ajoute les 169 qui manquent.
+   En bas, 280 px séparent le dessin de la section suivante, qui en fournit
+   144 : il en reste 136 ici. */
 .paire-section {
   padding-top: clamp(2.5rem, 10.5vw, 10.5rem);
+  padding-bottom: clamp(4.5rem, 8.5vw, 8.5rem);
 }
 
-/*
-  La paire reste en DEUX COLONNES au doigt. C'était l'erreur : je les empilais,
-  et le bloc perdait tout son sens — c'est le fait que deux photographies
-  différentes se répondent côte à côte, à des hauteurs différentes, qui fait
-  l'image. Empilées, ce ne sont plus que deux photographies l'une sous l'autre.
-
-  Relevé à 390 px : deux images de 169 px (43 % de l'écran), 24 px entre elles,
-  14 px de marge de chaque côté, et 49 px de décalage vertical.
-*/
 .paire {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -364,19 +366,14 @@
   align-items: start;
 }
 
-/*
-  Le décalage vertical, d'un bout à l'autre de l'échelle : 49 px sur un
-  téléphone, 116 px sur un grand écran. Une seule formule les couvre.
-*/
-.paire-basse {
+/* La paysage descend : 49 px au doigt, 116 sur grand écran. */
+.paire-paysage {
   margin-top: clamp(3rem, 7.25vw, 7.25rem);
 }
 
-/*
-  Les formats changent avec la taille de l'écran — c'est le cas chez eux aussi,
-  leurs classes disent « aspect-[4/3] sm:aspect-[322/223] ». Au doigt, des
-  images moins étirées tiennent mieux dans une demi-colonne.
-*/
+/* Les formats changent avec la taille de l'écran — c'est le cas chez eux
+   aussi, leurs classes disent « aspect-[4/3] sm:aspect-[322/223] ». Au doigt,
+   des images moins étirées tiennent mieux dans une demi-colonne. */
 @media (max-width: 899px) {
   .paire .photo-paysageLarge {
     --ratio: 4 / 3;
@@ -387,72 +384,71 @@
   }
 }
 
-/* Sur grand écran, les images cessent de remplir leur colonne : deux colonnes
-   de 608 px dans une bande de 1216, la photographie de gauche occupant 448 px
-   posés à 32 px du bord, celle de droite 434 px posés à 84 px du début de sa
-   colonne. Les 212 px de vide entre les deux tombent tout seuls. */
+/*
+  Sur grand écran, les photographies cessent de remplir leur colonne. Les
+  quatre valeurs ci-dessous sont les quatre positions mesurées : chaque format
+  garde sa largeur, et seule sa marge change selon le côté où il se trouve.
+*/
 @media (min-width: 900px) {
   .paire {
     gap: 0;
   }
 
-  .paire-visuel:first-child {
-    width: 73.7%;
-    margin-left: 5.3%;
+  .paire-colonne:first-child .paire-paysage {
+    width: 73.68%;
+    margin-left: 5.26%;
   }
 
-  .paire-visuel:last-child {
-    width: 71.4%;
-    margin-left: 13.8%;
+  .paire-colonne:last-child .paire-paysage {
+    width: 73.68%;
+    margin-left: 21.05%;
+  }
+
+  .paire-colonne:first-child .paire-portrait {
+    width: 71.38%;
+    margin-left: 14.8%;
+  }
+
+  .paire-colonne:last-child .paire-portrait {
+    width: 71.38%;
+    margin-left: 13.82%;
   }
 }
 
-/* ============================================================================
-   5. LE DESSIN AU TRAIT
+/* ---------------------------------------------------------------------------
+   LE DESSIN AU TRAIT
 
-   Posé seul au milieu d'un écran vide, entre deux sections. Il ne dit rien
-   qu'on ne sache déjà : il donne le silence. C'est le procédé le plus visible
-   du site de référence, et le moins coûteux.
-   ============================================================================ */
-.trait-bloc {
-  padding-top: var(--sp-5);
-  padding-bottom: clamp(3rem, 8.5vw, 8.5rem);
-}
-
-/* Il n'est pas centré. Chez eux il tombe sous l'une des deux photographies de
-   la paire, à un tiers ou aux deux tiers de la largeur — jamais au milieu, qui
-   est la seule position qui ne veut rien dire. */
+   Il vit dans la colonne de la photographie paysage, sous elle, et s'aligne
+   sur son bord INTÉRIEUR — celui qui regarde le centre de la page. Jamais
+   centré : le milieu est la seule position qui ne veut rien dire.
+   --------------------------------------------------------------------------- */
 .trait-dessin {
   display: block;
-  width: clamp(99px, 25vw, 192px); /* 25 % au doigt, 12 % sur grand écran */
+  width: clamp(99px, 12vw, 192px);
   height: auto;
+  margin-top: clamp(4.5rem, 9.3vw, 9.3rem);
 }
 
-/* 288 px depuis le bord de la bande, soit 23,7 % — la même valeur des deux
-   côtés, mesurée sur les deux dessins de la référence. */
-.trait-gauche .trait-dessin {
-  margin-left: 23.7%;
-}
-
-.trait-droite .trait-dessin {
+/* Colonne de gauche : le dessin se cale à droite, sous le bord intérieur. */
+.paire-colonne:first-child .trait-dessin {
   margin-left: auto;
-  margin-right: 23.7%;
+  margin-right: 0;
 }
 
-/* Il n'est pas centré au doigt non plus : 19,3 % du bord, la valeur relevée
-   à 390 px. Un dessin centré au milieu d'un vide ne veut rien dire. */
-@media (max-width: 899px) {
-  .trait-gauche .trait-dessin {
-    margin-left: 19.3%;
-  }
-
-  .trait-droite .trait-dessin {
-    margin-right: 19.3%;
-  }
+/* Colonne de droite : il se cale à gauche. */
+.paire-colonne:last-child .trait-dessin {
+  margin-left: 0;
 }
 
-/* Le dessin apparaît comme le reste de la page — c'est la règle commune des
-   apparitions qui s'en charge, posée sur le bloc. Rien de particulier ici. */
+@media (min-width: 900px) {
+  .paire-colonne:first-child .trait-dessin {
+    margin-right: 21.06%;
+  }
+
+  .paire-colonne:last-child .trait-dessin {
+    margin-left: 21.05%;
+  }
+}
 
 /* ============================================================================
    6. LES PLATS QUI SIGNENT LA MAISON

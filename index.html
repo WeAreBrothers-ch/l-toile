@@ -587,12 +587,18 @@
 
       <!-- ==================================================================
            LA PAIRE D'IMAGES
-           Deux photographies seules, sans un mot. Formats différents, largeurs
-           différentes, hauteurs de départ différentes.
+
+           Deux photographies seules, sans un mot, et le dessin au trait posé
+           SOUS LA PLUS COURTE des deux — dans sa colonne, aligné sur son bord
+           intérieur. Il ne flotte pas au milieu de la page : il achève le bloc.
+
+           Les côtés s'inversent d'une paire à l'autre. C'est ce qui empêche
+           deux blocs successifs de se ressembler.
            ================================================================== -->
       <section class="surface-nuit paire-section" aria-label="La salle du Restaurant L’Étoile">
         <div class="wrap paire">
-          <div class="paire-visuel paire-basse" data-reveal="true">
+        <div class="paire-colonne" data-reveal="true">
+          <div class="paire-paysage">
             <div class="photo-cadre photo-derive photo-paysageLarge">
               <img
                 class="photo-image"
@@ -605,7 +611,18 @@
               />
             </div>
           </div>
-          <div class="paire-visuel" data-reveal="true" style="--reveal-delai: 80ms">
+          <img
+            class="trait-dessin"
+            src="images/trait-couvert.svg"
+            alt=""
+            aria-hidden="true"
+            width="260"
+            height="190"
+            loading="lazy"
+          />
+        </div>
+        <div class="paire-colonne" data-reveal="true" style="--reveal-delai: 80ms">
+          <div class="paire-portrait">
             <div class="photo-cadre photo-derive photo-portrait">
               <img
                 class="photo-image"
@@ -619,24 +636,8 @@
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- ==================================================================
-           UN DESSIN, ET DU VIDE AUTOUR
-           ================================================================== -->
-      <div class="surface-nuit trait-bloc trait-gauche" data-reveal="true">
-        <div class="wrap">
-        <img
-          class="trait-dessin"
-          src="images/trait-couvert.svg"
-          alt=""
-          aria-hidden="true"
-          width="260"
-          height="190"
-          loading="lazy"
-        />
         </div>
-      </div>
+      </section>
 
       <!-- ==================================================================
            6. LES PIZZAS
@@ -677,25 +678,18 @@
 
       <!-- ==================================================================
            LA PAIRE D'IMAGES
-           Deux photographies seules, sans un mot. Formats différents, largeurs
-           différentes, hauteurs de départ différentes.
+
+           Deux photographies seules, sans un mot, et le dessin au trait posé
+           SOUS LA PLUS COURTE des deux — dans sa colonne, aligné sur son bord
+           intérieur. Il ne flotte pas au milieu de la page : il achève le bloc.
+
+           Les côtés s'inversent d'une paire à l'autre. C'est ce qui empêche
+           deux blocs successifs de se ressembler.
            ================================================================== -->
       <section class="surface-nuit paire-section" aria-label="La cave et les fruits de mer du Restaurant L’Étoile">
         <div class="wrap paire">
-          <div class="paire-visuel paire-basse" data-reveal="true">
-            <div class="photo-cadre photo-derive photo-paysageLarge">
-              <img
-                class="photo-image"
-                src="images/paire-vins-2026-08f.jpg"
-                alt="Bouteilles de vin blanc au Restaurant L’Étoile à Lausanne"
-                width="1200"
-                height="800"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </div>
-          <div class="paire-visuel" data-reveal="true" style="--reveal-delai: 80ms">
+        <div class="paire-colonne" data-reveal="true" style="--reveal-delai: 80ms">
+          <div class="paire-portrait">
             <div class="photo-cadre photo-entiere photo-portrait">
               <img
                 class="photo-image"
@@ -709,24 +703,32 @@
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- ==================================================================
-           UN SECOND DESSIN, ET DU VIDE
-           ================================================================== -->
-      <div class="surface-nuit trait-bloc trait-droite" data-reveal="true">
-        <div class="wrap">
-        <img
-          class="trait-dessin"
-          src="images/trait-verres.svg"
-          alt=""
-          aria-hidden="true"
-          width="260"
-          height="190"
-          loading="lazy"
-        />
+        <div class="paire-colonne" data-reveal="true">
+          <div class="paire-paysage">
+            <div class="photo-cadre photo-derive photo-paysageLarge">
+              <img
+                class="photo-image"
+                src="images/paire-vins-2026-08f.jpg"
+                alt="Bouteilles de vin blanc au Restaurant L’Étoile à Lausanne"
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+          <img
+            class="trait-dessin"
+            src="images/trait-verres.svg"
+            alt=""
+            aria-hidden="true"
+            width="260"
+            height="190"
+            loading="lazy"
+          />
         </div>
-      </div>
+        </div>
+      </section>
 
       <!-- ==================================================================
            7. LES QUATRE PLATS QU'ON COMMANDE LE PLUS
