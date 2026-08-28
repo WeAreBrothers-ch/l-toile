@@ -661,7 +661,7 @@
 
 @media (min-width: 768px) {
   .infospratiques-colonnes {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 0;
   }
 }
@@ -699,28 +699,10 @@
 }
 
 .infospratiques-colonne p,
-.infospratiques-colonne address,
-.infospratiques-colonne dl {
+.infospratiques-colonne address {
   color: var(--encre);
   font-size: var(--fs-corps-sm);
   line-height: 1.7;
-}
-
-.infospratiques-horaire {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--sp-2) var(--sp-4);
-  padding-block: var(--sp-1);
-  font-variant-numeric: tabular-nums;
-}
-
-.infospratiques-horaire dt {
-  color: var(--encre-2);
-}
-
-.infospratiques-horaire dd {
-  margin: 0;
 }
 
 .infospratiques-colonne p a,
