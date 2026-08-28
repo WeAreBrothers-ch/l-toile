@@ -203,6 +203,21 @@ a:focus-visible > .photo-zoom .photo-image {
   }
 }
 
+/* ---------------------------------------------------------------------------
+   LA PHOTOGRAPHIE MONTRÉE EN ENTIER
+
+   Une assiette, une pizza, un plateau : un objet rond ou ovale qu'on ne coupe
+   pas. Ces photographies sont fabriquées avec le noir du site tout autour de
+   l'objet — le cadre disparaît donc, et l'objet flotte sur la page.
+
+   Elles ne prennent PAS la dérive au défilement : celle-ci agrandit l'image de
+   douze pour cent et la déplace, ce qui recouperait exactement ce qu'on vient
+   de sauver. La dérive est faite pour les scènes, pas pour les objets.
+   --------------------------------------------------------------------------- */
+.photo-entiere {
+  background-color: transparent;
+}
+
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .photo-derive .photo-image {
