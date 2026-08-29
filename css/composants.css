@@ -617,19 +617,37 @@ a:focus-visible > .photo-zoom .photo-image {
    ============================================================================ */
 .barreaction-barre {
   position: fixed;
-  bottom: 0;
+  /* Le rattrapage du bas de l'écran, posé par `js/barre-action.js` quand la
+     barre d'outils du navigateur se replie ou revient. Il passe par `bottom`
+     pour laisser `transform` à l'apparition, qui est la seule des deux à
+     devoir prendre son temps. */
+  bottom: var(--barreaction-ecart, 0px);
   inset-inline: 0;
   z-index: 50;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding-bottom: env(safe-area-inset-bottom);
+  /* La barre d'accueil de l'iPhone : les boutons s'arrêtent au-dessus d'elle,
+     mais la couleur, elle, descend jusqu'au bord. Ce que le rattrapage a déjà
+     libéré en dessous est retranché : sans cela, une barre d'outils visible et
+     un bas d'écran arrondi compteraient deux fois le même vide. */
+  padding-bottom: max(0px, calc(env(safe-area-inset-bottom) - var(--barreaction-ecart, 0px)));
   border-top: 1px solid var(--filet-tenu);
   transform: translateY(100%);
   transition: transform var(--dur) var(--entree-sortie);
+  /* Elle se replace au pixel près : on la garde sur sa propre couche pour que
+     le navigateur n'ait jamais à repeindre la page derrière elle. */
+  will-change: transform;
 }
 
 .barreaction-barre[data-visible="true"] {
   transform: none;
+}
+
+/* Le clavier occupe le bas de l'écran : la barre s'efface le temps de la
+   saisie plutôt que de venir se poser dessus. Écrit après la règle du dessus,
+   qui a la même force : c'est l'ordre qui tranche. */
+.barreaction-barre[data-saisie="true"] {
+  transform: translateY(100%);
 }
 
 @media (min-width: 1024px) {
