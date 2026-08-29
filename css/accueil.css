@@ -31,15 +31,24 @@
      vide entre l'exergue et le titre ......  24 px
      titre ................................. 48 px sur 60
      colonne .............................. 576 px, centrée
-     vide avant le ruban de photographies .. 163 px
+
+   Le vide sous le titre ne vient plus de ce relevé (163 px) mais de l'échelle
+   de la page : c'est le joint serré, celui qui dit que le titre et le ruban de
+   photographies ne font qu'un.
 
    Le nom de la maison est dans l'exergue, à l'intérieur du titre : le grand
    texte peut ainsi être une phrase, sans que la page perde son nom ni sa ville
    pour les moteurs de recherche.
    ============================================================================ */
+/* Le titre et le ruban de photographies ne sont pas deux blocs : c'est une
+   seule ouverture. D'où le joint SERRÉ dessous — la moitié de l'intervalle
+   courant. Auparavant c'était l'inverse : 163 px séparaient le titre de ses
+   propres photographies, et seulement 144 px l'ouverture du corps de la page.
+   La page se présentait donc plus déliée à l'intérieur d'elle-même qu'avec la
+   suite. */
 .annonce {
   padding-top: clamp(3.5rem, 7.75vw, 7.75rem);
-  padding-bottom: clamp(4.5rem, 10.2vw, 10.2rem);
+  padding-bottom: var(--joint-serre);
   text-align: center;
 }
 
@@ -119,8 +128,15 @@
    midi. Ici, savoir tout de suite si c'est ouvert et où c'est vaut mieux qu'un
    écran de vide de plus.
    ============================================================================ */
+/* La bande est réglée par ses deux filets : elle ne peut pas porter de vide en
+   dessous sans que le filet du bas descende avec. C'est donc la section qui la
+   suit qui porte le joint entier — un cas, une règle, écrite ici. */
 .accesdirect-bande {
   border-block: 1px solid var(--trait);
+}
+
+.accesdirect-bande + .section {
+  padding-top: var(--joint);
 }
 
 .accesdirect-grille {
@@ -195,7 +211,7 @@
 
 .accesdirect-cellule:hover .accesdirect-libelle,
 .accesdirect-cellule:focus-visible .accesdirect-libelle {
-  color: var(--rouge-600);
+  color: var(--accent);
 }
 
 .accesdirect-libelle svg {
@@ -358,13 +374,15 @@
    toujours elle qui porte le dessin. Seul son côté change d'une paire à
    l'autre — c'est ce qui empêche deux blocs successifs de se ressembler.
    ============================================================================ */
-/* 313 px séparent le bas de la grande photographie du haut de la paire ; la
-   section précédente en fournit 144, celle-ci ajoute les 169 qui manquent.
-   En bas, 280 px séparent le dessin de la section suivante, qui en fournit
-   144 : il en reste 136 ici. */
+/* Deux photographies sans un mot : c'est un silence, pas un propos. Il se
+   sépare donc de ses voisines par le SOUFFLE — une fois et demie l'intervalle
+   courant — et symétriquement : on entre dans le silence et on en sort de la
+   même façon.
+
+   Les deux voisines apportant chacune leur demi-joint, celle-ci pose les deux
+   demi-joints qui manquent pour atteindre le souffle. */
 .paire-section {
-  padding-top: clamp(2.5rem, 10.5vw, 10.5rem);
-  padding-bottom: clamp(4.5rem, 8.5vw, 8.5rem);
+  padding-block: calc(var(--joint-souffle) - var(--demi-joint));
 }
 
 .paire {
@@ -523,7 +541,7 @@
 
 .platssignature-plat:hover .platssignature-nom,
 .platssignature-plat:focus-visible .platssignature-nom {
-  color: var(--rouge-600);
+  color: var(--accent);
 }
 
 .platssignature-description {
@@ -601,7 +619,7 @@
 }
 
 .lieu-fleche:hover:not(:disabled) {
-  color: var(--rouge-600);
+  color: var(--accent);
 }
 
 .lieu-fleche:focus-visible {
@@ -762,7 +780,7 @@
    cacher : c'est le dernier mot de la page, écrit en grand.
    ============================================================================ */
 .bandeauappel-bande {
-  padding-block: var(--section-y);
+  padding-block: var(--demi-joint);
   text-align: center;
 }
 

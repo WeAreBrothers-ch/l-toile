@@ -354,6 +354,32 @@ Base 16 px. Ratio 1,20 en mobile → 1,25 en desktop, interpolé en `clamp()` (a
 
 **Rythme vertical :** espace entre eyebrow et titre = `--sp-3`. Entre titre et chapô = `--sp-4`. Entre chapô et contenu = `--sp-6`. Entre deux sections = `--section-y`. **Aucune valeur intermédiaire improvisée.**
 
+> **Mise à jour du 29 août 2026 — le rythme vertical a été refait.**
+>
+> `--section-y` et `--section-y-tight` n'existent plus. Chaque section ne décidait
+> que de sa propre marge, et le vide entre deux blocs était la SOMME de deux
+> marges indépendantes : il valait donc 288, 280, 312 ou 240 px selon les
+> voisines, sans que personne l'ait choisi — et il s'inversait entre le
+> téléphone et l'ordinateur.
+>
+> À la place, **un seul chiffre commande tout** : `--demi-joint`, et trois
+> intervalles qui en dérivent, dans un rapport de 1 à 2 à 3 constant à toutes
+> les largeurs d'écran.
+>
+> ```css
+> --demi-joint: clamp(3rem, 1.6rem + 4.65vw, 6.25rem);  /* 48 → 100 px */
+>
+> --joint-serre:   var(--demi-joint);              /*  48 → 100 px */
+> --joint:      calc(var(--demi-joint) * 2);       /*  96 → 200 px */
+> --joint-souffle: calc(var(--demi-joint) * 3);    /* 144 → 300 px */
+> ```
+>
+> `--joint-serre` lie deux blocs qui n'en font qu'un (le titre d'accueil et son
+> ruban de photographies). `--joint` est l'intervalle courant. `--joint-souffle`
+> encadre un silence — les paires de photographies sans un mot. La règle tient
+> en une phrase : **une section porte un demi-joint de chaque côté, et toute
+> exception s'écrit à côté de la règle qu'elle enfreint.**
+
 ### 5.3 Densité
 
 Le corpus enseigne un rythme précis : **respiration forte entre les blocs, densité forte à l'intérieur**. Une ligne de menu ne doit pas « flotter » : `padding: var(--sp-4) 0`, filet de séparation, et c'est tout. La générosité est verticale entre les sections, pas à l'intérieur des listes.

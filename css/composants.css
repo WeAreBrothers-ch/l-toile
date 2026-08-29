@@ -388,7 +388,7 @@ a:focus-visible > .photo-zoom .photo-image {
 }
 
 .header-iconeSeule:hover {
-  color: var(--rouge-600);
+  color: var(--accent);
 }
 
 .header-iconeSeule:focus-visible {
@@ -649,13 +649,13 @@ a:focus-visible > .photo-zoom .photo-image {
    relise. Adresse, horaires, téléphone, plan — tout y est en clair.
    ============================================================================ */
 .footer-pied {
-  padding-top: var(--section-y-serree);
-  padding-bottom: calc(var(--section-y-serree) + var(--barre-action-h) + env(safe-area-inset-bottom));
+  padding-top: var(--demi-joint);
+  padding-bottom: calc(var(--demi-joint) + var(--barre-action-h) + env(safe-area-inset-bottom));
 }
 
 @media (min-width: 1024px) {
   .footer-pied {
-    padding-bottom: var(--section-y-serree);
+    padding-bottom: var(--demi-joint);
   }
 }
 

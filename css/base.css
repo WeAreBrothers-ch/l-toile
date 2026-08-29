@@ -81,6 +81,18 @@ ol {
   list-style: none;
 }
 
+/* Les listes de définitions et les figures gardaient les marges du navigateur —
+   un « 1em » en bas de chaque <dl>, un retrait de 40 px sur chaque <dd>. Ce sont
+   des vides que personne n'a décidés : ils s'ajoutaient aux joints de la page
+   (19 px de trop sous les horaires de la page contact) et se déplaçaient avec
+   la taille du texte. */
+dl,
+dd,
+figure,
+blockquote {
+  margin: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -138,19 +150,18 @@ address {
   padding-inline: var(--marge);
 }
 
+/* Chaque section porte UN demi-joint de chaque côté. Le vide entre deux
+   sections est donc toujours le même — un joint courant — sans que ni l'une ni
+   l'autre ait à savoir ce qu'elle a pour voisine. Les exceptions se déclarent
+   une par une, plus bas, et se lisent comme des exceptions. */
 .section {
   position: relative;
-  padding-block: var(--section-y);
-}
-
-.sectionSerree {
-  position: relative;
-  padding-block: var(--section-y-serree);
+  padding-block: var(--demi-joint);
 }
 
 /* Deux sections de même surface qui se suivent ne sont plus séparées par un
-   filet. Avec l'espacement d'aujourd'hui — jusqu'à treize rem de chaque côté —
-   le vide sépare mieux qu'un trait, et un trait de plus ferait grille. */
+   filet. Avec l'espacement d'aujourd'hui, le vide sépare mieux qu'un trait, et
+   un trait de plus ferait grille. */
 
 /* ---------------------------------------------------------------------------
    LES BLOCS DE TEXTE COURANTS

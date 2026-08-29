@@ -171,14 +171,36 @@
   --sp-8: 4rem;
   --sp-9: 6rem;
 
-  /*
-    L'air entre les sections. C'est le réglage le plus important de la page :
-    c'est lui, plus que les couleurs, qui distingue une adresse qu'on choisit
-    d'une page qui liste des prestations. Il est passé de 4–7,5 rem à 6–13 rem,
-    soit un peu moins du double sur un grand écran.
-  */
-  --section-y: clamp(4rem, 2rem + 8vw, 9rem);
-  --section-y-serree: clamp(3.5rem, 2.25rem + 5vw, 6rem);
+  /* -------------------------------------------------------------------------
+     L'AIR ENTRE LES BLOCS
+
+     C'est le réglage le plus important de la page : c'est lui, plus que les
+     couleurs, qui distingue une adresse qu'on choisit d'une page qui liste des
+     prestations.
+
+     UN SEUL CHIFFRE LE COMMANDE : le demi-joint. Le vide entre deux blocs est
+     toujours la somme de deux demi-joints — jamais une valeur posée d'un seul
+     côté, jamais une valeur inventée pour un endroit.
+
+     Trois intervalles seulement, dans un rapport de 1 à 2 à 3. Ils sont tous
+     dérivés du même chiffre : ils gardent donc leur rapport à TOUTES les
+     largeurs d'écran, et ne peuvent plus se croiser. (Avant, trois formules
+     indépendantes se croisaient entre le téléphone et l'ordinateur : le vide
+     qui annonçait une paire de photographies devenait, au doigt, plus petit
+     que celui qui la refermait.)
+
+       serré ...... deux blocs qui n'en font qu'un    (le titre et ses photos)
+       courant .... deux propos qui se suivent         (l'intervalle ordinaire)
+       souffle .... de part et d'autre d'un silence    (les paires muettes)
+
+     De 3 rem au doigt à 6,25 rem sur grand écran, pour le demi-joint : le vide
+     courant va donc de 96 à 200 px, et le souffle de 144 à 300 px.
+     ------------------------------------------------------------------------- */
+  --demi-joint: clamp(3rem, 1.6rem + 4.65vw, 6.25rem);
+
+  --joint-serre: var(--demi-joint);
+  --joint: calc(var(--demi-joint) * 2);
+  --joint-souffle: calc(var(--demi-joint) * 3);
 
 
   /* -------------------------------------------------------------------------
