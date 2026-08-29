@@ -10,12 +10,16 @@
     <link rel="preload" href="fonts/archivo.woff2" as="font" crossorigin type="font/woff2" />
     <link rel="preload" href="fonts/fraunces-latin.woff2" as="font" crossorigin type="font/woff2" />
 
-    <!-- La première photographie du ruban : c'est le plus grand élément du
-         premier écran, donc celui qui décide de la vitesse perçue du site. -->
+    <!-- L'enseigne : depuis que le premier écran est un logo au milieu du noir,
+         c'est elle le plus grand élément affiché, donc elle qui décide de la
+         vitesse perçue du site. Elle passe avant les neuf dessins qui
+         l'entourent, et avant la première photographie du ruban — qui, elle,
+         est désormais sous la ligne de flottaison. -->
     <link
       rel="preload"
       as="image"
-      href="images/lieu-1-salle-2026-08g.jpg"
+      href="images/logo-letoile-clair.svg"
+      type="image/svg+xml"
       fetchpriority="high"
     />
 
@@ -318,23 +322,112 @@
 
     <main id="contenu">
       <!-- ==================================================================
-           1. LE HAUT DE PAGE
+           1. LE PREMIER ÉCRAN
 
-           Pas de photographie ici : un exergue, un grand titre centré, et du
-           papier. C'est la composition de la page « restaurant » du site de
-           référence — mesurée : 124 px de vide sous la barre, un exergue de
-           20 px espacé de 2 px, puis un titre de 48 px sur 60, dans une
-           colonne de 576 px. Les photographies viennent juste après.
+           Un écran entier de noir, l'enseigne au milieu, et neuf dessins au
+           trait rouges tout autour. Pas une ligne de texte visible : le nom de
+           la maison est dans le logo, et la phrase qui la situe est lue par les
+           moteurs de recherche et les lecteurs d'écran sans s'afficher.
+
+           Les dessins ne sont pas jetés au hasard. Ils laissent libre la bande
+           centrale où vit l'enseigne, et trois d'entre eux sont coupés par le
+           bord de l'écran : c'est ce qui empêche la composition d'avoir l'air
+           rangée, et ce qui dit que la page continue plus bas.
+
+           Chacun porte quatre réglages, écrits dans la feuille de style : où il
+           est, quelle taille il fait, de combien il penche, et à quelle vitesse
+           il tombera au premier défilement.
            ================================================================== -->
-      <section class="surface-nuit annonce" aria-labelledby="titre-accueil">
-        <div class="wrap annonce-contenu">
-          <h1 class="annonce-titre" id="titre-accueil">
-            <span class="annonce-exergue"
-              >Restaurant L’Étoile<span class="annonce-exergueLieu"> · Lausanne-Malley</span></span
-            >
-            Une table italienne à deux pas de Sébeillon.
-          </h1>
+      <section class="surface-nuit premier" aria-labelledby="titre-accueil">
+        <div class="premier-champ" aria-hidden="true">
+          <img
+            class="premier-piece premier-piece--serveur"
+            src="images/trait-serveur-plateau-2026-08j.svg"
+            alt=""
+            decoding="async"
+            width="697"
+            height="770"
+          />
+          <img
+            class="premier-piece premier-piece--couvert"
+            src="images/trait-couvert-2026-08j.svg"
+            alt=""
+            decoding="async"
+            width="326"
+            height="919"
+          />
+          <img
+            class="premier-piece premier-piece--convive"
+            src="images/trait-convive-2026-08j.svg"
+            alt=""
+            decoding="async"
+            width="718"
+            height="820"
+          />
+          <img
+            class="premier-piece premier-piece--cocktail"
+            src="images/trait-cocktail-2026-08j.svg"
+            alt=""
+            decoding="async"
+            width="838"
+            height="1131"
+          />
+          <img
+            class="premier-piece premier-piece--trinquer"
+            src="images/trait-trinquer-2026-08j.svg"
+            alt=""
+            decoding="async"
+            width="745"
+            height="733"
+          />
+          <img
+            class="premier-piece premier-piece--gueridon"
+            src="images/trait-gueridon-2026-08j.svg"
+            alt=""
+            decoding="async"
+            width="559"
+            height="683"
+          />
+          <img
+            class="premier-piece premier-piece--plateau"
+            src="images/trait-plateau-2026-08j.svg"
+            alt=""
+            decoding="async"
+            width="796"
+            height="711"
+          />
+          <img
+            class="premier-piece premier-piece--assiette"
+            src="images/trait-assiette-2026-08i.png"
+            alt=""
+            decoding="async"
+            width="560"
+            height="350"
+          />
+          <img
+            class="premier-piece premier-piece--bouteille"
+            src="images/trait-bouteille-2026-08i.png"
+            alt=""
+            decoding="async"
+            width="520"
+            height="535"
+          />
         </div>
+
+        <h1 class="premier-titre" id="titre-accueil">
+          <img
+            class="premier-enseigne"
+            src="images/logo-letoile-clair.svg"
+            alt=""
+            width="3308"
+            height="942"
+            fetchpriority="high"
+          />
+          <span class="visuallyHidden"
+            >Restaurant L’Étoile — une table italienne à deux pas de Sébeillon, à
+            Lausanne-Malley.</span
+          >
+        </h1>
       </section>
 
       <!-- ==================================================================
@@ -391,7 +484,7 @@
                   alt="La salle du Restaurant L’Étoile, tables dressées et grand miroir doré"
                   width="1264"
                   height="800"
-                  fetchpriority="high"
+                  loading="lazy"
                   decoding="async"
                 />
               </div>
@@ -1146,6 +1239,7 @@
          l'ordre, après le rendu de la page, et n'en retardent jamais
          l'affichage. -->
     <script src="js/entete.js" defer></script>
+    <script src="js/premier-ecran.js" defer></script>
     <script src="js/barre-action.js" defer></script>
     <script src="js/menu-mobile.js" defer></script>
     <script src="js/horaires.js" defer></script>

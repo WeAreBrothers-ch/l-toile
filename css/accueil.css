@@ -20,104 +20,326 @@
    ============================================================================ */
 
 /* ============================================================================
-   1. LE HAUT DE PAGE
+   1. LE PREMIER ÉCRAN
 
-   Pas de photographie : un exergue, un grand titre, et du papier. Toutes les
-   valeurs sont relevées au navigateur sur la page « restaurant » du site de
-   référence, à 1600 px de large :
+   Un écran entier de noir, l'enseigne au milieu, neuf dessins au trait rouges
+   autour. Rien d'autre. Le texte d'accroche a quitté cet écran : le nom de la
+   maison est dans le logo, et la phrase qui la situe reste dans le document
+   pour les moteurs de recherche et les lecteurs d'écran, sans s'afficher.
 
-     vide sous la barre de navigation ...... 124 px
-     exergue ............................... 20 px, interlettrage 2 px
-     vide entre l'exergue et le titre ......  24 px
-     titre ................................. 48 px sur 60
-     colonne .............................. 576 px, centrée
+   TOUT LE MOUVEMENT TIENT DANS UN SEUL CHIFFRE : `--p`, l'avancée du premier
+   défilement, de 0 (rien n'a bougé) à 1 (on a quitté l'écran). Le script ne
+   fait qu'écrire ce chiffre ; c'est la feuille de style qui en tire la chute
+   et la vrille de chaque dessin. Une seule écriture par image de rendu, pas
+   neuf.
 
-   Le vide sous le titre ne vient plus de ce relevé (163 px) mais de l'échelle
-   de la page : c'est le joint serré, celui qui dit que le titre et le ruban de
-   photographies ne font qu'un.
-
-   Le nom de la maison est dans l'exergue, à l'intérieur du titre : le grand
-   texte peut ainsi être une phrase, sans que la page perde son nom ni sa ville
-   pour les moteurs de recherche.
+   Le même chiffre sert à l'arrivée : les dessins entrent en partant de
+   `--p: -0.3`, c'est-à-dire un peu plus haut et penchés dans l'autre sens, et
+   se posent. Le geste d'arrivée et le geste de départ sont donc le même
+   mouvement, joué dans un sens puis dans l'autre.
    ============================================================================ */
-/* Le titre et le ruban de photographies ne sont pas deux blocs : c'est une
-   seule ouverture. D'où le joint SERRÉ dessous — la moitié de l'intervalle
-   courant. Auparavant c'était l'inverse : 163 px séparaient le titre de ses
-   propres photographies, et seulement 144 px l'ouverture du corps de la page.
-   La page se présentait donc plus déliée à l'intérieur d'elle-même qu'avec la
-   suite. */
-.annonce {
-  padding-top: clamp(3.5rem, 7.75vw, 7.75rem);
-  padding-bottom: var(--joint-serre);
-  text-align: center;
+
+/* Déclarer `--p` lui donne un type : il devient un vrai nombre, interpolable,
+   et il vaut 0 tant que personne ne l'a écrit — y compris sans JavaScript. */
+@property --p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
 }
 
-.annonce-contenu {
-  max-width: 44rem;
-  margin-inline: auto;
+.premier {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: calc(100svh - var(--entete-h));
+  padding-block: var(--joint-serre);
+  /* Trois dessins débordent volontairement : on les coupe ici, jamais avec une
+     barre de défilement horizontale. */
+  overflow: hidden;
 }
 
-/*
-  Le titre est plus grand et un peu plus gras que sur la référence, et c'est
-  volontaire : leur page est claire, la nôtre est noire. Un texte clair sur
-  fond sombre paraît toujours plus maigre qu'il ne l'est — l'œil fait déborder
-  la lumière sur le noir. Sans ce demi-cran de graisse, le titre a l'air
-  étique au milieu de tout ce vide.
-
-  L'échelle optique est ramenée à 80 : à 144, Fraunces affine ses déliés
-  jusqu'au trait de plume, ce qui est superbe sur du papier et disparaît sur
-  du noir.
-*/
-.annonce-titre {
-  font-size: clamp(2.25rem, 1.3rem + 3.75vw, 3.875rem);
-  font-variation-settings: "opsz" 80;
-  font-weight: 500;
-  letter-spacing: -0.022em;
-  line-height: 1.14;
-  text-wrap: balance;
-}
-
-/*
-  L'exergue vit DANS le titre, mais s'en détache complètement : autre police,
-  autre taille, autre couleur.
-
-  Deux filets rouges l'encadrent. C'est le vocabulaire employé partout ailleurs
-  sur le site pour ouvrir une section — et c'est surtout la seule couleur de la
-  maison, qui n'apparaissait nulle part sur le premier écran hormis le bouton
-  d'appel. Ils lui donnent aussi une largeur tenue : sans eux, la ligne
-  s'étalait toute seule.
-*/
-.annonce-exergue {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(0.75rem, 2vw, 1.5rem);
-  margin-bottom: var(--sp-6);
-  color: var(--encre-2);
-  font-family: var(--mono);
-  font-size: 1rem;
-  font-variation-settings: normal;
-  letter-spacing: 0.16em;
-  line-height: 1.4;
-  text-transform: uppercase;
-}
-
-/* Au doigt, « · Lausanne-Malley » fait passer l'exergue sur deux lignes et les
-   filets rouges restent seuls sur la première. La ville est de toute façon
-   répétée dans la bande d'accès direct, juste en dessous. */
-@media (max-width: 599px) {
-  .annonce-exergueLieu {
-    display: none;
+@media (min-width: 1024px) {
+  .premier {
+    min-height: calc(100svh - var(--entete-h-lg));
   }
 }
 
-.annonce-exergue::before,
-.annonce-exergue::after {
-  content: "";
-  flex: none;
-  width: clamp(1.25rem, 3.5vw, 3rem);
-  height: 1px;
-  background-color: var(--accent);
+/* ---------------------------------------------------------------------------
+   L'ENSEIGNE
+
+   Elle occupe une bande centrale que les dessins ne franchissent jamais. Sa
+   largeur est bornée par l'écran ET par une valeur en pixels : au-delà, un logo
+   qui grandit avec la fenêtre finit par avoir l'air d'un fond d'écran.
+   --------------------------------------------------------------------------- */
+.premier-titre {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  transform: translateY(calc(var(--p) * -3rem)) scale(calc(1 - var(--p) * 0.06));
+  opacity: calc(1 - var(--p) * 0.85);
+}
+
+.premier-enseigne {
+  display: block;
+  width: min(78vw, 22rem);
+  height: auto;
+}
+
+/* Sur les largeurs intermédiaires, l'enseigne prenait jusqu'à 60 % de l'écran
+   et venait au contact des dessins de bord. Elle est ramenée à un peu plus de
+   la moitié : la bande centrale reste franche à toutes les tailles. */
+@media (min-width: 700px) {
+  .premier-enseigne {
+    width: min(56vw, 28rem);
+  }
+}
+
+@media (min-width: 1100px) {
+  .premier-enseigne {
+    width: min(46vw, 42rem);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LE CHAMP DE DESSINS
+   --------------------------------------------------------------------------- */
+.premier-champ {
+  position: absolute;
+  inset: 0;
+  /* Un dessin ne prend jamais le clic : tout ce qui est cliquable est ailleurs. */
+  pointer-events: none;
+  /* Ils s'effacent en partant, sans disparaître tout à fait : il en reste une
+     trace quand la bande d'accès direct arrive. */
+  opacity: calc(1 - var(--p) * 0.7);
+  --echelle: 0.5;
+}
+
+@media (min-width: 700px) {
+  .premier-champ {
+    --echelle: 0.72;
+  }
+}
+
+@media (min-width: 1100px) {
+  .premier-champ {
+    --echelle: 1;
+  }
+}
+
+/*
+  Chaque dessin porte cinq réglages, et rien d'autre :
+
+    --x --y ... où il est, en pourcentage de l'écran
+    --l ....... sa largeur de référence, ramenée par --echelle
+    --r ....... de combien il penche au repos
+    --chute ... de combien il descend quand on quitte l'écran
+    --vrille .. de combien il tourne en descendant
+
+  La chute et la vrille changent de valeur ET DE SIGNE d'un dessin à l'autre :
+  c'est ce qui donne l'impression d'un désordre, alors que chaque position est
+  choisie. Deux dessins qui tomberaient à la même vitesse se liraient comme une
+  grille qui glisse.
+*/
+.premier-piece {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(var(--l) * var(--echelle));
+  height: auto;
+  transform: translate(-50%, -50%) translateY(calc(var(--p) * var(--chute)))
+    rotate(calc(var(--r) + var(--p) * var(--vrille)));
+}
+
+/* Le navigateur n'est prévenu que sur les écrans qui ont de quoi tenir neuf
+   couches composées. Au doigt, la promesse coûterait plus qu'elle ne rapporte. */
+@media (min-width: 1100px) {
+  .premier-piece {
+    will-change: transform;
+  }
+}
+
+.premier-piece--serveur {
+  --x: 11%;
+  --y: 26%;
+  --l: 245px;
+  --r: -13deg;
+  --chute: 260px;
+  --vrille: 15deg;
+}
+
+/* Le couvert est de loin le dessin le plus haut : à largeur égale il occupe
+   deux fois et demie la hauteur des autres. Il est donc tenu plus étroit et
+   posé plus bas, sinon son manche remonte dans les jambes du serveur. */
+.premier-piece--couvert {
+  --x: 6%;
+  --y: 72%;
+  --l: 100px;
+  --r: 9deg;
+  --chute: 105px;
+  --vrille: 16deg;
+}
+
+.premier-piece--convive {
+  --x: 25%;
+  --y: 83%;
+  --l: 190px;
+  --r: 7deg;
+  --chute: 190px;
+  --vrille: -11deg;
+}
+
+.premier-piece--cocktail {
+  --x: 88%;
+  --y: 19%;
+  --l: 135px;
+  --r: 12deg;
+  --chute: 115px;
+  --vrille: -14deg;
+}
+
+.premier-piece--trinquer {
+  --x: 93%;
+  --y: 52%;
+  --l: 120px;
+  --r: -8deg;
+  --chute: 100px;
+  --vrille: 21deg;
+}
+
+.premier-piece--gueridon {
+  --x: 82%;
+  --y: 84%;
+  --l: 230px;
+  --r: -6deg;
+  --chute: 280px;
+  --vrille: -17deg;
+}
+
+.premier-piece--plateau {
+  --x: 63%;
+  --y: 12%;
+  --l: 180px;
+  --r: 15deg;
+  --chute: 175px;
+  --vrille: 13deg;
+}
+
+.premier-piece--assiette {
+  --x: 45%;
+  --y: 91%;
+  --l: 150px;
+  --r: -15deg;
+  --chute: 135px;
+  --vrille: -19deg;
+}
+
+.premier-piece--bouteille {
+  --x: 34%;
+  --y: 10%;
+  --l: 165px;
+  --r: 18deg;
+  --chute: 165px;
+  --vrille: -20deg;
+}
+
+/* Au doigt, l'enseigne occupe presque toute la largeur : les dessins se
+   replient vers les quatre coins et le haut du champ pour lui laisser sa
+   bande. Seules les positions changent — les tailles sont déjà ramenées par
+   `--echelle`, et les chutes restent les mêmes. */
+@media (max-width: 699px) {
+  .premier-piece--serveur {
+    --x: 20%;
+    --y: 17%;
+  }
+
+  .premier-piece--couvert {
+    --x: 7%;
+    --y: 68%;
+  }
+
+  .premier-piece--convive {
+    --x: 27%;
+    --y: 83%;
+  }
+
+  .premier-piece--cocktail {
+    --x: 84%;
+    --y: 15%;
+  }
+
+  .premier-piece--trinquer {
+    --x: 89%;
+    --y: 70%;
+  }
+
+  .premier-piece--gueridon {
+    --x: 71%;
+    --y: 85%;
+  }
+
+  .premier-piece--plateau {
+    --x: 60%;
+    --y: 8%;
+  }
+
+  .premier-piece--assiette {
+    --x: 42%;
+    --y: 94%;
+  }
+
+  .premier-piece--bouteille {
+    --x: 85%;
+    --y: 30%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   L'ARRIVÉE
+
+   Elle n'existe que si le script a marqué la page. Sans JavaScript, sans
+   IntersectionObserver, ou si le système demande un mouvement réduit, les
+   dessins sont simplement là — c'est la même règle que partout ailleurs sur
+   le site.
+
+   `backwards` et non `both` : passé la dernière image, la règle rend la main,
+   et `--p` redevient celui que le défilement écrit. Sans quoi le dessin
+   resterait figé à sa position d'arrivée.
+   --------------------------------------------------------------------------- */
+[data-js="on"] .premier-piece {
+  animation: premier-arrivee var(--dur-apparition) var(--sortie-expo) backwards;
+  animation-delay: var(--retard, 0s);
+}
+
+.premier-piece--bouteille {
+  --retard: 60ms;
+}
+.premier-piece--plateau {
+  --retard: 120ms;
+}
+.premier-piece--cocktail {
+  --retard: 180ms;
+}
+.premier-piece--couvert {
+  --retard: 240ms;
+}
+.premier-piece--trinquer {
+  --retard: 300ms;
+}
+.premier-piece--convive {
+  --retard: 360ms;
+}
+.premier-piece--assiette {
+  --retard: 420ms;
+}
+.premier-piece--gueridon {
+  --retard: 480ms;
+}
+
+@keyframes premier-arrivee {
+  from {
+    opacity: 0;
+    --p: -0.3;
+  }
 }
 
 /* ============================================================================
