@@ -872,28 +872,32 @@
 }
 
 /* ============================================================================
-   7. LE LIEU — LE RUBAN DE PHOTOGRAPHIES
+   7. À TABLE — LE RUBAN DE PHOTOGRAPHIES
 
    Le seul endroit de la page où quelque chose sort de l'écran : le ruban
    continue à droite, et c'est ce débord qui le dit. Les deux flèches sont
    posées dans la marge de gauche, l'une sous l'autre, sans cadre — comme sur le
    site de référence.
+
+   Les photographies y sont fixes dans leur cadre : la dérive au défilement est
+   faite pour un bloc qu'on dépasse verticalement, pas pour un ruban qu'on fait
+   glisser en travers. Les deux mouvements ensemble se lisent comme un défaut.
    ============================================================================ */
-.lieu-section {
+.ruban-section {
   padding-block: 0;
   overflow: hidden;
 }
 
-.lieu-piste {
+.ruban-piste {
   position: relative;
 }
 
-.lieu-fleches {
+.ruban-fleches {
   display: none;
 }
 
 @media (min-width: 1024px) {
-  .lieu-fleches {
+  .ruban-fleches {
     position: absolute;
     top: var(--sp-6);
     left: var(--marge);
@@ -905,7 +909,7 @@
 }
 
 /* Une flèche nue : pas de rond, pas de cadre. */
-.lieu-fleche {
+.ruban-fleche {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -922,21 +926,21 @@
     transform var(--dur-vif) var(--sortie);
 }
 
-.lieu-fleche:hover:not(:disabled) {
+.ruban-fleche:hover:not(:disabled) {
   color: var(--accent);
 }
 
-.lieu-fleche:focus-visible {
+.ruban-fleche:focus-visible {
   outline: 2px solid var(--rouge-500);
   outline-offset: 2px;
 }
 
-.lieu-fleche:disabled {
+.ruban-fleche:disabled {
   opacity: 0.25;
   cursor: default;
 }
 
-.lieu-ruban {
+.ruban-defile {
   display: flex;
   /* 14 px au doigt, 44 px sur grand écran : les deux valeurs relevées. */
   gap: clamp(14px, 2.75vw, 44px);
@@ -952,31 +956,36 @@
 /* La place des flèches : 56 px, ce qui pose la première image à 88 px du bord
    sur un écran de 1600 — la référence en donne 90. */
 @media (min-width: 1024px) {
-  .lieu-ruban {
+  .ruban-defile {
     padding-inline-start: calc(var(--marge) + 56px);
     scroll-padding-inline-start: calc(var(--marge) + 56px);
   }
 }
 
-.lieu-ruban::-webkit-scrollbar {
+.ruban-defile::-webkit-scrollbar {
   display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lieu-ruban {
+  .ruban-defile {
     scroll-behavior: auto;
   }
 }
 
-.lieu-vignette {
+.ruban-vignette {
   flex: 0 0 80vw; /* la mesure au doigt */
   scroll-snap-align: start;
 }
 
-/* 63 % de la largeur de l'écran : la mesure exacte du site de référence. */
+/* À la souris, la vignette valait 63 % de l'écran : sur un grand moniteur, un
+   gros plan d'assiette y occupait presque toute la largeur et se lisait comme
+   une texture, plus comme un plat. Elle prend maintenant la moitié de l'écran,
+   sans jamais dépasser 720 px — au-delà, on n'ajoute plus rien à ce qu'on voit,
+   on agrandit seulement. Deux photographies tiennent ainsi côte à côte, et la
+   troisième déborde assez pour dire que le ruban continue. */
 @media (min-width: 900px) {
-  .lieu-vignette {
-    flex-basis: 63vw;
+  .ruban-vignette {
+    flex-basis: min(52vw, 720px);
   }
 }
 
@@ -984,7 +993,7 @@
    est la règle de la page — mais dans un ruban qu'on fait glisser, des hauteurs
    inégales se lisent comme un défaut d'alignement, pas comme un parti pris.
    Le rapport 1,58 est celui relevé chez eux. */
-.lieu-vignette .photo-cadre {
+.ruban-vignette .photo-cadre {
   --ratio: 1264 / 800;
 }
 

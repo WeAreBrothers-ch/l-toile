@@ -148,28 +148,6 @@
     <header class="header-entete" data-compact="false">
       <div class="header-barre">
         <div class="wrap header-barreContenu">
-          <button
-            type="button"
-            class="header-iconeSeule header-boutonMenu"
-            aria-label="Ouvrir le menu de navigation"
-            aria-expanded="false"
-            aria-controls="menu-mobile"
-          >
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="square"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M3 6h18 M3 12h18 M3 18h18"></path>
-            </svg>
-          </button>
-
           <a class="header-logoLien" aria-label="Restaurant L’Étoile, accueil" href="index.html">
             <img
               class="header-logo"
@@ -193,29 +171,6 @@
             </span>
 
             <a
-              class="header-iconeSeule header-telIcone"
-              href="tel:+41216251544"
-              aria-label="Appeler le restaurant au +41 21 625 15 44"
-              data-analytics="call"
-            >
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="square"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
-                ></path>
-              </svg>
-            </a>
-
-            <a
               href="tel:+41216251544"
               class="bouton-base bouton-primaire header-reserverLong"
               aria-label="Réserver par téléphone au +41 21 625 15 44"
@@ -223,6 +178,27 @@
               >Réserver · 021 625 15 44</a
             >
           </div>
+          <button
+            type="button"
+            class="header-iconeSeule header-boutonMenu"
+            aria-label="Ouvrir le menu de navigation"
+            aria-expanded="false"
+            aria-controls="menu-mobile"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M3 6h18 M3 12h18 M3 18h18"></path>
+            </svg>
+          </button>
         </div>
       </div>
     </header>
@@ -431,14 +407,14 @@
       </section>
 
       <!-- ==================================================================
-           8. LE LIEU — LE RUBAN DE PHOTOGRAPHIES
+           8. À TABLE — LE RUBAN DE PHOTOGRAPHIES
            ================================================================== -->
-      <section class="surface-nuit section lieu-section" aria-labelledby="titre-lieu">
-        <div class="visuallyHidden"><h2 id="titre-lieu">La salle et le bar</h2></div>
+      <section class="surface-nuit section ruban-section" aria-labelledby="titre-ruban">
+        <div class="visuallyHidden"><h2 id="titre-ruban">À table</h2></div>
 
-        <div class="lieu-piste">
-          <div class="lieu-fleches">
-            <button type="button" class="lieu-fleche" data-lieu-precedent aria-label="Photo précédente">
+        <div class="ruban-piste">
+          <div class="ruban-fleches">
+            <button type="button" class="ruban-fleche" data-ruban-precedent aria-label="Photo précédente">
               <svg
                 width="26"
                 height="26"
@@ -453,7 +429,7 @@
                 <path d="M20 12H5 M11 6l-6 6 6 6"></path>
               </svg>
             </button>
-            <button type="button" class="lieu-fleche" data-lieu-suivant aria-label="Photo suivante">
+            <button type="button" class="ruban-fleche" data-ruban-suivant aria-label="Photo suivante">
               <svg
                 width="26"
                 height="26"
@@ -471,17 +447,17 @@
           </div>
 
           <ul
-            class="lieu-ruban"
+            class="ruban-defile"
             tabindex="0"
             role="region"
-            aria-label="Photographies de la salle et du bar"
+            aria-label="Quelques plats et cocktails du Restaurant L’Étoile"
           >
-            <li class="lieu-vignette" data-reveal="true" style="--reveal-delai: 0ms">
-              <div class="photo-cadre photo-derive">
+            <li class="ruban-vignette" data-reveal="true" style="--reveal-delai: 0ms">
+              <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/lieu-1-salle-2026-08g.jpg"
-                  alt="La salle du Restaurant L’Étoile, tables dressées et grand miroir doré"
+                  src="images/ruban-1-poisson-2026-08k.jpg"
+                  alt="Filet de poisson grillé, riz et légumes du moment, au Restaurant L’Étoile"
                   width="1264"
                   height="800"
                   loading="lazy"
@@ -489,12 +465,12 @@
                 />
               </div>
             </li>
-            <li class="lieu-vignette" data-reveal="true" style="--reveal-delai: 80ms">
-              <div class="photo-cadre photo-derive">
+            <li class="ruban-vignette" data-reveal="true" style="--reveal-delai: 80ms">
+              <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/lieu-2-bar-2026-08g.jpg"
-                  alt="Le bar du Restaurant L’Étoile, verres suspendus et bougies allumées"
+                  src="images/ruban-2-pizza-2026-08k.jpg"
+                  alt="Pizza au jambon cru, roquette et tomates cerises, sortie du four"
                   width="1264"
                   height="800"
                   loading="lazy"
@@ -502,12 +478,12 @@
                 />
               </div>
             </li>
-            <li class="lieu-vignette" data-reveal="true" style="--reveal-delai: 160ms">
-              <div class="photo-cadre photo-derive">
+            <li class="ruban-vignette" data-reveal="true" style="--reveal-delai: 160ms">
+              <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/lieu-3-verriere-2026-08g.jpg"
-                  alt="La salle côté fenêtres, plantes et fauteuils clairs, au Restaurant L’Étoile"
+                  src="images/ruban-3-cocktail-2026-08k.jpg"
+                  alt="Cocktail au concombre et à la menthe, servi au bar du Restaurant L’Étoile"
                   width="1264"
                   height="800"
                   loading="lazy"
@@ -515,12 +491,12 @@
                 />
               </div>
             </li>
-            <li class="lieu-vignette" data-reveal="true" style="--reveal-delai: 240ms">
-              <div class="photo-cadre photo-derive">
+            <li class="ruban-vignette" data-reveal="true" style="--reveal-delai: 240ms">
+              <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/lieu-4-tables-2026-08g.jpg"
-                  alt="Grande table dressée avant le service du soir au Restaurant L’Étoile"
+                  src="images/ruban-4-grillade-2026-08k.jpg"
+                  alt="Filet grillé au romarin et légumes du moment, au Restaurant L’Étoile"
                   width="1264"
                   height="800"
                   loading="lazy"
@@ -528,12 +504,38 @@
                 />
               </div>
             </li>
-            <li class="lieu-vignette" data-reveal="true" style="--reveal-delai: 320ms">
-              <div class="photo-cadre photo-derive">
+            <li class="ruban-vignette" data-reveal="true" style="--reveal-delai: 320ms">
+              <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/lieu-5-cocktail-2026-08g.jpg"
-                  alt="Cocktail servi au bar du Restaurant L’Étoile à Lausanne"
+                  src="images/ruban-5-linguine-2026-08k.jpg"
+                  alt="Linguine aux tomates confites et basilic, servies au Restaurant L’Étoile"
+                  width="1264"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </li>
+            <li class="ruban-vignette" data-reveal="true" style="--reveal-delai: 400ms">
+              <div class="photo-cadre">
+                <img
+                  class="photo-image"
+                  src="images/ruban-6-coupe-2026-08k.jpg"
+                  alt="Cocktail servi en coupe, citron et basilic, au bar du Restaurant L’Étoile"
+                  width="1264"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </li>
+            <li class="ruban-vignette" data-reveal="true" style="--reveal-delai: 480ms">
+              <div class="photo-cadre">
+                <img
+                  class="photo-image"
+                  src="images/ruban-7-gambas-2026-08k.jpg"
+                  alt="Gambas et riz créole, sauce relevée, au Restaurant L’Étoile"
                   width="1264"
                   height="800"
                   loading="lazy"
@@ -846,7 +848,7 @@
            Le seul bloc en grille régulière de la page : on y compare quatre
            plats et quatre prix.
            ================================================================== -->
-      <section class="surface-nuit-haute section" aria-labelledby="titre-plats">
+      <section class="surface-nuit section" aria-labelledby="titre-plats">
         <div class="wrap">
           <div class="platssignature-entete" data-reveal="true">
             <div>
@@ -980,90 +982,7 @@
       </section>
 
       <!-- ==================================================================
-           10. L'APERÇU DE LA CARTE
-           ================================================================== -->
-      <section class="surface-nuit section" aria-labelledby="titre-carte">
-        <div class="wrap apercucarte-duo">
-          <div class="apercucarte-entete" data-reveal="true">
-            <img
-              class="marque marque--couvert"
-              src="images/trait-couvert-2026-08j.svg"
-              alt=""
-              width="326"
-              height="919"
-              loading="lazy"
-              decoding="async"
-            />
-            <h2 class="titreSection" id="titre-carte">
-              Tout est <em class="italique">là</em>, rien n’est caché
-            </h2>
-            <p class="chapo">
-              Dix familles de plats, des entrées aux pizzas. Les prix sont affichés en entier : vous
-              savez avant d’entrer.
-            </p>
-            <div class="apercucarte-actions">
-              <a class="bouton-base bouton-secondaire" href="carte.html">Voir toute la carte</a>
-              <a class="bouton-base bouton-tertiaire" href="pizzas.html">Les 15 pizzas</a>
-            </div>
-          </div>
-
-          <nav class="apercucarte-index" aria-label="Les catégories de la carte" data-reveal="true">
-            <a class="apercucarte-rang" href="carte.html#entrees">
-              <span class="apercucarte-categorie">Les entrées</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">9 plats · dès <b>5.—</b></span>
-            </a>
-            <a class="apercucarte-rang" href="carte.html#assiettes-froides">
-              <span class="apercucarte-categorie">Assiettes froides</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">7 plats · dès <b>17.—</b></span>
-            </a>
-            <a class="apercucarte-rang" href="carte.html#pasta">
-              <span class="apercucarte-categorie">Pasta</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">16 plats · dès <b>19.—</b></span>
-            </a>
-            <a class="apercucarte-rang" href="carte.html#risotto">
-              <span class="apercucarte-categorie">Risotto</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">4 plats · dès <b>23.—</b></span>
-            </a>
-            <a class="apercucarte-rang" href="carte.html#poissons">
-              <span class="apercucarte-categorie">Poissons et fruits de mer</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">6 plats · dès <b>28.—</b></span>
-            </a>
-            <a class="apercucarte-rang" href="carte.html#viandes">
-              <span class="apercucarte-categorie">Viandes</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">9 plats · dès <b>28.—</b></span>
-            </a>
-            <a class="apercucarte-rang" href="carte.html#ardoises">
-              <span class="apercucarte-categorie">Nos ardoises</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">2 plats · dès <b>43.—</b></span>
-            </a>
-            <a class="apercucarte-rang" href="carte.html#fondues">
-              <span class="apercucarte-categorie">Fondues à discrétion</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">2 plats · dès <b>38.—</b></span>
-            </a>
-            <a class="apercucarte-rang" href="carte.html#menu-enfant">
-              <span class="apercucarte-categorie">Menu enfant</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">4 plats · dès <b>10.—</b></span>
-            </a>
-            <a class="apercucarte-rang" href="pizzas.html">
-              <span class="apercucarte-categorie">Pizzas</span>
-              <span class="apercucarte-rappel" aria-hidden="true"></span>
-              <span class="apercucarte-chiffres">15 pizzas · dès <b>17.—</b></span>
-            </a>
-          </nav>
-        </div>
-      </section>
-
-      <!-- ==================================================================
-           11. VENIR CHEZ NOUS
+           10. VENIR CHEZ NOUS
            ================================================================== -->
       <section class="surface-nuit section" aria-labelledby="titre-infos">
         <div class="wrap">
@@ -1221,7 +1140,7 @@
           <div class="footer-colonne">
             <h2>Réservation</h2>
             <p>
-              <a href="tel:+41216251544" data-analytics="call">+41 21 625 15 44</a><br />
+              <a class="footer-telephone" href="tel:+41216251544" data-analytics="call">+41 21 625 15 44</a><br />
               <a href="mailto:etoile.restaurant@hotmail.com">etoile.restaurant@hotmail.com</a><br />
               Réservation par téléphone
             </p>
