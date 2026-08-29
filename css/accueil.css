@@ -111,7 +111,16 @@
   /* Ils s'effacent en partant, sans disparaître tout à fait : il en reste une
      trace quand la bande d'accès direct arrive. */
   opacity: calc(1 - var(--p) * 0.7);
-  --echelle: 0.5;
+  --echelle: 0.54;
+}
+
+/* Sous 380 px de large, les dessins gardaient leur taille pendant que l'écran
+   rétrécissait : ils finissaient par se toucher, et le couvert sortait par la
+   gauche. Un cran d'échelle en dessous suffit à tout dégager. */
+@media (max-width: 379px) {
+  .premier-champ {
+    --echelle: 0.46;
+  }
 }
 
 @media (min-width: 700px) {
@@ -242,54 +251,123 @@
   --vrille: -20deg;
 }
 
-/* Au doigt, l'enseigne occupe presque toute la largeur : les dessins se
-   replient vers les quatre coins et le haut du champ pour lui laisser sa
-   bande. Seules les positions changent — les tailles sont déjà ramenées par
-   `--echelle`, et les chutes restent les mêmes. */
+/* AU DOIGT, LA COMPOSITION CHANGE DE NATURE.
+
+   Sur grand écran, l'enseigne est une île au milieu et les dessins font le
+   tour. Sur un téléphone elle barre l'écran d'un bord à l'autre : il ne reste
+   plus une couronne, mais DEUX BANDES — l'une au-dessus, l'autre en dessous —
+   et les colonnes latérales sont trop étroites pour tenir quoi que ce soit.
+
+   Les neuf dessins se répartissent donc cinq en haut, quatre en bas, et chaque
+   bande est remplie en quinconce : jamais deux dessins à la même hauteur, jamais
+   deux du même côté l'un sous l'autre. C'est ce qui évite les deux trous qu'on
+   avait — la bande de gauche à mi-hauteur, et le dessous de l'enseigne à droite.
+
+   Aucun n'est coupé par le bord gauche ou droit : sur un écran étroit, un dessin
+   à moitié sorti se lit comme une erreur, pas comme un parti pris. Seul celui du
+   bas peut l'être, et par le bas — là où la page continue.
+
+   Seules les positions changent ici : les tailles sont déjà ramenées par
+   `--echelle`, et les chutes restent celles du grand écran. */
 @media (max-width: 699px) {
   .premier-piece--serveur {
-    --x: 20%;
-    --y: 17%;
-  }
-
-  .premier-piece--couvert {
-    --x: 7%;
-    --y: 68%;
-  }
-
-  .premier-piece--convive {
     --x: 27%;
-    --y: 83%;
+    --y: 11%;
   }
 
   .premier-piece--cocktail {
-    --x: 84%;
-    --y: 15%;
-  }
-
-  .premier-piece--trinquer {
-    --x: 89%;
-    --y: 70%;
-  }
-
-  .premier-piece--gueridon {
-    --x: 71%;
-    --y: 85%;
+    --x: 82%;
+    --y: 10%;
   }
 
   .premier-piece--plateau {
     --x: 60%;
-    --y: 8%;
+    --y: 24%;
+  }
+
+  .premier-piece--couvert {
+    --x: 9%;
+    --y: 32%;
+  }
+
+  .premier-piece--bouteille {
+    --x: 78%;
+    --y: 37%;
+  }
+
+  .premier-piece--trinquer {
+    --x: 17%;
+    --y: 63%;
+  }
+
+  .premier-piece--convive {
+    --x: 27%;
+    --y: 85%;
+  }
+
+  .premier-piece--gueridon {
+    --x: 73%;
+    --y: 71%;
   }
 
   .premier-piece--assiette {
-    --x: 42%;
-    --y: 94%;
+    --x: 68%;
+    --y: 95%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LE TÉLÉPHONE TENU À L'HORIZONTALE
+
+   Là, le premier écran ne fait plus que 330 px de haut. L'enseigne en occupe
+   déjà le tiers, et les neuf dessins n'ont plus de bandes où se ranger : ils
+   s'empilent les uns sur les autres.
+
+   La réponse n'est pas de tout rapetisser jusqu'à l'illisible, c'est d'en
+   montrer moins. Les quatre plus grands — qui sont tous des dessins EN HAUTEUR,
+   donc les premiers à ne plus rentrer — se retirent. Restent les cinq dessins
+   larges et bas, qui sont justement ceux qui conviennent à un écran large et
+   bas.
+   --------------------------------------------------------------------------- */
+@media (max-height: 560px) {
+  .premier-enseigne {
+    width: min(38vw, 20rem);
+  }
+
+  .premier-champ {
+    --echelle: 0.5;
+  }
+
+  .premier-piece--serveur,
+  .premier-piece--gueridon,
+  .premier-piece--couvert,
+  .premier-piece--convive {
+    display: none;
+  }
+
+  .premier-piece--plateau {
+    --x: 13%;
+    --y: 16%;
+  }
+
+  .premier-piece--cocktail {
+    --x: 47%;
+    --y: 14%;
   }
 
   .premier-piece--bouteille {
     --x: 85%;
-    --y: 30%;
+    --y: 17%;
+  }
+
+  .premier-piece--trinquer {
+    --x: 20%;
+    --y: 82%;
+  }
+
+  .premier-piece--assiette {
+    --x: 74%;
+    --y: 84%;
   }
 }
 
