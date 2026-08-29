@@ -627,10 +627,12 @@
     order: 2;
   }
 
-  /* Au doigt, la photographie du bloc « cuisine » s'intercalait entre le texte
-     et la paire d'images qui suit : trois photographies d'affilée, dont deux
-     de la même salle. On la retire — sur petit écran elle n'apportait rien que
-     de la longueur. */
+  /* Au doigt, la photographie de ces deux blocs s'intercale entre le texte et
+     la paire d'images qui suit : trois photographies d'affilée. Celle de la
+     cuisine montrait la même salle que la paire ; celle des pizzas, un objet
+     rond qu'un écran étroit étire sur presque toute sa hauteur, en pure perte —
+     la même pizza ouvre déjà la page des pizzas. On les retire : sur petit
+     écran, elles n'ajoutaient que de la longueur. */
   .duo-visuel--horsMobile {
     display: none;
   }
