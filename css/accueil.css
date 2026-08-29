@@ -751,18 +751,22 @@
    sur son bord INTÉRIEUR — celui qui regarde le centre de la page. Jamais
    centré : le milieu est la seule position qui ne veut rien dire.
    --------------------------------------------------------------------------- */
+/* Ils passent en grand. À 192 px au maximum, posés dans un demi-écran de noir,
+   ils avaient l'air d'un timbre oublié — surtout depuis que le premier écran en
+   montre neuf en pleine taille. À 300 px ils deviennent le troisième élément de
+   la paire, au lieu de sa signature. */
 .trait-dessin {
   display: block;
-  width: clamp(99px, 12vw, 192px);
+  width: clamp(140px, 17vw, 300px);
   height: auto;
   margin-top: clamp(2.5rem, 5vw, 5rem);
 }
 
-/* Le dessin des mains est presque carré. À largeur égale il pèserait deux fois
-   plus que celui de l'assiette : on le réduit pour que les deux fassent la
-   même hauteur à l'œil. */
+/* Les deux verres et les mains à la bouteille sont presque carrés. À largeur
+   égale ils pèseraient deux fois plus qu'un dessin couché : on les réduit pour
+   que tous fassent la même hauteur à l'œil. */
 .trait-dessin--haut {
-  width: clamp(96px, 9.4vw, 150px);
+  width: clamp(128px, 12.5vw, 225px);
 }
 
 /* Colonne de gauche : le dessin se cale à droite, sous le bord intérieur —

@@ -167,44 +167,106 @@ address {
    LES BLOCS DE TEXTE COURANTS
    --------------------------------------------------------------------------- */
 
-/* Le petit intertitre en capitales espacées qui ouvre une section. En machine
-   à écrire, comme tous les petits textes qu'on repère sans les lire. C'est le
-   seul endroit du site où le rouge apparaît en texte. */
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-4);
-  margin: 0 0 var(--sp-5);
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: var(--fs-exergue);
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  line-height: 1.2;
-  text-transform: uppercase;
+/* ---------------------------------------------------------------------------
+   LA MARQUE DE SECTION
+
+   Chaque section s'ouvre sur UN DESSIN, et chaque section a le sien.
+
+   Avant, elles s'ouvraient toutes sur le même petit intertitre rouge en
+   capitales espacées, précédé d'un filet. Sept fois sur la page d'accueil,
+   quatre fois sur la page contact. Ce qui devait être une signature était
+   devenu une grammaire : on ne la lisait plus, on la sautait — et surtout, elle
+   annonçait sept fois de suite la même chose, alors que le texte qui suit
+   change à chaque fois.
+
+   Le premier écran a introduit un troisième matériau à côté de la photographie
+   sombre et de la typographie : le dessin rouge. La marque de section est ce
+   qui le fait descendre dans la page.
+
+   LA TAILLE EST DONNÉE EN HAUTEUR, jamais en largeur : c'est la seule façon
+   d'obtenir le même poids optique d'une section à l'autre, avec des dessins
+   dont les proportions vont du couvert (presque trois fois plus haut que large)
+   à l'assiette (presque deux fois plus large que haute). Trois d'entre eux
+   demandent un ajustement, écrit plus bas.
+   --------------------------------------------------------------------------- */
+.marque {
+  display: block;
+  width: auto;
+  height: var(--marque-h, clamp(4.75rem, 6.6vw, 7.75rem));
+  margin-bottom: var(--sp-6);
+  /* Aucun n'est parfaitement d'aplomb : c'est ce qui les empêche d'avoir l'air
+     posés par une machine. */
+  transform: rotate(var(--marque-r, -4deg));
+  transform-origin: 30% 80%;
 }
 
-/* Le filet qui l'ouvre. Court, de la couleur de l'accent : c'est la signature
-   graphique qui se répète d'une section à l'autre. */
-.eyebrow::before {
-  content: "";
-  flex: none;
-  width: var(--sp-6);
-  height: 1px;
-  background-color: currentColor;
+/* Le couvert est presque trois fois plus haut que large : à hauteur égale il
+   ne serait qu'un trait. On le grandit d'un tiers. */
+.marque--couvert {
+  --marque-h: clamp(5.75rem, 8vw, 9.25rem);
+  --marque-r: 3deg;
 }
 
-/* Centré, le filet passe des deux côtés. */
-.eyebrow-centre {
-  justify-content: center;
+/* L'assiette et le plateau sont les deux seuls dessins couchés : à hauteur
+   égale ils pèseraient deux fois plus que les autres. */
+.marque--assiette {
+  --marque-h: clamp(3.75rem, 5.2vw, 6rem);
+  --marque-r: -6deg;
 }
 
-.eyebrow-centre::after {
-  content: "";
-  flex: none;
-  width: var(--sp-6);
-  height: 1px;
-  background-color: currentColor;
+.marque--plateau {
+  --marque-h: clamp(5rem, 7vw, 8.25rem);
+  --marque-r: 4deg;
+}
+
+.marque--serveur {
+  --marque-r: -4deg;
+}
+.marque--convive {
+  --marque-r: 5deg;
+}
+.marque--gueridon {
+  --marque-r: -5deg;
+}
+.marque--trinquer {
+  --marque-r: -3deg;
+}
+.marque--cocktail {
+  --marque-r: 6deg;
+}
+
+/* ---------------------------------------------------------------------------
+   LA DÉRIVE
+
+   Les marques et les grands dessins des paires descendent lentement pendant
+   qu'on les dépasse, et se redressent en chemin — c'est le mouvement du premier
+   écran, en beaucoup plus discret : deux centimètres et huit degrés sur toute
+   la traversée de l'écran, contre deux cents pixels là-haut.
+
+   Elle est tenue par le défilement lui-même (`animation-timeline: view()`), pas
+   par du JavaScript : rien ne tourne sur le fil principal, le navigateur
+   compose tout seul. Là où cette mécanique n'existe pas encore — Firefox à ce
+   jour — les dessins sont simplement immobiles, penchés comme au repos. Rien à
+   charger, rien à rattraper.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .marque,
+    .trait-dessin {
+      animation: derive-dessin linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}
+
+@keyframes derive-dessin {
+  from {
+    transform: translateY(1.5rem) rotate(calc(var(--marque-r, -4deg) - 4deg));
+  }
+  to {
+    transform: translateY(-1.5rem) rotate(calc(var(--marque-r, -4deg) + 4deg));
+  }
 }
 
 .titreSection {
@@ -230,7 +292,7 @@ address {
    ce sont des données qu'on parcourt, pas des phrases qu'on lit.
    --------------------------------------------------------------------------- */
 .chapo,
-.duo-texte > p:not(.eyebrow) {
+.duo-texte > p {
   font-family: var(--serif);
   font-variation-settings: "opsz" 14;
   font-weight: 400;
