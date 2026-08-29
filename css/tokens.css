@@ -112,17 +112,23 @@
   /*
     LES SURFACES — LE SITE EST NOIR.
 
-    Trois noirs, très proches les uns des autres. L'écart entre eux se compte
-    en deux ou trois points de luminosité : assez pour qu'une bande se détache,
-    jamais assez pour qu'on voie une frontière.
+    Le fond est le noir plein. Sur les écrans où le noir est une pixel éteint,
+    il n'y a plus de fond du tout : la photographie et le rouge du trait sortent
+    du vide, ce qu'un gris très sombre ne donne jamais tout à fait. Le grain
+    posé par-dessus (voir « LE GRAIN ») évite qu'il paraisse mort.
 
-    Le fond est à peine chaud (une pointe de rouge et de vert dans le bleu) :
-    un noir parfaitement neutre ferait paraître grises les photographies, qui
-    sont toutes prises à la bougie.
+    Il n'y a donc plus qu'un seul cran au-dessus, pour la bande qui doit se
+    détacher sans qu'on voie de frontière ; et plus rien en dessous — le pied
+    de page se pose sur le même noir, et se distingue par son contenu et son
+    filet plutôt que par une nuance qu'on ne voyait pas.
+
+    Ce noir est neutre, et non plus légèrement chaud : à ce niveau, la pointe
+    de rouge se lisait comme un voile sur les photographies, toutes prises à
+    la bougie.
   */
-  --nuit: #0a0908; /* le fond du site */
-  --nuit-claire: #131110; /* la bande d'à côté, un ton plus haut */
-  --nuit-profonde: #050404; /* le pied de page, le plus bas */
+  --nuit: #000000; /* le fond du site */
+  --nuit-claire: #0d0c0b; /* la bande d'à côté, un ton plus haut */
+  --nuit-profonde: #000000; /* le pied de page : le même noir plein */
   --champ: #141210; /* le fond des champs de formulaire */
 
   /* Les encres, désormais claires. */
@@ -303,7 +309,9 @@
   --btn-texte: #fff;
   --btn2-trait: var(--filet-champ);
   --btn2-texte: var(--texte-1);
-  --btn2-fond-survol: var(--nuit-profonde);
+  /* Sur du noir plein, un survol « un peu plus noir » ne se verrait pas : le
+     bouton s'éclaire d'un voile blanc, comme au pied de page. */
+  --btn2-fond-survol: #ffffff14;
   --btn2-texte-survol: var(--texte-1);
   --etat-ouvert: var(--etat-ouvert-sombre);
   --etat-ferme: var(--etat-ferme-sombre);
@@ -326,14 +334,14 @@
   --btn-texte: #fff;
   --btn2-trait: var(--filet-champ);
   --btn2-texte: var(--texte-1);
-  --btn2-fond-survol: var(--nuit-profonde);
+  --btn2-fond-survol: #ffffff14;
   --btn2-texte-survol: var(--texte-1);
   --etat-ouvert: var(--etat-ouvert-sombre);
   --etat-ferme: var(--etat-ferme-sombre);
 }
 
-/* Le noir le plus bas : le pied de page, et lui seul. La page s'y enfonce
-   plutôt que de s'y arrêter. */
+/* Le pied de page. Il n'y a plus de noir sous le noir : ce qui l'y distingue
+   est son grain, un peu plus retenu, et le filet qui l'ouvre. */
 .surface-nuit-basse {
   --fond: var(--nuit-profonde);
   --encre: var(--texte-1);

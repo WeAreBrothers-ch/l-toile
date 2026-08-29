@@ -28,9 +28,9 @@ const ratio = (a, b) => {
 
 /* Les couleurs, recopiées de `css/tokens.css`. */
 const P = {
-  nuit: "#0a0908",
-  nuitClaire: "#131110",
-  nuitProfonde: "#050404",
+  nuit: "#000000",
+  nuitClaire: "#0d0c0b",
+  nuitProfonde: "#000000",
   champ: "#141210",
   texte1: "#f5f1ea",
   texte2: "#b3a897",

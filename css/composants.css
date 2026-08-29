@@ -250,7 +250,7 @@ a:focus-visible > .photo-zoom .photo-image {
 }
 
 .header-barre {
-  background-color: rgb(10 9 8 / 0.9);
+  background-color: rgb(0 0 0 / 0.9);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--filet-tenu);
@@ -259,12 +259,12 @@ a:focus-visible > .photo-zoom .photo-image {
     border-color var(--dur) var(--entree-sortie);
 }
 
-/* Au doigt : trois colonnes, dont la première reste vide. C'est elle qui tient
-   le logo au milieu de la barre — et non au milieu de la place qui reste à
-   gauche du bouton, ce qui le décalerait d'une demi-largeur de bouton. */
+/* Au doigt : l'enseigne à gauche, le bouton du menu à droite, et tout l'espace
+   entre les deux. Les deux se posent à la même distance du bord, celle de la
+   marge du site. */
 .header-barreContenu {
   display: grid;
-  grid-template-columns: 48px 1fr 48px;
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: var(--sp-4);
   height: var(--entete-h);
@@ -274,8 +274,11 @@ a:focus-visible > .photo-zoom .photo-image {
 /* Le bouton du menu se tient à droite, seul : la barre du téléphone ne porte
    plus que l'enseigne et lui. */
 .header-boutonMenu {
-  grid-column: 3;
+  grid-column: 2;
   justify-self: end;
+  /* Le trait de l'icône revient sur le bord de la barre, comme le logo en
+     face : c'est le vide du bouton autour de lui qui le décalait. */
+  margin-right: calc(-1 * var(--sp-3));
 }
 
 @media (min-width: 1024px) {
@@ -292,17 +295,10 @@ a:focus-visible > .photo-zoom .photo-image {
 .header-logoLien {
   display: inline-flex;
   align-items: center;
-  grid-column: 2;
-  justify-self: center;
+  grid-column: 1;
+  justify-self: start;
   padding: var(--sp-2);
   margin: calc(-1 * var(--sp-2));
-}
-
-@media (min-width: 1024px) {
-  .header-logoLien {
-    grid-column: 1;
-    justify-self: start;
-  }
 }
 
 .header-logo {
@@ -509,7 +505,7 @@ a:focus-visible > .photo-zoom .photo-image {
 }
 
 .menumobile-panneau::backdrop {
-  background-color: rgb(18 17 16 / 0.94);
+  background-color: rgb(0 0 0 / 0.94);
 }
 
 @media (min-width: 1024px) {
