@@ -613,20 +613,18 @@ a:focus-visible > .photo-zoom .photo-image {
    ============================================================================ */
 .barreaction-barre {
   position: fixed;
-  /* Le rattrapage du bas de l'écran, posé par `js/barre-action.js` quand la
-     barre d'outils du navigateur se replie ou revient. Il passe par `bottom`
-     pour laisser `transform` à l'apparition, qui est la seule des deux à
-     devoir prendre son temps. */
-  bottom: var(--barreaction-ecart, 0px);
+  /* Le bas de l'écran, et rien d'autre : les navigateurs recalent eux-mêmes
+     leurs éléments fixes quand leur barre d'outils se replie ou revient. Une
+     correction de notre part s'ajouterait à la leur, et c'est un vide sous la
+     barre qu'on verrait alors passer. */
+  bottom: 0;
   inset-inline: 0;
   z-index: 50;
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* La barre d'accueil de l'iPhone : les boutons s'arrêtent au-dessus d'elle,
-     mais la couleur, elle, descend jusqu'au bord. Ce que le rattrapage a déjà
-     libéré en dessous est retranché : sans cela, une barre d'outils visible et
-     un bas d'écran arrondi compteraient deux fois le même vide. */
-  padding-bottom: max(0px, calc(env(safe-area-inset-bottom) - var(--barreaction-ecart, 0px)));
+     mais la couleur, elle, descend jusqu'au bord. */
+  padding-bottom: env(safe-area-inset-bottom);
   border-top: 1px solid var(--filet-tenu);
   transform: translateY(100%);
   transition: transform var(--dur) var(--entree-sortie);
