@@ -34,11 +34,13 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # Dossier distant qui contient le site. Sur Infomaniak c'est en général
-  # `/web/`. À vérifier une fois via le Web FTP du Manager : si vos pages
-  # actuelles sont dans un autre dossier (ex. `/sites/restaurant-letoile.ch/`),
-  # remplacez la valeur ci-dessous.
-  DOSSIER_DISTANT: /web/
+  # Racine du site, vérifiée dans le Manager Infomaniak :
+  # Hébergement → Site → Avancé → « Emplacement du site » = /web/wordpress
+  # Ce n'est pas /web/ — le dossier a gardé le nom de l'ancien WordPress
+  # qui occupait cette place. Si vous changez l'emplacement dans le
+  # Manager un jour, changez aussi cette ligne, sinon le site ne bougera
+  # plus quand vous pusherez.
+  DOSSIER_DISTANT: /web/wordpress/
 
 jobs:
   deployer:
