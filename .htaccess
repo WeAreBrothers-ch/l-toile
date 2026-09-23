@@ -1,0 +1,81 @@
+# ────────────────────────────────────────────────────────────────
+# restaurant-letoile.ch — configuration Apache (Infomaniak)
+# ────────────────────────────────────────────────────────────────
+
+Options -Indexes
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+
+RewriteEngine On
+
+# ── 1. Une seule adresse canonique : https://www.restaurant-letoile.ch
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://www.restaurant-letoile.ch%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.restaurant-letoile.ch%{REQUEST_URI} [L,R=301]
+
+# ── 2. URLs sans .html, avec slash final
+# Les balises <link rel="canonical"> du site déclarent /carte/, /pizzas/,
+# /contact/ : ces trois règles font correspondre ces adresses aux fichiers
+# carte.html, pizzas.html et contact.html.
+
+# 2a. /index.html → /
+RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+RewriteRule ^ / [R=301,L]
+
+# 2b. /carte.html → /carte/   (redirection visible, une seule URL indexée)
+RewriteCond %{THE_REQUEST} \s/+([^\s?]+)\.html[\s?] [NC]
+RewriteRule ^ /%1/ [R=301,L]
+
+# 2c. /carte → /carte/        (slash final systématique)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^/]+)$ /$1/ [R=301,L]
+
+# 2d. /carte/ sert carte.html (réécriture interne, l'URL ne change pas)
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^/]+)/$ $1.html [L]
+
+# ── 3. Page d'erreur
+ErrorDocument 404 /404.html
+
+# ── 4. Compression
+# AddOutputFilterByType est fourni par mod_filter : les deux modules
+# doivent être présents, sinon Apache renvoie une erreur 500 sur tout le site.
+<IfModule mod_deflate.c>
+  <IfModule mod_filter.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+      application/javascript application/json application/xml image/svg+xml
+  </IfModule>
+</IfModule>
+
+# ── 5. Cache navigateur
+# Images et polices portent une date dans leur nom : elles peuvent être
+# gardées longtemps. CSS et JS n'ont pas de numéro de version, donc une
+# heure seulement — sinon vos modifications mettraient des jours à
+# apparaître chez les visiteurs déjà venus.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html                "access plus 0 seconds"
+  ExpiresByType text/css                 "access plus 1 hour"
+  ExpiresByType application/javascript   "access plus 1 hour"
+  ExpiresByType image/jpeg               "access plus 1 year"
+  ExpiresByType image/png                "access plus 1 year"
+  ExpiresByType image/webp               "access plus 1 year"
+  ExpiresByType image/svg+xml            "access plus 1 year"
+  ExpiresByType image/x-icon             "access plus 1 year"
+  ExpiresByType font/woff2               "access plus 1 year"
+</IfModule>
+
+# ── 6. En-têtes de sécurité
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ── 7. Ne jamais servir le fichier d'état du déploiement
+<Files ".ftp-deploy-sync-state.json">
+  Require all denied
+</Files>

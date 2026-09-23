@@ -1,0 +1,85 @@
+# ────────────────────────────────────────────────────────────────
+# Déploiement automatique du site sur l'hébergement Infomaniak.
+#
+# Chaque push sur `main` envoie les fichiers modifiés par FTPS.
+# L'action garde un fichier d'état (.ftp-deploy-sync-state.json) à la
+# racine du dossier distant : seuls les fichiers réellement changés
+# sont transférés lors des déploiements suivants.
+#
+# Secrets à créer dans GitHub (Settings → Secrets and variables → Actions) :
+#   FTP_SERVER    ex. xyzb.ftp.infomaniak.com
+#   FTP_USERNAME  ex. xyzb_letoile
+#   FTP_PASSWORD  le mot de passe du compte FTP
+# ────────────────────────────────────────────────────────────────
+name: Déployer sur Infomaniak
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Simulation : teste la connexion sans rien écrire sur le serveur"
+        type: boolean
+        default: false
+
+# Un seul déploiement à la fois : deux transferts FTP simultanés
+# corrompraient le fichier d'état côté serveur.
+concurrency:
+  group: deploiement-ftp
+  cancel-in-progress: false
+
+env:
+  # Dossier distant qui contient le site. Sur Infomaniak c'est en général
+  # `/web/`. À vérifier une fois via le Web FTP du Manager : si vos pages
+  # actuelles sont dans un autre dossier (ex. `/sites/restaurant-letoile.ch/`),
+  # remplacez la valeur ci-dessous.
+  DOSSIER_DISTANT: /web/
+
+jobs:
+  deployer:
+    name: Transfert FTPS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Vérifier que les trois secrets sont configurés
+        env:
+          SERVEUR: ${{ secrets.FTP_SERVER }}
+          UTILISATEUR: ${{ secrets.FTP_USERNAME }}
+          MOT_DE_PASSE: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          manquants=""
+          if [ -z "$SERVEUR" ]; then manquants="$manquants FTP_SERVER"; fi
+          if [ -z "$UTILISATEUR" ]; then manquants="$manquants FTP_USERNAME"; fi
+          if [ -z "$MOT_DE_PASSE" ]; then manquants="$manquants FTP_PASSWORD"; fi
+          if [ -n "$manquants" ]; then
+            echo "::error::Secret(s) manquant(s) :$manquants"
+            echo "Créez-les dans Settings → Secrets and variables → Actions → New repository secret."
+            exit 1
+          fi
+          echo "Les trois secrets sont présents."
+
+      - name: Envoyer les fichiers
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps        # FTP sur TLS explicite, port 21
+          port: 21
+          server-dir: ${{ env.DOSSIER_DISTANT }}
+          local-dir: ./
+          dry-run: ${{ inputs.dry_run == true }}
+          # Fichiers de travail qui ne doivent pas se retrouver en ligne.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.DS_Store
+            **/node_modules/**
+            photos-source/**
+            scripts/**
+            *.md
+            planche-da.html
+            .nojekyll
