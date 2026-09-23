@@ -34,13 +34,20 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # Racine du site, vérifiée dans le Manager Infomaniak :
-  # Hébergement → Site → Avancé → « Emplacement du site » = /web/wordpress
-  # Ce n'est pas /web/ — le dossier a gardé le nom de l'ancien WordPress
-  # qui occupait cette place. Si vous changez l'emplacement dans le
-  # Manager un jour, changez aussi cette ligne, sinon le site ne bougera
-  # plus quand vous pusherez.
-  DOSSIER_DISTANT: /web/wordpress/
+  # ATTENTION — ce chemin est relatif au dossier où le compte FTP arrive
+  # en se connectant, pas à la racine de l'hébergement. Les deux doivent
+  # se répondre :
+  #
+  #   compte FTP créé avec « Répertoire » = /web   (accès restreint)
+  #   + DOSSIER_DISTANT = /wordpress/              ← la combinaison retenue
+  #
+  # /wordpress est la racine réelle du site, vérifiée dans le Manager
+  # (Hébergement → Site → Avancé → « Emplacement du site » = /web/wordpress).
+  # Le dossier a gardé le nom de l'ancien WordPress qui occupait la place.
+  #
+  # Si vous utilisez plutôt un compte FTP ouvert sur toute l'hébergement
+  # (« Répertoire cible : / »), la valeur devient /web/wordpress/.
+  DOSSIER_DISTANT: /wordpress/
 
 jobs:
   deployer:
