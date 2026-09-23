@@ -22,6 +22,10 @@ on:
         description: "Simulation : teste la connexion sans rien écrire sur le serveur"
         type: boolean
         default: false
+      table_rase:
+        description: "DESTRUCTIF — vide le dossier distant avant l'envoi. Pour la bascule WordPress → nouveau site, une seule fois, après sauvegarde."
+        type: boolean
+        default: false
 
 # Un seul déploiement à la fois : deux transferts FTP simultanés
 # corrompraient le fichier d'état côté serveur.
@@ -61,6 +65,12 @@ jobs:
           fi
           echo "Les trois secrets sont présents."
 
+      - name: Avertir en cas de table rase
+        if: ${{ inputs.table_rase == true }}
+        run: |
+          echo "::warning::Table rase demandée : tout le contenu de ${{ env.DOSSIER_DISTANT }} sera supprimé avant l'envoi."
+          echo "Assurez-vous qu'une sauvegarde Infomaniak récente existe (fichiers ET base de données)."
+
       - name: Envoyer les fichiers
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
@@ -72,6 +82,9 @@ jobs:
           server-dir: ${{ env.DOSSIER_DISTANT }}
           local-dir: ./
           dry-run: ${{ inputs.dry_run == true }}
+          # Jamais actif sur un push : uniquement quand la case est cochée
+          # lors d'un lancement manuel.
+          dangerous-clean-slate: ${{ inputs.table_rase == true }}
           # Fichiers de travail qui ne doivent pas se retrouver en ligne.
           exclude: |
             **/.git*
