@@ -7,8 +7,8 @@
     <!-- Les deux polices sont demandées avant tout le reste : le texte du
          bandeau ne doit pas s'afficher deux fois, d'abord en Arial puis en
          Fraunces. -->
-    <link rel="preload" href="fonts/archivo.woff2" as="font" crossorigin type="font/woff2" />
-    <link rel="preload" href="fonts/fraunces-latin.woff2" as="font" crossorigin type="font/woff2" />
+    <link rel="preload" href="/fonts/archivo.woff2" as="font" crossorigin type="font/woff2" />
+    <link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" crossorigin type="font/woff2" />
 
     <!-- L'enseigne : depuis que le premier écran est un logo au milieu du noir,
          c'est elle le plus grand élément affiché, donc elle qui décide de la
@@ -18,7 +18,7 @@
     <link
       rel="preload"
       as="image"
-      href="images/logo-letoile-clair.svg"
+      href="/images/logo-letoile-clair.svg"
       type="image/svg+xml"
       fetchpriority="high"
     />
@@ -61,22 +61,22 @@
       content="https://www.restaurant-letoile.ch/images/og-2026-08d.jpg"
     />
 
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" href="images/logo-mono.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/images/logo-mono.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- La feuille de style est découpée par sujet. Les fichiers sont liés
          séparément plutôt qu'enchaînés par @import : le navigateur les demande
          alors tous en même temps, au lieu d'attendre le précédent. -->
-    <link rel="stylesheet" href="css/tokens.css" />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/composants.css" />
-    <link rel="stylesheet" href="css/accueil.css" />
-    <link rel="stylesheet" href="css/pages.css" />
+    <link rel="stylesheet" href="/css/tokens.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/composants.css" />
+    <link rel="stylesheet" href="/css/accueil.css" />
+    <link rel="stylesheet" href="/css/pages.css" />
 
     <!-- Seul script chargé sans « defer » : il doit marquer la page avant le
          premier affichage, sinon les blocs à révéler clignotent. -->
-    <script src="js/apparitions.js"></script>
+    <script src="/js/apparitions.js"></script>
 
     <!-- La fiche que Google lit pour afficher les horaires, le téléphone et
          l'adresse directement dans ses résultats. -->
@@ -148,10 +148,10 @@
     <header class="header-entete" data-compact="false">
       <div class="header-barre">
         <div class="wrap header-barreContenu">
-          <a class="header-logoLien" aria-label="Restaurant L’Étoile, accueil" href="index.html">
+          <a class="header-logoLien" aria-label="Restaurant L’Étoile, accueil" href="/">
             <img
               class="header-logo"
-              src="images/logo-letoile-clair.svg"
+              src="/images/logo-letoile-clair.svg"
               alt="Restaurant L’Étoile"
               width="113"
               height="32"
@@ -159,9 +159,9 @@
           </a>
 
           <nav class="header-nav" aria-label="Navigation principale">
-            <a class="header-lienNav" href="carte.html">La carte</a>
-            <a class="header-lienNav" href="pizzas.html">Pizzas</a>
-            <a class="header-lienNav" href="contact.html">Contact</a>
+            <a class="header-lienNav" href="/carte/">La carte</a>
+            <a class="header-lienNav" href="/pizzas/">Pizzas</a>
+            <a class="header-lienNav" href="/contact/">Contact</a>
           </nav>
 
           <div class="header-actions">
@@ -214,7 +214,7 @@
             alt="Restaurant L’Étoile"
             width="84"
             height="24"
-            src="images/logo-letoile-clair.svg"
+            src="/images/logo-letoile-clair.svg"
           />
           <button type="button" class="menumobile-fermer" aria-label="Fermer le menu">
             <svg
@@ -234,7 +234,7 @@
         </div>
 
         <nav class="menumobile-liens" aria-label="Navigation principale">
-          <a class="menumobile-lien" href="carte.html" style="--delai: 0ms">
+          <a class="menumobile-lien" href="/carte/" style="--delai: 0ms">
             La carte
             <svg
               width="20"
@@ -250,7 +250,7 @@
               <path d="M4 12h15 M13 6l6 6-6 6"></path>
             </svg>
           </a>
-          <a class="menumobile-lien" href="pizzas.html" style="--delai: 40ms">
+          <a class="menumobile-lien" href="/pizzas/" style="--delai: 40ms">
             Pizzas
             <svg
               width="20"
@@ -266,7 +266,7 @@
               <path d="M4 12h15 M13 6l6 6-6 6"></path>
             </svg>
           </a>
-          <a class="menumobile-lien" href="contact.html" style="--delai: 80ms">
+          <a class="menumobile-lien" href="/contact/" style="--delai: 80ms">
             Contact
             <svg
               width="20"
@@ -318,7 +318,7 @@
         <div class="premier-champ" aria-hidden="true">
           <img
             class="premier-piece premier-piece--serveur"
-            src="images/trait-serveur-plateau-2026-08j.svg"
+            src="/images/trait-serveur-plateau-2026-08j.svg"
             alt=""
             decoding="async"
             width="697"
@@ -326,7 +326,7 @@
           />
           <img
             class="premier-piece premier-piece--couvert"
-            src="images/trait-couvert-2026-08j.svg"
+            src="/images/trait-couvert-2026-08j.svg"
             alt=""
             decoding="async"
             width="326"
@@ -334,7 +334,7 @@
           />
           <img
             class="premier-piece premier-piece--convive"
-            src="images/trait-convive-2026-08j.svg"
+            src="/images/trait-convive-2026-08j.svg"
             alt=""
             decoding="async"
             width="718"
@@ -342,7 +342,7 @@
           />
           <img
             class="premier-piece premier-piece--cocktail"
-            src="images/trait-cocktail-2026-08j.svg"
+            src="/images/trait-cocktail-2026-08j.svg"
             alt=""
             decoding="async"
             width="838"
@@ -350,7 +350,7 @@
           />
           <img
             class="premier-piece premier-piece--trinquer"
-            src="images/trait-trinquer-2026-08j.svg"
+            src="/images/trait-trinquer-2026-08j.svg"
             alt=""
             decoding="async"
             width="745"
@@ -358,7 +358,7 @@
           />
           <img
             class="premier-piece premier-piece--gueridon"
-            src="images/trait-gueridon-2026-08j.svg"
+            src="/images/trait-gueridon-2026-08j.svg"
             alt=""
             decoding="async"
             width="559"
@@ -366,7 +366,7 @@
           />
           <img
             class="premier-piece premier-piece--plateau"
-            src="images/trait-plateau-2026-08j.svg"
+            src="/images/trait-plateau-2026-08j.svg"
             alt=""
             decoding="async"
             width="796"
@@ -374,7 +374,7 @@
           />
           <img
             class="premier-piece premier-piece--assiette"
-            src="images/trait-assiette-2026-08i.png"
+            src="/images/trait-assiette-2026-08i.png"
             alt=""
             decoding="async"
             width="560"
@@ -382,7 +382,7 @@
           />
           <img
             class="premier-piece premier-piece--bouteille"
-            src="images/trait-bouteille-2026-08i.png"
+            src="/images/trait-bouteille-2026-08i.png"
             alt=""
             decoding="async"
             width="520"
@@ -393,7 +393,7 @@
         <h1 class="premier-titre" id="titre-accueil">
           <img
             class="premier-enseigne"
-            src="images/logo-letoile-clair.svg"
+            src="/images/logo-letoile-clair.svg"
             alt=""
             width="3308"
             height="942"
@@ -456,7 +456,7 @@
               <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/ruban-1-poisson-2026-08k.jpg"
+                  src="/images/ruban-1-poisson-2026-08k.jpg"
                   alt="Filet de poisson grillé, riz et légumes du moment, au Restaurant L’Étoile"
                   width="1264"
                   height="800"
@@ -469,7 +469,7 @@
               <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/ruban-2-pizza-2026-08k.jpg"
+                  src="/images/ruban-2-pizza-2026-08k.jpg"
                   alt="Pizza au jambon cru, roquette et tomates cerises, sortie du four"
                   width="1264"
                   height="800"
@@ -482,7 +482,7 @@
               <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/ruban-3-cocktail-2026-08k.jpg"
+                  src="/images/ruban-3-cocktail-2026-08k.jpg"
                   alt="Cocktail au concombre et à la menthe, servi au bar du Restaurant L’Étoile"
                   width="1264"
                   height="800"
@@ -495,7 +495,7 @@
               <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/ruban-4-grillade-2026-08k.jpg"
+                  src="/images/ruban-4-grillade-2026-08k.jpg"
                   alt="Filet grillé au romarin et légumes du moment, au Restaurant L’Étoile"
                   width="1264"
                   height="800"
@@ -508,7 +508,7 @@
               <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/ruban-5-linguine-2026-08k.jpg"
+                  src="/images/ruban-5-linguine-2026-08k.jpg"
                   alt="Linguine aux tomates confites et basilic, servies au Restaurant L’Étoile"
                   width="1264"
                   height="800"
@@ -521,7 +521,7 @@
               <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/ruban-6-coupe-2026-08k.jpg"
+                  src="/images/ruban-6-coupe-2026-08k.jpg"
                   alt="Cocktail servi en coupe, citron et basilic, au bar du Restaurant L’Étoile"
                   width="1264"
                   height="800"
@@ -534,7 +534,7 @@
               <div class="photo-cadre">
                 <img
                   class="photo-image"
-                  src="images/ruban-7-gambas-2026-08k.jpg"
+                  src="/images/ruban-7-gambas-2026-08k.jpg"
                   alt="Gambas et riz créole, sauce relevée, au Restaurant L’Étoile"
                   width="1264"
                   height="800"
@@ -553,7 +553,7 @@
            ================================================================== -->
       <div class="surface-nuit accesdirect-bande">
         <nav class="accesdirect-grille" aria-label="Accès direct">
-          <a class="accesdirect-cellule" href="carte.html">
+          <a class="accesdirect-cellule" href="/carte/">
             <span class="accesdirect-libelle">
               La carte
               <svg
@@ -573,7 +573,7 @@
             <span class="accesdirect-valeur">Entrées, pâtes, pizzas</span>
           </a>
 
-          <a class="accesdirect-cellule" href="contact.html#horaires">
+          <a class="accesdirect-cellule" href="/contact/#horaires">
             <span class="accesdirect-libelle">
               Horaires
               <svg
@@ -650,7 +650,7 @@
             <div class="photo-cadre photo-derive photo-paysage">
               <img
                 class="photo-image"
-                src="images/bloc-cuisine-2026-08f.jpg"
+                src="/images/bloc-cuisine-2026-08f.jpg"
                 alt="Le bar du Restaurant L’Étoile à Lausanne, verres suspendus et bougies allumées en soirée"
                 width="1280"
                 height="960"
@@ -662,7 +662,7 @@
           <div class="duo-texte" data-reveal="true" style="--reveal-delai: 90ms">
             <img
               class="marque marque--serveur"
-              src="images/trait-serveur-plateau-2026-08j.svg"
+              src="/images/trait-serveur-plateau-2026-08j.svg"
               alt=""
               width="697"
               height="770"
@@ -681,7 +681,7 @@
               mixtes et les côtes de bœuf maturées se commandent pour deux.
             </p>
             <div data-actions="true">
-              <a class="bouton-base bouton-secondaire" href="carte.html">Voir toute la carte</a>
+              <a class="bouton-base bouton-secondaire" href="/carte/">Voir toute la carte</a>
             </div>
           </div>
         </div>
@@ -705,7 +705,7 @@
             <div class="photo-cadre photo-derive photo-paysageLarge">
               <img
                 class="photo-image"
-                src="images/paire-tables-2026-08f.jpg"
+                src="/images/paire-tables-2026-08f.jpg"
                 alt="Grande table dressée avant le service du soir au Restaurant L’Étoile"
                 width="1200"
                 height="800"
@@ -716,7 +716,7 @@
           </div>
           <img
             class="trait-dessin trait-dessin--haut"
-            src="images/trait-trinquer-2026-08j.svg"
+            src="/images/trait-trinquer-2026-08j.svg"
             alt=""
             aria-hidden="true"
             width="745"
@@ -730,7 +730,7 @@
             <div class="photo-cadre photo-derive photo-portrait">
               <img
                 class="photo-image"
-                src="images/paire-salle-2026-08f.jpg"
+                src="/images/paire-salle-2026-08f.jpg"
                 alt="La salle côté fenêtres du Restaurant L’Étoile, plantes et fauteuils clairs"
                 width="1000"
                 height="1250"
@@ -754,7 +754,7 @@
             <div class="photo-cadre photo-entiere photo-paysage">
               <img
                 class="photo-image"
-                src="images/bloc-pizzas-2026-08h.jpg"
+                src="/images/bloc-pizzas-2026-08h.jpg"
                 alt="Pizza cuite au four du Restaurant L’Étoile, jambon cru, roquette et tomates cerises"
                 width="1280"
                 height="960"
@@ -766,7 +766,7 @@
           <div class="duo-texte" data-reveal="true" style="--reveal-delai: 90ms">
             <img
               class="marque marque--convive"
-              src="images/trait-convive-2026-08j.svg"
+              src="/images/trait-convive-2026-08j.svg"
               alt=""
               width="718"
               height="820"
@@ -782,7 +782,7 @@
             </p>
             <p>Garnitures en supplément et sauces maison — tout est écrit sur la page.</p>
             <div data-actions="true">
-              <a class="bouton-base bouton-secondaire" href="pizzas.html">Voir les 15 pizzas</a>
+              <a class="bouton-base bouton-secondaire" href="/pizzas/">Voir les 15 pizzas</a>
             </div>
           </div>
         </div>
@@ -805,7 +805,7 @@
             <div class="photo-cadre photo-entiere photo-portrait">
               <img
                 class="photo-image"
-                src="images/paire-mer-2026-08h.jpg"
+                src="/images/paire-mer-2026-08h.jpg"
                 alt="Plateau de fruits de mer grillés du Restaurant L’Étoile"
                 width="1000"
                 height="1250"
@@ -820,7 +820,7 @@
             <div class="photo-cadre photo-derive photo-paysageLarge">
               <img
                 class="photo-image"
-                src="images/paire-vins-2026-08f.jpg"
+                src="/images/paire-vins-2026-08f.jpg"
                 alt="Bouteilles de vin blanc au Restaurant L’Étoile à Lausanne"
                 width="1200"
                 height="800"
@@ -831,7 +831,7 @@
           </div>
           <img
             class="trait-dessin trait-dessin--haut"
-            src="images/trait-bouteille-2026-08i.png"
+            src="/images/trait-bouteille-2026-08i.png"
             alt=""
             aria-hidden="true"
             width="520"
@@ -854,7 +854,7 @@
             <div>
               <img
                 class="marque marque--assiette"
-                src="images/trait-assiette-2026-08i.png"
+                src="/images/trait-assiette-2026-08i.png"
                 alt=""
                 width="560"
                 height="350"
@@ -865,7 +865,7 @@
                 Quatre plats, quatre <em class="italique">envies</em>
               </h2>
             </div>
-            <a class="bouton-base bouton-tertiaire" href="carte.html">
+            <a class="bouton-base bouton-tertiaire" href="/carte/">
               Toute la carte
               <svg
                 width="15"
@@ -886,14 +886,14 @@
           <div class="platssignature-grille">
             <a
               class="platssignature-plat"
-              href="carte.html#poissons"
+              href="/carte/#poissons"
               data-reveal="true"
               style="--reveal-delai: 0ms"
             >
               <div class="photo-cadre photo-zoom photo-portrait">
                 <img
                   class="photo-image"
-                  src="images/plat-plateau-mer-2026-08h.jpg"
+                  src="/images/plat-plateau-mer-2026-08h.jpg"
                   alt="Plateau de fruits de mer grillés du Restaurant L’Étoile : gambas, calamars, moules et filet de loup de mer"
                   width="1000"
                   height="1250"
@@ -912,14 +912,14 @@
 
             <a
               class="platssignature-plat"
-              href="carte.html#entrees"
+              href="/carte/#entrees"
               data-reveal="true"
               style="--reveal-delai: 60ms"
             >
               <div class="photo-cadre photo-zoom photo-portrait">
                 <img
                   class="photo-image"
-                  src="images/plat-carpaccio-2026-08h.jpg"
+                  src="/images/plat-carpaccio-2026-08h.jpg"
                   alt="Carpaccio de bœuf, roquette et écailles de Grana Padano, servi au Restaurant L’Étoile"
                   width="1000"
                   height="1250"
@@ -934,14 +934,14 @@
 
             <a
               class="platssignature-plat"
-              href="carte.html#pasta"
+              href="/carte/#pasta"
               data-reveal="true"
               style="--reveal-delai: 120ms"
             >
               <div class="photo-cadre photo-zoom photo-portrait">
                 <img
                   class="photo-image"
-                  src="images/plat-linguine-2026-08h.jpg"
+                  src="/images/plat-linguine-2026-08h.jpg"
                   alt="Linguine à l’ail, tomates cerises et basilic, servies au Restaurant L’Étoile"
                   width="1000"
                   height="1250"
@@ -956,14 +956,14 @@
 
             <a
               class="platssignature-plat"
-              href="pizzas.html"
+              href="/pizzas/"
               data-reveal="true"
               style="--reveal-delai: 180ms"
             >
               <div class="photo-cadre photo-zoom photo-portrait">
                 <img
                   class="photo-image"
-                  src="images/plat-pizza-2026-08h.jpg"
+                  src="/images/plat-pizza-2026-08h.jpg"
                   alt="Pizza au jambon cru, copeaux de parmesan et roquette, cuite au four au Restaurant L’Étoile"
                   width="1000"
                   height="1250"
@@ -989,7 +989,7 @@
           <div data-reveal="true">
             <img
               class="marque marque--gueridon"
-              src="images/trait-gueridon-2026-08j.svg"
+              src="/images/trait-gueridon-2026-08j.svg"
               alt=""
               width="559"
               height="683"
@@ -1047,7 +1047,7 @@
             >
               <img
                 class="plan-fond"
-                src="images/plan.jpg"
+                src="/images/plan.jpg"
                 alt="Plan du quartier de Malley à Lausanne, situant le Restaurant L’Étoile rue de Genève 102"
                 width="1440"
                 height="800"
@@ -1094,7 +1094,7 @@
         <div class="footer-enseigne">
           <img
             class="footer-logo"
-            src="images/logo-letoile-clair.svg"
+            src="/images/logo-letoile-clair.svg"
             alt="Restaurant L’Étoile"
             width="204"
             height="58"
@@ -1149,10 +1149,10 @@
           <div class="footer-colonne">
             <h2>Le site</h2>
             <nav class="footer-navPied" aria-label="Navigation de pied de page">
-              <a href="index.html">Accueil</a>
-              <a href="carte.html">La carte</a>
-              <a href="pizzas.html">Pizzas</a>
-              <a href="contact.html">Contact</a>
+              <a href="/">Accueil</a>
+              <a href="/carte/">La carte</a>
+              <a href="/pizzas/">Pizzas</a>
+              <a href="/contact/">Contact</a>
             </nav>
           </div>
         </div>
@@ -1167,7 +1167,7 @@
 
     <!-- La barre d'appel du téléphone, cachée tant qu'on n'a pas défilé. -->
     <div class="barreaction-barre" data-visible="false" aria-hidden="true">
-      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte.html">La carte</a>
+      <a class="barreaction-action barreaction-carte" tabindex="-1" href="/carte/">La carte</a>
       <a
         class="barreaction-action barreaction-appeler"
         href="tel:+41216251544"
@@ -1197,12 +1197,12 @@
     <!-- Un fichier par comportement. Tous en « defer » : ils s'exécutent dans
          l'ordre, après le rendu de la page, et n'en retardent jamais
          l'affichage. -->
-    <script src="js/entete.js" defer></script>
-    <script src="js/premier-ecran.js" defer></script>
-    <script src="js/barre-action.js" defer></script>
-    <script src="js/menu-mobile.js" defer></script>
-    <script src="js/horaires.js" defer></script>
-    <script src="js/galerie.js" defer></script>
-    <script src="js/plan.js" defer></script>
+    <script src="/js/entete.js" defer></script>
+    <script src="/js/premier-ecran.js" defer></script>
+    <script src="/js/barre-action.js" defer></script>
+    <script src="/js/menu-mobile.js" defer></script>
+    <script src="/js/horaires.js" defer></script>
+    <script src="/js/galerie.js" defer></script>
+    <script src="/js/plan.js" defer></script>
   </body>
 </html>
