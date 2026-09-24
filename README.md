@@ -18,11 +18,16 @@ sur téléphone.
 
 ## Voir le site sur votre ordinateur
 
-Double-cliquez sur **`index.html`**. Il s’ouvre dans votre navigateur. C’est tout.
+Les pages appellent leurs styles, images et scripts par des chemins qui partent
+de la racine (`/css/…`, `/images/…`). C’est indispensable en ligne : la carte est
+servie à l’adresse `/carte/`, et un chemin relatif y chercherait `/carte/css/…`,
+qui n’existe pas. Un double-clic sur `index.html` ne suffit donc plus : ouvrez un
+terminal dans le dossier et lancez
 
-Tout fonctionne ainsi, à une exception près : le plan d’accès et le formulaire de
-contact demandent une vraie adresse `http://`. Pour les essayer, faites glisser le
-dossier dans un petit serveur local, ou regardez-les directement en ligne.
+    python3 -m http.server
+
+puis ouvrez http://localhost:8000 dans le navigateur. (Les adresses propres comme
+`/carte/` ne marchent que sur Infomaniak ; en local, passez par `/carte.html`.)
 
 ---
 
