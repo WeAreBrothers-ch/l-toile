@@ -101,6 +101,11 @@
       return signaler("message", "Votre message est un peu court.");
     }
 
+    // Le piège n'a rien à faire dans l'e-mail du restaurant. Le sujet saisi,
+    // lui, remonte dans l'objet : on voit la demande sans ouvrir le message.
+    donnees.delete("site");
+    if (lire("sujet")) donnees.set("subject", "Site L’Étoile · " + lire("sujet"));
+
     if (bouton) {
       bouton.disabled = true;
       bouton.textContent = "Envoi en cours…";
@@ -119,6 +124,14 @@
     })
       .then(function (reponse) {
         if (!reponse.ok) throw new Error(String(reponse.status));
+        // Un service peut répondre 200 tout en refusant l'envoi : seul son
+        // « success » fait foi quand il en donne un.
+        return reponse.json().catch(function () {
+          return {};
+        });
+      })
+      .then(function (resultat) {
+        if (resultat && resultat.success === false) throw new Error("refus");
         form.reset();
         repondre("Message envoyé. Nous vous répondons au plus vite.", "succes");
         rendreLeBouton();

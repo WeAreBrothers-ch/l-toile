@@ -140,13 +140,27 @@ disparaît.
 
 ## Le formulaire de contact
 
-Le site n’a pas de serveur : il ne peut donc pas recevoir un message lui-même. Le
-formulaire s’adresse à un **service de réception** — Formspree, Basin, Formcarry, ou
-un script sur votre hébergement.
+Le site n’a pas de serveur d’envoi : il confie chaque message à **Web3Forms**, un
+service gratuit (250 messages par mois) qui l’envoie par e-mail au restaurant.
+L’envoi par PHP de l’hébergement Infomaniak est désactivé par défaut, et ses
+e-mails, non authentifiés, finiraient souvent en indésirables chez Hotmail.
 
-Dans **`contact.html`**, cherchez `formspree.io/f/VOTRE-IDENTIFIANT` et remplacez cette
-adresse par la vôtre. Tant que ce n’est pas fait, l’envoi échoue proprement : le
-visiteur voit un message et le numéro de téléphone du restaurant.
+Web3Forms reconnaît le restaurant à une **clé d’accès**, liée à l’adresse qui
+reçoit les messages. Pour en obtenir une :
+
+1. Allez sur https://web3forms.com, saisissez **etoile.restaurant@hotmail.com**
+   et cliquez sur « Create Access Key ».
+2. La clé arrive par e-mail dans cette boîte (regardez aussi les indésirables).
+3. Dans **`contact.html`**, remplacez `CLE-WEB3FORMS-A-REMPLACER` par cette clé.
+
+La clé n’est pas un mot de passe : elle ne permet que d’écrire à cette adresse,
+elle peut donc rester visible dans la page. Tant qu’elle manque ou qu’elle est
+fausse, l’envoi échoue proprement : le visiteur voit un message et le numéro de
+téléphone du restaurant.
+
+Les messages arrivent de la part de « Site du Restaurant L’Étoile ». Le bouton
+« Répondre » écrit directement au visiteur. Si le premier message tombe dans les
+indésirables, marquez-le « Ceci n’est pas du courrier indésirable ».
 
 C’est volontairement **un formulaire de contact, pas de réservation** : une demande de
 table qui n’aboutirait pas serait pire qu’un numéro bien visible.

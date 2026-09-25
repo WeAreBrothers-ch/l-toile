@@ -453,10 +453,17 @@
               data-telephone="021 625 15 44"
               class="formulairecontact-formulaire"
               novalidate=""
-              action="https://formspree.io/f/VOTRE-IDENTIFIANT"
+              action="https://api.web3forms.com/submit"
               enctype="multipart/form-data"
               method="post"
             >
+              <!-- Web3Forms transmet le message à l'adresse liée à cette clé.
+                   La clé n'est pas un secret : elle ne permet que d'écrire à
+                   cette adresse-là. Voir « Le formulaire de contact » dans le
+                   README pour en obtenir une. -->
+              <input type="hidden" name="access_key" value="CLE-WEB3FORMS-A-REMPLACER" />
+              <input type="hidden" name="subject" value="Message du site · Restaurant L’Étoile" />
+              <input type="hidden" name="from_name" value="Site du Restaurant L’Étoile" />
               <div class="formulairecontact-duo">
                 <p class="formulairecontact-champ" data-erreur="false">
                   <label for="nom">Votre nom</label
