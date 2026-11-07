@@ -941,10 +941,8 @@ légendes, chiffres de la carte, libellés de formulaire — passent en **machin
 C'est ce qui donne au site de référence son air de document imprimé plutôt que
 d'interface, et c'est le changement typographique le plus visible de cette révision.
 
-⚠ **Le fichier de police n'est pas encore dans le dossier** (téléchargement impossible
-depuis l'environnement de travail). La pile retombe sur le Courier de l'appareil, qui
-fait le travail. La commande d'installation est notée en tête de `css/tokens.css` et
-dans le README ; rien d'autre ne sera à changer.
+La police est **Courier Prime**, hébergée avec les autres dans `fonts/`. Si le fichier
+manquait, la pile retomberait sur le Courier de l'appareil, qui fait le travail.
 
 ## L'en-tête
 

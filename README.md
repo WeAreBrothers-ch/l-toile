@@ -201,15 +201,9 @@ Les petits textes qu'on repère sans les lire — intertitres, boutons, légende
 chiffres — sont composés dans une **machine à écrire**. C'est ce qui donne au site
 son air de document imprimé plutôt que d'interface.
 
-Le fichier de la bonne police n'a pas pu être téléchargé depuis ici. En attendant, le
-site utilise le Courier de l'appareil, qui fait le travail. **Pour installer la version
-définitive, une seule commande à lancer depuis le dossier du site :**
-
-```
-curl -L -o fonts/courier-prime.woff2 "https://cdn.jsdelivr.net/fontsource/fonts/courier-prime@latest/latin-400-normal.woff2"
-```
-
-Rien d'autre à faire : le site la prendra tout seul au prochain rafraîchissement.
+La police est Courier Prime (licence SIL Open Font, libre d'usage commercial),
+hébergée dans `fonts/courier-prime.woff2` comme les deux autres : aucune requête vers
+un service tiers. Si le fichier manquait, le site utiliserait le Courier de l'appareil.
 
 ---
 

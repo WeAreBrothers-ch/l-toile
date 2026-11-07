@@ -70,16 +70,10 @@
    libellés des boutons, les légendes, les chiffres. C'est ce qui donne au site
    de référence son air de document imprimé plutôt que d'interface.
 
-   ⚠ Le fichier `courier-prime.woff2` n'est PAS encore dans ce dossier — il n'a
-   pas pu être téléchargé depuis ici. Tant qu'il manque, le navigateur passe
-   tout seul à la ligne suivante de la pile : le Courier de l'appareil, qui est
-   une machine à écrire lui aussi. Rien n'est cassé, c'est simplement moins fin.
-
-   Pour installer la bonne police, une seule commande :
-   curl -L -o fonts/courier-prime.woff2 \
-     "https://cdn.jsdelivr.net/fontsource/fonts/courier-prime@latest/latin-400-normal.woff2"
-
-   Rien d'autre à changer : la règle ci-dessous la prendra automatiquement.
+   Le fichier `fonts/courier-prime.woff2` (latin, graisse 400) est hébergé ici,
+   comme les autres polices : aucune requête vers un service tiers. Si jamais il
+   manquait, le navigateur passerait tout seul à la ligne suivante de la pile,
+   le Courier de l'appareil, qui est une machine à écrire lui aussi.
    (Courier Prime est sous licence SIL Open Font, libre d'usage commercial.)
    --------------------------------------------------------------------------- */
 @font-face {
