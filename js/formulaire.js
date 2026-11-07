@@ -3,7 +3,7 @@
 
    Il fonctionne sans ce fichier : `action` et `method` sont posés sur la
    balise, donc un envoi ordinaire part quand même — le visiteur atterrit
-   simplement sur la page du service de réception au lieu de rester ici.
+   simplement sur la page de réponse de `envoyer-message.php` au lieu de rester ici.
 
    Ce fichier ne fait que retenir l'envoi pour afficher la réponse sur place, et
    vérifier trois choses avant de partir. En cas d'échec, il redonne le numéro
@@ -102,9 +102,8 @@
     }
 
     // Le piège n'a rien à faire dans l'e-mail du restaurant. Le sujet saisi,
-    // lui, remonte dans l'objet : on voit la demande sans ouvrir le message.
+    // lui, est repris dans l'objet par le serveur (envoyer-message.php).
     donnees.delete("site");
-    if (lire("sujet")) donnees.set("subject", "Site L’Étoile · " + lire("sujet"));
 
     if (bouton) {
       bouton.disabled = true;
@@ -124,8 +123,7 @@
     })
       .then(function (reponse) {
         if (!reponse.ok) throw new Error(String(reponse.status));
-        // Un service peut répondre 200 tout en refusant l'envoi : seul son
-        // « success » fait foi quand il en donne un.
+        // `envoyer-message.php` répond toujours « success » : c'est lui qui fait foi.
         return reponse.json().catch(function () {
           return {};
         });

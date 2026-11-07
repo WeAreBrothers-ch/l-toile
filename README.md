@@ -40,6 +40,8 @@ puis ouvrez http://localhost:8000 dans le navigateur. (Les adresses propres comm
 | `pizzas.html` | Les pizzas |
 | `contact.html` | Contact, horaires, plan et formulaire |
 | `404.html` | La page affichée quand une adresse n’existe pas |
+| `envoyer-message.php` | Reçoit le formulaire de contact et l’envoie par courriel (voir « Le formulaire de contact ») |
+| `contact-config.example.php` | Modèle du fichier `contact-config.php` (la boîte mail d’envoi), à copier et remplir **sur le serveur** — jamais dans git |
 | `css/` | Cinq feuilles de style, une par sujet (voir plus bas) |
 | `js/` | Huit petits fichiers, un par comportement (voir plus bas) |
 | `scripts/` | Un vérificateur de contraste des couleurs. Ne sert qu'à vous |
@@ -140,27 +142,54 @@ disparaît.
 
 ## Le formulaire de contact
 
-Le site n’a pas de serveur d’envoi : il confie chaque message à **Web3Forms**, un
-service gratuit (250 messages par mois) qui l’envoie par e-mail au restaurant.
-L’envoi par PHP de l’hébergement Infomaniak est désactivé par défaut, et ses
-e-mails, non authentifiés, finiraient souvent en indésirables chez Hotmail.
+Le formulaire envoie un courriel au restaurant, **sans service tiers**. Il poste vers
+**`envoyer-message.php`** (à la racine du site), qui se connecte en SMTP à une boîte mail
+de votre domaine chez Infomaniak et transmet le message à **etoile.restaurant@hotmail.com**. Si l’envoi échoue,
+le visiteur voit un message et le numéro de téléphone du restaurant.
 
-Web3Forms reconnaît le restaurant à une **clé d’accès**, liée à l’adresse qui
-reçoit les messages. Pour en obtenir une :
+**Pourquoi pas la fonction `mail()` de PHP ?** Infomaniak la déconseille : envoi non
+authentifié, quota réduit, messages qui finissent en indésirables. Un envoi
+authentifié par une vraie boîte arrive en boîte de réception. Les
+[paramètres officiels](https://www.infomaniak.com/en/support/faq/468/understanding-mail-ports-and-protocols)
+sont `mail.infomaniak.com`, port 587 (STARTTLS) ou 465 (SSL), identifiant = adresse complète.
 
-1. Allez sur https://web3forms.com, saisissez **etoile.restaurant@hotmail.com**
-   et cliquez sur « Create Access Key ».
-2. La clé arrive par e-mail dans cette boîte (regardez aussi les indésirables).
-3. Dans **`contact.html`**, remplacez `CLE-WEB3FORMS-A-REMPLACER` par cette clé.
+### Mise en service — à faire une seule fois
 
-La clé n’est pas un mot de passe : elle ne permet que d’écrire à cette adresse,
-elle peut donc rester visible dans la page. Tant qu’elle manque ou qu’elle est
-fausse, l’envoi échoue proprement : le visiteur voit un message et le numéro de
-téléphone du restaurant.
+1. **Une boîte mail du domaine.** Dans le Manager Infomaniak, créez (ou choisissez) une
+   adresse du domaine, par exemple **contact@restaurant-letoile.ch**, et notez son mot de passe.
+2. **Le fichier de configuration.** Copiez `contact-config.example.php` sous le nom
+   **`contact-config.php`** et renseignez l’adresse et le mot de passe de la boîte.
+3. **Posez-le sur le serveur**, dans le même dossier que `envoyer-message.php` (la racine
+   du site) : Manager → Gestionnaire de fichiers, ou FTP. Le déploiement FTP automatique (`.github/workflows/deploy-infomaniak.yml`) ne le touche pas.
+   Il contient un mot de passe : il n’est **pas dans git** (il est dans `.gitignore`) et
+   n’est donc **jamais déployé automatiquement**. C’est le seul fichier à poser à la main.
+   (Si vous lancez un jour la « table rase » du workflow, qui vide le dossier distant,
+   reposez-le ensuite.)
+4. **PHP 8.0 ou plus** pour le site (Manager → Hébergement → Site → PHP).
+5. **Testez** : envoyez un message depuis la page Contact et vérifiez qu’il arrive
+   (regardez les indésirables la première fois ; marquez-le « pas du courrier indésirable »).
 
-Les messages arrivent de la part de « Site du Restaurant L’Étoile ». Le bouton
-« Répondre » écrit directement au visiteur. Si le premier message tombe dans les
-indésirables, marquez-le « Ceci n’est pas du courrier indésirable ».
+Sans `contact-config.php`, rien ne part : le site reste utilisable et renvoie le visiteur
+vers le téléphone. C’est volontaire.
+
+### Ce qui protège la boîte
+
+Un champ-piège invisible pour les robots ; l’origine de la requête, qui doit être le
+site lui-même ; 5 messages par heure et par visiteur, 100 par jour au total (pour ne
+jamais atteindre le quota d’envoi de la boîte) ; les retours à la ligne retirés de tout
+ce qui finit dans un en-tête (on ne peut pas ajouter de destinataire en cachette) ;
+des longueurs plafonnées.
+
+### Changer l’adresse qui reçoit, ou le téléphone affiché en cas d’échec
+
+C’est le tableau `SITE` en tête de **`envoyer-message.php`** (adresse de réception,
+domaines autorisés, téléphone, couleurs de la petite page de réponse).
+
+### Si un message n’arrive pas
+
+Regardez le journal d’erreurs PHP de l’hébergement (Manager → Hébergement → Logs) : chaque
+ligne qui commence par `[contact` dit pourquoi (mot de passe refusé, boîte injoignable,
+configuration absente…). Les messages du visiteur et vos identifiants n’y figurent jamais.
 
 C’est volontairement **un formulaire de contact, pas de réservation** : une demande de
 table qui n’aboutirait pas serait pire qu’un numéro bien visible.
