@@ -111,7 +111,7 @@ est toujours mieux.
 | `galerie-3-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2666` | Accueil, galerie d’ambiance — une bouteille ouverte et des verres |
 | `galerie-4-2026-08d.jpg` | 1:1 | 1200 × 1200 | `IMG_2664` | Accueil, galerie d’ambiance — une viande grillée sur ardoise |
 | `galerie-5-2026-08d.jpg` | 4:5 | 1200 × 1500 | `IMG_2654` | Accueil, galerie d’ambiance — les vins |
-| `respiration-carte-1-2026-08d.jpg` | 2:1 | 2000 × 1000 | `IMG_2663` | Carte, bandeau entre deux catégories — fruits de mer grillés |
+| `respiration-carte-1-2026-11a.jpg` | 5:2 | 2580 × 1032 | `IMG_2663` | Carte, bandeau entre deux catégories — fruits de mer grillés. Agrandie par super-résolution depuis la capture d'origine (1290 px) ; sa version de 1290 px, `respiration-carte-1-1290-2026-11a.jpg`, sert aux téléphones |
 | `respiration-carte-2-2026-08d.jpg` | 2:1 | 2000 × 1000 | `IMG_2667` | Carte, bandeau entre deux catégories — paccheri à la burrata |
 | `og-2026-08d.jpg` | 1200 × 630 | — | `IMG_2650` | Vignette de partage sur WhatsApp, Facebook, messages |
 
