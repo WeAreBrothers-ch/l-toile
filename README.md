@@ -165,7 +165,7 @@ sont `mail.infomaniak.com`, port 587 (STARTTLS) ou 465 (SSL), identifiant = adre
    n’est donc **jamais déployé automatiquement**. C’est le seul fichier à poser à la main.
    (Si vous lancez un jour la « table rase » du workflow, qui vide le dossier distant,
    reposez-le ensuite.)
-4. **PHP 8.0 ou plus** pour le site (Manager → Hébergement → Site → PHP).
+4. **La version de PHP** du site (Manager → Hébergement → Site → PHP). Le script fonctionne dès PHP 7.0, mais choisissez la plus récente proposée : les anciennes ne reçoivent plus de correctifs de sécurité.
 5. **Testez** : envoyez un message depuis la page Contact et vérifiez qu’il arrive
    (regardez les indésirables la première fois ; marquez-le « pas du courrier indésirable »).
 
