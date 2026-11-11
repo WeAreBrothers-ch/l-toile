@@ -592,9 +592,9 @@ Fond `--surface-ink`, `padding-block: --section-y`.
 
 **Le bouton d'appel est un CTA de premier rang**, pas un lien de contact : `<a href="tel:+41216251544">`, avec `data-analytics="call"`. La réservation étant téléphonique, la performance du site se mesure au nombre d'appels.
 
-### 6.11 Formulaire de contact (page Contact uniquement — pas de réservation en ligne)
+### 6.11 Formulaire de contact — supprimé
 
-Champs : fond `--surface` (blanc pur — jamais un gris de champ), bordure 1 px `--border-interactive` (3,66:1 ✓), rayon `--radius-sm`, hauteur 48 px, `font-size: 16px` **impératif** (évite le zoom automatique iOS). Label toujours visible au-dessus, jamais de placeholder en guise de label. Focus : bordure `--text-primary` + `--shadow-focus`. Erreur : bordure `--red-600` + message 13 px `--red-700` + `aria-describedby`.
+Il n'y a plus de formulaire : la réservation et toute question passent **par téléphone uniquement**. La page Contact porte un grand bouton d'appel (`.appel`, `css/accueil.css`) : bouton plein `--btn-fond`, icône de téléphone dans un cercle, libellé « Appeler » en capitales espacées et numéro en grand, sur toute la largeur au doigt.
 
 ---
 

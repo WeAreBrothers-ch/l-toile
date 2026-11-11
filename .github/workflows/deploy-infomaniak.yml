@@ -103,7 +103,5 @@ jobs:
             photos-source/**
             scripts/**
             *.md
-            contact-config.php
-            contact-config.example.php
             planche-da.html
             .nojekyll
