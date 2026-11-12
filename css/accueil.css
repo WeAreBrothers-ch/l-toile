@@ -33,10 +33,14 @@
    et la vrille de chaque dessin. Une seule écriture par image de rendu, pas
    neuf.
 
-   Le même chiffre sert à l'arrivée : les dessins entrent en partant de
-   `--p: -0.3`, c'est-à-dire un peu plus haut et penchés dans l'autre sens, et
-   se posent. Le geste d'arrivée et le geste de départ sont donc le même
-   mouvement, joué dans un sens puis dans l'autre.
+   L'arrivée est le même geste joué à l'envers : les dessins entrent d'où les
+   mettrait `--p: -0.3`, c'est-à-dire un peu plus haut et penchés dans l'autre
+   sens, et se posent. Elle passe par `translate` et `rotate` plutôt que par
+   `--p`, pour que la carte graphique la joue seule (voir « L'arrivée »).
+
+   Et là où le navigateur sait lier une animation au défilement, `--p` n'est
+   même plus écrit : la chute est jouée par le compositeur, au rythme exact du
+   doigt (voir « Le défilement, confié au navigateur »).
    ============================================================================ */
 
 /* Déclarer `--p` lui donne un type : il devient un vrai nombre, interpolable,
@@ -155,16 +159,18 @@
   top: var(--y);
   width: calc(var(--l) * var(--echelle));
   height: auto;
-  transform: translate(-50%, -50%) translateY(calc(var(--p) * var(--chute)))
-    rotate(calc(var(--r) + var(--p) * var(--vrille)));
-}
-
-/* Le navigateur n'est prévenu que sur les écrans qui ont de quoi tenir neuf
-   couches composées. Au doigt, la promesse coûterait plus qu'elle ne rapporte. */
-@media (min-width: 1100px) {
-  .premier-piece {
-    will-change: transform;
-  }
+  /* L'ORIGINE EST LE CENTRE DU DESSIN POSÉ, et l'ordre des fonctions en
+     découle : on ramène le dessin sur son centre, on le penche, puis on le fait
+     tomber. C'est exactement le même geste qu'avant, mais il laisse le point
+     (left, top) comme pivot — celui dont l'arrivée a besoin pour tourner le
+     dessin sur lui-même avec `rotate`, sans toucher à `transform`. */
+  transform-origin: 0 0;
+  transform: translateY(calc(var(--p) * var(--chute))) rotate(calc(var(--r) + var(--p) * var(--vrille)))
+    translate(-50%, -50%);
+  /* À TOUTES LES TAILLES. Sans couche à lui, chaque dessin était repeint à
+     chaque image du défilement — neuf images penchées, refaites soixante fois
+     par seconde : c'est précisément sur téléphone que cela saccadait. */
+  will-change: transform;
 }
 
 .premier-piece--serveur {
@@ -413,10 +419,90 @@
   --retard: 480ms;
 }
 
+/* L'arrivée ne joue plus `--p` : animer une propriété personnalisée oblige le
+   navigateur à recalculer la page à chaque image, sur le fil principal, au
+   moment précis où il charge tout le reste — d'où les à-coups. Elle joue
+   maintenant `translate`, `rotate` et `opacity`, que la carte graphique anime
+   seule, et qui s'ajoutent à `transform` au lieu de le remplacer : le dessin
+   part toujours de trois dixièmes de sa chute plus haut, penché dans l'autre
+   sens, et le défilement peut commencer pendant qu'il se pose. */
 @keyframes premier-arrivee {
   from {
     opacity: 0;
-    --p: -0.3;
+    translate: 0 calc(-0.3 * var(--chute));
+    rotate: calc(-0.3 * var(--vrille));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LE DÉFILEMENT, CONFIÉ AU NAVIGATEUR
+
+   Là où le navigateur sait lier une animation au défilement (Chrome, Edge,
+   Safari 26), le script ne fait plus que mesurer la course du premier écran,
+   une fois, et poser `data-defilement="css"`. La chute, la vrille et les fondus
+   sont alors joués par le compositeur, dans la même image que le défilement
+   lui-même : plus aucun retard d'une image, plus aucun à-coup quand la page est
+   occupée ailleurs. Les valeurs de départ et d'arrivée sont celles de `--p` à
+   0 et à 1 — c'est le même mouvement, au pixel près.
+
+   Ailleurs, le script écrit `--p` comme avant.
+   --------------------------------------------------------------------------- */
+@keyframes premier-defile-titre {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-3rem) scale(0.94);
+    opacity: 0.15;
+  }
+}
+
+@keyframes premier-defile-champ {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
+@keyframes premier-defile-piece {
+  from {
+    transform: translateY(0) rotate(var(--r)) translate(-50%, -50%);
+  }
+  to {
+    transform: translateY(var(--chute)) rotate(calc(var(--r) + var(--vrille))) translate(-50%, -50%);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  [data-defilement="css"] .premier-titre {
+    animation: premier-defile-titre linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0px var(--course);
+  }
+
+  [data-defilement="css"] .premier-champ {
+    animation: premier-defile-champ linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0px var(--course);
+  }
+
+  [data-defilement="css"] .premier-piece {
+    animation: premier-defile-piece linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0px var(--course);
+  }
+
+  /* L'arrivée et le défilement ensemble : deux animations, deux horloges. */
+  [data-js="on"] [data-defilement="css"] .premier-piece {
+    animation:
+      premier-arrivee var(--dur-apparition) var(--sortie-expo) backwards,
+      premier-defile-piece linear both;
+    animation-delay: var(--retard, 0s), 0s;
+    animation-timeline: auto, scroll(root block);
+    animation-range: normal, 0px var(--course);
   }
 }
 
